@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 
-const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdown = false, customMessage, fieldName, style, checkDateTo }) => {
+const RequiredMessage = ({ messageShow, column, columnText, value, customMessage, style, checkDateTo }) => {
   const [message, setMessage] = useState(null);
+  console.log(customMessage)
   useEffect(() => {
     setMessage('');
     if (column == 'qty') {
@@ -19,14 +20,19 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
     if (column === 'product') {
       setMessage(customMessage)
     }
-    if (column === 'orderNo') {
-      setMessage(customMessage)
-    }
 
     //if empty
     if (!value) setMessage(`${columnText} must be entered`);
 
     if (column === 'orderType') {
+      if (customMessage) {
+        setMessage(customMessage)
+      } else {
+        setMessage(`${columnText} must be entered`)
+      }
+    }
+
+    if (column === 'orderNo') {
       if (customMessage) {
         setMessage(customMessage)
       } else {

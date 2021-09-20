@@ -229,7 +229,7 @@ const Form = ({
             readOnly={isReadonly}
             messageRequired={true}
             messageParam={{
-              messageShow: isValidation || checkingOrderNo?.status === false || checkingOrderNo?.status === 'failed',
+              messageShow: isValidation || checkingOrderNo?.status === false,
               value: orderDetails?.orderNo,
               customMessage: checkingOrderNo?.message,
             }}
