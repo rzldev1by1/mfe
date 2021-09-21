@@ -8,10 +8,7 @@ import { Button } from 'reactstrap';
 import ReactResizeDetector from 'react-resize-detector';
 import RequiredMessage from '../Component/RequiredMessage';
 
-// const currentYear = new Date().getFullYear();
-// const fromMonth = new Date();
-// const toMonth = new Date(currentYear + 10, 11);
-const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
 
 function Navbar({
     // nextMonth,
@@ -21,9 +18,6 @@ function Navbar({
     className,
     // localeUtils,
 }) {
-    // const months = localeUtils.getMonths();
-    // const prev = months[previousMonth.getMonth()];
-    // const next = months[nextMonth.getMonth()];
     const styleLeft = {
         float: 'left',
         color: "#637175",
@@ -139,19 +133,10 @@ class DatePicker extends React.Component {
         }
     }
 
-    // componentDidUpdate(prevProps, prevState){
-    //     const datepicker = document.getElementsByClassName("select_date_options");
-    //     const width = datepicker[1].clientWidth+6;
-
-    //     if(this.state.left != width){
-    //         this.setState({ left: width })
-    //     }
-    // }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.firstDate) {
-            if (moment(prevProps.firstDate).format(dateFormate) !== moment(this.props.firstDate).format(dateFormate)) {
-                if (!this.props.firstValue) {
+    componentDidUpdate(prevProps){
+        if(this.props.firstDate){
+            if (moment(prevProps.firstDate).format(dateFormate) !== moment(this.props.firstDate).format(dateFormate)){
+                if(!this.props.firstValue){
                     let firstDate = new Date(this.props.firstDate);
                     firstDate.setDate(firstDate.getDate() + 1)
                     this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format(dateFormate) });
@@ -180,7 +165,6 @@ class DatePicker extends React.Component {
         });
         this.props.getDate(moment(day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
-        // this.refs['dateValue'].value = moment(day).format(dateFormate);
         if (this.props.onChange) {
             this.props.onChange()
         }
@@ -194,14 +178,14 @@ class DatePicker extends React.Component {
         if (e.target.value.length >= 10) {
             let value = e.target.value.split("");
             let year = value[6] + value[7] + value[8] + value[9]
-            let month = value[3] + value[4];
-            let date = value[0] + value[1];
+            let month = value[0] + value[1];
+            let date = value[3] + value[4];
             if ((month <= 12) && (date <= 31)) {
                 this.setState({ selectedDay: new Date(year + "-" + month + "-" + date), month: new Date(year + "-" + month + "-" + date) })
                 this.props.getDate(moment(new Date(year + "-" + month + "-" + date)).format("YYYY-MM-DD"))
 
             }
-        };
+        }
     }
 
     disabledAlpha = (e) => {
@@ -217,20 +201,20 @@ class DatePicker extends React.Component {
         }
 
         // limit date
-        if ((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 3))) {
+        if((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 1))){
             e.preventDefault();
         } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)) {
             e.preventDefault();
-        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[0] == 3)) {
+        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[0] == 1)) {
             e.preventDefault();
         }
 
         //limit month
-        else if ((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 1))) {
+        else if((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 3))){
             e.preventDefault();
         } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)) {
             e.preventDefault();
-        } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 1)) {
+        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 3)){
             e.preventDefault();
         }
 
@@ -272,10 +256,9 @@ class DatePicker extends React.Component {
         if (/^[0-9]+$/.test(e.key)) {
             if (e.target.value.length === 2) {
                 e.target.value += "/";
-            };
-            if (e.target.value.length === 5) {
+            } else if (e.target.value.length === 5) {
                 e.target.value += "/"
-            };
+            }
         }
 
     }
@@ -298,7 +281,6 @@ class DatePicker extends React.Component {
 
     resetDateValue = () => {
         this.setState({ defaultValue: "" });
-        // this.refs["dateValue"].value = this.state.defaultValue;
     }
 
     render() {

@@ -71,11 +71,11 @@ const EditRenameColumn = ({
 
   const version = process.env.REACT_APP_API_URL_VERSION;
   const UrlHeader = () => {
-    return `${version}/settings/field-label/${splitModule}?client=ALL`;
+    return `/${version}/settings/field-label/${splitModule}?client=ALL`;
   };
 
   const UrlAll = () => {
-    return `${version}/settings/field-label/${splitModule}?client=all`;
+    return `/${version}/settings/field-label/${splitModule}?client=all`;
   };
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import * as EmailValidator from 'email-validator';
 import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
 
-const today = moment(Date()).format('YYYY-MM-DD hh: mm: ss');
+const today = moment(Date());
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
 const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
 
@@ -135,7 +135,7 @@ export const getSummaryData = async ({
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
       item.last_access =
-        item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}' HH:mm:ss'`) : '-';
+        item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 
@@ -253,7 +253,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
         m.edit_qty = m.order_qty
         m.edit_carton = m.no_of_carton
       }
-      m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate) : '-';
+      m.rotadate = m.rotadate && m.rotadate !== '' ? m.rotadate : '-';
       txt.push(m.batch?.length);
       return m;
     });
@@ -332,7 +332,7 @@ export const checkOrderNo = async ({ client, orderNo, module = 'sales-orders' })
   });
 
   if (data.status === 'failed') {
-    return { status: false, message: 'Order number exist' };
+    return { status: false, message: 'Order Number already exists!' };
   }
   if (data.message === 'The client field is required.') {
     return { status: false, message: 'Please select client' };
@@ -450,26 +450,35 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   const accountInfoUser = result;
 
   // ModalAccess
+  const isDevelopment = process.env.REACT_APP_SUPPLIER;
   let newIsEnableAllModule = { ...newState.isEnableAllModule };
   let userMenu = [...accountInfoUser.userMenu].map((item, index) => {
     return item.menuid;
   });
-  let menus = moduleAccess
-    ?.filter((item) => {
-      return menuAvailable.indexOf(item.menu_name.toLowerCase()) !== -1;
-    })
-    .map((item, index) => {
-      let newItem = item;
-      let isStatus = false;
-      if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
-        isStatus = !!userMenu.includes(item.menu_id);
-      }
-      newItem.status = isStatus;
-      return newItem;
-    });
-  newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length;
-  newState.moduleAccess = menus;
-  newState.isEnableAllModule = newIsEnableAllModule;
+
+  let menus = moduleAccess?.filter((item) => {
+    return menuAvailable.indexOf(item.menu_name.toLowerCase()) !== -1;
+  }).map((item, index) => {
+    let newItem = item;
+    let isStatus = false;
+    if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
+      isStatus = !!userMenu.includes(item.menu_id);
+    }
+    newItem.status = isStatus;
+    return newItem;
+  });
+
+  const newMenus = menus.filter((item) => item.menu_id !== "menu_manageUsers_supplierUsers")
+  if (isDevelopment == "false") {
+    newState.moduleAccess = newMenus;
+    newIsEnableAllModule = newMenus?.filter((item) => { return item.status === true; })?.length === newMenus?.length;
+    newState.isEnableAllModule = newIsEnableAllModule;
+  }
+  else {
+    newState.moduleAccess = menus;
+    newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length;
+    newState.isEnableAllModule = newIsEnableAllModule;
+  }
   // and ModalAccess
 
   // LoadSite
