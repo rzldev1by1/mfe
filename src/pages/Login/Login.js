@@ -205,7 +205,7 @@ class Logins extends Component {
               name="email"
               placeholder="Enter your email address here"
             />
-            <span className="email-message">Enter your email address to find your acccount</span>
+            <span className="email-message">Enter your email address to find your account</span>
           </div>
         )}
         <div className={'error pl-2 ml-1' + (errorMessage ? ' alertFadeIn' : '')}>
