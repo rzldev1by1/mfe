@@ -1,6 +1,5 @@
 
 export const ProgressBarReset = async ({ resetConfirmation }) => {
-    console.log('tes')
     let i = 0;
     if (i == 0) {
         i = 1;

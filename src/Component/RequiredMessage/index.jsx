@@ -3,7 +3,6 @@ import './style.scss';
 
 const RequiredMessage = ({ messageShow, column, columnText, value, customMessage, style, checkDateTo }) => {
   const [message, setMessage] = useState(null);
-  console.log(customMessage)
   useEffect(() => {
     setMessage('');
     if (column == 'qty') {
@@ -35,7 +34,7 @@ const RequiredMessage = ({ messageShow, column, columnText, value, customMessage
     if (column === 'orderNo') {
       if (customMessage) {
         setMessage(customMessage)
-      } else {
+      } else if (!value){
         setMessage(`${columnText} must be entered`)
       }
     }
