@@ -2,7 +2,6 @@ import React from 'react';
 
 // Component
 const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
-const Component = React.lazy(() => import('../src/pages/Component'));
 const StockHolding = React.lazy(() => import('./pages/StockHolding'));
 const StockHoldingDetail = React.lazy(() => import('./pages/StockHolding/Detail'));
 const PurchaseOrders = React.lazy(() => import('../src/pages/PurchaseOrders'));
@@ -22,13 +21,7 @@ const routes = [
     name: 'Welcome',
     component: Welcome,
   },
-  {
-    path: '/component',
-    exact: true,
-    name: 'Component',
-    component: Component,
-  },
-  
+
   // Stock Holding --------------------------------------------------------
   {
     path: '/stock-holding',

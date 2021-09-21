@@ -8,7 +8,7 @@ import { Button } from 'reactstrap';
 import ReactResizeDetector from 'react-resize-detector';
 import RequiredMessage from '../Component/RequiredMessage';
 
-const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
 
 function Navbar({
     // nextMonth,
@@ -133,10 +133,10 @@ class DatePicker extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps){
-        if(this.props.firstDate){
-            if (moment(prevProps.firstDate).format(dateFormate) !== moment(this.props.firstDate).format(dateFormate)){
-                if(!this.props.firstValue){
+    componentDidUpdate(prevProps) {
+        if (this.props.firstDate) {
+            if (moment(prevProps.firstDate).format(dateFormate) !== moment(this.props.firstDate).format(dateFormate)) {
+                if (!this.props.firstValue) {
                     let firstDate = new Date(this.props.firstDate);
                     firstDate.setDate(firstDate.getDate() + 1)
                     this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format(dateFormate) });
@@ -201,7 +201,7 @@ class DatePicker extends React.Component {
         }
 
         // limit date
-        if((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 1))){
+        if ((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 1))) {
             e.preventDefault();
         } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)) {
             e.preventDefault();
@@ -210,11 +210,11 @@ class DatePicker extends React.Component {
         }
 
         //limit month
-        else if((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 3))){
+        else if ((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 3))) {
             e.preventDefault();
         } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 3)){
+        } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 3)) {
             e.preventDefault();
         }
 
@@ -311,7 +311,7 @@ class DatePicker extends React.Component {
                     {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
                     {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format(dateFormate) : placeHolder}</span> */}
 
-                    <li className="select_date_items" />
+                    {/* <li className="select_date_items" /> */}
                     <input className={"select_date_expand" + (this.props.arrowStyle ? " select_arrow_expand" : " select_calendar_expand")} ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
                     <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.closeDatePicker()}></label>
                     <ReactResizeDetector

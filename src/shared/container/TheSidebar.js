@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
 import {
   CSidebar,
   // CSidebarBrand,
   CSidebarNav,
 } from '@coreui/react';
-import Logo from 'assets/img/logo-white.png';
 import nav from './_nav';
 import './TheSidebar.css';
+import Logo from 'assets/img/logo-white.png';
+
 
 const TheSidebar = () => {
   const dispatch = useDispatch();
@@ -51,6 +51,7 @@ const TheSidebar = () => {
     <CSidebar
       id="theSidebar"
       show={show}
+      style={{ zIndex: "1" }}
       className="h-100"
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
     >

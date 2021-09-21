@@ -56,50 +56,61 @@ const Create = ({ show, setShow }) => {
   const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <div>
-      <Modal show={show} size="xl" className={`purchase-order-create ${activeTab == 'message' ? ' d-none' : ' '} 
-        ${dataMode == "1" ? 'customDarkMode' : ''}`}>
+      <Modal show={show} size="xl" className={`purchase-order-create ${activeTab == 'message' ? ' d-none' : ' '} ${dataMode == "1" ? 'customDarkMode' : ''}`}>
+        <Modal.Header className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} p-0`}>
+          <Container className="px-0">
+            <Row className="mx-0 px-0" style={{ height: "140px" }}>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6} className="pl-4 align-items-center d-flex">
+                <div className="flex-column d-flex">
+                  <div className="d-flex" style={{ marginTop: "4%", marginBottom: "3%" }}>
+                    <div xs={7} sm={7} md={7} lg={7} xl={7} className="pr-2 align-items-center d-flex">
+                      <i className="ri-draft-line ri-2x pr-1" />
+                      <span className="font-20" style={{ fontWeight: "600", color: "#FFF" }}>Sales Order</span>&nbsp;
+                    </div>
+                    <div class="v-rename"></div>
+                    <div xs={5} sm={5} md={5} lg={5} xl={5} className="pl-2 pt-1">
+                      <span className="font-20 text-white">Create Order</span>
+                      <span className="text-white d-flex"> Enter Order and line details to create a new purchase order.</span>
+                    </div>
+                  </div>
+                  <Nav tabs className="px-8 m-0">
+                    <NavItem className="mr-1">
+                      <div
+                        style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '18px' }}
+                        className={`d-flex pl-3 height-nav align-items-center ${activeTab === 'details' ? ' bg-tabActive ' : ' bg-nonTabActive'}`}
+                        onClick={() => setActiveTab('details')}
+                      >
+                        <span className="newIcon-create_edit" />
+                        <div className="pl-2">Order & Product Details</div>
+                      </div>
+                    </NavItem>
+                    <NavItem>
+                      <div
+                        className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? ' bg-tabActive ' : ' bg-nonTabActive'}`}
+                        style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '20px' }}
+                        onClick={() => {
+                          validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
+                          setIsValidation(true);
+                        }}
+                      >
+                        <span className="newIcon-review" />
+                        <div className="pl-2">Review</div>
+                      </div>
+                    </NavItem>
+                  </Nav>
+                </div>
+              </Col>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6} className={`justify-content-end d-flex rename-img`}>
+                <Row>
+                  <Col onClick={() => { setShow(false); setIsReset(0); }} className={`justify-content-end d-flex`} style={{ cursor: "pointer" }}>
+                    <i className="ri-close-line ri-3x" />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        </Modal.Header>
         <Modal.Body className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
-          <Row className="mx-0 px-9">
-            <Col xs={10} className="px-0">
-              <i className="icon-icon_awesome_edit font-20"></i>
-              <span className="font-20 pl-2">Create Purchase Order</span> <br />
-              <span className="ml-7">Enter Order and line details to create a new purchase order</span>
-            </Col>
-            <Col className="text-right px-0">
-              <span
-                className="icon-group_4696 pointer"
-                onClick={() => {
-                  setShow(false);
-                  setIsReset(0);
-                }}
-              />
-            </Col>
-          </Row>
-          <Nav tabs className="px-8 m-0">
-            <NavItem className="mr-1">
-              <div
-                style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '18px' }}
-                className={`d-flex pl-3 height-nav align-items-center ${activeTab === 'details' ? ' bg-tabActive ' : ' bg-nonTabActive'}`}
-                onClick={() => setActiveTab('details')}
-              >
-                <span className="newIcon-create_edit" />
-                <div className="pl-2">Order & Product Details</div>
-              </div>
-            </NavItem>
-            <NavItem>
-              <div
-                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? ' bg-tabActive ' : ' bg-nonTabActive'}`}
-                style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '20px' }}
-                onClick={() => {
-                  validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
-                  setIsValidation(true);
-                }}
-              >
-                <span className="newIcon-review" />
-                <div className="pl-2">Review</div>
-              </div>
-            </NavItem>
-          </Nav>
           <TabContent>
             <Container className="px-9 pt-4 pb-9">
               {/* Tabs */}

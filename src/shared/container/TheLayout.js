@@ -20,8 +20,8 @@ const TheLayout = () => {
   const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <div className={`c-app c-default-layout ${dataMode == "1" ? 'customDarkMode' : ''}`}>
-      <TheSidebar />
       <TheHeader />
+      <TheSidebar />
       <div className="c-wrapper">
         <div className="c-body">
           <TheContent />

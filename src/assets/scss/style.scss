@@ -71,6 +71,38 @@ $spinkit-spinner-color: $body-color;
     .c-switch-slider{
       background-color: #1F192D !important;
     }
+    .text-header{
+      color:#fff;
+    }
+    .btn{
+      color:#fff;
+    }
+    .drop-menu-profil{
+      margin: 3% !important;
+      margin-left: 19% !important;
+      width: 106% !important;
+      font-size: 116% !important;
+      background-color: #2d1b46;
+      color:#fff;
+    }
+    .menu-item-profil{
+      color:#fff;
+    }
+    .menu-item-profil:hover{
+      color:#fff;
+    }
+    .switch-profil .c-switch-input:checked + .c-switch-slider {
+      background-color: #2d1b46 !important;
+    }
+    .c-switch-slider{
+      background-color: #2d1b46 !important;
+    }
+    .header-mls-text{
+      padding-left: 1.5% !important;
+      align-items: center;
+      font-size: 136%;
+      display: flex;
+    }
   }
   .faqSide{
     color:#5242A5;
@@ -85,13 +117,14 @@ $spinkit-spinner-color: $body-color;
     color: #1F192D !important;
   }
   .bg-nonTabActive {
-    background-color: #4E4C5B !important;
+    background-color: #2E245B !important;
     border-top-left-radius: 0.25rem !important;
     border-top-right-radius: 0.25rem !important;
+    color :#000000 !important;
   
     .nav-link {
-      background-color: #4E4C5B !important;
-      color :#fff !important;
+      background-color: #2E245B !important;
+      color :#000000 !important;
     }
   }
   .bg-tabNonActive {
@@ -105,13 +138,13 @@ $spinkit-spinner-color: $body-color;
     }
   }
   .bg-tabActive {
-    background-color: #1F192D !important;
+    background-color: #000000 !important;
     border-top-left-radius: 0.25rem !important;
     border-top-right-radius: 0.25rem !important;
     color :#FFF !important;
   
     .nav-link {
-      background-color: #1F192D !important;
+      background-color: #000000 !important;
       color :#9795A4 !important;
     }
   }
@@ -284,6 +317,14 @@ $spinkit-spinner-color: $body-color;
 
   // modal 
   .customDarkMode.modal{ 
+    //form
+    .form-control {
+      background-color: #000000 !important;
+      color: #5242A5;
+    }
+    .form-control::placeholder{
+      color: #5242A5 !important;
+    }
     .bg-primary{
       background-color: #261E42 !important;
     }
@@ -321,13 +362,13 @@ $spinkit-spinner-color: $body-color;
       color: #FFF !important;
     }
     .bg-nonTabActive {
-      background-color: #4E4C5B !important;
+      background-color: #2E245B !important;
       border-top-left-radius: 0.25rem !important;
       border-top-right-radius: 0.25rem !important;
-    
+      color :#000000 !important;
       .nav-link {
-        background-color: #4E4C5B !important;
-        color :#fff !important;
+        background-color: #2E245B !important;
+        color :#000000 !important;
       }
     }
     .bg-tabNonActive {
@@ -341,17 +382,80 @@ $spinkit-spinner-color: $body-color;
       }
     }
     .bg-tabActive {
-      background-color: #1F192D !important;
+      background-color: #000000 !important;
       border-top-left-radius: 0.25rem !important;
       border-top-right-radius: 0.25rem !important;
       color :#FFF !important;
     
       .nav-link {
-        background-color: #1F192D !important;
+        background-color: #000000 !important;
         color :#FFF !important;
       }
     }
-    
+     //form-axios
+     .css-yr94r1-menu{
+      background-color: #1F192D !important;
+      color: #fff !important;
+    }
+    ::placeholder {
+      color: #5242A5 !important;
+    }
+
+    //form-dropdown
+      .css-5y2tk-control,
+      .css-1to7m39-control {
+        background-color: #000000 !important;
+        border-color: #5242A5 !important;
+        color: #5242A5 !important;
+      }
+      .css-1uccc91-singleValue,
+      .css-b8ldur-Input,
+      .css-tlfecz-indicatorContainer,
+      .css-1duue3-indicatorContainer,
+      .css-g9vg27-indicatorContainer,
+      .css-1rdz61g-indicatorContainer,
+      .css-1gtu0rj-indicatorContainer {
+        color: white !important;
+      }
+      .css-26l3qy-menu {
+        //dropdown option background
+        background-color: #000000 !important;
+        border: 1px solid #5242A5 !important;
+        color: #5242A5;
+      }
+      .css-ihtdzf-option,
+      .css-1dhet8w-option:hover {
+        background-color: #554d6e !important;
+        color: #ffffff;
+      }
+      //dropdown readonly
+      .css-12ivlxl-control{
+        background-color: #000000 !important;
+        border: 1px solid #5242A5;
+      }
+      //dropdown danger
+      .input-danger .css-5y2tk-control{
+        border-color: #e55353 !important; 
+      }
+
+      //datePicker
+
+        .select_date_options {
+          background-color: #000000 !important;
+          
+          .DayPicker-Weekday abbr[title='Monday'],
+          .DayPicker-Weekday abbr[title='Tuesday'],
+          .DayPicker-Weekday abbr[title='Wednesday'],
+          .DayPicker-Weekday abbr[title='Thursday'],
+          .DayPicker-Weekday abbr[title='Friday'],
+          .DayPicker-Weekday abbr[title='Saturday'],
+          .DayPicker-Weekday abbr[title='Sunday']
+          {
+            color: #5242A5 !important;
+          }
+
+      
+    }
   }
 
 .c-app.customDarkMode {

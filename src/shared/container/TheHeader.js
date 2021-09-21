@@ -14,6 +14,9 @@ import {
   CToggler
 } from '@coreui/react'
 import { DarkModeChange } from '../../apiService';
+import LogoDarkMode from 'assets/img/logo-white.png';
+import Logo from 'assets/img/logo_export.png';
+
 
 const TheHeader = (props) => {
   const dispatch = useDispatch()
@@ -33,11 +36,20 @@ const TheHeader = (props) => {
     const dataMode = await axios.get(`${endpoints.drakMode}/${user.webUser}`);
     dispatch({ type: 'DARKMODE', data: dataMode.data });
   }, []);
-
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <CHeader withSubheader className="no-border no-shadow">
       <div className="header-mls-text">
-        <Link to="/" className="text-logo text-white pt-2">Microlistics </Link>
+        <Link to="/" className="text-logo text-header pt-2 d-flex align-items-center">
+          <div className="pr-3">
+            {dataMode == "1" ? (
+              <img src={LogoDarkMode} height="35" alt="logo" />
+            ) : (
+              <img src={Logo} height="48" alt="logo" />
+            )}
+          </div>
+          Microlistics
+        </Link>
       </div>
 
       <CSubheader className="bg-transparent acount-mls">

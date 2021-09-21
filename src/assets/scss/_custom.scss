@@ -152,11 +152,6 @@ input:-webkit-autofill {
   color: #3366ff;
 }
 
-.text-logo {
-  color: #47c0ff;
-  display: flex;
-}
-
 .text-light-gray {
   color: #b4b9bb;
 }
@@ -454,19 +449,22 @@ input.outOfRemaining-input:focus {
 }
 // C header
 .c-header {
-  background-color: #2d1b46 !important;
+  background-color: #fff !important;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   flex-wrap: nowrap;
+  .text-header{
+    color:#2d1b46;
+  }
+  .btn{
+    color:#2d1b46;
+  }
   .header-mls-text{
-    padding-left: 2.4% !important;
+    padding-left: 0.8% !important;
     align-items: center;
     font-size: 136%;
     display: flex;
-    .text-logo{
-      margin-left: 68%;
-    }
   }
   .acount-mls{
     display: flex;
@@ -488,20 +486,20 @@ input.outOfRemaining-input:focus {
     margin-left: 19% !important;
     width: 106% !important;
     font-size: 116% !important;
-    background-color: #2d1b46;
-    color:#fff
+    background-color: #fff;
+    color:#2d1b46
   }
   .menu-item-profil{
-    color:#fff;
+    color:#2d1b46;
   }
   .menu-item-profil:hover{
     color:#2d1b46;
   }
   .switch-profil .c-switch-input:checked + .c-switch-slider {
-    background-color: #2d1b46 !important;
+    background-color: #fff !important;
   }
   .c-switch-slider{
-    background-color: #2d1b46 !important;
+    background-color: #fff !important;
   }
 
 }
@@ -1095,7 +1093,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       padding-right: 0px;
     }
     .tab-content{
-      background-color: #1F192D !important;
+      background-color: #000000 !important;
       color: #fff !important;
     }
     .bg-primary{
@@ -1234,7 +1232,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
   }
 }
 .DarkModesEditRename{
-  background-color: #1F192D !important;
+  background-color: #000000 !important;
   color: #fff !important;
   .btn-primary {
     background-color: #4717ed !important;
@@ -1250,7 +1248,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     background-color: darken(#e4e7ea, 10) !important;
   }
   .tab-content{
-      background-color: #1F192D !important;
+      background-color: #000000 !important;
       .form-rename{
         color: #5E44E5 !important;
         background-color: #261D3F !important;
@@ -1287,7 +1285,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
   }
   .tab-rename {
     color: #FFF !important;
-    background-color: #1F192D !important;
+    background-color: #5E44E5 !important;
     padding-left: 24px;
     padding-right: 27px;
     border-radius: 5%;
