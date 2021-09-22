@@ -73,7 +73,7 @@ const TheHeader = (props) => {
                   </div>
                 </div>
               </CDropdownItem>
-              <CDropdownItem className="menu-item-profil p-0">
+              {/* <CDropdownItem className="menu-item-profil p-0">
                 <div className="menu-item-profil d-flex p-2">
                   <span className="icon-group_8 icon-drop-menu" />
                   <div className="d-flex pr-2 align-items-md-center">Company License
@@ -88,7 +88,7 @@ const TheHeader = (props) => {
                     <div style={{ marginLeft: "104%" }}> 445</div>
                   </div>
                 </div>
-              </CDropdownItem>
+              </CDropdownItem> */}
               <div className="m-info">
                 <p className="my-0 py-2" style={{ paddingLeft: "2%" }}>
                   <div className=" d-flex align-items-md-center">
@@ -100,14 +100,14 @@ const TheHeader = (props) => {
                   </div>
                 </p>
               </div>
-              <CDropdownItem className="menu-item-profil p-0">
+              {/* <CDropdownItem className="menu-item-profil p-0">
                 <div className="menu-item-profil d-flex p-2">
                   <span className="icon-group_9 icon-drop-menu" />
                   <div className="d-flex pr-2 align-items-md-center">Language
                     <div style={{ marginLeft: "57%" }}> English US </div>
                   </div>
                 </div>
-              </CDropdownItem>
+              </CDropdownItem> */}
               <CDropdownItem onClick={() => signOut()} className="menu-item-profil p-0">
                 <div className="menu-item-profil d-flex p-2">
                   <span className="icon-log-out icon-drop-menu" />
