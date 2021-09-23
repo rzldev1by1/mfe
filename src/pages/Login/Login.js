@@ -81,7 +81,6 @@ class Logins extends Component {
     if (this.state.forgotPassword) {
       const email = e.target.email.value;
       const payload = { email: email };
-      let errorMessage = '';
       if (email.length === 0) {
         this.setState({ emailValidation: false, isLoad: false });
       }
@@ -95,7 +94,7 @@ class Logins extends Component {
           this.setState({ forgotSuccess: true });
         }
       } catch (error) {
-        const errorMessage = error.response.data.message;
+        errorMessage = error.response.data.email;
         this.setState({ isLoad: false, errorMessage });
       }
     }
@@ -206,7 +205,7 @@ class Logins extends Component {
               name="email"
               placeholder="Enter your email address here"
             />
-            <span className="email-message">Enter your email address to find your acccount</span>
+            <span className="email-message">Enter your email address to find your account</span>
           </div>
         )}
         <div className={'error pl-2 ml-1' + (errorMessage ? ' alertFadeIn' : '')}>
@@ -618,7 +617,6 @@ class Logins extends Component {
       </div>
     );
   }
-
   render() {
     const { errorMessage, formValidation, forgotPassword, policy } = this.state;
     let formComponent = this.loginForm(errorMessage, formValidation);
@@ -626,6 +624,7 @@ class Logins extends Component {
     if (!forgotPassword && !policy) formComponent = this.loginForm(errorMessage, formValidation);
     if (!forgotPassword && policy) formComponent = this.privacyAndPolicy();
     if (forgotPassword && policy) formComponent = this.termAndCondition();
+
     return (
       <div className="login">
         <div className="container-fluid">
