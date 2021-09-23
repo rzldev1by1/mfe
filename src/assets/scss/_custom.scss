@@ -212,6 +212,12 @@ input:-webkit-autofill {
 .font-20 {
   font-size: 19px;
 }
+.user-detail-link{
+  text-decoration: none !important;
+}
+.user-detail-link:hover{
+  text-decoration: none !important;
+}
 
 .rename-img{
   background-image: url("../img/icon-rename\ 1.png");
@@ -294,6 +300,7 @@ input:-webkit-autofill {
 
   .nav-link {
     background-color: #FFF !important;
+    color: #376BFB !important;
   }
 }
 
@@ -495,6 +502,10 @@ input.outOfRemaining-input:focus {
   .menu-item-profil:hover{
     color:#2d1b46;
   }
+  .menu-item-profil:active{
+    background-color:transparent;
+  }
+  
   .switch-profil .c-switch-input:checked + .c-switch-slider {
     background-color: #fff !important;
   }

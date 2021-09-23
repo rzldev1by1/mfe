@@ -89,7 +89,11 @@ $spinkit-spinner-color: $body-color;
       color:#fff;
     }
     .menu-item-profil:hover{
-      color:#fff;
+      color:#2d1b46;
+    }
+    .menu-item-profil:active{
+      color:#FFF;
+      background-color:#2d1b46 ;
     }
     .switch-profil .c-switch-input:checked + .c-switch-slider {
       background-color: #2d1b46 !important;
