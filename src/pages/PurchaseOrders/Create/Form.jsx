@@ -231,7 +231,7 @@ const Form = ({
             messageParam={{
               messageShow: isValidation || checkingOrderNo?.status === false,
               value: orderDetails?.orderNo,
-              customMessage: checkingOrderNo,
+              customMessage: checkingOrderNo?.message,
             }}
           />
         </Col>

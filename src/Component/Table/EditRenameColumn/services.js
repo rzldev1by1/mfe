@@ -157,8 +157,8 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
 
     const headerData = Object.keys(data[0]);
     accessor.forEach((accessorNew, idx) => {
-      const lowerCase = accessorNew.toLowerCase();
-      if (lowerCase.includes(' ')) {
+      const lowerCase = accessorNew?.toLowerCase();
+      if (lowerCase?.includes(' ')) {
         const split = lowerCase.split(' ');
         const result = split.join('_');
         accessor[idx] = result;
