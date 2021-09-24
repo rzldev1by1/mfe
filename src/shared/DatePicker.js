@@ -214,12 +214,12 @@ class DatePicker extends React.Component {
             e.preventDefault();
         }else if(((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)){
             e.preventDefault();
-        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > dateNumber))) && (e.target.value[0] == 1)) {
+        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[0] == dateNumber)) {
             e.preventDefault();
         }
 
         //limit month
-        else if((e.target.selectionStart == monthNumber) && ((e.key !== "Backspace") && (e.key > 3))){
+        else if((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > monthNumber))){
             e.preventDefault();
         }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)){
             e.preventDefault();
