@@ -175,11 +175,16 @@ class DatePicker extends React.Component {
 
     dateValueProcess = (e) => {
         this.setState({ defaultValue: e.target.value })
+        const dateNumber = dateFormate === ('MM/DD/YYYY') ? 3 : 0
+        const dateNumber2 = dateFormate === ('MM/DD/YYYY') ? 4 : 1
+        const monthNumber = dateFormate === ('MM/DD/YYYY') ? 0 : 3
+        const monthNumber2 = dateFormate === ('MM/DD/YYYY') ? 1 : 4
+
         if (e.target.value.length >= 10) {
             let value = e.target.value.split("");
             let year = value[6] + value[7] + value[8] + value[9]
-            let month = value[0] + value[1];
-            let date = value[3] + value[4];
+            let month = value[monthNumber] + value[monthNumber2];
+            let date = value[dateNumber] + value[dateNumber2];
             if ((month <= 12) && (date <= 31)) {
                 this.setState({ selectedDay: new Date(year + "-" + month + "-" + date), month: new Date(year + "-" + month + "-" + date) })
                 this.props.getDate(moment(new Date(year + "-" + month + "-" + date)).format("YYYY-MM-DD"))
@@ -209,12 +214,12 @@ class DatePicker extends React.Component {
             e.preventDefault();
         } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)) {
             e.preventDefault();
-        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > dateNumber))) && (e.target.value[0] == 1)) {
+        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[0] == dateNumber)) {
             e.preventDefault();
         }
 
         //limit month
-        else if((e.target.selectionStart == monthNumber) && ((e.key !== "Backspace") && (e.key > 3))){
+        else if((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > monthNumber))){
             e.preventDefault();
         } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)) {
             e.preventDefault();
