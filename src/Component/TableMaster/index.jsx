@@ -71,7 +71,7 @@ const TableMaster = ({
           />
         </div>
 
-        <div style={{ paddingRight: "22%" }}>
+        <div style={{ paddingRight: "22%", color: "#525563" }}>
           Copyright &#169; 2021 Microlistics
         </div>
         {pagination && pagination.total < 1 ? (
