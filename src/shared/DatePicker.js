@@ -189,6 +189,10 @@ class DatePicker extends React.Component {
     }
 
     disabledAlpha = (e) => {
+        const dateNumber = dateFormate === ('MM/DD/YYYY') ? 2 : 1
+        const dateNumber2 = dateFormate === ('MM/DD/YYYY') ? 1 : 3
+        const monthNumber = dateFormate === ('MM/DD/YYYY') ? 3 : 1
+
         if (!(/[0-9]/g.test(e.key)) && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) {
             e.preventDefault();
         }
@@ -201,20 +205,20 @@ class DatePicker extends React.Component {
         }
 
         // limit date
-        if ((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 1))) {
+        if((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > dateNumber2))){
             e.preventDefault();
         } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)) {
             e.preventDefault();
-        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[0] == 1)) {
+        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > dateNumber))) && (e.target.value[0] == 1)) {
             e.preventDefault();
         }
 
         //limit month
-        else if ((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 3))) {
+        else if((e.target.selectionStart == monthNumber) && ((e.key !== "Backspace") && (e.key > 3))){
             e.preventDefault();
         } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)) {
             e.preventDefault();
-        } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 3)) {
+        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == monthNumber)){
             e.preventDefault();
         }
 
