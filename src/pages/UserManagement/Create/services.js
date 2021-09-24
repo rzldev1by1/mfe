@@ -1,8 +1,5 @@
-import axios from 'axios';
 import endpoints from 'helpers/endpoints';
-import numeral from 'numeral';
-import { checkOrderNo, submitUserManagement, checkEmails } from 'apiService';
-import { getUOM } from 'apiService/dropdown';
+import { submitUserManagement, checkEmails } from 'apiService';
 import * as EmailValidator from 'email-validator';
 
 export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, setIsSubmitStatus, setShow }) => {
@@ -116,7 +113,7 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
   });
 
   //renew module Access Option
-  const isDevelopment = process.env.REACT_APP_SUPPLIER;
+  const isDevelopment = endpoints.env.REACT_APP_SUPPLIER;
   let moduleAccessOption = [];
   let allowedValues = [
     'menu_orders_po_open',

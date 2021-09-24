@@ -1,8 +1,7 @@
-// import moment from 'moment';
-
 import axios from 'axios';
+import endpoints from './endpoints';
 
-const baseUrl = process.env.REACT_APP_API_URL;
+const baseUrl = endpoints.env.REACT_APP_API_URL;
 const options = { headers: { 'Content-Type': 'application/json' } };
 class Helpers {
   static staticMethod() {
