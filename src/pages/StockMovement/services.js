@@ -1,9 +1,9 @@
 /* eslint-disable prefer-const */
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import React from 'react';
 import moment from 'moment';
 import logo_export from '../../assets/img/logo_export2.png';
+import endpoints from 'helpers/endpoints';
 
 export const simpleData = [
   { col1: 'data1', col2: 'data1', col3: 'data', col4: 'data' },
@@ -169,7 +169,7 @@ export const setupPdf = ({ data, dateHeader, header, period, setDataPDF, setRowS
   setRowSpan(indexPart1);
 
   //set data for Pdf
-  dateHeader.map((dt, idx) => {});
+  dateHeader.map((dt, idx) => { });
 
   let dataPdf = [];
   data.forEach((data, index) => {
@@ -373,7 +373,7 @@ export const headerPdf = [
 ];
 
 export const demoPDF = ({ filename, rowSpan }) => {
-  const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+  const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
   const unit = 'pt';
   const size = 'A4'; // Use A1, A2, A3 or A4
   const orientation = 'landscape'; // portrait or landscape
@@ -430,9 +430,9 @@ export const demoPDF = ({ filename, rowSpan }) => {
       }
 
       //set align
-      let rightAlign = [6,7,8,9,11,12,13,14];
+      let rightAlign = [6, 7, 8, 9, 11, 12, 13, 14];
       if (rightAlign.includes(dataKey)) {
-          data.cell.styles.halign = "right"
+        data.cell.styles.halign = "right"
       }
 
       if (index <= rowSpan) {

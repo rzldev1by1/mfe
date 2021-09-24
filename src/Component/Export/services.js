@@ -2,6 +2,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import moment from 'moment';
 import logo_export from '../../assets/img/logo_export2.png';
+import endpoints from 'helpers/endpoints';
 
 const setBody = (exportData, schemaColumn) => {
   let dataAll = [];
@@ -56,8 +57,8 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
   const size = 'A4'; // Use A1, A2, A3 or A4
   const orientation = 'landscape'; // portrait or landscape
   const doc = new jsPDF(orientation, unit, size);
-  const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
-  
+  const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
+
   // From Javascript
   var finalY = doc.previousAutoTable.finalY || 10;
   var title = ExportName(filename);

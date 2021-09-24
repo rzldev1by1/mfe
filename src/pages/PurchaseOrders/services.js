@@ -1,7 +1,8 @@
 import React from 'react';
 import moment from 'moment';
+import endpoints from 'helpers/endpoints';
 
-const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
   if (date) {

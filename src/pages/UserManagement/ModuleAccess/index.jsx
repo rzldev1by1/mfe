@@ -1,8 +1,9 @@
 import React from 'react';
 import '../index.scss';
 import { onModuleAccessClick, onEnabledAllModuleAccess } from '../services';
+import endpoints from 'helpers/endpoints';
 
-const isDevelopment = process.env.REACT_APP_SUPPLIER;
+const isDevelopment = endpoints.env.REACT_APP_SUPPLIER;
 
 const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isReadOnly, module }) => {
   const disableAll = 'Disable All';
@@ -39,33 +40,33 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
         style={module === 'detail' ? { height: heightDetail, minHeight: heightDetail } : { height: height, minHeight: height }}>
         {moduleAccess && moduleAccess.length
           ? filterModuleAccess.map((item, index) => {
-              return (
-                <div className="flex-column mb-1" key={index}>
-                  <div className="d-flex" key={index}>
-                    <label className="col-6 text-muted px-0 py-2" key={item.menu_id}>
-                      { item.menu_name.toLowerCase() === 'create sales order' ? 'Sales Orders' : 
-                        item.menu_name.toLowerCase() === 'manage supplier users' ? 'Supplier Management' : item.menu_name}
-                    </label>
-                    <div className="col-6">
-                      <button
-                        type="button"
-                        htmlFor={item.menu_name}
-                        className={
-                          'btn px-1 float-right ' +
-                          (!isReadOnly && item.status ? 'btn-outline-active' : 'btn-outline-notActive') +
-                          (isReadOnly ? ' btn-review' : '')
-                        }
-                        onClick={(e) => {
-                          if (!isReadOnly) onModuleAccessClick({ e, index, state, setState });
-                        }}
-                      >
-                        {`${item.status ? enable.toUpperCase() : disable.toUpperCase()}`}
-                      </button>
-                    </div>
+            return (
+              <div className="flex-column mb-1" key={index}>
+                <div className="d-flex" key={index}>
+                  <label className="col-6 text-muted px-0 py-2" key={item.menu_id}>
+                    {item.menu_name.toLowerCase() === 'create sales order' ? 'Sales Orders' :
+                      item.menu_name.toLowerCase() === 'manage supplier users' ? 'Supplier Management' : item.menu_name}
+                  </label>
+                  <div className="col-6">
+                    <button
+                      type="button"
+                      htmlFor={item.menu_name}
+                      className={
+                        'btn px-1 float-right ' +
+                        (!isReadOnly && item.status ? 'btn-outline-active' : 'btn-outline-notActive') +
+                        (isReadOnly ? ' btn-review' : '')
+                      }
+                      onClick={(e) => {
+                        if (!isReadOnly) onModuleAccessClick({ e, index, state, setState });
+                      }}
+                    >
+                      {`${item.status ? enable.toUpperCase() : disable.toUpperCase()}`}
+                    </button>
                   </div>
                 </div>
-              );
-            })
+              </div>
+            );
+          })
           : null}
       </div>
     </div>

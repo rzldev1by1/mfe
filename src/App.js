@@ -4,6 +4,7 @@ import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { isMobile, isLandscape } from 'react-device-detect'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'assets/scss/style.scss';
+import endpoints from 'helpers/endpoints';
 import axios from 'axios';
 
 const loading = (
@@ -20,7 +21,7 @@ class ProtectedRoute extends React.Component {
     super(props);
     if (props.store.user) {
       const { token, userLevel, client, webUser } = props.store.user;
-      axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+      axios.defaults.baseURL = endpoints.env.REACT_APP_API_URL;
       axios.defaults.headers.common['Content-Type'] = 'application/json';
       axios.defaults.headers.common['Accept'] = 'application/json';
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
@@ -63,7 +64,7 @@ class ProtectedRoute extends React.Component {
 
 class App extends React.Component {
   render() {
-    const tes = process.env.REACT_APP_API_URL_ISMOBILE;
+    const tes = endpoints.env.REACT_APP_API_URL_ISMOBILE;
     const isMobileView = document.documentElement.clientWidth <= 500;
     if (isMobile && isMobileView && tes == "true") {
       return window.location.assign("http://m.staging.microlistics.tech/")

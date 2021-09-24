@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { FaRegEdit } from 'react-icons/fa';
-import { MdClose } from 'react-icons/md';
-import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+import endpoints from 'helpers/endpoints';
 import { Button, Container, Row, Col, Modal, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename, resetColumnName, resetColumnTable } from './services';
@@ -69,7 +67,7 @@ const EditRenameColumn = ({
     templateColumn.push(data.accessor)
   });
 
-  const version = process.env.REACT_APP_API_URL_VERSION;
+  const version = endpoints.env.REACT_APP_API_URL_VERSION;
   const UrlHeader = () => {
     return `/${version}/settings/field-label/${splitModule}?client=ALL`;
   };

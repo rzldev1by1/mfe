@@ -1,17 +1,5 @@
 /* eslint-disable consistent-return */
 import React from 'react';
-import moment from 'moment';
-
-const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
-
-export const formatDate = (date) => {
-  if (date !== null && date !== '-') {
-    return moment(date).format(dateFormate) || false;
-  } else {
-    return date
-  }
-};
-
 // https://github.com/tannerlinsley/react-table/issues/94
 
 // const getColumnWidth = (data, accessor, headerText) => {

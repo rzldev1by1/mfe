@@ -9,7 +9,7 @@ import * as utility from './UmUtility';
 
 const today = moment(Date());
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
-const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
   if (date !== "Invalid date" || date === undefined || date === null || date === '') {
@@ -325,7 +325,7 @@ export const showDetails = ({ module, item }) => {
 };
 
 export const checkOrderNo = async ({ client, orderNo, module = 'sales-orders' }) => {
-  const version = process.env.REACT_APP_API_URL_VERSION;
+  const version = endpoints.env.REACT_APP_API_URL_VERSION;
   const { data } = await axios.post(`/${version}/${module}/check-order-number`, {
     client: client?.value,
     order_no: orderNo,
@@ -450,7 +450,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   const accountInfoUser = result;
 
   // ModalAccess
-  const isDevelopment = process.env.REACT_APP_SUPPLIER;
+  const isDevelopment = endpoints.env.REACT_APP_SUPPLIER;
   let newIsEnableAllModule = { ...newState.isEnableAllModule };
   let userMenu = [...accountInfoUser.userMenu].map((item, index) => {
     return item.menuid;

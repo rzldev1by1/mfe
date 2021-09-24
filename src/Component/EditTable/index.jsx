@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
-import { Modal, ModalBody } from 'reactstrap'
+import endpoints from 'helpers/endpoints';
 import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename } from './service'
 import './index.scss';
 
@@ -19,7 +19,7 @@ const EditTable = ({
     splitModule,
 }) => {
 
-    const version = process.env.REACT_APP_API_URL_VERSION;
+    const version = endpoints.env.REACT_APP_API_URL_VERSION;
     const UrlHeader = () => {
         return `/settings/field-label/${splitModule}?client=ALL`;
     };
@@ -92,8 +92,8 @@ const EditTable = ({
                                             ${!state.editColumn?.includes(item.accessor) ? 'btn-outline-primary' : 'btn-nonActive'}`}
                                             onClick={() => showColumn({ header: item.accessor, length: fields.length, setState, state, module })} >
 
-                                            {!state.editColumn?.includes(item.accessor) ? (<AiOutlineEye size={25} />) : (<AiOutlineEyeInvisible size={25} style={{color:'rgb(151, 149, 149)'}} />)}
-                                            <b className="p-0 pl-1" style={!state.editColumn?.includes(item.accessor) ? {color:'#3366ff'} : {color:'rgb(151, 149, 149)'}}> {item.Header} </b>
+                                            {!state.editColumn?.includes(item.accessor) ? (<AiOutlineEye size={25} />) : (<AiOutlineEyeInvisible size={25} style={{ color: 'rgb(151, 149, 149)' }} />)}
+                                            <b className="p-0 pl-1" style={!state.editColumn?.includes(item.accessor) ? { color: '#3366ff' } : { color: 'rgb(151, 149, 149)' }}> {item.Header} </b>
 
                                         </button>
                                     </CCol>

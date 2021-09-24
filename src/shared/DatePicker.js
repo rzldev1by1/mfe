@@ -7,8 +7,9 @@ import moment from 'moment';
 import { Button } from 'reactstrap';
 import ReactResizeDetector from 'react-resize-detector';
 import RequiredMessage from '../Component/RequiredMessage';
+import endpoints from 'helpers/endpoints';
 
-const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
 
 function Navbar({
     // nextMonth,
@@ -210,7 +211,7 @@ class DatePicker extends React.Component {
         }
 
         // limit date
-        if((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > dateNumber2))){
+        if ((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > dateNumber2))) {
             e.preventDefault();
         } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)) {
             e.preventDefault();
@@ -219,11 +220,11 @@ class DatePicker extends React.Component {
         }
 
         //limit month
-        else if((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > monthNumber))){
+        else if ((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > monthNumber))) {
             e.preventDefault();
         } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == monthNumber)){
+        } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == monthNumber)) {
             e.preventDefault();
         }
 
