@@ -135,7 +135,7 @@ export const getSummaryData = async ({
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
       item.last_access =
-        item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
+        item.last_access && item.last_access !== '' ? item.last_access : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 
