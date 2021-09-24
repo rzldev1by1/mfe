@@ -175,11 +175,16 @@ class DatePicker extends React.Component {
 
     dateValueProcess = (e) => {
         this.setState({ defaultValue: e.target.value })
+        const dateNumber = dateFormate === ('MM/DD/YYYY') ? 3 : 0
+        const dateNumber2 = dateFormate === ('MM/DD/YYYY') ? 4 : 1
+        const monthNumber = dateFormate === ('MM/DD/YYYY') ? 0 : 3
+        const monthNumber2 = dateFormate === ('MM/DD/YYYY') ? 1 : 4
+
         if (e.target.value.length >= 10) {
             let value = e.target.value.split("");
             let year = value[6] + value[7] + value[8] + value[9]
-            let month = value[0] + value[1];
-            let date = value[3] + value[4];
+            let month = value[monthNumber] + value[monthNumber2];
+            let date = value[dateNumber] + value[dateNumber2];
             if ((month <= 12) && (date <= 31)) {
                 this.setState({ selectedDay: new Date(year + "-" + month + "-" + date), month: new Date(year + "-" + month + "-" + date) })
                 this.props.getDate(moment(new Date(year + "-" + month + "-" + date)).format("YYYY-MM-DD"))
