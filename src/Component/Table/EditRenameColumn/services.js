@@ -138,13 +138,14 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
     const sortable = fields.map((datas) => {
       let hiddenSort
       if (dataSum) {
-        if (dataSum.length > 1) hiddenSort = datas.sortable
+        if (dataSum.length > 1) hiddenSort = true
         else hiddenSort = false
       } else {
         hiddenSort = datas.sortable
       }
       return hiddenSort;
     });
+
     const sortType = fields.map((datas) => {
       let split;
       if (datas.sortType) {
@@ -177,7 +178,7 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
         width: null,
         space: null,
         style: null,
-        sortable: false,
+        sortable: null,
         align: null,
       };
       headerTable.Header = dataHeader;

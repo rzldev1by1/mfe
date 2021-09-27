@@ -151,8 +151,6 @@ export const getSummaryData = async ({
       dispatch({ type: paramType, data: Data });
       dispatch({ type: paramPaging, data: paging });
     }
-  } else {
-    dispatch({ type: paramType, data: [] });
   }
 };
 

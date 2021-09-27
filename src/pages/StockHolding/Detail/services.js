@@ -8,6 +8,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Batch',
     Header: 'Batch',
     width: 200,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -23,6 +24,7 @@ export const schemaColumnDetailPO = [
     accessor: 'ref3',
     placeholder: 'Ref3',
     Header: 'Ref3',
+    sortable: true,
     width: 100,
     Cell: (props) => props.value || '-',
   },
@@ -30,6 +32,7 @@ export const schemaColumnDetailPO = [
     accessor: 'ref4',
     placeholder: 'Ref4',
     Header: 'Ref4',
+    sortable: true,
     width: 100,
     Cell: (props) => props.value || '-',
   },
@@ -37,6 +40,7 @@ export const schemaColumnDetailPO = [
     accessor: 'disposition',
     placeholder: 'Disposition',
     Header: 'Disposition',
+    sortable: true,
     width: 100,
     sortType: 'float',
     Cell: (props) => props.value || '-',
@@ -47,6 +51,7 @@ export const schemaColumnDetailPO = [
     Header: 'Qty',
     className: 'align-right',
     width: 60,
+    sortable: true,
     Cell: (props) => props.value || '-',
     headerStyle: { textAlign: 'right' },
     textAlign: "right"
@@ -57,6 +62,7 @@ export const schemaColumnDetailPO = [
     Header: 'Wght',
     className: 'align-right',
     width: 80,
+    sortable: true,
     sortType: 'float',
     Cell: (props) => props.value || '-',
     textAlign: "right"
@@ -66,6 +72,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Pallet',
     Header: 'Pallet',
     width: 70,
+    sortable: true,
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
@@ -76,6 +83,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Prince',
     Header: 'Price',
     width: 70,
+    sortable: true,
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
@@ -85,12 +93,14 @@ export const schemaColumnDetailPO = [
     accessor: 'pack_id',
     placeholder: 'Pack ID',
     Header: 'Pack ID',
+    sortable: true,
     width: 170,
     headerStyle: { textAlign: 'left' },
     sortType: 'float',
     Cell: (props) => props.value || '-',
   },
 ];
+
 
 export const schameColumnForesCast = [
   {
