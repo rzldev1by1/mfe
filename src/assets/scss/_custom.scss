@@ -544,6 +544,14 @@ header {
   padding-right: 15px !important;
 }
 
+.text-header-title{
+  color: #b4b9bb;
+}
+.text-header-val{
+  color: #000000;
+}
+
+
 @media (min-height: 1025px), (min-width: 1024px) {
   // disable vertical scrolling on desktop
   body,
@@ -1226,13 +1234,13 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
           color: rgb(255, 255, 255)
         }
 
-    //form
-      .form-control {
-      background-color: #1F192D !important;
-      border-color: #5242A5 !important;
-      color: white;
+      //form
+        .form-control {
+        background-color: #1F192D !important;
+        border-color: #5242A5 !important;
+        color: white;
+      }
     }
-  }
 }
 .customDarkPopUp{
   background-color: #1F192D !important;

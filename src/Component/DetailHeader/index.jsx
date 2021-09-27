@@ -88,7 +88,7 @@ const DetailHeader = ({
         <CCard className={titleRight === true ? null : ' d-none'}>
           <CCardBody className={`p-0 m-3${titleCenter === true ? ' border-right' : ' d-none'}`}>
             <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>
-              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+              <CCol lg={'auto'} className="px-0 mr-3 text-header-title">
                 <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>{titleRightOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleRightTwo ? null : ' d-none'}`}>{titleRightTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleRightThree ? null : ' d-none'}`}>{titleRightThree}</CRow>
@@ -101,7 +101,7 @@ const DetailHeader = ({
                 <CRow className={`mx-0 pt-1 ${titleRightTen ? null : ' d-none'}`}>{titleRightTen}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleRightEleven ? null : ' d-none'}`}>{titleRightEleven}</CRow>
               </CCol>
-              <CCol className="px-0">
+              <CCol className="px-0 text-header-val">
                 <CRow className={`mx-0 ${valeuRightOne ? null : ' d-none'}`}>{valeuRightOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${valeuRightTwo ? null : ' d-none'}`}>{valeuRightTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${valeuRightThree ? null : ' d-none'}`}>{valeuRightThree}</CRow>
@@ -131,7 +131,7 @@ const DetailHeader = ({
               }`}
           >
             <CRow className={`mx-0 ${titleCenter ? null : ' d-none'}`}>
-              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+              <CCol lg={'auto'} className="px-0 mr-3 text-header-title">
                 <CRow className={`mx-0 ${titleCenterOne ? null : ' d-none'}`}>{titleCenterOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleCenterTwo ? null : ' d-none'}`}>{titleCenterTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleCenterThree ? null : ' d-none'}`}>{titleCenterThree}</CRow>
@@ -143,7 +143,7 @@ const DetailHeader = ({
                 <CRow className={`mx-0 pt-1 ${titleCenterNine ? null : ' d-none'}`}>{titleCenterNine}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleCenterTen ? null : ' d-none'}`}>{titleCenterTen}</CRow>
               </CCol>
-              <CCol className="px-0">
+              <CCol className="px-0 text-header-val">
                 <CRow className={`mx-0 ${valeuCenterOne ? null : ' d-none'}`}>{valeuCenterOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${valeuCenterTwo ? null : ' d-none'}`}>{valeuCenterTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${valeuCenterThree ? null : ' d-none'}`}>{valeuCenterThree}</CRow>
@@ -166,7 +166,7 @@ const DetailHeader = ({
         <CCard>
           <CCardBody className="mobile-header p-0 my-3 mr-3 ml-0">
             <CRow className={`mx-0 ${titleLeft ? null : ' d-none'}`}>
-              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+              <CCol lg={'auto'} className="px-0 mr-3 text-header-title">
                 <CRow className={`mx-0 ${titleLeftOne ? null : ' d-none'}`}>{titleLeftOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleLeftTwo ? null : ' d-none'}`}>{titleLeftTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleLeftThree ? null : ' d-none'}`}>{titleLeftThree}</CRow>
@@ -178,7 +178,7 @@ const DetailHeader = ({
                 <CRow className={`mx-0 pt-1 ${titleLeftNine ? null : ' d-none'}`}>{titleLeftNine}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleLeftTen ? null : ' d-none'}`}>{titleLeftTen}</CRow>
               </CCol>
-              <CCol className="px-0">
+              <CCol className="px-0 text-header-val">
                 <CRow className={`mx-0 ${valeuLeftOne ? null : ' d-none'}`}>{valeuLeftOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${valeuLeftTwo ? null : ' d-none'}`}>{valeuLeftTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${valeuLeftThree ? null : ' d-none'}`}>{valeuLeftThree}</CRow>

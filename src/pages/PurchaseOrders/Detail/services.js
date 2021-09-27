@@ -21,6 +21,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Line No',
     Header: 'Line No',
     width: 100,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -28,6 +29,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Product',
     Header: 'Product',
     width: 180,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -35,6 +37,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Description',
     Header: 'Description',
     width: 150,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -47,6 +50,7 @@ export const schemaColumnDetailPO = [
     sortType: 'float',
     Cell: (props) => props.value || '-',
     textAlign: 'right',
+    sortable: true,
   },
   {
     accessor: 'packdesc_1',
@@ -55,6 +59,7 @@ export const schemaColumnDetailPO = [
     width: 80,
     Cell: (props) => props.value || '-',
     headerStyle: { textAlign: 'right' },
+    sortable: true,
   },
   {
     accessor: 'qty_processed',
@@ -66,6 +71,7 @@ export const schemaColumnDetailPO = [
     sortType: 'float',
     Cell: (props) => props.value || '-',
     textAlign: 'right',
+    sortable: true,
   },
   {
     accessor: 'weight',
@@ -77,6 +83,7 @@ export const schemaColumnDetailPO = [
     sortType: 'float',
     Cell: (props) => props.value || '-',
     textAlign: 'right',
+    sortable: true,
   },
   {
     accessor: 'weight_processed',
@@ -88,12 +95,14 @@ export const schemaColumnDetailPO = [
     sortType: 'float',
     Cell: (props) => props.value || '-',
     textAlign: 'right',
+    sortable: true,
   },
   {
     accessor: 'completed',
     placeholder: 'Completed',
     Header: 'Completed',
     width: 100,
+    sortable: true,
     Cell: (row) => (
       <span className={`${row.original.completed === 'Yes' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`} />
     ),
@@ -114,6 +123,7 @@ export const schemaColumnDetailPO = [
     headerStyle: { textAlign: 'left' },
     Cell: (props) => props.value || '-',
     width: 130,
+    sortable: true,
   },
   {
     accessor: 'rotadate',
@@ -121,12 +131,14 @@ export const schemaColumnDetailPO = [
     Header: 'Rotadate',
     Cell: (props) => props.value || '-',
     width: 130,
+    sortable: true,
   },
   {
     accessor: 'ref3',
     placeholder: 'Ref3',
     Header: 'Ref3',
     Cell: (props) => props.value || '-',
+    sortable: true,
   },
   {
     accessor: 'ref4',
@@ -134,6 +146,7 @@ export const schemaColumnDetailPO = [
     Header: 'Ref4',
     Cell: (props) => props.value || '-',
     width: 120,
+    sortable: true,
   },
   {
     accessor: 'disposition',
@@ -141,6 +154,7 @@ export const schemaColumnDetailPO = [
     Header: 'Disposition',
     width: 120,
     Cell: (props) => props.value || '-',
+    sortable: true,
   },
 ];
 

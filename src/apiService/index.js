@@ -134,8 +134,7 @@ export const getSummaryData = async ({
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
-      item.last_access =
-        item.last_access && item.last_access !== '' ? item.last_access : '-';
+      item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 

@@ -5,7 +5,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Line No',
     Header: 'Line No',
     width: 100,
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -13,7 +13,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Product',
     Header: 'Product',
     width: 180,
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -21,7 +21,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Description',
     Header: 'Description',
     width: 150,
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -32,7 +32,7 @@ export const schemaColumnDetailPO = [
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     sortType: 'float',
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
     textAlign: "right"
   },
@@ -41,7 +41,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'UOM',
     Header: 'UOM',
     width: 80,
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
     headerStyle: { textAlign: 'right' },
   },
@@ -52,7 +52,7 @@ export const schemaColumnDetailPO = [
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     width: 130,
-    sortable: false,
+    sortable: true,
     sortType: 'float',
     Cell: (props) => props.value || '-',
     textAlign: "right"
@@ -65,7 +65,7 @@ export const schemaColumnDetailPO = [
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     sortType: 'float',
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
     textAlign: "right"
   },
@@ -77,7 +77,7 @@ export const schemaColumnDetailPO = [
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     sortType: 'float',
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
     textAlign: "right"
   },
@@ -86,9 +86,9 @@ export const schemaColumnDetailPO = [
     placeholder: 'Completed',
     Header: 'Completed',
     width: 100,
-    sortable: false,
+    sortable: true,
     Cell: (row) => (
-      <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.completed === 'Y' ? 'ri-check-line text-success' : 'icon-group_4696 text-danger'}`} />
     ),
   },
   {
@@ -96,9 +96,9 @@ export const schemaColumnDetailPO = [
     placeholder: 'OOS',
     Header: 'OOS',
     width: 100,
-    sortable: false,
+    sortable: true,
     Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.released === 'Y' ? 'ri-check-line text-success' : 'icon-group_4696 text-danger'}`} />
     ),
   },
   {
@@ -106,9 +106,9 @@ export const schemaColumnDetailPO = [
     placeholder: 'Released',
     Header: 'Released',
     width: 100,
-    sortable: false,
+    sortable: true,
     Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.released === 'Y' ? 'ri-check-line text-success' : 'icon-group_4696 text-danger'}`} />
     ),
   },
   {
@@ -116,7 +116,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Batch',
     Header: 'Batch',
     width: 350,
-    sortable: false,
+    sortable: true,
     headerStyle: { textAlign: 'left' },
     Cell: (props) => props.value || '-',
   },
@@ -125,7 +125,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Ref3',
     Header: 'Ref3',
     width: 350,
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -133,7 +133,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Ref4',
     Header: 'Ref4',
     width: 350,
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -141,7 +141,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Disposition',
     Header: 'Disposition',
     width: 200,
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
   {
@@ -149,7 +149,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Pack ID',
     Header: 'Pack ID',
     width: 200,
-    sortable: false,
+    sortable: true,
     Cell: (props) => props.value || '-',
   },
 ];
