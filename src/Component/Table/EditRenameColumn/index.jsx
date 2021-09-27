@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import endpoints from 'helpers/endpoints';
 import { Button, Container, Row, Col, Modal, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -86,7 +86,7 @@ const EditRenameColumn = ({
   }, [columnHidden]);
 
   // useEffect(() => {  },[state.editColumn])
-  useMemo(() => {
+  useEffect(() => {
     headerRename({ UrlHeader, state, setState, fields, setFields, data });
   }, [data]);
 
