@@ -57,7 +57,7 @@ const Create = ({ show, setShow }) => {
   return (
     <div>
       <Modal show={show} size="xl" className={`purchase-order-create ${activeTab == 'message' ? ' d-none' : ' '} ${dataMode == "1" ? 'customDarkMode' : ''}`}>
-        <Modal.Header className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} p-0`}>
+        <Modal.Header className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} modal-radiusH p-0`}>
           <Container className="px-0">
             <Row className="mx-0 px-0" style={{ height: "140px" }}>
               <Col xs={6} sm={6} md={6} lg={6} xl={6} className="pl-4 align-items-center d-flex">
@@ -100,7 +100,7 @@ const Create = ({ show, setShow }) => {
                   </Nav>
                 </div>
               </Col>
-              <Col xs={6} sm={6} md={6} lg={6} xl={6} className={`justify-content-end d-flex rename-img`}>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6} className={`justify-content-end d-flex ${dataMode == "1" ? 'rename-img-drak' : 'rename-img'}`}>
                 <Row>
                   <Col onClick={() => { setShow(false); setIsReset(0); }} className={`justify-content-end d-flex`} style={{ cursor: "pointer" }}>
                     <i className="ri-close-line ri-3x" />
@@ -110,7 +110,7 @@ const Create = ({ show, setShow }) => {
             </Row>
           </Container>
         </Modal.Header>
-        <Modal.Body className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
+        <Modal.Body className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top modal-radiusB`}>
           <TabContent>
             <Container className="px-9 pt-4 pb-9">
               {/* Tabs */}

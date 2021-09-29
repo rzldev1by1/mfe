@@ -220,9 +220,22 @@ input:-webkit-autofill {
 }
 
 .rename-img{
-  background-image: url("../img/icon-rename\ 1.png");
+  background-image: url("../img/icon-header-1.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+.rename-img-drak{
+  background-image: url("../img/icon-header-2.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.modal-radiusH{
+ border-top-left-radius: 0.6rem;
+ border-top-right-radius: 0.6rem;
+}
+.modal-radiusB{
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
 }
 
 .v-rename{
@@ -769,14 +782,14 @@ header {
   padding-top: 2.3rem !important;
 }
 .modal-backdrop {
-  background-color: #635F78;
+  background-color: #2C2C2C;
   .show {
-    opacity: 57%;
+    opacity: 68%;
   }
 }
 
 .modal-content {
-  border-radius: 0.6rem !important;
+  border-radius: 0.8rem !important;
 
   .modal-body {
     .select_calendar_expand::after {
@@ -1101,11 +1114,6 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 }
 // darkMode Modal
 .customDarkModes {
-    .rename-img{
-      background-image: url("../img/icon-rename\ 1.png");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-    }
     .input-group, input.form-control, .input-group-text {
       height: 50px !important;
       border-color: #5242A5 !important;
@@ -1255,6 +1263,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
   color: #fff !important;
   .btn-primary {
     background-color: #4717ed !important;
+    border-color: transparent !important;
   }
   .btn-disabled {
     color: #fff !important;
@@ -1301,6 +1310,8 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     color: #725cdd !important;
     background-color: #3f3165 !important;
     border-color: #3f3165 !important;
+    // border: 4px solid red !important;
+    // border-radius: 10px;
   }
   .tab-rename {
     color: #FFF !important;

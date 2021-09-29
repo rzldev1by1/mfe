@@ -212,8 +212,8 @@ const Search = ({
   }, [Export]);
 
   return (
-    <CCard className="mb-3" style={{ borderRadius: '0.25rem' }}>
-      <CCardBody className="p-3" style={{ borderRadius: '0.25rem' }}>
+    <CCard className="mb-3" style={{ borderRadius: '0.6rem' }}>
+      <CCardBody className="p-2" style={{ borderRadius: '0.6rem' }}>
         <form onSubmit={searchForm}>
           <CRow className="mx-0">
             {inputTag ? (
@@ -260,7 +260,7 @@ const Search = ({
             ) : (
               <CCol lg={!inputTag ? 12 : 9} className="px-0">
                 <CRow className="mx-0 justify-content-between">
-                  <CRow className='col-lg-10'>
+                  <CRow className='col-lg-10 pl-2'>
                     <CCol sm={4} lg={2} className={`mobile-site px-0 ${filterSite === true ? null : ' d-none'}`}>
                       {user?.site ? (
                         <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
@@ -281,7 +281,7 @@ const Search = ({
                         />
                       )}
                     </CCol>
-                    <CCol sm={4} lg={2} className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'}`}>
+                    <CCol sm={4} lg={2} className={`mobile-client px-2 ${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'}`}>
                       {user?.client ? (
                         <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
                       ) : (
@@ -314,7 +314,7 @@ const Search = ({
                         selectedValue={newDropdownValue.status}
                       />
                     </CCol>
-                    <CCol sm={4} lg={2} className={`mobile-type ${filterOrderType === true ? null : ' d-none'}`}>
+                    <CCol sm={4} lg={2} className={`mobile-type ${filterOrderType === true ? null : ' d-none'} px-2`}>
                       <Dropdown
                         className="px-0"
                         show

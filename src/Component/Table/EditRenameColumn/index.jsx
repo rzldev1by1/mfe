@@ -127,7 +127,7 @@ const EditRenameColumn = ({
   return (
     <div>
       <Modal show={showModal} size="xl" centered>
-        <Modal.Header className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} p-0`}>
+        <Modal.Header className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} modal-radiusH p-0`}>
           <Container className="px-0">
             <Row className="mx-0 px-0" style={{ height: "140px" }}>
               <Col xs={6} sm={6} md={6} lg={6} xl={6} className="pl-4 align-items-center d-flex">
@@ -143,7 +143,7 @@ const EditRenameColumn = ({
                   </div>
                 </div>
               </Col>
-              <Col xs={6} sm={6} md={6} lg={6} xl={6} className={`justify-content-end d-flex rename-img`}>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6} className={`justify-content-end d-flex ${dataMode == "1" ? 'rename-img-drak' : 'rename-img'}`}>
                 <Row>
                   <Col onClick={closeModal.bind(this, false, editColumnTemp)} className={`justify-content-end d-flex`} style={{ cursor: "pointer" }}>
                     <i className="ri-close-line ri-3x" />
@@ -153,7 +153,7 @@ const EditRenameColumn = ({
             </Row>
           </Container>
         </Modal.Header>
-        <Modal.Body className={`${dataMode == "1" ? 'DarkModesEditRename ' : ' '} p-3`}>
+        <Modal.Body className={`${dataMode == "1" ? 'DarkModesEditRename ' : ' '} modal-radiusB p-3`}>
           <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-2' : ''}`}>
             <Row className="rename-columns mx-0 text-align-left">
               <Nav tabs >
@@ -208,9 +208,9 @@ const EditRenameColumn = ({
                               onClick={() => showColumn({ header: item.accessor, length: fields.length, setState, state, })}>
 
                               {!state.editColumn?.includes(item.accessor) ? (
-                                <i className="ri-eye-2-line ri-xl mr-2 mb-2" />
+                                <i className="ri-eye-2-line ri-xl mr-2 mb-1" />
                               ) : (
-                                <i className="ri-eye-close-line ri-xl mr-2 mb-2" />
+                                <i className="ri-eye-close-line ri-xl mr-2 mb-1" />
                               )}
 
                               <b className="p-0 pl-1"> {item.Header} </b>
