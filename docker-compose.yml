@@ -1,0 +1,19 @@
+version: "0"
+services:
+  mls-fe:
+    container_name: mls-fe
+    image: registry.gitlab.com/fan.yansen/microlistics:1.3      
+    ports:
+      - 3000:80
+    environment:
+      - "REACT_APP_API_URL="
+      - "REACT_APP_API_URL_VERSION="
+      - "REACT_APP_API_URL_CREATE="
+      - "REACT_APP_API_URL_ISMOBILE="
+      - "REACT_APP_SUPPLIER="
+      - "REACT_APP_VERSION="
+      - "REACT_APP_API_URL_FORMATE=MM/DD/YYYY"
+
+
+
+      
