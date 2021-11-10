@@ -122,6 +122,15 @@ export const schemaColumnDetailPO = [
     Cell: (props) => props.value || '-',
   },
   {
+    accessor: 'rotadate',
+    placeholder: 'Rotadate',
+    Header: 'Rotadate',
+    width: 350,
+    sortable: true,
+    headerStyle: { textAlign: 'left' },
+    Cell: (props) => props.value || '-',
+  },
+  {
     accessor: 'ref3',
     placeholder: 'Ref3',
     Header: 'Ref3',
