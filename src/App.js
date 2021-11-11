@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'assets/scss/style.scss';
 import endpoints from 'helpers/endpoints';
 import axios from 'axios';
-import endpoints from 'helpers/endpoints';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -27,8 +26,8 @@ class ProtectedRoute extends React.Component {
       axios.defaults.headers.common['Accept'] = 'application/json';
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
       axios.defaults.headers.common['userLevel'] = userLevel || '';
-      axios.defaults.headers.common['client'] = client || '';
-      axios.defaults.headers.common['webUser'] = webUser || '';
+      axios.defaults.headers.common.client = client || '';
+      axios.defaults.headers.common.webUser = webUser || '';
       axios.interceptors.request.use((request) => {
         return request;
       });
