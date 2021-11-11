@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-param-reassign */
 import axios from 'axios';
 import numeral from 'numeral';
 import moment from 'moment';

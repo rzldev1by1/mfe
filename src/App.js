@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'assets/scss/style.scss';
 import endpoints from 'helpers/endpoints';
 import axios from 'axios';
+import endpoints from 'helpers/endpoints';
 
 const loading = (
   <div className="pt-3 text-center">

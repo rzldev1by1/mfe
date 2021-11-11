@@ -1,6 +1,7 @@
 /* eslint-disable prefer-const */
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import endpoints from 'helpers/endpoints'
 import moment from 'moment';
 import logo_export from '../../assets/img/logo_export2.png';
 import endpoints from 'helpers/endpoints';

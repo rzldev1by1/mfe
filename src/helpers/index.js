@@ -1,6 +1,7 @@
 // import moment from 'moment';
 import endpoints from './endpoints';
 import axios from 'axios';
+import endpoints from './endpoints';
 
 const baseUrl = endpoints.env.REACT_APP_API_URL;
 const options = { headers: { 'Content-Type': 'application/json' } };

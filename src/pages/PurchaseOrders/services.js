@@ -113,7 +113,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    // Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 130,
   },
   {
@@ -124,7 +124,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    // Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 130,
   },
   {
@@ -135,7 +135,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    // Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 130,
   },
   {
@@ -146,7 +146,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    // Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 150,
   },
 ];

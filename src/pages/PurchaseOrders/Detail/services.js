@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import React from 'react';
 // https://github.com/tannerlinsley/react-table/issues/94
 

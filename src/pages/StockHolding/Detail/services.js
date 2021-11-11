@@ -101,6 +101,7 @@ export const schemaColumnDetailPO = [
   },
 ];
 
+
 export const schameColumnForesCast = [
   {
     accessor: 'customerID',
