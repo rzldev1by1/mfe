@@ -121,7 +121,7 @@ export const schemaColumnDetailPO = [
     Cell: (props) => props.value || '-',
   },
   {
-    accessor: 'rota1',
+    accessor: 'rotadate',
     placeholder: 'Rotadate',
     Header: 'Rotadate',
     width: 350,
