@@ -4,8 +4,8 @@ import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { isMobile, isLandscape } from 'react-device-detect'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'assets/scss/style.scss';
-import axios from 'axios';
 import endpoints from 'helpers/endpoints';
+import axios from 'axios';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -26,8 +26,8 @@ class ProtectedRoute extends React.Component {
       axios.defaults.headers.common['Accept'] = 'application/json';
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
       axios.defaults.headers.common['userLevel'] = userLevel || '';
-      axios.defaults.headers.common['client'] = client || '';
-      axios.defaults.headers.common['webUser'] = webUser || '';
+      axios.defaults.headers.common.client = client || '';
+      axios.defaults.headers.common.webUser = webUser || '';
       axios.interceptors.request.use((request) => {
         return request;
       });
@@ -67,7 +67,7 @@ class App extends React.Component {
     const tes = endpoints.env.REACT_APP_API_URL_ISMOBILE;
     const isMobileView = document.documentElement.clientWidth <= 500;
     if (isMobile && isMobileView && tes == "true") {
-      return window.location.assign("http://m.staging.microlistics.tech/")
+      return window.location.assign("http://mweb-m.staging.microlistics.com/")
     }
     return (
       <HashRouter>
