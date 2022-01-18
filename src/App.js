@@ -67,7 +67,7 @@ class App extends React.Component {
     const tes = endpoints.env.REACT_APP_API_URL_ISMOBILE;
     const isMobileView = document.documentElement.clientWidth <= 500;
     if (isMobile && isMobileView && tes == "true") {
-      return window.location.assign("http://m.staging.microlistics.tech/")
+      return window.location.assign(process.env.REACT_APP_MOBILE_URL)
     }
     return (
       <HashRouter>
