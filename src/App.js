@@ -65,9 +65,10 @@ class ProtectedRoute extends React.Component {
 class App extends React.Component {
   render() {
     const tes = endpoints.env.REACT_APP_API_URL_ISMOBILE;
+    const mobileUrl = endpoints.env.REACT_APP_MOBILE_URL
     const isMobileView = document.documentElement.clientWidth <= 500;
     if (isMobile && isMobileView && tes == "true") {
-      return window.location.assign(process.env.REACT_APP_MOBILE_URL)
+      return window.location.assign(mobileUrl)
     }
     return (
       <HashRouter>
