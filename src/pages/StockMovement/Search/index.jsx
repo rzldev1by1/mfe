@@ -57,7 +57,7 @@ const Search = ({ setHeader, setdateHeader }) => {
     if (isSearch === true) {
       if (period && dateFrom && dateTo) {
         dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
-        getStockMovement({ dropdownValue, dispatch });
+        getStockMovement({ dropdownValue, dispatch, user });
         setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
       }
     }
