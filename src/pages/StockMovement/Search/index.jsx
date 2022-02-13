@@ -228,7 +228,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                     }}
                     isLoading={isLoading}
                     onInputChange={(val) => {
-                      getProduct({ client: clientVal?.value || '', val, setIsProduct, setIsLoading });
+                      getProduct({ client: clientVal?.value || clientCheck(clientData, user.client) || '', val, setIsProduct, setIsLoading });
                       setIsLoading(true);
                     }}
                     minChar={3}
