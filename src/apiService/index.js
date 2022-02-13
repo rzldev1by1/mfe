@@ -355,7 +355,7 @@ export const getDateRange = async ({ setDefaultDate }) => {
     });
 };
 
-export const getStockMovement = async ({ dropdownValue, dispatch }) => {
+export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
   const url = `${endpoints.stockMovement}`;
   let { siteVal, clientVal, period, fromDate, toDate, productVal } = dropdownValue;
   let paramUrl = [];
@@ -365,8 +365,8 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
   paramUrl.push(`startDate=${fromDate || ''}`);
   paramUrl.push(`endDate=${toDate || ''}`);
   paramUrl.push(`filterType=${period}`);
-  paramUrl.push(`client=${clientVal?.value || ''}`);
-  paramUrl.push(`site=${siteVal?.value || ''}`);
+  paramUrl.push(`client=${clientVal?.value || user.client || ''}`);
+  paramUrl.push(`site=${siteVal?.value || user.site || ''}`);
   paramUrl.push(`product=${productVal?.value || ''}`);
 
   await axios

@@ -144,7 +144,9 @@ export const getSupplier = async ({ client, site, setSupplier }) => {
 };
 
 export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) => {
-  const url = `${endpoints.getProduct}?client=${client || ''}&search=${val.toUpperCase()}`;
+  const staticClient = client.split(':')
+  const url = `${endpoints.getProduct}?client=${staticClient.length > 1 ? staticClient[0].replace(' ', '') : client || ''}&search=${val.toUpperCase()}`;
+
   let productData = [];
   await axios
     .get(url)
