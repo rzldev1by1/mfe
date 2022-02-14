@@ -14,6 +14,7 @@ import {
   formatDate,
   changeClient,
   validationOrderLines,
+  changeOrderDetailSiteAndClient,
 } from './services';
 import { getSupplier, getDisposition } from 'apiService/dropdown';
 import { validate } from 'email-validator';
@@ -56,41 +57,44 @@ const Form = ({
   useEffect(() => {
     // set client dropdown option
     let clientOption = [];
-    let tmp = clientData?.map((item, key) => {
-      if (item.value !== 'all') {
-        clientOption.push(item);
-      }
-
-      if (client === item.value) {
-        let val = {
-          value: item.value,
-          label: `${item.label}`,
-        };
-        changeOrderDetails({ column: 'client', value: val, dispatch, setOrderDetails });
-        return 0;
-      }
-    });
-    setClientOption(clientOption);
-  }, [clientData]);
-
-  useEffect(() => {
-    // set site dropdown option
     let siteOption = [];
-    let tmp = siteData?.map((item, key) => {
-      if (item.value !== 'all') {
-        siteOption.push(item);
-      }
-      if (site === item.value) {
-        let val = {
-          value: item.value,
-          label: `${item.label}`,
-        };
-        changeOrderDetails({ column: 'site', value: val, dispatch, setOrderDetails });
-        return 0;
-      }
-    });
+    let valClient = null;
+    let valSite = null;
+    if (clientData) {
+      clientData.map((item, key) => {
+        if (item.value !== 'all') {
+          clientOption.push(item);
+        }
+
+        if (client === item.value) {
+          console.log(item);
+          valClient = {
+            value: item.value,
+            label: `${item.label}`,
+          };
+        }
+      });
+    }
+
+    // set site dropdown option
+    if (siteData) {
+      siteData.map((item, key) => {
+        if (item.value !== 'all') {
+          siteOption.push(item);
+        }
+        if (site === item.value) {
+          valSite = {
+            value: item.value,
+            label: `${item.label}`,
+          };
+        }
+      });
+    }
+
+    changeOrderDetailSiteAndClient({ valClient, valSite, setOrderDetails, orderDetails });
     setSiteOption(siteOption);
-  }, [siteData]);
+    setClientOption(clientOption);
+  }, [clientData, siteData]);
 
   useEffect(() => {
     if (activeTab == 'review') {
@@ -105,8 +109,7 @@ const Form = ({
       setDropdownExpandStyle('lineDetailsTopExpand');
     } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
-    }
-    else {
+    } else {
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
@@ -144,7 +147,10 @@ const Form = ({
             required
             readOnly={isReadonly}
             messageRequired={true}
-            messageParam={{ messageShow: isValidation && !orderDetails?.orderType?.value, value: orderDetails?.orderType, }}
+            messageParam={{
+              messageShow: isValidation && !orderDetails?.orderType?.value,
+              value: orderDetails?.orderType,
+            }}
             parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
           />
         </Col>
@@ -186,7 +192,7 @@ const Form = ({
               setSupplier([]);
               if (selected) {
                 getSupplier({ client: selected.value, site: orderDetails?.site, setSupplier });
-                getDisposition({ dispatch, client: selected.value })
+                getDisposition({ dispatch, client: selected.value });
               }
             }}
             readOnly={isReadonly || client}
