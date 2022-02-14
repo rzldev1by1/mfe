@@ -66,7 +66,7 @@ const Form = ({
           value: item.value,
           label: `${item.label}`,
         };
-        changeOrderDetails({ column: 'client', value: val, dispatch });
+        changeOrderDetails({ column: 'client', value: val, dispatch, setOrderDetails });
         return 0;
       }
     });
@@ -85,7 +85,7 @@ const Form = ({
           value: item.value,
           label: `${item.label}`,
         };
-        changeOrderDetails({ column: 'site', value: val, dispatch });
+        changeOrderDetails({ column: 'site', value: val, dispatch, setOrderDetails });
         return 0;
       }
     });

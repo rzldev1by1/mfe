@@ -144,7 +144,6 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
   let od = { ...orderDetails };
   od[column] = value;
   od['validation_' + column] = value ? true : false;
-  
   setOrderDetails(od);
 };
 
