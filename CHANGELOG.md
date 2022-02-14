@@ -15,7 +15,7 @@ Fixed: -
 
 Changed:
 - apiService/js --> additional param 'user' to get client and site on methode getStockMovement
-- dropdown/index.js --> additional new variable to accommodate client for API URL of getProduct methode
+- dropdown/index.js --> additional new variable 'staticClient' to accommodate client for API URL of getProduct methode
 
 Fixed:
 - STOCK MOVEMENT SUMMARY: MINOR [NO TICKET - Filter Site and Client is not working].
