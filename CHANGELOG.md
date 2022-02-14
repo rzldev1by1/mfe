@@ -6,9 +6,9 @@
 Added:
 - LOGIN AUTHENTICATION CODE: MAYOR [ticket name - additional resend code validation].
 
-Changed:
+Changed:-
 
-Fixed:
+Fixed: -
 
 ## [1.0.2] - 2022-02-11
 ---------------------------------------------------
