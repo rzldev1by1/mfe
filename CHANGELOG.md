@@ -1,13 +1,4 @@
-1.0.2
-
-## [Unreleased] - 2022-02-14
----------------------------------------------------
-
-Changed:
-- create/service.js --> complete the parameters in method changeOrderDetails
-
-Fixed:
-- PURCHASE ORDER CREATE BUTTON: MINOR [NO TICKET - missing parameter for regular user in changeOrderDetails methode]
+1.0.3
 
 ## [Unreleased] - 2021-12-08
 ---------------------------------------------------
@@ -18,6 +9,24 @@ Added:
 Changed:-
 
 Fixed: -
+
+## [1.0.3] - 2022-02-14
+---------------------------------------------------
+
+Changed:
+- PurchaseOrder/create/service.js --> complete the parameters in method changeOrderDetails
+- SalesOrder/create/service.js --> complete the parameters in method changeOrderDetails
+- SalesOrder/create/Form.jsx --> additional new methode 'changeOrderDetailSiteAndClient'
+- OurchaseOrder/create/Form.jsx --> additional new methode 'changeOrderDetailSiteAndClient'
+
+Fixed:
+- PURCHASE ORDER CREATE BUTTON: MINOR [NO TICKET - missing parameter for regular user in changeOrderDetails methode]
+- PURCHASE ORDER CREATE BUTTON: MINOR [NO TICKET - page become blank afer click Create Purchase Order button]
+- PURCHASE ORDER CREATE MODAL: MINOR [NO TICKET - client missing]
+- SALES ORDER CREATE BUTTON: MINOR [NO TICKET - missing parameter for regular user in changeOrderDetails methode]
+- SALES ORDER CREATE BUTTON: MINOR [NO TICKET - page become blank afer click Create Purchase Order button]
+- SALES ORDER CREATE MODAL: MINOR [NO TICKET - client missing]
+
 
 ## [1.0.2] - 2022-02-11
 ---------------------------------------------------
