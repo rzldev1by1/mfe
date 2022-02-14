@@ -1,5 +1,14 @@
 1.0.2
 
+## [Unreleased] - 2022-02-14
+---------------------------------------------------
+
+Changed:
+- create/service.js --> complete the parameters in method changeOrderDetails
+
+Fixed:
+- PURCHASE ORDER CREATE BUTTON: MINOR [NO TICKET - missing parameter for regular user in changeOrderDetails methode]
+
 ## [Unreleased] - 2021-12-08
 ---------------------------------------------------
 
