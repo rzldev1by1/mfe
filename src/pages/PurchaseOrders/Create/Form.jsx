@@ -67,7 +67,6 @@ const Form = ({
         }
 
         if (client === item.value) {
-          console.log(item);
           valClient = {
             value: item.value,
             label: `${item.label}`,
