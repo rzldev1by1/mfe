@@ -1,4 +1,4 @@
-1.0.3
+1.0.4
 
 ## [Unreleased] - 2021-12-08
 ---------------------------------------------------
@@ -9,6 +9,16 @@ Added:
 Changed:-
 
 Fixed: -
+    
+## [1.0.4] - 2022-02-15
+---------------------------------------------------
+
+Changed:
+- apiService/js --> additional param 'user' to get client and site on methode getSummaryData
+
+Fixed:
+- STOCK HOLDING SUMMARY: MINOR [NO TICKET - Filter Site and Client is not working].
+
 
 ## [1.0.3] - 2022-02-14
 ---------------------------------------------------
