@@ -6,8 +6,8 @@ import Form from './Form';
 import { resetCreate, validation, submit, cleanOrderDetails, cleanOrderLines } from './services.js';
 import { getPOResources, getDisposition } from 'apiService/dropdown';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
-import PopUpCreateSucces from 'Component/Modal/PopUpCreateSucces'
-import PopUpLoss from 'Component/Modal/PopUpLoss'
+import PopUpCreateSucces from 'Component/Modal/PopUpCreateSucces';
+import PopUpLoss from 'Component/Modal/PopUpLoss';
 import './style.scss';
 
 const Create = ({ show, setShow }) => {
@@ -105,7 +105,9 @@ const Create = ({ show, setShow }) => {
           <TabContent>
             <Container className="px-9 pt-4 pb-9">
               {/* Tabs */}
-              {activeTab == 'message' ? '' : (
+              {activeTab == 'message' ? (
+                ''
+              ) : (
                 <Form
                   activeTab={activeTab}
                   orderDetails={orderDetails}
@@ -180,7 +182,7 @@ const Create = ({ show, setShow }) => {
           </TabContent>
         </Modal.Body>
       </Modal>
-      {activeTab == 'message' ?
+      {activeTab == 'message' ? (
         isSubmitReturn?.message === 'Successfully added' ||
           isSubmitReturn?.message === 'create successfully' ||
           isSubmitReturn?.status == 'ok' ? (
@@ -195,14 +197,11 @@ const Create = ({ show, setShow }) => {
             }}
           />
         ) : (
-          <PopUpLoss
-            modal={modal}
-            setModal={setModal}
-            back={() => setActiveTab('detail')
-            }
-          />
+          <PopUpLoss modal={modal} setModal={setModal} back={() => setActiveTab('detail')} />
         )
-        : ''}
+      ) : (
+        ''
+      )}
     </div>
   );
 };

@@ -346,8 +346,8 @@ export const getDateRange = async ({ setDefaultDate }) => {
     .then((res) => {
       let data = res?.data?.data[0];
       setDefaultDate({
-        minDate: data.min_date,
-        maxDate: data.max_date,
+        minDate: data?.min_date,
+        maxDate: data?.max_date,
       });
     })
     .catch((error) => {
@@ -365,7 +365,7 @@ export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
   paramUrl.push(`startDate=${fromDate || ''}`);
   paramUrl.push(`endDate=${toDate || ''}`);
   paramUrl.push(`filterType=${period}`);
-  paramUrl.push(`client=${clientVal?.value || user.client || ''}`);
+  paramUrl.push(`client=${clientVal?.value || user.client || '' }`);
   paramUrl.push(`site=${siteVal?.value || user.site || ''}`);
   paramUrl.push(`product=${productVal?.value || ''}`);
 

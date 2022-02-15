@@ -122,6 +122,21 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
   setOrderDetails(od);
 };
 
+export const changeOrderDetailSiteAndClient = ({ valClient, valSite,  setOrderDetails, orderDetails }) => {
+  let od = { ...orderDetails };
+
+  if(valClient){
+    od['client'] = valClient;
+    od['validation_' + 'client'] = valClient ? true : false;
+  }
+
+  if(valSite){
+    od['site'] = valSite;
+    od['validation_' + 'site'] = valSite ? true : false;
+  }
+  setOrderDetails(od);
+};
+
 export const changeClient = async ({
   value,
   orderDetails,

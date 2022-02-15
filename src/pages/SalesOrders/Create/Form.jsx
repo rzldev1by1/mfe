@@ -18,6 +18,7 @@ import {
   getCustomerDetail,
   changeClient,
   validationOrderLines,
+  changeOrderDetailSiteAndClient
 } from './services';
 import { getCustomer, getDisposition } from 'apiService/dropdown';
 
@@ -62,41 +63,82 @@ const Form = ({
   useEffect(() => {
     // set client dropdown option
     let clientOption = [];
-    let tmp = clientData?.map((item, key) => {
-      if (item.value !== 'all') {
-        clientOption.push(item);
-      }
-
-      if (client === item.value) {
-        let val = {
-          value: item.value,
-          label: `${item.label}`,
-        };
-        changeOrderDetails({ column: 'client', value: val, dispatch });
-        return 0;
-      }
-    });
-    setClientOption(clientOption);
-  }, [clientData]);
-
-  useEffect(() => {
-    // set site dropdown option
     let siteOption = [];
-    let tmp = siteData?.map((item, key) => {
-      if (item.value !== 'all') {
-        siteOption.push(item);
-      }
-      if (site === item.value) {
-        let val = {
-          value: item.value,
-          label: `${item.label}`,
-        };
-        changeOrderDetails({ column: 'site', value: val, dispatch });
-        return 0;
-      }
-    });
+    let valClient = null;
+    let valSite = null;
+    if (clientData) {
+      clientData.map((item, key) => {
+        if (item.value !== 'all') {
+          clientOption.push(item);
+        }
+
+        if (client === item.value) {
+          valClient = {
+            value: item.value,
+            label: `${item.label}`,
+          };
+        }
+      });
+    }
+
+    // set site dropdown option
+    if (siteData) {
+      siteData.map((item, key) => {
+        if (item.value !== 'all') {
+          siteOption.push(item);
+        }
+        if (site === item.value) {
+          valSite = {
+            value: item.value,
+            label: `${item.label}`,
+          };
+        }
+      });
+    }
+
+    changeOrderDetailSiteAndClient({ valClient, valSite, setOrderDetails, orderDetails });
     setSiteOption(siteOption);
-  }, [siteData]);
+    setClientOption(clientOption);
+  }, [clientData, siteData]);
+
+  // useEffect(() => {
+  //   // set client dropdown option
+  //   let clientOption = [];
+  //   let tmp = clientData?.map((item, key) => {
+  //     if (item.value !== 'all') {
+  //       clientOption.push(item);
+  //     }
+
+  //     if (client === item.value) {
+  //       let val = {
+  //         value: item.value,
+  //         label: `${item.label}`,
+  //       };
+  //       changeOrderDetails({ column: 'client', value: val, dispatch, setOrderDetails });
+  //       return 0;
+  //     }
+  //   });
+  //   setClientOption(clientOption);
+  // }, [clientData]);
+
+  // useEffect(() => {
+  //   // set site dropdown option
+  //   let siteOption = [];
+  //   let tmp = siteData?.map((item, key) => {
+  //     if (item.value !== 'all') {
+  //       siteOption.push(item);
+  //     }
+  //     if (site === item.value) {
+  //       let val = {
+  //         value: item.value,
+  //         label: `${item.label}`,
+  //       };
+  //       changeOrderDetails({ column: 'site', value: val, dispatch, setOrderDetails });
+  //       return 0;
+  //     }
+  //   });
+  //   setSiteOption(siteOption);
+  // }, [siteData]);
 
   useEffect(() => {
     if (activeTab == 'review') {
