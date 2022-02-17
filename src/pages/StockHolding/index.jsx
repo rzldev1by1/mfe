@@ -42,7 +42,7 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationSh?.active, module });
+    getSummaryData({ dispatch, active: paginationSh?.active, module, user });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);

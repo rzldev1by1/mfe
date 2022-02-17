@@ -29,7 +29,8 @@ export const getSummaryData = async ({
   active,
   module,
   fromDate,
-  toDate
+  toDate,
+  user
 }) => {
   const urls = [];
   let endpointsUrl = '';
@@ -74,8 +75,8 @@ export const getSummaryData = async ({
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${siteVal || 'all'}`);
-    urls.push(`client=${clientVal || 'all'}`);
+    urls.push(`site=${siteVal || user?.site || 'all'}`);
+    urls.push(`client=${clientVal || user?.client || 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
