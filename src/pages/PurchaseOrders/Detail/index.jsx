@@ -47,7 +47,7 @@ const PurchaseOrdersDetail = (props) => {
   }, []);
 
   useEffect(() => {
-    getDetailData({ dispatch, props, active: paginationPoDetail?.active, module });
+    getDetailData({ dispatch, props, active: paginationPoDetail?.active || 1, module });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);
@@ -91,7 +91,7 @@ const PurchaseOrdersDetail = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getDetailData({ dispatch, active: paginationPoDetail?.active, Export, module });
+      getDetailData({ dispatch, active: paginationPoDetail?.active || 1, Export, module });
     }
   }, [Export]);
   return (
