@@ -12,6 +12,7 @@ import './Pagination.scss';
 const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
   const dispatch = useDispatch();
   const searchFilter = useSelector((state) => state.searchFilter);
+  const user = useSelector((state) => state.user);
   const [page, setPage] = useState({
     notifPaging: false,
     goPage: 1,
@@ -32,12 +33,12 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
 
   const search = async (e) => {
     if (e.key === 'Enter') {
-      await goToPage({ goto, pagination, page, setPage, dispatch, module });
+      await goToPage({ goto, pagination, page, setPage, dispatch, module, user });
     }
   };
   const searchForm = (e) => {
     e.preventDefault();
-    goToPage({ goto, pagination, page, setPage, dispatch, module });
+    goToPage({ goto, pagination, page, setPage, dispatch, module, user });
   };
   return (
     <div>
@@ -47,7 +48,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
             limit={3}
             activePage={active}
             pages={pages > 0 ? pages : 1}
-            onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch, module, props, searchFilter })}
+            onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch, module, props, searchFilter, user })}
             firstButton={<BsChevronBarLeft />}
             previousButton={<BsChevronLeft />}
             nextButton={<BsChevronRight className="nextBtn" />}
@@ -70,7 +71,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
               />
               <span
                 className="text-muted-dark ml-3 pointer outLineNone"
-                onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module, props, searchFilter })}
+                onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module, props, searchFilter, user })}
                 onKeyPress
                 role="button"
                 tabIndex="0"
@@ -83,9 +84,8 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
             ''
           ) : (
             <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
-              <b className="text-muted-dark">{`Showing ${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${
-                x_total === undefined ? 0 : x_total
-              } entries`}</b>
+              <b className="text-muted-dark">{`Showing ${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${x_total === undefined ? 0 : x_total
+                } entries`}</b>
             </span>
           )}
         </div>

@@ -106,6 +106,7 @@ const Search = ({
         searchInput,
         dispatch,
         module,
+        user
       });
     }
   };
@@ -121,39 +122,40 @@ const Search = ({
       searchInput,
       dispatch,
       module,
+      user
     });
   };
 
   const handleFulfill = () => {
-    getDetailData({dispatch, props, active: paginationSoDetail?.active, module, fulfill: true})
+    getDetailData({ dispatch, props, active: paginationSoDetail?.active, module, fulfill: true })
   }
 
-  const handleClear = ({dispatch, spDetailTable, setShowClearMod}) => {
+  const handleClear = ({ dispatch, spDetailTable, setShowClearMod }) => {
     let newArray = [...spDetailTable]
-    newArray = newArray.map((data,idx) => {
-        data.edit_qty = ''
-        data.edit_carton = ''
-        data.isInvalidOrderCarton = false
-        data.isInvalidOrderQty = false
-        data.isMarked = false
+    newArray = newArray.map((data, idx) => {
+      data.edit_qty = ''
+      data.edit_carton = ''
+      data.isInvalidOrderCarton = false
+      data.isInvalidOrderQty = false
+      data.isMarked = false
       return data
     });
 
-    dispatch({type:'GET_SP_DETAIL_TABLE', data:newArray})
+    dispatch({ type: 'GET_SP_DETAIL_TABLE', data: newArray })
     setShowClearMod(false)
   }
 
-  const fulfillMarkedMod = ({dispatch, spDetailTable, setShowFulfillMod, markedRow}) => {
+  const fulfillMarkedMod = ({ dispatch, spDetailTable, setShowFulfillMod, markedRow }) => {
     spDetailTable.map((data) => {
       const isMarked = data.isMarked;
-      if(isMarked && data.edit_qty !== '' && data.edit_carton !== ''){
-          setShowFulfillMod(true);
-      }else{
+      if (isMarked && data.edit_qty !== '' && data.edit_carton !== '') {
+        setShowFulfillMod(true);
+      } else {
         handleFullFillMarked({ dispatch, spDetailTable, setShowFulfillMod, markedRow })
       }
-      })
+    })
   }
-  
+
 
   useEffect(() => {
     getSite({ dispatch });
@@ -198,7 +200,7 @@ const Search = ({
   useEffect(() => {
     if (Export === true) {
       getSummaryData({
-        siteVal: user.site ||newDropdownValue.site?.value,
+        siteVal: user.site || newDropdownValue.site?.value,
         clientVal: user.client || newDropdownValue.client?.value,
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
@@ -207,16 +209,17 @@ const Search = ({
         searchInput,
         module,
         Export,
+        user
       });
     }
   }, [Export]);
-  
+
   return (
     <CCard className="mb-3">
-      <CCardBody className="p-3" style={{borderRadius: '0.25rem'}}>
+      <CCardBody className="p-3" style={{ borderRadius: '0.25rem' }}>
         <form onSubmit={searchForm}>
           <CRow className="mx-0">
-            {inputTag ? ( 
+            {inputTag ? (
               <CCol lg={module === 'UserManagement' ? 11 : 3} className="pl-0 mobile-input">
                 <div className="input-group">
                   <div className="input-group-prepend">
@@ -236,7 +239,7 @@ const Search = ({
                 </div>
               </CCol>
             ) : ''}
-           
+
             {module === 'UserManagement' ? (
               <CCol lg={1} className="pr-0">
                 <button
@@ -252,6 +255,7 @@ const Search = ({
                       dispatch,
                       searchInput,
                       module,
+                      user
                     }) && dispatch({ type: paramType, data: [] })}
                 >
                   SEARCH
@@ -390,47 +394,48 @@ const Search = ({
                     <CCol sm={4} lg={2} className="px-0 d-flex">
                       {btnClear ? (
                         <CDropdown className="btn-group btn-clear">
-                          <CDropdownToggle color="primary"> 
+                          <CDropdownToggle color="primary">
                             CLEAR
                           </CDropdownToggle>
                           <CDropdownMenu className="mt-2 shadow-none border">
                             <CDropdownItem onClick={() => setShowClearMod(true)}>CLEAR ALL</CDropdownItem>
                             <CDropdownDivider />
-                            <CDropdownItem onClick={() => handleFullFillMarked({dispatch, spDetailTable,markedRow, clearMarked:true})}>CLEAR MARKED</CDropdownItem>
+                            <CDropdownItem onClick={() => handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })}>CLEAR MARKED</CDropdownItem>
                           </CDropdownMenu>
                         </CDropdown>
-                        ) : ''}
+                      ) : ''}
                       {btnFulfill ? (
                         <CDropdown className="btn-group mx-3 btn-fulfill">
-                          <CDropdownToggle color="primary"> 
+                          <CDropdownToggle color="primary">
                             FULFILL
                           </CDropdownToggle>
                           <CDropdownMenu className="mt-2 shadow-none border">
                             <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
                             <CDropdownDivider />
-                            <CDropdownItem onClick={() => fulfillMarkedMod({dispatch, spDetailTable, setShowFulfillMod, markedRow})}>FULFILL MARKED</CDropdownItem>
+                            <CDropdownItem onClick={() => fulfillMarkedMod({ dispatch, spDetailTable, setShowFulfillMod, markedRow })}>FULFILL MARKED</CDropdownItem>
                           </CDropdownMenu>
                         </CDropdown>
-                        ) : ''}
+                      ) : ''}
                       {btnSearch ? (
                         <button
                           type="button"
                           className="btn btn-search mobile-search btn-primary float-right"
                           onClick={() =>
-                          getSummaryData({
-                            siteVal: user.site || newDropdownValue.site?.value,
-                            clientVal: user.client || newDropdownValue.client?.value,
-                            orderType: newDropdownValue.orderType,
-                            task: newDropdownValue.task,
-                            status: newDropdownValue.status,
-                            dispatch,
-                            searchInput,
-                            module,
-                          }) && dispatch({ type: paramType, data: [] })}
+                            getSummaryData({
+                              siteVal: user.site || newDropdownValue.site?.value,
+                              clientVal: user.client || newDropdownValue.client?.value,
+                              orderType: newDropdownValue.orderType,
+                              task: newDropdownValue.task,
+                              status: newDropdownValue.status,
+                              dispatch,
+                              searchInput,
+                              module,
+                              user
+                            }) && dispatch({ type: paramType, data: [] })}
                         >
                           SEARCH
                         </button>
-                        ) : ''}
+                      ) : ''}
                     </CCol>
 
                     <Modal show={showClearMod} size="lg" centered className="p-3 modal-confirmation">
@@ -446,15 +451,15 @@ const Search = ({
                         <div className="d-flex justify-content-between">
                           <img src='' alt="logo" style={{ width: "25%", height: "25%" }} />
                           <div className="pl-3">
-                            <p className="mb-0" style={{color: "#D6D8DA"}}>Are you sure?</p>
+                            <p className="mb-0" style={{ color: "#D6D8DA" }}>Are you sure?</p>
                             <p>To clear all 'Edit Qty' and 'Edit Carton' fields.</p>
                           </div>
                         </div>
                         <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
                           <Button
                             variant="primary"
-                            style={{ padding: '0rem 1.08rem'}}
-                            onClick={() => handleClear({dispatch,spDetailTable, setShowClearMod})}
+                            style={{ padding: '0rem 1.08rem' }}
+                            onClick={() => handleClear({ dispatch, spDetailTable, setShowClearMod })}
                           >
                             CLEAR
                           </Button>
@@ -480,8 +485,8 @@ const Search = ({
                         <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
                           <Button
                             variant="primary"
-                            style={{ padding: '0rem 1.08rem'}}
-                            onClick={() => handleFullFillMarked({dispatch, spDetailTable, markedRow, setShowFulfillMod})}
+                            style={{ padding: '0rem 1.08rem' }}
+                            onClick={() => handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })}
                           >
                             DONE
                           </Button>

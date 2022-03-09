@@ -2,7 +2,7 @@
 /* eslint-disable radix */
 import { getSummaryData, getForescast, getDetailData } from '../../apiService';
 
-export const onActivePageChange = ({ e, pagination, goto, dispatch, module, props , searchFilter}) => {
+export const onActivePageChange = ({ e, pagination, goto, dispatch, module, props , searchFilter, user}) => {
   const active = parseInt(e > 1 ? e : 1);
   let paramPaging = '';
   let paramType = '';
@@ -62,7 +62,8 @@ export const onActivePageChange = ({ e, pagination, goto, dispatch, module, prop
                     clientVal: searchFilter.clientVal,
                     orderType: searchFilter.orderType,
                     task: searchFilter.task,
-                    status: searchFilter.status, })
+                    status: searchFilter.status, 
+                    user})
   }
 
   if (module === 'StockHoldingForecast') {
@@ -74,7 +75,7 @@ export const onActivePageChange = ({ e, pagination, goto, dispatch, module, prop
   }
 };
 
-export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, props,  searchFilter }) => {
+export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, props,  searchFilter, user }) => {
   const newPage = { ...page };
   let paramPaging = '';
   let paramType = '';
@@ -146,14 +147,16 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
                    clientVal: searchFilter.clientVal,
                    orderType: searchFilter.orderType,
                    task: searchFilter.task,
-                   status: searchFilter.status, });
+                   status: searchFilter.status,
+                    user });
     }
   
   if (module === 'SupplierManagement'){
     getSummaryData({ dispatch, 
       active: newPage.goPage, 
       module, 
-      props,  
+      props,
+      user  
       });
   }
 
@@ -183,7 +186,7 @@ export const numberCheck = (e) => {
   }
 };
 
-export const changePage = ({active, dispatch, module, props, searchFilter}) =>{
+export const changePage = ({active, dispatch, module, props, searchFilter, user}) =>{
   let paramPaging = '';
   let paramType = '';
   if (module === 'StockHolding') {
@@ -237,7 +240,8 @@ export const changePage = ({active, dispatch, module, props, searchFilter}) =>{
                     clientVal: searchFilter.clientVal,
                     orderType: searchFilter.orderType,
                     task: searchFilter.task,
-                    status: searchFilter.status, })
+                    status: searchFilter.status,
+                    user })
   }
 
   if (module === 'StockHoldingForecast') {
