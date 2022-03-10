@@ -8,6 +8,7 @@ import './Pagination.scss';
 const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
   const dispatch = useDispatch();
   const searchFilter = useSelector((state) => state.searchFilter);
+  const user = useSelector((state) => state.user);
   const [page, setPage] = useState({
     notifPaging: false,
     goPage: 1,
@@ -29,21 +30,24 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
   const search = async (e) => {
     if (e.key === 'Enter') {
       document.getElementById('paging-number').blur();
-      await goToPage({ goto, pagination, page, setPage, dispatch, module, searchFilter });
+      await goToPage({ goto, pagination, page, setPage, dispatch, module, searchFilter, user });
       document.getElementById('paging-number').value = '';
     }
   };
   const searchForm = (e) => {
     e.preventDefault();
-    goToPage({ goto, pagination, page, setPage, dispatch, module, searchFilter });
+    goToPage({ goto, pagination, page, setPage, dispatch, module, searchFilter, user });
   };
   return (
     <div>
       <form onSubmit={searchForm}>
         <div style={{ width: 'fit-content', height: '49px' }} className="d-flex">
           <div
-            className={`page-item border-right-none ${pagination?.active == 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'}`}
-            onClick={() => pagination?.active == 1 ? '' : changePage({ active: 1, dispatch, module, props, searchFilter })}
+            className={`page-item border-right-none ${pagination?.active == 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
+              }`}
+            onClick={() =>
+              pagination?.active == 1 ? '' : changePage({ active: 1, dispatch, module, props, searchFilter, user })
+            }
           >
             <BsChevronBarLeft className="icon-size-paging-double" />
           </div>
@@ -53,7 +57,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
             onClick={() =>
               pagination?.active == 1
                 ? ''
-                : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter })
+                : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter, user })
             }
           >
             <BsChevronLeft className="icon-size-paging" />
@@ -78,7 +82,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
               }`}
             onClick={() => {
               if (pagination?.active < x_last_page) {
-                changePage({ active: pagination?.active + 1, dispatch, module, props, searchFilter });
+                changePage({ active: pagination?.active + 1, dispatch, module, props, searchFilter, user });
               }
             }}
           >

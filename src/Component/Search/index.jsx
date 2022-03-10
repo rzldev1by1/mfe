@@ -106,6 +106,7 @@ const Search = ({
         searchInput,
         dispatch,
         module,
+        user
       });
     }
   };
@@ -121,6 +122,7 @@ const Search = ({
       searchInput,
       dispatch,
       module,
+      user
     });
   };
 
@@ -207,6 +209,7 @@ const Search = ({
         searchInput,
         module,
         Export,
+        user
       });
     }
   }, [Export]);
@@ -252,6 +255,7 @@ const Search = ({
                       dispatch,
                       searchInput,
                       module,
+                      user
                     }) && dispatch({ type: paramType, data: [] })}
                 >
                   SEARCH
@@ -426,6 +430,7 @@ const Search = ({
                               dispatch,
                               searchInput,
                               module,
+                              user
                             }) && dispatch({ type: paramType, data: [] })}
                         >
                           SEARCH

@@ -42,7 +42,7 @@ const UserManagement = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationUm?.active, module });
+    getSummaryData({ dispatch, active: paginationUm?.active, module, user });
   }, []);
 
   useEffect(() => {

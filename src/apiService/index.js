@@ -75,8 +75,8 @@ export const getSummaryData = async ({
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${siteVal || user?.site || 'all'}`);
-    urls.push(`client=${clientVal || user?.client || 'all'}`);
+    urls.push(`site=${user.userLevel !== 'Admin' ? siteVal || user?.site : 'all'}`);
+    urls.push(`client=${user.userLevel !== 'Admin' ? clientVal || user?.client : 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }

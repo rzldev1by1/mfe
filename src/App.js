@@ -26,8 +26,6 @@ class ProtectedRoute extends React.Component {
       axios.defaults.headers.common['Accept'] = 'application/json';
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
       axios.defaults.headers.common['userLevel'] = userLevel || '';
-      axios.defaults.headers.common.client = client || '';
-      axios.defaults.headers.common.webUser = webUser || '';
       axios.interceptors.request.use((request) => {
         return request;
       });
