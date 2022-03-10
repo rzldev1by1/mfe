@@ -13,8 +13,15 @@ const PagingMove = ({ startIndex, endIndex, total, activePage, setActivePage, sh
   const pages = Math.ceil(total / show);
 
   const search = async (e) => {
+      const newPage = {...page}
     if (e.key === 'Enter') {
-        setPage(e);
+        // setActivePage(e.target.value)
+        if(e.target.value > pages){
+            newPage.notifPaging = true
+            setPage(newPage)
+        }else{
+           setActivePage(e.target.value)
+        }
     }
   };
   const searchForm = (e) => {
@@ -56,14 +63,12 @@ const PagingMove = ({ startIndex, endIndex, total, activePage, setActivePage, sh
           </div>
             <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
               <b className="text-muted-soft mr-1" style={{ fontWeight: '400' }}>
-                {' '}
                 {`Showing`}
               </b>
               <b className="text-muted-dark mr-1">
                 {`${isNaN(startIndex) ? 0 : startIndex} to ${isNaN(endIndex) ? 0 : endIndex} of ${total === undefined ? 0 : total}`}
               </b>
               <b className="text-muted-soft" style={{ fontWeight: '400' }}>
-                {' '}
                 {`entries`}
               </b>
             </span>
