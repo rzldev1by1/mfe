@@ -4,8 +4,8 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
 // import library
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import withFixedColumns from 'react-table-hoc-fixed-columns';
 import { CRow, CCol } from '@coreui/react';
@@ -21,7 +21,8 @@ import './style.scss';
 const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, filename, customExportPdf }) => {
   const ReactTableFixedColumns = withFixedColumns(ReactTable);
   const [dataPaging, setDataPaging] = useState()
-  const [activePage, setActivePage] = useState(1)
+  const activePage = useSelector((state) => state.getActivePage);
+  // const [activePage, setActivePage] = useState(1)
   const noDataMessage = (
     <div className="caution-caution">
       <div>No Data Available</div>
@@ -50,7 +51,7 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
   const show = 50;
 
   // pagination
-  const startIndexVormula = (activePage - 1) * (total < show ? total : show);
+  const startIndexVormula = (activePage ? activePage - 1 : 1 - 1 ) * (total < show ? total : show);
   const endIndexVormula = startIndexVormula + (total < show ? total : show);
   const startIndex = data?.length > 0 && startIndexVormula < 1 ? 1 : startIndexVormula;
   const endIndex = endIndexVormula > total ? total : endIndexVormula
@@ -76,7 +77,7 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
 
       <CRow lg="12" className="mt-3 w-100 pagination-custom">
         <CCol lg="7" className="px-0 w-100 margin-mr">
-          <Pagination  startIndex={startIndex} endIndex={endIndex} total={total} activePage={activePage} setActivePage={setActivePage} show={show}/>
+          <Pagination  startIndex={startIndex} endIndex={endIndex} total={total} activePage={activePage}  show={show}/>
         </CCol>
         <CCol lg="5" md="1" className="px-0 w-100 export-ml">
           {data?.length < 1 ? null : (

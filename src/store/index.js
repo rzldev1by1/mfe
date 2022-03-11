@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   loading: true,
   expired: false,
   lastChangedUser: null,
-  markedRow:[]
+  markedRow: []
 };
 
 // REDUCERS
@@ -167,6 +167,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     // Stock Movement
     case 'GET_SM_SUMMARY':
       return { ...state, smSummaryData: data };
+    case 'GET_ACTIVE_PAGE':
+      return { ...state, getActivePage: data };
     // Stock Movement End
 
     // Table Status
@@ -178,9 +180,9 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
 
     // STYLE of ROW TABLE
     case 'IDX_ROWS':
-      return {...state, idxRows: data}
-    case 'IS_FOCUS': 
-      return {...state, isFocusss:data}
+      return { ...state, idxRows: data }
+    case 'IS_FOCUS':
+      return { ...state, isFocusss: data }
     // User Management
     case 'GET_UM_SUMMARY':
       return { ...state, umSummaryData: data };
@@ -198,17 +200,17 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
 
     // Supplier Management
     case 'GET_SP_SUMMARY':
-      return {...state, spSummaryData: data};
+      return { ...state, spSummaryData: data };
     case 'GET_SP_DETAIL_TABLE':
       return { ...state, spDetailTable: data };
-      case 'TEST' : 
-      case 'MARKED' :
-      return {...state, markedRow:data}
+    case 'TEST':
+    case 'MARKED':
+      return { ...state, markedRow: data }
     // Supplier Management End
 
     // Status drag table
     case 'DRAG_STATUS':
-      return {...state, dragStatus:data}
+      return { ...state, dragStatus: data }
     // end
 
     default:

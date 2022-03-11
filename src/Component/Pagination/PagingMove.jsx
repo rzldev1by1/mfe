@@ -1,26 +1,30 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { BsChevronLeft, BsChevronRight, BsChevronBarLeft } from 'react-icons/bs';
 import PopUpPages from 'Component/Modal/PopUpPages';
 import { numberCheck, onChange, goToPage, changePage } from 'Component/Pagination/service';
 import './Pagination.scss';
 
-const PagingMove = ({ startIndex, endIndex, total, activePage, setActivePage, show}) => {
+const PagingMove = ({ startIndex, endIndex, total, activePage, show}) => {
+  const newActivePage = activePage ? activePage : 1
+  const dispatch = useDispatch();
   const [page, setPage] = useState({
     notifPaging: false,
     goPage: 1,
   });
+  const [valuePaging, setValuePaging] = useState('');
 
   const pages = Math.ceil(total / show);
 
   const search = async (e) => {
       const newPage = {...page}
     if (e.key === 'Enter') {
-        // setActivePage(e.target.value)
+        setValuePaging('')
         if(e.target.value > pages){
             newPage.notifPaging = true
             setPage(newPage)
         }else{
-           setActivePage(e.target.value)
+          dispatch({ type: 'GET_ACTIVE_PAGE', data: e.target.value });
         }
     }
   };
@@ -31,13 +35,13 @@ const PagingMove = ({ startIndex, endIndex, total, activePage, setActivePage, sh
     <div>
       <form onSubmit={searchForm}>
         <div style={{ width: 'fit-content', height: '49px' }} className="d-flex">
-          <div className={`page-item border-right-none ${activePage === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'}`}
-             onClick={() => setActivePage(1)}
+          <div className={`page-item border-right-none ${newActivePage === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'}`}
+             onClick={() => dispatch({ type: 'GET_ACTIVE_PAGE', data: 1 })}
           >
             <BsChevronBarLeft className="icon-size-paging-double" />
           </div>
-          <div className={`page-item paging-previous ${activePage === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'}`}
-             onClick={() => setActivePage(activePage === 1 ? 1 : activePage - 1)}
+          <div className={`page-item paging-previous ${newActivePage === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'}`}
+             onClick={() => dispatch({ type: 'GET_ACTIVE_PAGE', data:newActivePage === 1 ? 1 : newActivePage - 1 })}
           >
             <BsChevronLeft className="icon-size-paging" />
           </div>
@@ -45,9 +49,10 @@ const PagingMove = ({ startIndex, endIndex, total, activePage, setActivePage, sh
             <input
               id="paging-number"
               type="number"
-              placeholder={activePage}
+              placeholder={newActivePage}
+              value={valuePaging}
               className="number-pag rounded input-paging"
-              onChange={(e) => onChange({ e, page, setPage })}
+              onChange={(e) => {onChange({ e, page, setPage, setValuePaging })}}
               onKeyDown={(e) => search(e)}
               min="1"
               max={pages > 0 ? pages : 1}
@@ -56,8 +61,14 @@ const PagingMove = ({ startIndex, endIndex, total, activePage, setActivePage, sh
             <span className="text-muted-soft ml-2">of</span>
             <span className="text-muted-soft ml-2">{isNaN(pages) ? 1 : pages}</span>
           </div>
-          <div className={`page-item margin-none-left border-left-none ${activePage >= pages ? 'text-muted-soft' : ' text-muted-dark click-tab'}`}
-            onClick={() => setActivePage(pages > activePage ? activePage+1 : pages)}
+          <div className={`page-item margin-none-left border-left-none ${newActivePage >= pages ? 'text-muted-soft' : ' text-muted-dark click-tab'}`}
+            onClick={() => {
+              if(pages > newActivePage){
+                dispatch({ type: 'GET_ACTIVE_PAGE', data: newActivePage+1 });
+              }else{
+                dispatch({ type: 'GET_ACTIVE_PAGE', data: pages });
+              }
+            }}
           >
             <BsChevronRight className=" icon-size-paging" />
           </div>
