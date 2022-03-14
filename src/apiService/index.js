@@ -75,8 +75,8 @@ export const getSummaryData = async ({
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${user.userLevel !== 'Admin' ? siteVal || user?.site : 'all'}`);
-    urls.push(`client=${user.userLevel !== 'Admin' ? clientVal || user?.client : 'all'}`);
+    urls.push(`site=${user.userLevel !== 'Admin' ? user?.site : siteVal || 'all'}`);
+    urls.push(`client=${user.userLevel !== 'Admin' ? user?.client : clientVal || 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
@@ -87,6 +87,7 @@ export const getSummaryData = async ({
   } else {
     dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   }
+  console.log(user.userLevel)
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
   const Meta = newData?.data?.meta;
@@ -366,7 +367,7 @@ export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
   paramUrl.push(`startDate=${fromDate || ''}`);
   paramUrl.push(`endDate=${toDate || ''}`);
   paramUrl.push(`filterType=${period}`);
-  paramUrl.push(`client=${clientVal?.value || user.client || '' }`);
+  paramUrl.push(`client=${clientVal?.value || user.client || ''}`);
   paramUrl.push(`site=${siteVal?.value || user.site || ''}`);
   paramUrl.push(`product=${productVal?.value || ''}`);
 
