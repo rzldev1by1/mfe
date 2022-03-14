@@ -176,7 +176,9 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
 
 export const onChange = ({ e, page, setPage, setValuePaging }) => {
   const newPage = { ...page };
-  setValuePaging(e.target.value)
+  if (setValuePaging) {
+    setValuePaging(e.target.value)
+  }
   if (e.target.value === '') {
     newPage.goPage = '';
     setPage(newPage);
