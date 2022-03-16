@@ -37,7 +37,7 @@ class PopUpPages extends Component {
             <img src={this.props.darkMode ? LogoWhite : logoConfirm} alt="logo" style={{ width: "20%", height: "20%" }} />
             <div className="pl-3 fontDes">
               Only
-                  {' '}
+              {' '}
               {xLastPage}
               {xLastPage === 1 ? " page is " : " pages are "}
               {' '}
