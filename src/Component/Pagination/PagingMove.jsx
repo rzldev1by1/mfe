@@ -23,8 +23,12 @@ const PagingMove = ({ startIndex, endIndex, total, activePage, show}) => {
         if(e.target.value > pages){
             newPage.notifPaging = true
             setPage(newPage)
+            document.getElementById('paging-number').blur();
+            document.getElementById('paging-number').value = '';
         }else{
           dispatch({ type: 'GET_ACTIVE_PAGE', data: e.target.value });
+          document.getElementById('paging-number').blur();
+          document.getElementById('paging-number').value = '';
         }
     }
   };
