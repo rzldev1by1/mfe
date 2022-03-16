@@ -529,7 +529,7 @@ input.outOfRemaining-input:focus {
 }
 .line-paging{
   background-color: #fff;
-  border-radius: 6px;
+  border-radius: 0.25rem;
   color: rgb(0, 0, 0)
 }
 .arrow-profile{
@@ -1238,7 +1238,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 
         .line-paging{
           background-color: #1F192D !important;
-          border-radius: 6px;
+          border-radius: 0.25rem;
           color: rgb(255, 255, 255)
         }
 

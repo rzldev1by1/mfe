@@ -192,6 +192,8 @@ $spinkit-spinner-color: $body-color;
   }
   .show-edit-icon .rt-th:last-child {
     background: #1F192D !important;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
   }
 
   .ReactTable .rt-tbody .rt-tr-group {
@@ -315,7 +317,7 @@ $spinkit-spinner-color: $body-color;
   }
   .line-paging{
     background-color: #1F192D !important;
-    border-radius: 6px;
+    border-radius: 0.25rem;
     color: rgb(255, 255, 255)
   }
 

@@ -215,8 +215,8 @@ const Search = ({
   }, [Export]);
 
   return (
-    <CCard className="mb-3" style={{ borderRadius: '0.6rem' }}>
-      <CCardBody className="p-2" style={{ borderRadius: '0.6rem' }}>
+    <CCard className="mb-3" style={{ borderRadius: '0.25rem' }}>
+      <CCardBody className="p-2" style={{ borderRadius: '0.25rem' }}>
         <form onSubmit={searchForm}>
           <CRow className="mx-0">
             {inputTag ? (
