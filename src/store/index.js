@@ -166,6 +166,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     // Stock Movement
     case 'GET_SM_SUMMARY':
       return { ...state, smSummaryData: data };
+    case 'GET_ACTIVE_PAGE':
+      return { ...state, getActivePage: data };
     // Stock Movement End
 
     // Table Status

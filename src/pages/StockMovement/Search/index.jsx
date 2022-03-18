@@ -56,6 +56,7 @@ const Search = ({ setHeader, setdateHeader }) => {
   useEffect(() => {
     if (isSearch === true) {
       if (period && dateFrom && dateTo) {
+        dispatch({ type: 'GET_ACTIVE_PAGE', data: 1 });
         dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
         getStockMovement({ dropdownValue, dispatch, user });
         setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
