@@ -75,8 +75,8 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
         }}
       />
 
-      <CRow lg="12" className="mt-3 w-100 pagination-custom">
-        <CCol lg="7" className="px-0 w-100 margin-mr">
+      <CRow lg="12" className="mt-3 w-100 pagination-custom align-items-center d-flex">
+        <CCol lg="5" className="px-0 w-100 margin-mr">
           <Pagination  startIndex={startIndex} endIndex={endIndex} total={total} activePage={activePage}  show={show}/>
         </CCol>
         <CCol lg="3">
