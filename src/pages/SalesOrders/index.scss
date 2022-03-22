@@ -2,7 +2,7 @@
     border: 0px !important;
     .rt-table {
       margin-top: 0px !important;
-  
+      border-radius: 0.25rem;
       .rt-thead {
         .rt-tr {
           .rt-th {
@@ -15,7 +15,9 @@
             text-align: left !important;
           }
           .rt-th:last-child{
-            -webkit-justify-content: center !important
+            -webkit-justify-content: center !important;
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
           }
           .enable-drag {
             padding: 0px !important;

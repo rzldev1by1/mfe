@@ -78,7 +78,7 @@ const UserManagementDetail = (props) => {
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
-      <CCard>
+      <CCard  style={{borderRadius:"0.25rem"}}>
         <CCardBody className="p-3">
           <form
             onSubmit={(e) => {
