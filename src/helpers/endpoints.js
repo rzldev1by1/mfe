@@ -1,4 +1,5 @@
-const version = process.env.REACT_APP_API_URL_VERSION;
+const version = process.env.REACT_APP_API_URL_VERSION; /* comment this line when build docker [DOCKER BUILD] */
+// const version = window._env_.REACT_APP_API_URL_VERSION; /* uncomment this line when build docker [DOCKER BUILD]] */
 export default {
   // Dropdown Start --------------------------------------------------------
   getSite: `/${version}/settings/sites`,
@@ -61,5 +62,6 @@ export default {
   resetPassword: '/auth/forgot-password',
 
   orderCheck: '/orderCheck',
-  env: process.env
+  env: process.env /* comment this line when build docker [DOCKER BUILD] */
+  // env: window._env_ /* uncomment this line when build docker [DOCKER BUILD]] */
 };
