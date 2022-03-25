@@ -21,5 +21,7 @@ RUN apk add --no-cache bash
 # Make our shell script executable
 RUN chmod +x env.sh
 
+# RUN sed -i -e 's/\r$//' /usr/share/nginx/html/env.sh # Uncomment this if build docker in windows
+
 # Start Nginx server
 CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
