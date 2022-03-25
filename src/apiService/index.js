@@ -87,7 +87,6 @@ export const getSummaryData = async ({
   } else {
     dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   }
-  console.log(user.userLevel)
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
   const Meta = newData?.data?.meta;
