@@ -7,7 +7,6 @@ import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
 import { getDetailData, getDetailHeader } from '../../../apiService';
 import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO, formatDate } from './services';
-import './index.scss';
 
 const SalesOrdersDetail = (props) => {
   const dispatch = useDispatch();

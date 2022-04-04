@@ -5,7 +5,6 @@ import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
 import { schemaColumn, statusDataSH } from './services';
 import { getSummaryData } from '../../apiService';
-import './index.scss';
 
 const PurchaseOrders = (props) => {
   const showDetails = (item) => {

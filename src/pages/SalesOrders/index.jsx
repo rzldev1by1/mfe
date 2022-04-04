@@ -8,7 +8,6 @@ import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
 import endpoints from 'helpers/endpoints';
-import './index.scss';
 
 const SalesOrders = (props) => {
   const showDetails = (item) => {
