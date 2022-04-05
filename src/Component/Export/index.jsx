@@ -108,14 +108,13 @@ const Export = ({
       <ButtonDropdown
         direction="up"
         style={styleButton}
-        style={{ height: "40px !important" }}
         className=" d-flex float-right align-items-center"
         isOpen={dropdownOpen}
         toggle={() => {
           setDropdownOpen(!dropdownOpen);
         }}
       >
-        <DropdownToggle color="primary" className="Dropdown-toggel align-items-center btn-export">
+        <DropdownToggle color="primary" className="Dropdown-toggel align-items-center">
           <div style={{ fontSize: '0.875rem', letterSpacing: '1px' }}>
             {exportStatus === 'ready' ? (
               'EXPORT'
@@ -125,14 +124,15 @@ const Export = ({
           </div>
         </DropdownToggle>
         <DropdownMenu
-          className={`no-shadow ${exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
-            }`}
+          className={`no-shadow ${
+            exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
+          }`}
         >
           {!exportPdf ? (
             ''
           ) : (
             <DropdownItem className="export-pdf px-1 d-flex justify-content-center" onClick={() => setRunExport('PDF')}>
-              <span className="icon-group_4672" style={{ paddingRight: '0.28rem' }} />
+              <span className="exp-PDF" style={{ paddingRight: '0.28rem' }} />
               EXPORT TO PDF
             </DropdownItem>
           )}
@@ -140,11 +140,11 @@ const Export = ({
             ''
           ) : (
             <div>
-              <DropdownItem
-                className={`export-excel so-export px-1 d-flex justify-content-center
+              <DropdownItem 
+                  className={`export-excel so-export px-1 d-flex justify-content-center
                   ${exportPdf === false ? ' radius-top-export' : ''}`}
-                onClick={() => setRunExport('XLS')}>
-                <span className="icon-group_4671" style={{ paddingRight: '0.3rem' }} />
+                  onClick={() => setRunExport('XLS')}>
+                <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
               <div style={{ display: 'none' }}>
@@ -184,10 +184,10 @@ const Export = ({
                   {schemaColumn.map((column, columnIdx) => {
                     let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
                     if (columnHiddenCharacter.includes(column.accessor)) {
-                      return <td key={columnIdx}>{dataReturn}‎‎‎</td>;
+                      return <td key={columnIdx}>{dataReturn}</td>;
                     }
                     if (columnRightCharacter.includes(column.accessor)) {
-                      return <td style={{ textAlign: 'right' }} key={columnIdx}>{dataReturn}‎‎‎</td>;
+                      return <td style={{ textAlign: 'right'}} key={columnIdx}>{dataReturn}</td>;
                     }
                     return <td key={columnIdx}>{dataReturn}</td>;
                   })}
