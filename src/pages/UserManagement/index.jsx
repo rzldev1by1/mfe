@@ -97,27 +97,29 @@ const UserManagement = (props) => {
         </CCardBody>
         <Search module={module} Export={Export} placeholder="Enter User ID or Name" filter onChangeGetTask btnSearch inputTag />
       </CCard>
-      <TableMaster
-        onClick={showDetails}
-        schemaColumn={schemaColumn}
-        data={umSummaryData}
-        style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
-        module={module}
-        noDataText
-        pagination={paginationUm}
-        goto={(e) => {
-          dispatch({ type: 'PAGING_UM', data: { ...paginationUm, active: e } });
-        }}
-        exportData=""
-        user={user}
-        title="User Management Summary"
-        filename="Microlistics_UserManagement."
-        font="9"
-        getExportData={async () => {
-          setExport(true);
-        }}
-        editColumn="false"
-      />
+      <div className='table-UM'>
+        <TableMaster
+          onClick={showDetails}
+          schemaColumn={schemaColumn}
+          data={umSummaryData}
+          style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
+          module={module}
+          noDataText
+          pagination={paginationUm}
+          goto={(e) => {
+            dispatch({ type: 'PAGING_UM', data: { ...paginationUm, active: e } });
+          }}
+          exportData=""
+          user={user}
+          title="User Management Summary"
+          filename="Microlistics_UserManagement."
+          font="9"
+          getExportData={async () => {
+            setExport(true);
+          }}
+          editColumn="false"
+        />
+      </div>
       <Create show={showModal} setShow={setShowModal} />
     </div>
   );
