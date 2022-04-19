@@ -62,7 +62,7 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
     <div className="fixedColumnTable">
       <ReactTableFixedColumns
         columns={schemaColumn}
-        data={data}
+        data={dataAll}
         showPagination={false}
         defaultPageSize={50}
         style={style}
