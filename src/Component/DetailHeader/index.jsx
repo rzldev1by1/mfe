@@ -81,9 +81,8 @@ const DetailHeader = ({
   valeuLeftTen,
 }) => {
   const [ModalShow, setModalShow] = useState(false);
-
   return (
-    <div className="card-group" style={{borderRadius:"0.25rem"}}>
+    <div className="card-group" style={{ borderRadius: '0.25rem' }}>
       {titleRight === true ? (
         <CCard className={titleRight === true ? null : ' d-none'}>
           <CCardBody className={`p-0 m-3${titleCenter === true ? ' border-right' : ' d-none'}`}>
@@ -127,8 +126,9 @@ const DetailHeader = ({
       {titleCenter === true ? (
         <CCard>
           <CCardBody
-            className={`mobile-header p-0 my-3 mr-3 ml-0 ${module === 'stockHolding' ? 'pl-3' : ''} ${titleLeft === true ? ' border-right' : ' d-none'
-              }`}
+            className={`mobile-header p-0 my-3 mr-3 ml-0 ${module === 'stockHolding' ? 'pl-3' : ''} ${
+              titleLeft === true ? ' border-right' : ' d-none'
+            }`}
           >
             <CRow className={`mx-0 ${titleCenter ? null : ' d-none'}`}>
               <CCol lg={'auto'} className="px-0 mr-3 text-header-title">

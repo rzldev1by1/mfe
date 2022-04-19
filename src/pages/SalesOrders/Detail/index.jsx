@@ -141,7 +141,7 @@ const SalesOrdersDetail = (props) => {
           titleCenterSeven="Suburb"
           titleCenterEight="Postcode"
           titleCenterNine="State"
-          titleCenterten="Country"
+          titleCenterTen="Country"
           // Valeu Center
           valeuCenterOne={soDetail?.address1 || '-'}
           valeuCenterTwo={soDetail?.address2 || '-'}
