@@ -20,7 +20,7 @@ import './style.scss';
 
 const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, filename, customExportPdf }) => {
   const ReactTableFixedColumns = withFixedColumns(ReactTable);
-  const [dataPaging, setDataPaging] = useState()
+  const [dataPaging, setDataPaging] = useState();
   const activePage = useSelector((state) => state.getActivePage);
   // const [activePage, setActivePage] = useState(1)
   const noDataMessage = (
@@ -51,13 +51,13 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
   const show = 50;
 
   // pagination
-  const startIndexVormula = (activePage ? activePage - 1 : 1 - 1 ) * (total < show ? total : show);
+  const startIndexVormula = (activePage - 1) * (total < show ? total : show);
   const endIndexVormula = startIndexVormula + (total < show ? total : show);
-  const startIndex = data?.length > 0 && startIndexVormula < 1 ? 1 : startIndexVormula;
+  const startIndex = total > 0 && startIndexVormula < 1 ? 1 : startIndexVormula;
   const endIndex = endIndexVormula > total ? total : endIndexVormula
 
-  const dataAll = data?.slice(startIndex, endIndex)
-
+  const sliceData = activePage === 1 ? startIndex - 1 : startIndex
+  const dataAll = data?.slice(sliceData, endIndex)
   return (
     <div className="fixedColumnTable">
       <ReactTableFixedColumns
@@ -77,7 +77,7 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
 
       <CRow lg="12" className="mt-3 w-100 pagination-custom">
         <CCol lg="7" className="px-0 w-100 margin-mr">
-          <Pagination  startIndex={startIndex} endIndex={endIndex} total={total} activePage={activePage}  show={show}/>
+          <Pagination startIndex={startIndex} endIndex={endIndex} total={total} activePage={activePage} show={show} />
         </CCol>
         <CCol lg="5" md="1" className="px-0 w-100 export-ml">
           {data?.length < 1 ? null : (

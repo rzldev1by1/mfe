@@ -110,7 +110,6 @@ export const getSummaryData = async ({
 
   if (Data) {
     Data.map((item, idx) => {
-      const customerName = item?.customername?.split(':');
       item.product = String(item.product);
       item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
       item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
@@ -134,7 +133,6 @@ export const getSummaryData = async ({
       item.client = item.client && item.client !== '' ? item.client : 'All';
       item.last_access =
         item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
-      if (customerName !== undefined) item.customername = customerName[1];
     });
 
     if (Export === true) {
