@@ -95,8 +95,6 @@ const SalesOrdersDetail = (props) => {
     }
   }, [Export]);
 
-  let indexCustomerName = soDetail?.customername ? soDetail?.customername.split(':') : [];
-  if (indexCustomerName !== undefined) indexCustomerName = indexCustomerName[1];
   return (
     <div className="so-detail">
       <Breadcrumb
@@ -126,7 +124,7 @@ const SalesOrdersDetail = (props) => {
           valeuRightFour={soDetail?.ordertype || '-'}
           valeuRightFive={soDetail?.isistask || '-'}
           valeuRightSix={soDetail?.customer || '-'}
-          valeuRightSeven={indexCustomerName || '-'}
+          valeuRightSeven={soDetail?.customername || '-'}
           valeuRightEight={soDetail?.customerpono || '-'}
           valeuRightNine={soDetail?.vendororderno || '-'}
           valeuRightEleven={soDetail?.deliverydescription || '-'}
