@@ -51,12 +51,16 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
   const show = 50;
 
   // pagination
-  const startIndexVormula = (activePage ? activePage - 1 : 1 - 1 ) * (total < show ? total : show);
+  const startIndexVormula = (activePage - 1) * (total < show ? total : show);
   const endIndexVormula = startIndexVormula + (total < show ? total : show);
-  const startIndex = data?.length > 0 && startIndexVormula < 1 ? 1 : startIndexVormula;
+  const startIndex = total > 0 && startIndexVormula < 1 ? 1 : startIndexVormula;
   const endIndex = endIndexVormula > total ? total : endIndexVormula
 
-  const dataAll = data?.slice(startIndex, endIndex)
+  const sliceData = activePage === 1 ? startIndex - 1 : startIndex
+
+  const dataAll = data?.slice(sliceData, endIndex)
+
+  console.log(dataAll, data)
 
   return (
     <div className="fixedColumnTable">
