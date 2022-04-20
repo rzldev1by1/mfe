@@ -456,7 +456,6 @@ const Form = ({
             readOnly={isReadonly}
             required
             messageRequired={true}
-            messageRequired={true}
             messageParam={{
               messageShow: isValidation,
               value: customerDetails?.postcode,
@@ -475,7 +474,6 @@ const Form = ({
             maxLength={30}
             readOnly={isReadonly}
             required
-            messageRequired={true}
             messageRequired={true}
             messageParam={{
               messageShow: isValidation,

@@ -92,7 +92,6 @@ const Form = ({
 
     if (client) {
       getSupplier({ client: client, site: orderDetails?.site, setSupplier });
-      // getDisposition({ dispatch, client: selected.value });
     }
 
     changeOrderDetailSiteAndClient({ valClient, valSite, setOrderDetails, orderDetails });
