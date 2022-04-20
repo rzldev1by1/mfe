@@ -90,6 +90,10 @@ const Form = ({
       });
     }
 
+    if (client) {
+      getSupplier({ client: client, site: orderDetails?.site, setSupplier });
+    }
+
     changeOrderDetailSiteAndClient({ valClient, valSite, setOrderDetails, orderDetails });
     setSiteOption(siteOption);
     setClientOption(clientOption);
