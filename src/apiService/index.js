@@ -65,6 +65,8 @@ export const getSummaryData = async ({
     paramPaging = 'PAGING_SP';
   }
   // Url
+
+
   if (module === 'UserManagement') {
     urls.push(`search=${searchInput || ''}`);
   }
@@ -74,9 +76,25 @@ export const getSummaryData = async ({
     urls.push(`endDate=${toDate || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
+    let valueSite = ''
+    let valueClient = ''
+    if (user.userLevel) {
+      if (user.userLevel === 'Admin' || user.userLevel === 'ADMIN') {
+        valueSite = siteVal || 'all'
+        valueClient = clientVal || 'all'
+      } else {
+        valueSite = user?.site
+        valueClient = user?.client
+      }
+    } else {
+      valueSite = siteVal || 'all'
+      valueClient = clientVal || 'all'
+    }
+    console.log('hai', valueSite, valueClient)
+
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${user.userLevel !== 'Admin' ? user?.site : siteVal || 'all'}`);
-    urls.push(`client=${user.userLevel !== 'Admin' ? user?.client : clientVal || 'all'}`);
+    urls.push(`site=${valueSite}`);
+    urls.push(`client=${valueClient}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
@@ -357,6 +375,7 @@ export const getDateRange = async ({ setDefaultDate }) => {
 export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
   const url = `${endpoints.stockMovement}`;
   let { siteVal, clientVal, period, fromDate, toDate, productVal } = dropdownValue;
+  console.log(siteVal.value, clientVal.value)
   let paramUrl = [];
   period = period?.value || 'week';
 

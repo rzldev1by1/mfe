@@ -39,7 +39,6 @@ const Search = ({
   btnClear,
   btnFulfill,
   btnSearch,
-  setFulfill,
   paginationSoDetail,
   props,
   spDetailTable
@@ -78,13 +77,11 @@ const Search = ({
   });
 
   let paramType = '';
-  let searchFilter = '';
   if (module === 'StockHolding') {
     paramType = 'GET_SH_SUMMARY';
   }
   if (module === 'purchaseOrder') {
     paramType = 'GET_PO_SUMMARY';
-    searchFilter = 'SEARCH_FILTER';
   }
   if (module === 'salesOrder') {
     paramType = 'GET_SO_SUMMARY';
@@ -92,6 +89,8 @@ const Search = ({
   if (module === 'UserManagement') {
     paramType = 'GET_UM_SUMMARY';
   }
+
+  const newDropdownValue = { ...dropdownValue };
 
   const search = async (e) => {
     if (e.key === 'Enter') {
@@ -114,8 +113,8 @@ const Search = ({
     e.preventDefault();
     getSummaryData({
       e,
-      siteVal: user.site || newDropdownValue.site,
-      clientVal: user.client || newDropdownValue.client,
+      siteVal: user.site ? user.site : newDropdownValue.site,
+      clientVal: user.client ? user.client : newDropdownValue.client,
       orderType: newDropdownValue.orderType,
       task: newDropdownValue.task,
       status: newDropdownValue.status,
@@ -163,7 +162,6 @@ const Search = ({
     getStatus({ dispatch });
     getOrderType({ dispatch, company, client, module });
   }, []);
-  const newDropdownValue = { ...dropdownValue };
 
   useEffect(() => {
     setGetTaskParam({ site: newDropdownValue.site, client: newDropdownValue.client });
@@ -200,8 +198,8 @@ const Search = ({
   useEffect(() => {
     if (Export === true) {
       getSummaryData({
-        siteVal: user.site || newDropdownValue.site?.value,
-        clientVal: user.client || newDropdownValue.client?.value,
+        siteVal: user.site ? user.site : newDropdownValue.site?.value,
+        clientVal: user.client ? user.client : newDropdownValue.client?.value,
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
         status: newDropdownValue.status,
@@ -247,8 +245,8 @@ const Search = ({
                   className="btn btn-search mobile-search  btn-primary float-right"
                   onClick={() =>
                     getSummaryData({
-                      siteVal: user.site || newDropdownValue.site?.value,
-                      clientVal: user.client || newDropdownValue.client?.value,
+                      siteVal: user.site ? user.site : newDropdownValue.site?.value,
+                      clientVal: user.client ? user.client : newDropdownValue.client?.value,
                       orderType: newDropdownValue.orderType,
                       task: newDropdownValue.task,
                       status: newDropdownValue.status,
@@ -420,10 +418,10 @@ const Search = ({
                         <button
                           type="button"
                           className="btn btn-search mobile-search btn-primary float-right"
-                          onClick={() =>
+                          onClick={() =>{ 
                             getSummaryData({
-                              siteVal: user.site || newDropdownValue.site?.value,
-                              clientVal: user.client || newDropdownValue.client?.value,
+                              siteVal: user.site ? user.site : newDropdownValue.site?.value,
+                              clientVal: user.client ? user.client :  newDropdownValue.client?.value,
                               orderType: newDropdownValue.orderType,
                               task: newDropdownValue.task,
                               status: newDropdownValue.status,
@@ -431,7 +429,9 @@ const Search = ({
                               searchInput,
                               module,
                               user
-                            }) && dispatch({ type: paramType, data: [] })}
+                            }); 
+                            dispatch({ type: paramType, data: [] })
+                          }}
                         >
                           SEARCH
                         </button>
