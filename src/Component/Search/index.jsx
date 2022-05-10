@@ -3,9 +3,31 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { CCard, CCardBody, CRow, CCol, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdownDivider } from '@coreui/react';
+import {
+  CCard,
+  CCardBody,
+  CRow,
+  CCol,
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem,
+  CDropdownDivider,
+} from '@coreui/react';
 import { Button, Col, Modal } from 'react-bootstrap';
-import { setSite, setClient, setOrderType, setTask, setStatus, setStyle, setStyleDesc, setColor, setDimensions, setSize, handleFullFillMarked } from './service';
+import {
+  setSite,
+  setClient,
+  setOrderType,
+  setTask,
+  setStatus,
+  setStyle,
+  setStyleDesc,
+  setColor,
+  setDimensions,
+  setSize,
+  handleFullFillMarked,
+} from './service';
 import Dropdown from '../Dropdown';
 import {
   getSite,
@@ -41,7 +63,7 @@ const Search = ({
   btnSearch,
   paginationSoDetail,
   props,
-  spDetailTable
+  spDetailTable,
 }) => {
   // params
   const dispatch = useDispatch();
@@ -61,7 +83,7 @@ const Search = ({
   const [getTaskParam, setGetTaskParam] = useState(false);
   const [showClearMod, setShowClearMod] = useState(false);
   const [showFulfillMod, setShowFulfillMod] = useState(false);
-  const markedRow = useSelector((state) => state.markedRow)
+  const markedRow = useSelector((state) => state.markedRow);
   const [dropdownValue, setdropdownValue] = useState({
     site: '',
     client: '',
@@ -105,7 +127,7 @@ const Search = ({
         searchInput,
         dispatch,
         module,
-        user
+        user,
       });
     }
   };
@@ -121,28 +143,28 @@ const Search = ({
       searchInput,
       dispatch,
       module,
-      user
+      user,
     });
   };
 
   const handleFulfill = () => {
-    getDetailData({ dispatch, props, active: paginationSoDetail?.active, module, fulfill: true })
-  }
+    getDetailData({ dispatch, props, active: paginationSoDetail?.active, module, fulfill: true });
+  };
 
   const handleClear = ({ dispatch, spDetailTable, setShowClearMod }) => {
-    let newArray = [...spDetailTable]
+    let newArray = [...spDetailTable];
     newArray = newArray.map((data, idx) => {
-      data.edit_qty = ''
-      data.edit_carton = ''
-      data.isInvalidOrderCarton = false
-      data.isInvalidOrderQty = false
-      data.isMarked = false
-      return data
+      data.edit_qty = '';
+      data.edit_carton = '';
+      data.isInvalidOrderCarton = false;
+      data.isInvalidOrderQty = false;
+      data.isMarked = false;
+      return data;
     });
 
-    dispatch({ type: 'GET_SP_DETAIL_TABLE', data: newArray })
-    setShowClearMod(false)
-  }
+    dispatch({ type: 'GET_SP_DETAIL_TABLE', data: newArray });
+    setShowClearMod(false);
+  };
 
   const fulfillMarkedMod = ({ dispatch, spDetailTable, setShowFulfillMod, markedRow }) => {
     spDetailTable.map((data) => {
@@ -150,11 +172,10 @@ const Search = ({
       if (isMarked && data.edit_qty !== '' && data.edit_carton !== '') {
         setShowFulfillMod(true);
       } else {
-        handleFullFillMarked({ dispatch, spDetailTable, setShowFulfillMod, markedRow })
+        handleFullFillMarked({ dispatch, spDetailTable, setShowFulfillMod, markedRow });
       }
-    })
-  }
-
+    });
+  };
 
   useEffect(() => {
     getSite({ dispatch });
@@ -207,13 +228,13 @@ const Search = ({
         searchInput,
         module,
         Export,
-        user
+        user,
       });
     }
   }, [Export]);
 
   return (
-    <CCard className="mb-3" style={{borderRadius:"0.25rem"}}>
+    <CCard className="mb-3" style={{ borderRadius: '0.25rem' }}>
       <CCardBody className="p-3" style={{ borderRadius: '0.25rem' }}>
         <form onSubmit={searchForm}>
           <CRow className="mx-0">
@@ -236,7 +257,9 @@ const Search = ({
                   />
                 </div>
               </CCol>
-            ) : ''}
+            ) : (
+              ''
+            )}
 
             {module === 'UserManagement' ? (
               <CCol lg={1} className="pr-0">
@@ -253,8 +276,9 @@ const Search = ({
                       dispatch,
                       searchInput,
                       module,
-                      user
-                    }) && dispatch({ type: paramType, data: [] })}
+                      user,
+                    }) && dispatch({ type: paramType, data: [] })
+                  }
                 >
                   SEARCH
                 </button>
@@ -262,7 +286,7 @@ const Search = ({
             ) : (
               <CCol lg={!inputTag ? 12 : 9} className="px-0">
                 <CRow className="mx-0 justify-content-between">
-                  <CRow className='col-lg-10'>
+                  <CRow className="col-lg-10">
                     <CCol sm={4} lg={2} className={`mobile-site px-0 ${filterSite === true ? null : ' d-none'}`}>
                       {user?.site ? (
                         <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
@@ -278,14 +302,25 @@ const Search = ({
                               dispatch,
                               dropdownValue,
                               setdropdownValue,
-                            })}
+                            })
+                          }
                           selectedValue={newDropdownValue.site}
                         />
                       )}
                     </CCol>
-                    <CCol sm={4} lg={2} className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'}`}>
+                    <CCol
+                      sm={4}
+                      lg={2}
+                      className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${
+                        filterClient === true ? null : ' d-none'
+                      }`}
+                    >
                       {user?.client ? (
-                        <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
+                        <input
+                          value={clientCheck(clientData, user.client)}
+                          className="form-control sh-input"
+                          readOnly
+                        />
                       ) : (
                         <Dropdown
                           show
@@ -300,7 +335,8 @@ const Search = ({
                               dispatch,
                               dropdownValue,
                               setdropdownValue,
-                            })}
+                            })
+                          }
                           selectedValue={newDropdownValue.client}
                         />
                       )}
@@ -312,7 +348,8 @@ const Search = ({
                         placeholder="Status"
                         options={statusDataSH || statusData}
                         onChangeDropdown={(selected) =>
-                          setStatus({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setStatus({ selected, dispatch, dropdownValue, setdropdownValue })
+                        }
                         selectedValue={newDropdownValue.status}
                       />
                     </CCol>
@@ -323,7 +360,8 @@ const Search = ({
                         placeholder="Order Type"
                         options={orderTypeData}
                         onChangeDropdown={(selected) =>
-                          setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })
+                        }
                         selectedValue={newDropdownValue.orderType}
                       />
                     </CCol>
@@ -333,7 +371,9 @@ const Search = ({
                         show
                         placeholder="Task"
                         options={taskData}
-                        onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setdropdownValue })}
+                        onChangeDropdown={(selected) =>
+                          setTask({ selected, dispatch, dropdownValue, setdropdownValue })
+                        }
                         selectedValue={newDropdownValue.task}
                       />
                     </CCol>
@@ -343,17 +383,25 @@ const Search = ({
                         show
                         placeholder="Style"
                         options={styleData}
-                        onChangeDropdown={(selected) => setStyle({ selected, dispatch, dropdownValue, setdropdownValue })}
+                        onChangeDropdown={(selected) =>
+                          setStyle({ selected, dispatch, dropdownValue, setdropdownValue })
+                        }
                         selectedValue={newDropdownValue.style}
                       />
                     </CCol>
-                    <CCol sm={4} lg={2} className={`mobile-style-desc pl-0 pr-3 ${filterStyleDesc === true ? null : ' d-none'}`}>
+                    <CCol
+                      sm={4}
+                      lg={2}
+                      className={`mobile-style-desc pl-0 pr-3 ${filterStyleDesc === true ? null : ' d-none'}`}
+                    >
                       <Dropdown
                         className="px-0"
                         show
                         placeholder="Style Desc."
                         options={styleDescData}
-                        onChangeDropdown={(selected) => setStyleDesc({ selected, dispatch, dropdownValue, setdropdownValue })}
+                        onChangeDropdown={(selected) =>
+                          setStyleDesc({ selected, dispatch, dropdownValue, setdropdownValue })
+                        }
                         selectedValue={newDropdownValue.styleDesc}
                       />
                     </CCol>
@@ -363,17 +411,25 @@ const Search = ({
                         show
                         placeholder="Style Color"
                         options={colorData}
-                        onChangeDropdown={(selected) => setColor({ selected, dispatch, dropdownValue, setdropdownValue })}
+                        onChangeDropdown={(selected) =>
+                          setColor({ selected, dispatch, dropdownValue, setdropdownValue })
+                        }
                         selectedValue={newDropdownValue.color}
                       />
                     </CCol>
-                    <CCol sm={4} lg={2} className={`mobile-dimensions pl-0 pr-3 ${filterDimensions === true ? null : ' d-none'}`}>
+                    <CCol
+                      sm={4}
+                      lg={2}
+                      className={`mobile-dimensions pl-0 pr-3 ${filterDimensions === true ? null : ' d-none'}`}
+                    >
                       <Dropdown
                         className={`px-0 `}
                         show
                         placeholder="Dimensions"
                         options={dimensionsData}
-                        onChangeDropdown={(selected) => setDimensions({ selected, dispatch, dropdownValue, setdropdownValue })}
+                        onChangeDropdown={(selected) =>
+                          setDimensions({ selected, dispatch, dropdownValue, setdropdownValue })
+                        }
                         selectedValue={newDropdownValue.dimensions}
                       />
                     </CCol>
@@ -383,7 +439,9 @@ const Search = ({
                         show
                         placeholder="Size"
                         options={sizeData}
-                        onChangeDropdown={(selected) => setSize({ selected, dispatch, dropdownValue, setdropdownValue })}
+                        onChangeDropdown={(selected) =>
+                          setSize({ selected, dispatch, dropdownValue, setdropdownValue })
+                        }
                         selectedValue={newDropdownValue.size}
                       />
                     </CCol>
@@ -392,66 +450,81 @@ const Search = ({
                     <CCol sm={4} lg={2} className="px-0 d-flex">
                       {btnClear ? (
                         <CDropdown className="btn-group btn-clear">
-                          <CDropdownToggle color="primary">
-                            CLEAR
-                          </CDropdownToggle>
+                          <CDropdownToggle color="primary">CLEAR</CDropdownToggle>
                           <CDropdownMenu className="mt-2 shadow-none border">
                             <CDropdownItem onClick={() => setShowClearMod(true)}>CLEAR ALL</CDropdownItem>
                             <CDropdownDivider />
-                            <CDropdownItem onClick={() => handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })}>CLEAR MARKED</CDropdownItem>
+                            <CDropdownItem
+                              onClick={() =>
+                                handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })
+                              }
+                            >
+                              CLEAR MARKED
+                            </CDropdownItem>
                           </CDropdownMenu>
                         </CDropdown>
-                      ) : ''}
+                      ) : (
+                        ''
+                      )}
                       {btnFulfill ? (
                         <CDropdown className="btn-group mx-3 btn-fulfill">
-                          <CDropdownToggle color="primary">
-                            FULFILL
-                          </CDropdownToggle>
+                          <CDropdownToggle color="primary">FULFILL</CDropdownToggle>
                           <CDropdownMenu className="mt-2 shadow-none border">
                             <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
                             <CDropdownDivider />
-                            <CDropdownItem onClick={() => fulfillMarkedMod({ dispatch, spDetailTable, setShowFulfillMod, markedRow })}>FULFILL MARKED</CDropdownItem>
+                            <CDropdownItem
+                              onClick={() =>
+                                fulfillMarkedMod({ dispatch, spDetailTable, setShowFulfillMod, markedRow })
+                              }
+                            >
+                              FULFILL MARKED
+                            </CDropdownItem>
                           </CDropdownMenu>
                         </CDropdown>
-                      ) : ''}
+                      ) : (
+                        ''
+                      )}
                       {btnSearch ? (
                         <button
                           type="button"
                           className="btn btn-search mobile-search btn-primary float-right"
-                          onClick={() =>{ 
+                          onClick={() => {
                             getSummaryData({
                               siteVal: user.site ? user.site : newDropdownValue.site?.value,
-                              clientVal: user.client ? user.client :  newDropdownValue.client?.value,
+                              clientVal: user.client ? user.client : newDropdownValue.client?.value,
                               orderType: newDropdownValue.orderType,
                               task: newDropdownValue.task,
                               status: newDropdownValue.status,
                               dispatch,
                               searchInput,
                               module,
-                              user
-                            }); 
-                            dispatch({ type: paramType, data: [] })
+                              user,
+                            });
+                            dispatch({ type: paramType, data: [] });
                           }}
                         >
                           SEARCH
                         </button>
-                      ) : ''}
+                      ) : (
+                        ''
+                      )}
                     </CCol>
 
                     <Modal show={showClearMod} size="lg" centered className="p-3 modal-confirmation">
-                      <Modal.Body className='p-3'>
+                      <Modal.Body className="p-3">
                         <div
                           className="text-right px-0"
                           style={{ fontSize: '14px' }}
-                          onClick={() =>
-                            setShowClearMod(!showClearMod)}
+                          onClick={() => setShowClearMod(!showClearMod)}
                         >
                           <i className="iconU-close pointer" />
                         </div>
                         <div className="d-flex justify-content-between">
-                          <img src='' alt="logo" style={{ width: "25%", height: "25%" }} />
+                          <img src="" alt="logo" style={{ width: '25%', height: '25%' }} />
                           <div className="pl-3">
-                            <p className="mb-0" style={{ color: "#D6D8DA" }}>Are you sure?</p>
+                            <p className="mb-0" style={{ color: '#D6D8DA' }}>
+                              Are you sure?
+                            </p>
                             <p>To clear all 'Edit Qty' and 'Edit Carton' fields.</p>
                           </div>
                         </div>
@@ -467,17 +540,16 @@ const Search = ({
                       </Modal.Body>
                     </Modal>
                     <Modal show={showFulfillMod} size="lg" centered className="p-3 modal-confirmation">
-                      <Modal.Body className='p-3'>
+                      <Modal.Body className="p-3">
                         <div
                           className="text-right px-0"
                           style={{ fontSize: '14px' }}
-                          onClick={() =>
-                            setShowFulfillMod(!showFulfillMod)}
+                          onClick={() => setShowFulfillMod(!showFulfillMod)}
                         >
                           <i className="iconU-close pointer" />
                         </div>
                         <div className="d-flex justify-content-between">
-                          <img src='' alt="logo" style={{ width: "25%", height: "25%" }} />
+                          <img src="" alt="logo" style={{ width: '25%', height: '25%' }} />
                           <div className="pl-3">
                             <p>System will override data previously entered.</p>
                           </div>
@@ -486,7 +558,9 @@ const Search = ({
                           <Button
                             variant="primary"
                             style={{ padding: '0rem 1.08rem' }}
-                            onClick={() => handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })}
+                            onClick={() =>
+                              handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })
+                            }
                           >
                             DONE
                           </Button>
