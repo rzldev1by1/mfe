@@ -30,15 +30,14 @@ const TableMaster = ({
   exportBtn,
   printBtn,
   editOrderQty,
-  editCarton
+  editCarton,
 }) => {
   const checkItsClear = data?.filter((data, idx) => {
     setTimeout(() => {
-      const elementEditCarton = document.getElementById(`edit_carton_${idx}`)?.value;// id for column element Edit Carton Qty
-      const elementEditQty = document.getElementById(`edit_qty_${idx}`)?.value;// id for column element input Edit Qty
+      const elementEditCarton = document.getElementById(`edit_carton_${idx}`)?.value; // id for column element Edit Carton Qty
+      const elementEditQty = document.getElementById(`edit_qty_${idx}`)?.value; // id for column element input Edit Qty
     }, 10000);
-
-  })
+  });
 
   return (
     <div>
@@ -58,7 +57,10 @@ const TableMaster = ({
         editOrderQty={editOrderQty}
         editCarton={editCarton}
       />
-      <CRow lg="12" className="mt-3 mb-2 w-100 pagination-custom justify-content-between align-items-center d-flex line-paging">
+      <CRow
+        lg="12"
+        className="mt-3 mb-2 w-100 pagination-custom justify-content-between align-items-center d-flex line-paging"
+      >
         <div className="py-1">
           <Pagination
             pagination={pagination}
@@ -71,15 +73,11 @@ const TableMaster = ({
           />
         </div>
 
-        <div style={{ paddingRight: "22%", color: "#525563" }}>
-          Copyright &#169; 2021 Microlistics
-        </div>
+        <div style={{ paddingRight: '22%', color: '#525563' }}>Copyright &#169; 2022 Microlistics</div>
         {pagination && pagination.total < 1 ? (
-          <div style={{ color: "transparent" }}>
-            Transparent
-          </div>
-          // eslint-disable-next-line no-nested-ternary
-        ) : exportBtn ? (
+          <div style={{ color: 'transparent' }}>Transparent</div>
+        ) : // eslint-disable-next-line no-nested-ternary
+        exportBtn ? (
           <div className="pr-2">
             <Export
               filename={filename}
@@ -89,12 +87,9 @@ const TableMaster = ({
               exportPdf={exportPdf}
             />
           </div>
-        )
-          : (
-            <div style={{ color: "transparent" }}>
-              Transparent
-            </div>
-          )}
+        ) : (
+          <div style={{ color: 'transparent' }}>Transparent</div>
+        )}
       </CRow>
     </div>
   );
