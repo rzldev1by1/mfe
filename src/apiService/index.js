@@ -702,9 +702,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   let siteValue =
     site &&
-    newState.sites.filter((item) => {
-      return item.status === true;
-    }).length !== newState.sites.length
+      newState.sites.filter((item) => {
+        return item.status === true;
+      }).length !== newState.sites.length
       ? site.site
       : null;
 
@@ -714,9 +714,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   let clientValue =
     client &&
-    newState.clients.filter((item) => {
-      return item.status === true;
-    }).length !== newState.clients.length
+      newState.clients.filter((item) => {
+        return item.status === true;
+      }).length !== newState.clients.length
       ? client.code
       : null;
 
