@@ -80,22 +80,20 @@ export const getSummaryData = async ({
     urls.push(`endDate=${toDate || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
-    let valueSite = '';
-    let valueClient = '';
+    let valueSite = 'all';
+    let valueClient = 'all';
     if (user.userLevel) {
-      valueSite = siteVal || 'all';
-      valueClient = clientVal || 'all';
-      //   if (user.userLevel === 'Admin' || user.userLevel === 'ADMIN') {
-      //     valueSite = siteVal || 'all';
-      //     valueClient = clientVal || 'all';
-      //   }
-      //   else {
-      //     valueSite = user?.site;
-      //     valueClient = user?.client;
-      //   }
-      // } else {
-      //   valueSite = siteVal || 'all';
-      //   valueClient = clientVal || 'all';
+      if (user.userLevel === 'Admin' || user.userLevel === 'ADMIN') {
+        valueSite = siteVal || 'all';
+        valueClient = clientVal || 'all';
+      }
+      else {
+        valueSite = user?.site;
+        valueClient = user?.client;
+      }
+    } else {
+      if (siteVal) valueSite = siteVal;
+      if (clientVal) valueClient = clientVal;
     }
 
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
