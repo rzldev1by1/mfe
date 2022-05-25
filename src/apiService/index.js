@@ -6,15 +6,20 @@ import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
 
 const today = moment(Date());
-const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
+const menuAvailable = [
+  'purchase orders',
+  'create sales order',
+  'stock holding',
+  'stock movement',
+  'manage supplier users',
+];
 const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
-  if (date !== "Invalid date" || date === undefined || date === null || date === '') {
+  if (date !== 'Invalid date' || date === undefined || date === null || date === '') {
     return moment(date).format(dateFormate) || false;
   }
   return '-';
-
 };
 
 export const getSummaryData = async ({
@@ -30,7 +35,7 @@ export const getSummaryData = async ({
   module,
   fromDate,
   toDate,
-  user
+  user,
 }) => {
   const urls = [];
   let endpointsUrl = '';
@@ -75,24 +80,9 @@ export const getSummaryData = async ({
   }
 
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
-    let valueSite = 'all';
-    let valueClient = 'all';
-    if (user.userLevel) {
-      if (user.userLevel === 'Admin' || user.userLevel === 'ADMIN') {
-        valueSite = siteVal || 'all';
-        valueClient = clientVal || 'all';
-      }
-      else {
-        valueSite = user?.site;
-        valueClient = user?.client;
-      }
-    } else {
-      if (siteVal) valueSite = siteVal;
-      if (clientVal) valueClient = clientVal;
-    }
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${valueSite}`);
-    urls.push(`client=${valueClient}`);
+    urls.push(`site=${user.userLevel !== 'Admin' && user?.site ? user?.site : siteVal || 'all'}`);
+    urls.push(`client=${user.userLevel !== 'Admin' && user?.client ? user?.client : clientVal || 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
@@ -143,12 +133,13 @@ export const getSummaryData = async ({
       // Supplier Management PO Date format
       item.no = idx + 1;
       item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
-      item.total_order = numeral(item.total_order).format('0,0')
+      item.total_order = numeral(item.total_order).format('0,0');
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
-      item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
+      item.last_access =
+        item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
     });
 
     if (Export === true) {
@@ -217,13 +208,12 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
     paramPaging = 'PAGING_SO_DETAIL';
   }
   if (module === 'stockHolding') {
-    endpointsUrl =
-      `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-line?page=${active}&export=${export_}`;
+    endpointsUrl = `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-line?page=${active}&export=${export_}`;
     paramType = 'GET_SH_DETAIL_TABLE';
     paramPaging = 'PAGING_SH_DETAIL';
   }
   if (module === 'supplierManagement') {
-    endpointsUrl = `${endpoints.supplierManagement}/${product}`
+    endpointsUrl = `${endpoints.supplierManagement}/${product}`;
     paramType = 'GET_SP_DETAIL_TABLE';
     paramPaging = 'PAGING_SP_DETAIL';
   }
@@ -258,10 +248,12 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.carton_qty = numeral(m.carton_qty).format('0,0'); // carton_qty
       m.order_qty = numeral(m.order_qty).format('0,0'); // order_qty
       m.no_of_carton = numeral(m.no_of_carton).format('0,0'); // no_of_carton
-      m.no_of_carton = Math.round((parseFloat(m.order_qty.replace(/,/g, ''))) / (parseFloat(m.carton_qty.replace(/,/g, ''))));
+      m.no_of_carton = Math.round(
+        parseFloat(m.order_qty.replace(/,/g, '')) / parseFloat(m.carton_qty.replace(/,/g, '')),
+      );
       if (fulfill === true) {
-        m.edit_qty = m.order_qty
-        m.edit_carton = m.no_of_carton
+        m.edit_qty = m.order_qty;
+        m.edit_carton = m.no_of_carton;
       }
       m.rotadate = m.rotadate && m.rotadate !== '' ? m.rotadate : '-';
       txt.push(m.batch?.length);
@@ -466,27 +458,34 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
     return item.menuid;
   });
 
-  let menus = moduleAccess?.filter((item) => {
-    return menuAvailable.indexOf(item.menu_name.toLowerCase()) !== -1;
-  }).map((item, index) => {
-    let newItem = item;
-    let isStatus = false;
-    if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
-      isStatus = !!userMenu.includes(item.menu_id);
-    }
-    newItem.status = isStatus;
-    return newItem;
-  });
+  let menus = moduleAccess
+    ?.filter((item) => {
+      return menuAvailable.indexOf(item.menu_name.toLowerCase()) !== -1;
+    })
+    .map((item, index) => {
+      let newItem = item;
+      let isStatus = false;
+      if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
+        isStatus = !!userMenu.includes(item.menu_id);
+      }
+      newItem.status = isStatus;
+      return newItem;
+    });
 
-  const newMenus = menus.filter((item) => item.menu_id !== "menu_manageUsers_supplierUsers")
-  if (isDevelopment == "false") {
+  const newMenus = menus.filter((item) => item.menu_id !== 'menu_manageUsers_supplierUsers');
+  if (isDevelopment == 'false') {
     newState.moduleAccess = newMenus;
-    newIsEnableAllModule = newMenus?.filter((item) => { return item.status === true; })?.length === newMenus?.length;
+    newIsEnableAllModule =
+      newMenus?.filter((item) => {
+        return item.status === true;
+      })?.length === newMenus?.length;
     newState.isEnableAllModule = newIsEnableAllModule;
-  }
-  else {
+  } else {
     newState.moduleAccess = menus;
-    newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length;
+    newIsEnableAllModule =
+      menus?.filter((item) => {
+        return item.status === true;
+      })?.length === menus?.length;
     newState.isEnableAllModule = newIsEnableAllModule;
   }
   // and ModalAccess
@@ -498,7 +497,10 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
     newItem.status = accountInfoUser.site === null ? true : item.site === accountInfoUser.site;
     return newItem;
   });
-  newIsEnableAllSite = sites?.filter((item) => { return item.status === true; })?.length === sites?.length;
+  newIsEnableAllSite =
+    sites?.filter((item) => {
+      return item.status === true;
+    })?.length === sites?.length;
   newState.sites = sites;
   newState.isEnableAllSite = newIsEnableAllSite;
   // end LoadSite
@@ -586,8 +588,7 @@ export const onBlurEmail = async ({ e, state, setState }) => {
   const { value } = e;
   const newState = { ...state };
   const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email: value });
-  newState.validation.email['isValid'] =
-    !!(newState.oldAccountInfo.email !== value && data?.exists !== true);
+  newState.validation.email['isValid'] = !!(newState.oldAccountInfo.email !== value && data?.exists !== true);
 
   if (!newState.validation.email['isValid']) {
     newState.validation.email['message'] = utility.validationMsg.EMAIL_EXIST;
@@ -683,9 +684,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   let siteValue =
     site &&
-      newState.sites.filter((item) => {
-        return item.status === true;
-      }).length !== newState.sites.length
+    newState.sites.filter((item) => {
+      return item.status === true;
+    }).length !== newState.sites.length
       ? site.site
       : null;
 
@@ -695,9 +696,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   let clientValue =
     client &&
-      newState.clients.filter((item) => {
-        return item.status === true;
-      }).length !== newState.clients.length
+    newState.clients.filter((item) => {
+      return item.status === true;
+    }).length !== newState.clients.length
       ? client.code
       : null;
 
@@ -784,15 +785,15 @@ export const resetPassword = ({ state, setState, props }) => {
 };
 
 export const DarkModeChange = ({ darkMode, dispatch }) => {
-  darkMode.map(d => {
-    if (d.dark_mode == "1") {
-      d.dark_mode = "0"
+  darkMode.map((d) => {
+    if (d.dark_mode == '1') {
+      d.dark_mode = '0';
       const a = axios.post(endpoints.drakMode, { web_user: d.web_user, dark_mode: d.dark_mode });
     } else {
-      d.dark_mode = "1"
+      d.dark_mode = '1';
       const a = axios.post(endpoints.drakMode, { web_user: d.web_user, dark_mode: d.dark_mode });
     }
     dispatch({ type: 'DARKMODE', data: darkMode });
-  })
-}
+  });
+};
 // End User Management
