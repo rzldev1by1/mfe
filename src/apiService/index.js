@@ -73,10 +73,26 @@ export const getSummaryData = async ({
     urls.push(`startDate=${fromDate || ''}`);
     urls.push(`endDate=${toDate || ''}`);
   }
+
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
+    let valueSite = 'all';
+    let valueClient = 'all';
+    if (user.userLevel) {
+      if (user.userLevel === 'Admin' || user.userLevel === 'ADMIN') {
+        valueSite = siteVal || 'all';
+        valueClient = clientVal || 'all';
+      }
+      else {
+        valueSite = user?.site;
+        valueClient = user?.client;
+      }
+    } else {
+      if (siteVal) valueSite = siteVal;
+      if (clientVal) valueClient = clientVal;
+    }
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${user.userLevel !== 'Admin' ? user?.site : siteVal || 'all'}`);
-    urls.push(`client=${user.userLevel !== 'Admin' ? user?.client : clientVal || 'all'}`);
+    urls.push(`site=${valueSite}`);
+    urls.push(`client=${valueClient}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
