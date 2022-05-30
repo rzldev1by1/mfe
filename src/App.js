@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { isMobile, isLandscape } from 'react-device-detect'
+import { isMobile, isLandscape } from 'react-device-detect';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'assets/scss/style.scss';
 import endpoints from 'helpers/endpoints';
@@ -26,6 +26,7 @@ class ProtectedRoute extends React.Component {
       axios.defaults.headers.common['Accept'] = 'application/json';
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
       axios.defaults.headers.common['userLevel'] = userLevel || '';
+      axios.defaults.timeout = 100000;
       axios.interceptors.request.use((request) => {
         return request;
       });
@@ -63,10 +64,10 @@ class ProtectedRoute extends React.Component {
 class App extends React.Component {
   render() {
     const tes = endpoints.env.REACT_APP_API_URL_ISMOBILE;
-    const mobileUrl = endpoints.env.REACT_APP_MOBILE_URL
+    const mobileUrl = endpoints.env.REACT_APP_MOBILE_URL;
     const isMobileView = document.documentElement.clientWidth <= 500;
-    if (isMobile && isMobileView && tes == "true") {
-      return window.location.assign(mobileUrl)
+    if (isMobile && isMobileView && tes == 'true') {
+      return window.location.assign(mobileUrl);
     }
     return (
       <HashRouter>
@@ -81,7 +82,6 @@ class App extends React.Component {
     );
   }
 }
-
 
 const mapStateToProps = (store) => ({ store });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
