@@ -48,6 +48,7 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       if (dt[0] === "Yes") {
         return ("Y");
       }
+      console.log(dt[0])
       return dt;
     });
     return newData2;
@@ -124,10 +125,10 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       }
       if (dataKey === 8) {
         const dataColumns = data.row.raw[8];
-        if (dataColumns === 'N') {
+        if (dataColumns.toString() === 'N') {
           doc.setTextColor(252, 28, 3);
         }
-        if (dataColumns === 'Y') {
+        if (dataColumns.toString() === 'Y') {
           doc.setTextColor(46, 184, 92);
         }
       }
@@ -136,9 +137,20 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
         if (!dataColumns) {
           return;
         }
-        if (dataColumns === 'N') {
+        if (dataColumns.toString() === 'N') {
           doc.setTextColor(252, 28, 3);
-        } else if (dataColumns === 'Y') {
+        } else if (dataColumns.toString() === 'Y') {
+          doc.setTextColor(46, 184, 92);
+        }
+      }
+      if (dataKey === 10) {
+        const dataColumns = data.row.raw[10];
+        if (!dataColumns) {
+          return;
+        }
+        if (dataColumns.toString() === 'N') {
+          doc.setTextColor(252, 28, 3);
+        } else if (dataColumns.toString() === 'Y') {
           doc.setTextColor(46, 184, 92);
         }
       }
