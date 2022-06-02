@@ -6,11 +6,6 @@ import endpoints from 'helpers/endpoints';
 
 const setBody = (exportData, schemaColumn) => {
   let dataAll = [];
-  let isDate = function (input) {
-    if (Object.prototype.toString.call(input) === '[object Date]') return true;
-    return false;
-  };
-
   if (exportData) {
     dataAll = exportData.map((data, idx) => {
       let column = schemaColumn.map((column, columnIdx) => {
@@ -46,9 +41,15 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
     let newData2 = newData.map((dt, idx) => {
       if (dt[0] === null) {
         return ['-'];
-      } else {
-        return dt;
       }
+      if (dt[0] === "x") {
+        return ("N");
+      }
+      if (dt[0] === "Yes") {
+        return ("Y");
+      }
+      console.log(dt[0])
+      return dt;
     });
     return newData2;
   });
@@ -115,32 +116,42 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
 
       if (dataKey === 6) {
         const dataColumns = data.row.raw[6];
-        if (dataColumns[0] == 'Suspended') {
+        if (dataColumns === 'Suspended') {
           doc.setTextColor(252, 28, 3);
         }
-        if (dataColumns[0] == 'Active') {
+        if (dataColumns === 'Active') {
           doc.setTextColor(5, 237, 245);
         }
       }
       if (dataKey === 8) {
         const dataColumns = data.row.raw[8];
-        if (dataColumns[0] == 'x') {
+        if (dataColumns.toString() === 'N') {
           doc.setTextColor(252, 28, 3);
         }
-        if (dataColumns[0] == 'Yes') {
-          doc.setTextColor(5, 237, 245);
+        if (dataColumns.toString() === 'Y') {
+          doc.setTextColor(46, 184, 92);
         }
       }
       if (dataKey === 9) {
-        const dataColumns = data.row.raw[14];
+        const dataColumns = data.row.raw[9];
         if (!dataColumns) {
           return;
         }
-        if (dataColumns[0] == 'x') {
+        if (dataColumns.toString() === 'N') {
           doc.setTextColor(252, 28, 3);
+        } else if (dataColumns.toString() === 'Y') {
+          doc.setTextColor(46, 184, 92);
         }
-        if (dataColumns[0] == 'Yes') {
-          doc.setTextColor(5, 237, 245);
+      }
+      if (dataKey === 10) {
+        const dataColumns = data.row.raw[10];
+        if (!dataColumns) {
+          return;
+        }
+        if (dataColumns.toString() === 'N') {
+          doc.setTextColor(252, 28, 3);
+        } else if (dataColumns.toString() === 'Y') {
+          doc.setTextColor(46, 184, 92);
         }
       }
     },
@@ -150,7 +161,6 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
 };
 
 export const exportPDF = async ({ filename, exportData, schemaColumn }) => {
-  const marginLeft = 40;
   const doc = await setupDocPDF(filename, exportData, schemaColumn);
   doc.save(ExportName(filename) + '.pdf');
 };
