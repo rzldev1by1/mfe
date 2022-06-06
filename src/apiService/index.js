@@ -80,9 +80,19 @@ export const getSummaryData = async ({
     urls.push(`endDate=${toDate || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
+    let userSite = '';
+    let UserClient = '';
+    if ((user.userLevel !== 'Admin' && user?.site) || (user.userLevel !== 'ADMIN' && user?.site)) {
+      userSite = user?.site;
+    } else userSite = siteVal || 'all';
+
+    if ((user.userLevel !== 'Admin' && user?.client) || (user.userLevel !== 'ADMIN' && user?.client)) {
+      UserClient = user?.client;
+    } else UserClient = clientVal || 'all';
+
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${user.userLevel !== 'Admin' || user.userLevel === 'ADMIN' && user?.site ? user?.site : siteVal || 'all'}`);
-    urls.push(`client=${user.userLevel !== 'Admin' || user.userLevel === 'ADMIN' && user?.client ? user?.client : clientVal || 'all'}`);
+    urls.push(`site=${userSite}`);
+    urls.push(`client=${UserClient}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
@@ -684,9 +694,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   let siteValue =
     site &&
-      newState.sites.filter((item) => {
-        return item.status === true;
-      }).length !== newState.sites.length
+    newState.sites.filter((item) => {
+      return item.status === true;
+    }).length !== newState.sites.length
       ? site.site
       : null;
 
@@ -696,9 +706,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   let clientValue =
     client &&
-      newState.clients.filter((item) => {
-        return item.status === true;
-      }).length !== newState.clients.length
+    newState.clients.filter((item) => {
+      return item.status === true;
+    }).length !== newState.clients.length
       ? client.code
       : null;
 
