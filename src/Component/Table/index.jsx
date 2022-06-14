@@ -26,7 +26,7 @@ const Table = ({
   splitModule,
   editColumn,
   editOrderQty,
-  editCarton
+  editCarton,
 }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.userId);
@@ -37,7 +37,7 @@ const Table = ({
   const [fields, setFields] = useState(schemaColumn);
   const [newSchema, setNewSchema] = useState(schemaColumn);
   const isInvalidOrderQty = useSelector((state) => state.isInvalidOrderQty);
-  const markedRow = useSelector((state) => state.markedRow)
+  const markedRow = useSelector((state) => state.markedRow);
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -58,25 +58,55 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   useEffect(() => {
-    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, dispatch });
+    renewColumn({
+      setNewSchema,
+      data,
+      fields,
+      module,
+      userId,
+      editColumnTemp,
+      showModal,
+      columnHidden,
+      editColumn,
+      dispatch,
+    });
   }, [data, fields, columnHidden]);
 
   return (
     <div
-      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
-        }`}
+      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${
+        (data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
+      }`}
     >
       <ReactTableDraggableColumns
-
         draggableColumns={{
           mode: 'reorder',
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) => {
-            saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields, module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch });
-            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, dispatch });
-          }
+            saveSchemaToLocal({
+              setNewSchema,
+              userId,
+              schemaColumn: fields,
+              module,
+              draggedColumn,
+              targetColumn,
+              oldIndex,
+              newIndex,
+              dispatch,
+            });
+            renewColumn({
+              setNewSchema,
+              data,
+              fields,
+              module,
+              userId,
+              editColumnTemp,
+              showModal,
+              columnHidden,
+              dispatch,
+            });
+          },
         }}
-
         columns={newSchema}
         data={data}
         showPagination={false}
@@ -93,7 +123,7 @@ const Table = ({
             style: {
               // textAlign: rowInfo?.original[column.id] ? 'left' : 'right',
               height: '3rem',
-              backgroundColor: markedRow.includes(rowInfo?.index) ? 'aliceblue' : false
+              backgroundColor: markedRow.includes(rowInfo?.index) ? 'aliceblue' : false,
             },
           };
         }}
@@ -107,7 +137,7 @@ const Table = ({
           // check format if date
           if (a && a.includes('/')) {
             const str = a.split('/');
-            const date = `${str[1]}-${str[0]}-${str[2]}`;
+            const date = `${str[0]}-${str[1]}-${str[2]}`;
             let tmp = new Date(date).getTime();
             if (!isNaN(tmp)) {
               a = tmp;
@@ -116,7 +146,7 @@ const Table = ({
           }
           if (b && b.includes('/')) {
             const str = b.split('/');
-            const date = `${str[1]}-${str[0]}-${str[2]}`;
+            const date = `${str[0]}-${str[1]}-${str[2]}`;
             let tmp = new Date(date).getTime();
             if (!isNaN(tmp)) {
               b = tmp;
