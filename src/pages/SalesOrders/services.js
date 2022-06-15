@@ -1,3 +1,4 @@
+import { formatDate } from 'apiService';
 import React from 'react';
 export const schemaColumn = [
   {
@@ -110,7 +111,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
     width: 130,
   },
   {
@@ -121,7 +122,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
     width: 130,
   },
   {
@@ -132,7 +133,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
     width: 130,
   },
   {
@@ -143,7 +144,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
     width: 150,
   },
   {
@@ -330,8 +331,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value == null ? '-' : props.value}
-    </span>,
+    Cell: (props) => <span>{props.value == null ? '-' : props.value}</span>,
     width: 150,
   },
 ];
