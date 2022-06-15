@@ -13,6 +13,8 @@ import 'react-table-v6/react-table.css';
 import 'react-table-hoc-draggable-columns/dist/styles.css';
 import './style.scss';
 
+import endpoints from '../../helpers/endpoints';
+
 const Table = ({
   schemaColumn,
   onClick,
@@ -135,9 +137,10 @@ const Table = ({
           b = b ? b.replaceAll(',', '') : '';
 
           // check format if date
+          const formateMonths = endpoints.env.REACT_APP_API_URL_FORMATE_MONTHS;
           if (a && a.includes('/')) {
             const str = a.split('/');
-            const date = `${str[0]}-${str[1]}-${str[2]}`;
+            const date = formateMonths ? `${str[0]}-${str[1]}-${str[2]}` : `${str[1]}-${str[0]}-${str[2]}`;
             let tmp = new Date(date).getTime();
             if (!isNaN(tmp)) {
               a = tmp;
@@ -146,7 +149,7 @@ const Table = ({
           }
           if (b && b.includes('/')) {
             const str = b.split('/');
-            const date = `${str[0]}-${str[1]}-${str[2]}`;
+            const date = formateMonths ? `${str[0]}-${str[1]}-${str[2]}` : `${str[1]}-${str[0]}-${str[2]}`;
             let tmp = new Date(date).getTime();
             if (!isNaN(tmp)) {
               b = tmp;

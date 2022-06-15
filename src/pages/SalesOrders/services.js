@@ -330,8 +330,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value == null ? '-' : props.value}
-    </span>,
+    Cell: (props) => <span>{props.value == null ? '-' : props.value}</span>,
     width: 150,
   },
 ];
