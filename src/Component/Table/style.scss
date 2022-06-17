@@ -46,20 +46,20 @@
 
   //clickable column header
   .rt-th.-cursor-pointer .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-idle.png');
+    // content: url('/field-idle.png');
     padding-left: 10px;
     width: 42px;
     height: 42px;
   }
 
   .rt-th.-cursor-pointer.-sort-asc .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-top.png');
+    // content: url('/field-top.png');
     padding-left: 10px;
     // content: "  ▲";
   }
 
   .rt-th.-cursor-pointer.-sort-desc .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-bot.png');
+    // content: url('/field-bot.png');
     padding-left: 10px;
     // content: "  ▼";
   }
@@ -114,20 +114,20 @@
 
   //clickable column header
   .rt-th.-cursor-pointer .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-idle.png');
+    // content: url('/field-idle.png');
     padding-left: 10px;
     width: 42px;
     height: 42px;
   }
 
   .rt-th.-cursor-pointer.-sort-asc .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-top.png');
+    // content: url('/field-top.png');
     padding-left: 10px;
     // content: "  ▲";
   }
 
   .rt-th.-cursor-pointer.-sort-desc .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-bot.png');
+    // content: url('/field-bot.png');
     padding-left: 10px;
     // content: "  ▼";
   }
