@@ -28,7 +28,7 @@
     "@coreui/icons-react": "1.0.1",
     "@coreui/react": "3.0.1",
     "axios": "^0.27.2",
-    "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.5.4",
     "bootstrap": "^4.6.0",
     "cheerio": "^1.0.0-rc.11",
     "core-js": "3.23.1",
