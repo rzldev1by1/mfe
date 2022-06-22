@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
@@ -10,7 +9,8 @@ import { getSummaryData } from '../../apiService';
 import Create from './Create';
 import endpoints from '../../helpers/endpoints';
 
-const PurchaseOrders = ({ history }) => {
+const PurchaseOrders = (props) => {
+  const {history} = props
   const showDetails = (item) => {
     history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
   };
@@ -70,11 +70,10 @@ const PurchaseOrders = ({ history }) => {
       const reqColumnHidden = localStorage.getItem('tableColumns')
         ? JSON.parse(localStorage.getItem('tableColumns'))
         : [];
-      const x = reqColumnHidden?.map((data, idx) => {
+      reqColumnHidden?.forEach((data) => {
         if (data.title === 'Purchase Order Summary') {
           setColumnHidden(data.columns);
         }
-        return data;
       });
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -86,11 +85,10 @@ const PurchaseOrders = ({ history }) => {
         ? JSON.parse(localStorage.getItem('tableColumns'))
         : [];
       let tmp = null;
-      const x = reqColumnHidden?.map((data, idx) => {
+      reqColumnHidden?.forEach((data) => {
         if (data.title === 'Purchase Order Summary') {
           tmp = data.columns;
         }
-        return data;
       });
       if (tmp) {
         setColumnHidden(tmp);
