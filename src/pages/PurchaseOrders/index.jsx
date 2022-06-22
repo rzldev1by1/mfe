@@ -8,11 +8,11 @@ import TableMaster from '../../Component/TableMaster';
 import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
-import endpoints from 'helpers/endpoints';
+import endpoints from '../../helpers/endpoints';
 
-const PurchaseOrders = (props) => {
+const PurchaseOrders = ({ history }) => {
   const showDetails = (item) => {
-    props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
+    history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
   };
 
   const createBtn = endpoints.env.REACT_APP_API_URL_CREATE;
@@ -48,7 +48,14 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationPo?.active, module, siteVal: user.site, clientVal: user.client, user });
+    getSummaryData({
+      dispatch,
+      active: paginationPo?.active,
+      module,
+      siteVal: user.site,
+      clientVal: user.client,
+      user,
+    });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);
@@ -57,14 +64,17 @@ const PurchaseOrders = (props) => {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
   }
-
+  console.log(columnHidden);
   useEffect(() => {
     if (stateChangeHeader) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
-      let x = columnHidden?.map((data, idx) => {
+      const reqColumnHidden = localStorage.getItem('tableColumns')
+        ? JSON.parse(localStorage.getItem('tableColumns'))
+        : [];
+      const x = reqColumnHidden?.map((data, idx) => {
         if (data.title === 'Purchase Order Summary') {
           setColumnHidden(data.columns);
         }
+        return data;
       });
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -72,12 +82,15 @@ const PurchaseOrders = (props) => {
 
   useEffect(() => {
     if (state2) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      const reqColumnHidden = localStorage.getItem('tableColumns')
+        ? JSON.parse(localStorage.getItem('tableColumns'))
+        : [];
       let tmp = null;
-      let x = columnHidden?.map((data, idx) => {
+      const x = reqColumnHidden?.map((data, idx) => {
         if (data.title === 'Purchase Order Summary') {
           tmp = data.columns;
         }
+        return data;
       });
       if (tmp) {
         setColumnHidden(tmp);
@@ -100,7 +113,10 @@ const PurchaseOrders = (props) => {
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
         button={(
-          <CButton onClick={() => setShowModal(true)} className={`btn btn-primary btn-create float-right ${createBtn === 'true' ? '' : 'd-none'}`}>
+          <CButton
+            onClick={() => setShowModal(true)}
+            className={`btn btn-primary btn-create float-right ${createBtn === 'true' ? '' : 'd-none'}`}
+          >
             CREATE PURCHASE ORDER
           </CButton>
         )}
