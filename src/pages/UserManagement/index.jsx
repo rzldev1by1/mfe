@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../../Component/Breadcrumb';
@@ -11,8 +11,9 @@ import Create from './Create';
 import './index.scss';
 
 const UserManagement = (props) => {
+  const { history } = props
   const showDetails = (item) => {
-    props.history.push(`/users-management/${item.web_user}/detail`);
+    history.push(`/users-management/${item.web_user}/detail`);
   };
 
   const dispatch = useDispatch();
@@ -62,11 +63,11 @@ const UserManagement = (props) => {
     <div className="userManagement">
       <Breadcrumb
         breadcrumb={[{ to: '/sales-order', label: 'User Management', active: true }]}
-        button={
+        button={(
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE USER
           </CButton>
-        }
+        )}
       />
       <CCard className="bg-transparent mb-0">
         <CCardBody className="p-3 border-user-info">
@@ -91,7 +92,9 @@ const UserManagement = (props) => {
             </CCol>
             <CCol lg={1} className="col-3 user-login-info-header">
               <div className="user-login-info-header"> Client</div>
-              <div className="user-login-info-value"> {user.client ? user.client : 'All'}</div>
+              <div className="user-login-info-value">
+                {user.client ? user.client : 'All'}
+              </div>
             </CCol>
           </CRow>
         </CCardBody>

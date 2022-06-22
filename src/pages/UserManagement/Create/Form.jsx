@@ -4,7 +4,8 @@ import { FormFeedback } from 'reactstrap';
 
 import Site from '../Site';
 import Client from '../Client';
-import ModuleAccess from '../ModuleAccess';
+// import ModuleAccess from '../ModuleAccess';
+import moduleAccess from '../moduleAccess';
 import { changeDetails, disabledCharacterName } from './services';
 
 import './style.scss';
@@ -117,7 +118,7 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
         </div>
         <div className="row">
           <div className="col-4">
-            <ModuleAccess
+            <moduleAccess
               state={state}
               setState={setState}
               moduleAccess={state.moduleAccess}
