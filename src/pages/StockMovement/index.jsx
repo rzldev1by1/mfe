@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Search from './Search';
-import Breadcrumb from 'Component/Breadcrumb';
-import TableFixedColumn from 'Component/TableFixedColumn';
-import { customSchema, setupExcel, setupPdf, exportPDF, headerPdf, demoPDF } from './services';
+import Search from '../../Component/Search';
+import Breadcrumb from '../../Component/Breadcrumb';
+import TableFixedColumn from '../../Component/TableFixedColumn';
+import { customSchema, setupExcel, setupPdf, demoPDF } from './services';
 import './style.scss';
 
 const StockMovement = (props) => {
@@ -16,17 +16,11 @@ const StockMovement = (props) => {
   const [header, setHeader] = useState([]);
   const [dateHeader, setdateHeader] = useState([]);
   const [tableStatus, setTableStatus] = useState('waiting');
-
-  //header Export Excel
   const [headerExcel, setHeaderExcel] = useState([]);
   const [dataExcel, setDataExcel] = useState([]);
   const [firstHeader, setFirstHeader] = useState(['Site', 'Client', 'Product', 'Description', 'UOM']);
-
-  //header Export PDF
   const [rowSpan, setRowSpan] = useState([]);
   const [dataPDF, setDataPDF] = useState([]);
-
-  //dimension
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 272,
     width: window.innerWidth,
@@ -46,14 +40,13 @@ const StockMovement = (props) => {
   });
 
   useEffect(() => {
-    let dataLength = smData?.length;
+    const dataLength = smData?.length;
     if (dataLength !== undefined && dataLength < 1) {
       setTableStatus('noData');
     } else {
       setTableStatus('waiting');
     }
 
-    //renew Schema
     if (smData && header.length > 0) {
       customSchema({ data: smData, schemaColumn: header, setHeader });
       setupExcel({ data: smData, dateHeader, header, setDataExcel, setHeaderExcel });
@@ -90,7 +83,7 @@ const StockMovement = (props) => {
           <tr>
             {headerExcel.map((d, i) => {
               if (firstHeader.includes(d)) {
-                return <th> {d} </th>;
+                return <th>{d}</th>;
               } else {
                 return (
                   <th>
@@ -115,19 +108,44 @@ const StockMovement = (props) => {
           {dataExcel &&
             dataExcel.map((data, index) => [
               <tr>
-                <td> ‎{data.site}</td>
-                <td> ‎{data.client}</td>
-                <td> ‎{data.product}</td>
-                <td> ‎{data.product_name}</td>
-                <td> ‎{data.uom}</td>
+                <td>
+                  ‎
+                  {data.site}
+                </td>
+                <td>
+                  ‎
+                  {data.client}
+                </td>
+                <td>
+                  ‎
+                  {data.product}
+                </td>
+                <td>
+                  ‎
+                  {data.product_name}
+                </td>
+                <td>
+                  ‎
+                  {data.uom}
+                </td>
                 {data.column.map((d, i) => {
                   return (
                     <td>
                       <table>
-                        <td style={{ textAlign: 'right' }}> {d.sa_plus}</td>
-                        <td style={{ textAlign: 'right' }}> {d.sa_min}</td>
-                        <td style={{ textAlign: 'right' }}> {d.rec}</td>
-                        <td style={{ textAlign: 'right' }}> {d.send}</td>
+                        <td style={{ textAlign: 'right' }}>
+                          {d.sa_plus}
+                        </td>
+                        <td style={{ textAlign: 'right' }}>
+                          {
+                            d.sa_min
+                          }
+                        </td>
+                        <td style={{ textAlign: 'right' }}>
+                          {d.rec}
+                        </td>
+                        <td style={{ textAlign: 'right' }}>
+                          {d.send}
+                        </td>
                       </table>
                     </td>
                   );
