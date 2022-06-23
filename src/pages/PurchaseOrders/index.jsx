@@ -4,7 +4,7 @@ import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import { schemaColumn } from './services';
+import {schemaColumn}  from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
 import endpoints from '../../helpers/endpoints';
@@ -64,7 +64,6 @@ const PurchaseOrders = (props) => {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
   }
-  console.log(columnHidden);
   useEffect(() => {
     if (stateChangeHeader) {
       const reqColumnHidden = localStorage.getItem('tableColumns')
@@ -106,6 +105,7 @@ const PurchaseOrders = (props) => {
       // getSummaryData({ dispatch, active: paginationPo?.active, Export, module });
     }
   }, [Export]);
+  
   return (
     <div>
       <Breadcrumb

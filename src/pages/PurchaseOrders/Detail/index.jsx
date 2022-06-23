@@ -144,7 +144,7 @@ const PurchaseOrdersDetail = (props) => {
       <TableMaster
         schemaColumn={schemaColumnDetailPO}
         classNamePaging="display-paging"
-        classNameTable="table-detail "
+        classNameTable="table-detail"
         data={poDetailTable}
         style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
         module="PurchaseOrdersDetail"
