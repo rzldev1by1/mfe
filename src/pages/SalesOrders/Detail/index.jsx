@@ -1,14 +1,13 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-unresolved */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Breadcrumb from 'Component/Breadcrumb';
-import DetailHeader from 'Component/DetailHeader';
-import TableMaster from 'Component/TableMaster';
+import Breadcrumb from '../../../Component/Breadcrumb';
+import DetailHeader from '../../../Component/DetailHeader';
+import TableMaster from '../../../Component/TableMaster';
 import { getDetailData, getDetailHeader } from '../../../apiService';
-import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO, formatDate } from './services';
+import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO } from '../services'
 
 const SalesOrdersDetail = (props) => {
+  const { match } = props
   const dispatch = useDispatch();
   const soDetail = useSelector((state) => state.soDetail);
   const soDetailTable = useSelector((state) => state.soDetailTable);
@@ -58,25 +57,29 @@ const SalesOrdersDetail = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Sales Order Details') {
-          setColumnHidden(data.columns);
-        }
-      });
+      const reqColumHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      if (reqColumHidden) {
+        reqColumHidden.forEach(data => {
+          if (data.title === 'Sales Order Details') {
+            setColumnHidden(data.columns);
+          }
+        });
+      }
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
   }, [stateChangeHeader]);
 
   useEffect(() => {
     if (state2) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      const reqColumHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let tmp = null;
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Sales Order Details') {
-          tmp = data.columns;
-        }
-      });
+      if (reqColumHidden) {
+        reqColumHidden.forEach(data => {
+          if (data.title === 'Sales Order Details') {
+            tmp = data.columns;
+          }
+        });
+      }
       if (tmp) {
         setColumnHidden(tmp);
       } else {
@@ -93,13 +96,13 @@ const SalesOrdersDetail = (props) => {
       getDetailData({ dispatch, active: paginationSoDetail?.active, Export, module });
     }
   }, [Export]);
-  
+
   return (
     <div className="so-detail">
       <Breadcrumb
         breadcrumb={[
           { to: '/sales-order', label: 'Sales Order' },
-          { to: '', label: props.match.params.orderno, active: true },
+          { to: '', label: match.params.orderno, active: true },
         ]}
       />
       <div className="pb-3">
