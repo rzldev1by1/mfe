@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import { Modal, ModalBody } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import './index.scss';
-import logo_confirm from 'assets/img/LOGO5@2x.png';
+import logoConfirm from '../../assets/img/LOGO5@2x.png';
 
 const DetailHeader = ({
   module,
@@ -88,7 +87,7 @@ const DetailHeader = ({
         <CCard className={titleRight === true ? null : ' d-none'}>
           <CCardBody className={`p-0 m-3${titleCenter === true ? ' border-right' : ' d-none'}`}>
             <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>
-              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+              <CCol lg='auto' className="px-0 mr-3 text-light-gray">
                 <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>{titleRightOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleRightTwo ? null : ' d-none'}`}>{titleRightTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleRightThree ? null : ' d-none'}`}>{titleRightThree}</CRow>
@@ -114,7 +113,7 @@ const DetailHeader = ({
                 <CRow className={`mx-0 pt-1 ${valeuRightTen ? null : ' d-none'}`}>{valeuRightTen}</CRow>
                 <CRow className={`mx-0 pt-1  line-camp ${valeuRightEleven ? null : ' d-none'}`}>
                   <CCol className="px-0 line-camp">{valeuRightEleven}</CCol>
-                  {valeuRightEleven?.length > 100 ? <Link onClick={() => setModalShow(true)}>Show More</Link> : ''}
+                  {valeuRightEleven?.length > 100 ? <div className="link-custom" onClick={() => setModalShow(true)} aria-hidden="true">Show More</div> : ''}
                 </CRow>
               </CCol>
             </CRow>
@@ -132,7 +131,7 @@ const DetailHeader = ({
             }`}
           >
             <CRow className={`mx-0 ${titleCenter ? null : ' d-none'}`}>
-              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+              <CCol lg='auto' className="px-0 mr-3 text-light-gray">
                 <CRow className={`mx-0 ${titleCenterOne ? null : ' d-none'}`}>{titleCenterOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleCenterTwo ? null : ' d-none'}`}>{titleCenterTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleCenterThree ? null : ' d-none'}`}>{titleCenterThree}</CRow>
@@ -167,7 +166,7 @@ const DetailHeader = ({
         <CCard>
           <CCardBody className="mobile-header p-0 my-3 mr-3 ml-0">
             <CRow className={`mx-0 ${titleLeft ? null : ' d-none'}`}>
-              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+              <CCol lg='auto' className="px-0 mr-3 text-light-gray">
                 <CRow className={`mx-0 ${titleLeftOne ? null : ' d-none'}`}>{titleLeftOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleLeftTwo ? null : ' d-none'}`}>{titleLeftTwo}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleLeftThree ? null : ' d-none'}`}>{titleLeftThree}</CRow>
@@ -210,10 +209,17 @@ const DetailHeader = ({
       >
         <ModalBody className="align-bottom" style={{ paddingBottom: '2.4rem !important' }}>
           <div className="text-right px-0" style={{ fontSize: '14px' }}>
-            <i className="iconU-close pointer" onClick={() => setModalShow(false)} />
+            <i 
+              className="iconU-close pointer" 
+              role="button" 
+              tabIndex={0}
+              aria-label="Close"
+              onClick={() => setModalShow(false)}
+              onKeyDown={() => setModalShow(false)}
+            />
           </div>
           <div className="d-flex d-inline-flex">
-            <img src={logo_confirm} alt="logo" className="px-3" style={{ width: '120px', height: '20%' }} />
+            <img src={logoConfirm} alt="logo" className="px-3" style={{ width: '120px', height: '20%' }} />
             <p className="m-0 pl-3 pr-4" style={{ overflowWrap: 'anywhere' }}>
               {valeuRightEleven}
             </p>

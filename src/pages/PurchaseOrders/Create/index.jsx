@@ -66,7 +66,6 @@ const Create = ({ show, setShow }) => {
                   setShow(false);
                   setIsReset(0);
                 }} 
-                aria-hidden="true"
               />
             </Col>
           </Row>

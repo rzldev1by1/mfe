@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable radix */
 import { getSummaryData, getForescast, getDetailData } from '../../apiService';
 
 export const onActivePageChange = ({ e, pagination, goto, dispatch, module, props, searchFilter, user }) => {
@@ -52,11 +50,11 @@ export const onActivePageChange = ({ e, pagination, goto, dispatch, module, prop
   } else {
     dispatch({ type: paramPaging || 'PAGING', data: { ...pagination, active } });
   }
-  let arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
+  const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
   if (arraySummary.includes(module)) {
     getSummaryData({
       dispatch,
-      active: active,
+      active,
       module,
       props,
       siteVal: searchFilter.siteVal,
@@ -69,11 +67,11 @@ export const onActivePageChange = ({ e, pagination, goto, dispatch, module, prop
   }
 
   if (module === 'StockHoldingForecast') {
-    getForescast({ dispatch, active: active, module, props });
+    getForescast({ dispatch, active, module, props });
   }
-  let arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
+  const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
   if (arrayDetail.includes(module)) {
-    getDetailData({ dispatch, active: active, module, props });
+    getDetailData({ dispatch, active, module, props });
   }
 };
 
@@ -139,7 +137,7 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
   } else {
     dispatch({ type: paramPaging || 'PAGING', data: { ...pagination, active: newPage.goPage } });
   }
-  let arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
+  const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
   if (arraySummary.includes(module)) {
     getSummaryData({
       dispatch,
@@ -168,7 +166,7 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
   if (module === 'StockHoldingForecast') {
     getForescast({ dispatch, active: newPage.goPage, module, props });
   }
-  let arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
+  const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
   if (arrayDetail.includes(module)) {
     getDetailData({ dispatch, active: newPage.goPage, module, props });
   }
@@ -238,7 +236,7 @@ export const changePage = ({ active, dispatch, module, props, searchFilter, user
     paramPaging = 'PAGING_SP_DETAIL';
   }
   dispatch({ type: paramType, data: [] });
-  let arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
+  const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
   if (arraySummary.includes(module)) {
     getSummaryData({
       dispatch,
@@ -257,7 +255,7 @@ export const changePage = ({ active, dispatch, module, props, searchFilter, user
   if (module === 'StockHoldingForecast') {
     getForescast({ dispatch, active, module, props });
   }
-  let arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
+  const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
   if (arrayDetail.includes(module)) {
     getDetailData({ dispatch, active, module, props });
   }
