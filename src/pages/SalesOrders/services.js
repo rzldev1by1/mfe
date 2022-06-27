@@ -625,27 +625,46 @@ export const schemaColumnDetailPO = [
   },
 ];
 
+export const headerDetailRight = [
+  { accessor: 'site', Header: 'Site' },
+  { accessor: 'client', Header: 'Client' },
+  { accessor: 'orderno', Header: 'Order No' },
+  { accessor: 'ordertype', Header: 'Order Type' },
+  { accessor: 'isistask', Header: 'Task' },
+  { accessor: 'customer', Header: 'Customer No' },
+  { accessor: 'customername', Header: 'Customer Name' },
+  { accessor: 'customerpono', Header: 'Customer Order Ref' },
+  { accessor: 'vendororderno', Header: 'Vendor Order Ref' },
+  { accessor: 'deliverydescription', Header: 'Delivery Instructions' }
+]
+
+export const headerDetailCenter = [
+  { accessor: 'address1', Header: 'Address 1' },
+  { accessor: 'address2', Header: 'Address 2' },
+  { accessor: 'address3', Header: 'Address 3' },
+  { accessor: 'address4', Header: 'Address 4' },
+  { accessor: 'address5', Header: 'Address 5' },
+  { accessor: 'ship_to_name', Header: 'Ship To Name' },
+  { accessor: 'suburb', Header: 'Suburb' },
+  { accessor: 'postcode', Header: 'Postcode' },
+  { accessor: 'state', Header: 'State' },
+  { accessor: 'country', Header: 'Country' }
+]
+
+export const headerDetailLeft = [
+  { accessor: 'status', Header: 'Status' },
+  { accessor: 'deliverydate', Header: 'Delivery Date' },
+  { accessor: 'datereceived', Header: 'Date Received' },
+  { accessor: 'datereleased', Header: 'Date Released' },
+  { accessor: 'datecompleted', Header: 'Date Completed' },
+  { accessor: 'loadnumber', Header: 'Load Number' },
+  { accessor: 'loadoutstart', Header: 'Loadout Start' },
+  { accessor: 'loadoutfinish', Header: 'Loadout Finish' },
+  { accessor: 'consignmentno', Header: 'Consignment No' },
+  { accessor: 'freightcharge', Header: 'Freight Charge' },
+]
+
 export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });
-};
-
-export const siteCheck = ({ val, site }) => {
-  let ret = null;
-  site.forEach((data) => {
-    if (!data?.value !== val) {
-      ret = data.label
-    }
-  })
-  return ret;
-}
-
-export const clientCheck = ({ val, client }) => {
-  let ret = null;
-  client.forEach((data) => {
-    if (!data?.value !== val) {
-      ret = data.label
-    }
-  })
-  return ret;
 };
 

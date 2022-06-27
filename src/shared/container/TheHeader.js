@@ -10,6 +10,7 @@ import {
 } from '@coreui/react'
 
 const TheHeader = (props) => {
+  const { breadcrumb, button } = props
   const dispatch = useDispatch()
   const sidebarShow = useSelector(state => state.sidebarShow)
 
@@ -36,14 +37,14 @@ const TheHeader = (props) => {
         {/* <CToggler inHeader onClick={toggleSidebar} className="p-0 d-md-down-none" /> */}
         {/* <CBreadcrumbRouter className="border-0 c-subheader-nav mr-auto" routes={routes} /> */}
         <CBreadcrumb className="no-border no-shadow mr-auto m-0 py-3">
-          {props.breadcrumb ? props.breadcrumb.map((b, i) => {
+          {breadcrumb ? breadcrumb.map((b, i) => {
             return b.active ? <CBreadcrumbItem key={i} active>{b.label}</CBreadcrumbItem>
               : <CBreadcrumbItem key={i}><Link to={b.to}>{b.label}</Link></CBreadcrumbItem>
           }) : ''}
         </CBreadcrumb>
         <div className="c-subheader-nav">
-          {props.button}
-        </div >
+          {button}
+        </div>
         {/* <CToggler
           inHeader
           title="Toggle Light/Dark Mode"

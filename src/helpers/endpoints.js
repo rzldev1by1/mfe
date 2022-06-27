@@ -1,5 +1,4 @@
 const version = process.env.REACT_APP_API_URL_VERSION; /* comment this line when build docker [DOCKER BUILD] */
-// const version = window._env_.REACT_APP_API_URL_VERSION; /* uncomment this line when build docker [DOCKER BUILD]] */
 export default {
   // Dropdown Start --------------------------------------------------------
   getSite: `/${version}/settings/sites`,

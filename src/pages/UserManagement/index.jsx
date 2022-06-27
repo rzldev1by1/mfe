@@ -55,7 +55,6 @@ const UserManagement = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      // getSummaryData({ dispatch, active: paginationUm?.active, Export, module });
     }
   }, [Export]);
 

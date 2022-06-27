@@ -2,11 +2,7 @@ import * as EmailValidator from 'email-validator';
 import { checkEmails } from '../../../apiService';
 
 export const disabledCharacterName = (e) => {
-  if (e.target.selectionStart === 0 && !/[a-zA-Z0-9]/g.test(e.key)) {
-    e.preventDefault();
-  } else if (!/[a-zA-Z0-9 _-]/g.test(e.key)) {
-    e.preventDefault();
-  }
+  if (e.target.selectionStart === 0 && !/[a-zA-Z0-9]/g.test(e.key) || !/[a-zA-Z0-9 _-]/g.test(e.key)) e.preventDefault();
 };
 
 export const gotoUM = (props) => {

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FormFeedback } from 'reactstrap';
 import { CCard, CCardBody } from '@coreui/react';
 import Breadcrumb from '../../../Component/Breadcrumb';
-import ModuleAccess from '../moduleAccess';
 import Site from '../Site';
 import Client from '../Client';
 import { getAccountInfo, onChangeEmail, onChangeName, saveClick } from '../../../apiService';
@@ -11,6 +10,7 @@ import { disabledCharacterName, onClickSuspendUser, gotoUM, onClickResetPassword
 import loading from '../../../assets/icons/loading/LOADING-MLS.gif';
 import ResetModal from '../../../Component/Modal/PopUpResetUm';
 import './index.scss';
+import ModuleAccess from '../ModuleAccess';
 
 const UserManagementDetail = (props) => {
   const dispatch = useDispatch();
@@ -72,6 +72,9 @@ const UserManagementDetail = (props) => {
   useEffect(() => {
     buttonValidation({ setIsButton, validation: newState?.validation });
   }, [state]);
+
+  const btnCss = newState.accountInfo.passwordChange === '' ? 'btn-outline-active' : 'btn-outline-notActive'
+
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
@@ -163,7 +166,7 @@ const UserManagementDetail = (props) => {
                       <div className="col-5">
                         <button
                           type="button"
-                          className={`btn ${newState.accountInfo.passwordChange === '' ? 'btn-outline-active' : 'btn-outline-notActive'}`}
+                          className={`btn ${btnCss}`}
                           onClick={() => onClickResetPassword({ state, setState })}
                         >
                           RESET
