@@ -6,7 +6,7 @@ import Breadcrumb from 'Component/Breadcrumb';
 import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
 import { getDetailData, getDetailHeader } from '../../../apiService';
-import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO, formatDate } from './services';
+import { setExportData, schemaColumnDetailPO, headerDetailCenter, headerDetailRight, headerDetailLeft } from './services';
 import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {
@@ -14,9 +14,7 @@ const PurchaseOrdersDetail = (props) => {
   const poDetail = useSelector((state) => state.poDetail);
   const poDetailTable = useSelector((state) => state.poDetailTable);
   const paginationPoDetail = useSelector((state) => state.paginationPoDetail);
-  const siteData = useSelector((state) => state.siteData);
   const stateChangeHeader = useSelector((state) => state.changeHeader);
-  const clientData = useSelector((state) => state.clientData);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
@@ -104,43 +102,10 @@ const PurchaseOrdersDetail = (props) => {
       />
       <div className="pb-3">
         <DetailHeader
-          // title Right
-          titleRight
-          titleRightOne="Site"
-          titleRightTwo="Client"
-          titleRightThree="Order No"
-          titleRightFour="Order Type"
-          titleRightFive="Task"
-          titleRightSix="Status"
-          // Valeu Right
-          valeuRightOne={siteCheck({ val: poDetail?.site, site: siteData }) || '-'}
-          valeuRightTwo={clientCheck({ val: poDetail?.client, client: clientData }) || '-'}
-          valeuRightThree={poDetail?.order_no || '-'}
-          valeuRightFour={poDetail?.order_type || '-'}
-          valeuRightFive={poDetail?.isis_task || '-'}
-          valeuRightSix={poDetail?.status || '-'}
-          // title Center
-          titleCenter
-          titleCenterOne="Supplier No"
-          titleCenterTwo="Supplier Name"
-          titleCenterThree="Customer Order Ref"
-          titleCenterFour="Vendor Order Ref"
-          // Valeu Center
-          valeuCenterOne={poDetail?.supplier_no || '-'}
-          valeuCenterTwo={poDetail?.supplier_name || '-'}
-          valeuCenterThree={poDetail?.customer_order_ref || '-'}
-          valeuCenterFour={poDetail?.vendor_ord_ref || '-'}
-          // title Left
-          titleLeft
-          titleLeftOne="Order Date"
-          titleLeftTwo="Date Received"
-          titleLeftThree="Date Released"
-          titleLeftFour="Date Completed"
-          // Valeu Left
-          valeuLeftOne={poDetail?.delivery_date || '-'}
-          valeuLeftTwo={poDetail?.date_received || '-'}
-          valeuLeftThree={poDetail?.date_released || '-'}
-          valeuLeftFour={poDetail?.date_completed || '-'}
+          headerDetailCenter={headerDetailCenter}
+          headerDetailRight={headerDetailRight}
+          headerDetailLeft={headerDetailLeft}
+          data={poDetail}
         />
       </div>
       <TableMaster

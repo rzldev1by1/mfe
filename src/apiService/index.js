@@ -445,8 +445,8 @@ export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
 // User Management
 
 // Get Info Account
-export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess }) => {
-  const { data } = await axios.get(endpoints.userManagementUser_Detail + userid);
+export const getAccountInfo = async ({ userId, state, setState, dispatch, loadSite, loadClient, moduleAccess }) => {
+  const { data } = await axios.get(endpoints.userManagementUser_Detail + userId);
   const newState = { ...state };
   let result = restructureAccount(data);
   if (data && data !== '') {
@@ -694,9 +694,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   let siteValue =
     site &&
-    newState.sites.filter((item) => {
-      return item.status === true;
-    }).length !== newState.sites.length
+      newState.sites.filter((item) => {
+        return item.status === true;
+      }).length !== newState.sites.length
       ? site.site
       : null;
 
@@ -706,9 +706,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   let clientValue =
     client &&
-    newState.clients.filter((item) => {
-      return item.status === true;
-    }).length !== newState.clients.length
+      newState.clients.filter((item) => {
+        return item.status === true;
+      }).length !== newState.clients.length
       ? client.code
       : null;
 
@@ -795,10 +795,10 @@ export const resetPassword = ({ state, setState, props }) => {
 };
 
 export const DarkModeChange = ({ changeMode, setChangeMode }) => {
-  if (changeMode == true) {
+  if (changeMode === true) {
     localStorage.setItem('darkModeLocal', false);
     setChangeMode(false);
-  } else if (changeMode == false) {
+  } else if (changeMode === false) {
     localStorage.setItem('darkModeLocal', true);
     setChangeMode(true);
   } else {

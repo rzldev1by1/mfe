@@ -20,7 +20,7 @@ class ProtectedRoute extends React.Component {
   constructor(props) {
     super(props);
     if (props.store.user) {
-      const { token, userLevel, client, webUser } = props.store.user;
+      const { token, userLevel } = props.store.user;
       axios.defaults.baseURL = endpoints.env.REACT_APP_API_URL;
       axios.defaults.headers.common['Content-Type'] = 'application/json';
       axios.defaults.headers.common['Accept'] = 'application/json';

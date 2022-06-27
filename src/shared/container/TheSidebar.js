@@ -9,7 +9,6 @@ import {
 } from '@coreui/react';
 import Logo from 'assets/img/logo-white.png';
 import nav from './_nav';
-import { darkModeMLS } from '../../apiService';
 import './TheSidebar.css';
 
 const TheSidebar = () => {
@@ -18,18 +17,16 @@ const TheSidebar = () => {
   const show = useSelector((state) => state.sidebarShow);
   const user = useSelector((state) => state.user);
   const lastChangedUser = useSelector((state) => state.lastChangedUser);
-  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [hover, setHover] = useState(null);
-  const signOut = async (e) => {
+  const signOut = async () => {
     dispatch({ type: 'LOGOUT' });
-    const payload = {last_access: new Date().toLocaleString()};
-    const ret = await axios.post('auth/logout',payload );
+    const payload = { last_access: new Date().toLocaleString() };
+    const ret = await axios.post('auth/logout', payload);
     return ret;
   };
   let userMenu = user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];
-  const superAdmin = ['MLS12345', 'angae'];
 
   let navigation = nav;
 
@@ -44,17 +41,17 @@ const TheSidebar = () => {
   //   });
   // }
 
-  
+
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter((n) => {
       return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
     });
   }
-  else{
+  else {
     navigation = navigation.filter((n) => {
       return n.to !== "/supplier-management"
     });
-   }
+  }
 
   return (
     <CSidebar
@@ -80,7 +77,10 @@ const TheSidebar = () => {
           let string = location.pathname;
           const isActive = string.includes(n.to);
           const isHover = hover === n.to;
-          let icon = `nav/${isHover ? n.icon + '-hover' : isActive ? n.icon + '-active' : n.icon}.png`;
+          let hoverIcon = n.icon
+          if (isHover) hoverIcon = n.icon + '-hover'
+          else if (isActive) hoverIcon = n.icon + '-active'
+          const icon = `nav/${hoverIcon}.png`;
           return (
             <Link to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
               <li
