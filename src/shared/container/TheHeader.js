@@ -8,17 +8,10 @@ import {
   CBreadcrumb,
   CBreadcrumbItem,
 } from '@coreui/react'
-// import CIcon from '@coreui/icons-react'
 
 const TheHeader = (props) => {
   const dispatch = useDispatch()
-  // const darkMode = useSelector(state => state.darkMode)
   const sidebarShow = useSelector(state => state.sidebarShow)
-
-  // const toggleSidebar = () => {
-  //   const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
-  //   dispatch({ type: 'set', sidebarShow: val })
-  // }
 
   const toggleSidebarMobile = () => {
     const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'

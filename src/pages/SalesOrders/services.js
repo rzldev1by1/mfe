@@ -117,6 +117,7 @@ export const schemaColumn = [
         default:
           break;
       }
+      return false
     },
   },
   {
