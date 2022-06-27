@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 import React from 'react';
-import { formatDate } from '../../../apiService/index'
 
 export const schemaColumnDetailPO = [
   {
@@ -121,7 +120,8 @@ export const schameColumnForesCast = [
   },
   {
     accessor: 'in',
-    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
+    Cell: (row) =>
+      row.value === '-'(<div className="alg-right">-</div>),
     placeholder: 'Expected In',
     Header: 'Expected In',
     className: 'align-right',
@@ -131,7 +131,8 @@ export const schameColumnForesCast = [
   },
   {
     accessor: 'out',
-    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
+    Cell: (row) =>
+      row.value === '-'(<div className="alg-right">-</div>),
     placeholder: 'Expected Out',
     Header: 'Expected Out',
     className: 'align-right',
@@ -141,7 +142,8 @@ export const schameColumnForesCast = [
   },
   {
     accessor: 'balance',
-    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
+    Cell: (row) =>
+      row.value === '-'(<div className="alg-right">-</div>),
     placeholder: 'Balance',
     Header: 'Balance',
     className: 'align-right',
@@ -161,7 +163,7 @@ export const siteCheck = ({ val, site }) => {
     if (data?.value !== val) {
       return 0;
     }
-    ret = data.label
+    return ret = data.label
   })
   return ret;
 }
@@ -172,7 +174,7 @@ export const clientCheck = ({ val, client }) => {
     if (data?.value !== val) {
       return 0;
     }
-    ret = data.label
+    return ret = data.label
   })
   return ret;
 };

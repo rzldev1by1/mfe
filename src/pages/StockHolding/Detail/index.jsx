@@ -95,9 +95,8 @@ const StockHoldingDetail = (props) => {
                   style={{ marginLeft: '0px' }}
                 >
                   <div
-                    className={`row rowTabCustom align-items-center tabColumn mx-0 ${
-                      activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
-                    }`}
+                    className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
+                      }`}
                   >
                     <span className="newIcon-stock_details tabTitleText" />
                     {activeTab === '1'}
@@ -107,8 +106,8 @@ const StockHoldingDetail = (props) => {
               </NavItem>
 
               {parseInt(shDetail?.expected_in_qty) === 0 &&
-              parseInt(shDetail?.expected_out_qty) === 0 &&
-              parseInt(shDetail?.stock_on_hand) + parseInt(shDetail?.expected_in_qty) >= shDetail?.expected_out_qty ? (
+                parseInt(shDetail?.expected_out_qty) === 0 &&
+                parseInt(shDetail?.stock_on_hand) + parseInt(shDetail?.expected_in_qty) >= shDetail?.expected_out_qty ? (
                 ''
               ) : (
                 <NavItem className={`p-0 ml-2 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`}>
@@ -118,9 +117,8 @@ const StockHoldingDetail = (props) => {
                     onClick={() => setActiveTab('2')}
                   >
                     <div
-                      className={`row rowTabCustom align-items-center tabColumn mx-0 ${
-                        activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
-                      }`}
+                      className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
+                        }`}
                     >
                       <span className="newIcon-stock_balance tabTitleText" />
                       {activeTab === '2'}

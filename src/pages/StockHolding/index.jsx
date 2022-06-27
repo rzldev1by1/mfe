@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Search from '../../Component/Search';
@@ -7,8 +8,9 @@ import { schemaColumn, statusDataSH } from './services';
 import { getSummaryData } from '../../apiService';
 
 const PurchaseOrders = (props) => {
+  const { history } = props
   const showDetails = (item) => {
-    props.history.push(`/stock-holding${item.product}/${item.client}/${item.site}`);
+    history.push(`/stock-holding${item.product}/${item.client}/${item.site}`);
   };
 
   const dispatch = useDispatch();
@@ -53,11 +55,14 @@ const PurchaseOrders = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
-      let x = columnHidden?.map((data, idx) => {
+      const reqColumnHidden = localStorage.getItem('tableColumns')
+        ? JSON.parse(localStorage.getItem('tableColumns'))
+        : [];
+      const x = reqColumnHidden?.map((data, idx) => {
         if (data.title === 'Stock Holding Summary') {
           setColumnHidden(data.columns);
         }
+        return data;
       });
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -65,12 +70,15 @@ const PurchaseOrders = (props) => {
 
   useEffect(() => {
     if (state2) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      const reqcolumnHidden = localStorage.getItem('tableColumns')
+        ? JSON.parse(localStorage.getItem('tableColumns'))
+        : [];
       let tmp = null;
-      let x = columnHidden?.map((data, idx) => {
+      const x = reqcolumnHidden?.map((data, idx) => {
         if (data.title === 'Stock Holding Summary') {
           tmp = data.columns;
         }
+        return data;
       });
       if (tmp) {
         setColumnHidden(tmp);
