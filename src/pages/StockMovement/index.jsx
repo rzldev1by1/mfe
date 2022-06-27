@@ -84,22 +84,6 @@ const StockMovement = (props) => {
             {headerExcel.map((d, i) => {
               if (firstHeader.includes(d)) {
                 return <th>{d}</th>;
-              } else {
-                return (
-                  <th>
-                    <table>
-                      <tr>
-                        <th colSpan="4">{d}</th>
-                      </tr>
-                      <tr>
-                        <th width="25%">SA+</th>
-                        <th width="25%">SA-</th>
-                        <th width="25%">Rec</th>
-                        <th width="25%">Send</th>
-                      </tr>
-                    </table>
-                  </th>
-                );
               }
             })}
           </tr>
@@ -186,21 +170,6 @@ const StockMovement = (props) => {
                       <td rowSpan={data.rowspan}>{data.product}</td>
                       <td rowSpan={data.rowspan}>{data.product_name}</td>
                       <td rowSpan={data.rowspan}>{data.uom}</td>
-                      <td>{d.date_1}</td>
-                      <td>{d.sa_plus_1}</td>
-                      <td>{d.sa_minus_1}</td>
-                      <td>{d.rec_1}</td>
-                      <td>{d.send_1}</td>
-                      <td>{d.date_2}</td>
-                      <td>{d.sa_plus_2}</td>
-                      <td>{d.sa_minus_2}</td>
-                      <td>{d.rec_2}</td>
-                      <td>{d.send_2}</td>
-                    </tr>
-                  );
-                } else {
-                  return (
-                    <tr>
                       <td>{d.date_1}</td>
                       <td>{d.sa_plus_1}</td>
                       <td>{d.sa_minus_1}</td>
