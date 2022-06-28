@@ -14,11 +14,9 @@ const DropdownAxios = ({
   entryListIdx,
   onChangeDropdown,
   poListIdx,
-  isDisabled,
   isLoading,
   className,
   onInputChange,
-  showTitle = false,
   title = null,
   minChar = 3,
   required = false,
@@ -31,7 +29,6 @@ const DropdownAxios = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isValue, setIsValue] = useState('');
   const elem = document?.getElementById(`dropdown${entryListIdx}${poListIdx}`);
-  let position = elem?.getBoundingClientRect();
   const newSelectedValue = !showLabelOnly
     ? selectedValue
     : { label: selectedValue?.value, value: selectedValue?.value };
@@ -61,9 +58,10 @@ const DropdownAxios = ({
       uom: data?.data?.uom,
     }));
   }
+  const rerequired = required ? 'required' : ''
   return (
     <div className={parentDivClassName}>
-      {!title ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
+      {!title ? null : <label className={`text-muted mb-0 ${rerequired}`}>{title}</label>}
       <Select
         isClearable={!readOnly}
         isSearchable={!readOnly}
@@ -72,9 +70,7 @@ const DropdownAxios = ({
         options={newOptions && isOpen ? newOptions : []}
         getOptionLabel={(option) => option.label}
         isLoading={isLoading}
-        onInputChange={(val) => {
-          setIsValue(val);
-        }}
+        onInputChange={(val) => setIsValue(val)}
         menuIsOpen={isOpen}
         onChange={(val) => onChangeDropdown(val)}
         className={`c-400 ${isOpen ? 'absolute' : null} ${className}`}
@@ -84,11 +80,11 @@ const DropdownAxios = ({
           return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase();
         }}
         styles={{
-          option: (provided, state) => ({
+          option: provided => ({
             ...provided,
             textAlign: 'left',
           }),
-          dropdownIndicator: (base, state) => ({
+          dropdownIndicator: base => ({
             ...base,
             transform: isOpen ? 'rotate(180deg)' : null,
             display: isOpen ? 'flex' : 'none',
@@ -101,7 +97,7 @@ const DropdownAxios = ({
             ...base,
             maxHeight: 210,
           }),
-          control: (provided, state) => ({
+          control: provided => ({
             ...provided,
             backgroundColor: readOnly ? '#e4e7ea !important' : 'white',
             pointerEvents: readOnly ? 'none' : 'auto',

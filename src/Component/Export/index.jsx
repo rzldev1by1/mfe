@@ -4,7 +4,6 @@ import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reac
 import { useDispatch, useSelector } from 'react-redux';
 import PopUpExport from '../Modal/PopUpExport';
 import { exportPDF, exportXLS, ExportName } from './services';
-import { AiOutlineConsoleSql } from 'react-icons/ai';
 import './style.scss';
 import 'jspdf-autotable';
 import loading from '../../assets/icons/loading/LOADING-MLS.gif';
@@ -26,7 +25,6 @@ const Export = ({
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [exportStatus, setExportStatus] = useState('ready');
-  const [notifExport, setNotifExport] = useState(false);
   const [runExport, setRunExport] = useState(null);
   const [startExport, setStartExport] = useState(null);
   const [modalShow, setModalShow] = useState(false);
@@ -124,9 +122,8 @@ const Export = ({
           </div>
         </DropdownToggle>
         <DropdownMenu
-          className={`no-shadow ${
-            exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
-          }`}
+          className={`no-shadow ${exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
+            }`}
         >
           {!exportPdf ? (
             ''
@@ -140,10 +137,10 @@ const Export = ({
             ''
           ) : (
             <div>
-              <DropdownItem 
-                  className={`export-excel so-export px-1 d-flex justify-content-center
+              <DropdownItem
+                className={`export-excel so-export px-1 d-flex justify-content-center
                   ${exportPdf === false ? ' radius-top-export' : ''}`}
-                  onClick={() => setRunExport('XLS')}>
+                onClick={() => setRunExport('XLS')}>
                 <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
@@ -187,7 +184,7 @@ const Export = ({
                       return <td key={columnIdx}>{dataReturn}</td>;
                     }
                     if (columnRightCharacter.includes(column.accessor)) {
-                      return <td style={{ textAlign: 'right'}} key={columnIdx}>{dataReturn}</td>;
+                      return <td style={{ textAlign: 'right' }} key={columnIdx}>{dataReturn}</td>;
                     }
                     return <td key={columnIdx}>{dataReturn}</td>;
                   })}

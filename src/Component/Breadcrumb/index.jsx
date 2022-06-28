@@ -27,39 +27,10 @@ const TheHeader = (props) => {
             return b.active ? <CBreadcrumbItem key={i} active>{b.label}</CBreadcrumbItem>
               : <CBreadcrumbItem key={i}><Link to={b.to}>{b.label}</Link></CBreadcrumbItem>
           }) : ''}
-          {/* {userInfo ? (
-              <CDropdown>
-                <CDropdownToggle color="secondary" className="d-flex align-items-center p-3 border" style={{backgroundColor:"white", color:"black", boxShadow:"none"}}>
-                  <i className="fa fa-user" aria-hidden="true" />
-                  <div className="pl-2 text-left">
-                    <p className="mb-0">{user.name}</p>
-                    <h6 className="mb-0" style={{fontSize: "0.675rem"}}>
-                      {user.email} 
-                      {' '}
-                      <span>.</span>
-                      {' '}
-                      <span>{user.userId}</span>
-                    </h6>
-                  </div>
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <CDropdownItem href="#">Action</CDropdownItem>
-                  <CDropdownItem href="#">Another action</CDropdownItem>
-                  <CDropdownItem href="#">Log Out</CDropdownItem>
-                </CDropdownMenu>
-              </CDropdown>
-            ) :  (
-              <div className="c-subheader-nav">
-                {button}
-              </div>
-            )} */}
           <div className="c-subheader-nav">
             {button}
           </div>
         </CBreadcrumb>
-        {/* <div className="c-subheader-nav">
-            {button}
-          </div> */}
       </CSubheader>
     </CHeader>
   )

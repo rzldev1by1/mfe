@@ -6,8 +6,6 @@ import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename } from 
 import './index.scss';
 
 const EditTable = ({
-    schemaColumn,
-    tabActive,
     setEditColumnTemp,
     setTabActive,
     user,
@@ -28,7 +26,6 @@ const EditTable = ({
 
     //Demesion
     const height = window.innerHeight - 420
-    const width = window.innerWidth
 
     const dispatch = useDispatch();
     const [activeTab, setActiveTab] = React.useState(1);
@@ -84,7 +81,7 @@ const EditTable = ({
                     {activeTab == 1 ? (
                         <div>
                             <CRow style={{ height: height, overflowY: "overlay" }}>
-                                {fields && fields.map((item, index) => {
+                                {fields && fields.map(item => {
                                     return <CCol xs={12} className={`py-1`}>
                                         <button type className={`text-left btn btn-block btn-toggle px-2 align-items-center d-flex
                                             ${!state.editColumn?.includes(item.accessor) ? 'btn-outline-primary' : 'btn-nonActive'}`}

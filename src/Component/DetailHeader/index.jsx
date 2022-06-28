@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import { Modal, ModalBody } from 'reactstrap';
+import numeral from 'numeral';
 import { Link } from 'react-router-dom';
 import './index.scss';
 import logoConfirm from '../../assets/img/LOGO5@2x.png';
@@ -116,7 +117,16 @@ const DetailHeader = ({
               <CCol lg='12' className="px-0">
                 {headerDetailLeft.map(id => {
                   const { accessor } = id
+                  const formatQty = ['stock_on_hand', 'projected_available_qty', 'expected_in_qty', 'expected_out_qty', 'rotadate_type']
                   if (data) {
+                    if (formatQty.includes(accessor)) {
+                      return (
+                        <CRow className='mx-0 pt-1'>
+                          <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
+                          <CCol xs={8}>{data[accessor] ? numeral(data[accessor]).format('0,0') : '-'}</CCol>
+                        </CRow>
+                      )
+                    }
                     return (
                       <CRow className='mx-0 pt-1'>
                         <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
