@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FormFeedback } from 'reactstrap';
 import { CCard, CCardBody } from '@coreui/react';
 import Breadcrumb from '../../../Component/Breadcrumb';
-import ModuleAccess from '../moduleAccess';
+import ModuleAccess from '../ModuleAccess';
 import Site from '../Site';
 import Client from '../Client';
 import { getAccountInfo, onChangeEmail, onChangeName, saveClick } from '../../../apiService';

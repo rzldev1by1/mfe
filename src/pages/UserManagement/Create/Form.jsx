@@ -5,7 +5,7 @@ import { FormFeedback } from 'reactstrap';
 import Site from '../Site';
 import Client from '../Client';
 // import ModuleAccess from '../ModuleAccess';
-import moduleAccess from '../moduleAccess';
+// import moduleAccess from '../moduleAccess';
 import { changeDetails, disabledCharacterName } from './services';
 
 import './style.scss';
