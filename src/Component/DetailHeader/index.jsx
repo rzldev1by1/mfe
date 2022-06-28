@@ -34,6 +34,7 @@ const DetailHeader = ({
 
   return (
     <div className="card-group" style={{ borderRadius: "0.25rem" }}>
+
       {headerDetailRight ? (
         <CCard>
           <CCardBody className={`p-0 m-3 ${headerDetailCenterCss}`}>
