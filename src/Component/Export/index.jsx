@@ -116,9 +116,8 @@ const Export = ({
           </div>
         </DropdownToggle>
         <DropdownMenu
-          className={`no-shadow ${
-            exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
-          }`}
+          className={`no-shadow ${exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
+            }`}
         >
           {!exportPdf ? (
             ''
@@ -133,11 +132,9 @@ const Export = ({
           ) : (
             <div>
               <DropdownItem
-                className={`export-excel so-export px-1 d-flex justify-content-center ${
-                  exportPdf === false ? ' radius-top-export' : ''
-                }`}
-                onClick={() => setRunExport('XLS')}
-              >
+                className={`export-excel so-export px-1 d-flex justify-content-center
+                  ${exportPdf === false ? ' radius-top-export' : ''}`}
+                onClick={() => setRunExport('XLS')}>
                 <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
@@ -181,11 +178,7 @@ const Export = ({
                       return <td key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
                     }
                     if (columnRightCharacter.includes(column.accessor)) {
-                      return (
-                        <td style={{ textAlign: 'right' }} key={schemaColumn?.[columnIdx]?.accessor}>
-                          {dataReturn}
-                        </td>
-                      );
+                      return <td style={{ textAlign: 'right' }} key={columnIdx}>{dataReturn}</td>;
                     }
                     return <td key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
                   })}

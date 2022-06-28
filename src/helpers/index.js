@@ -20,17 +20,8 @@ class Helpers {
       });
       return;
     }
-    // userDetails["expiredDate"] = moment().add(1, 'minutes');
-    // userDetails["now"] = new Date();
     localStorage.setItem('user', JSON.stringify(userDetails));
   };
-
-  static renewExpiredDate = () => {
-    // let user = JSON.parse(localStorage.user);
-    // user.last_login_date = moment().add(1, 'minutes');
-    // localStorage.setItem("user", JSON.stringify(user));
-  };
-
   static getUser = () => {
     return JSON.parse(localStorage.getItem('user'));
   };
@@ -49,7 +40,6 @@ class Helpers {
       return 'false';
     }
     if (user['client']) {
-      //check empty or not
       return user['client'];
     } else {
       return '';
@@ -61,7 +51,6 @@ class Helpers {
       return 'false';
     }
     if (user['site']) {
-      //check empty or not
       return user['site'];
     } else {
       return '';
@@ -92,19 +81,12 @@ class Helpers {
     return user['token'];
   };
 
-  static getExpiredDate = () => {
-    // let user = this.getUser();
-    // if (!user) { return false };
-    // return user["expiredDate"];
-  };
-
   static getCompanyCode = () => {
     let user = this.getUser();
     if (!user) {
       return false;
     }
     if (user['company']) {
-      //check empty or not
       return user['company'];
     } else {
       return '';
@@ -116,7 +98,6 @@ class Helpers {
     if (!user) {
       return false;
     }
-    // return user["userModules"][0].web_user;
     return user['webUser'];
   };
 
@@ -133,19 +114,6 @@ class Helpers {
   };
 
   static eraseAllLocalData = () => {
-    // let localStorageKeys = [
-    // 	"filterDataItem",
-    // 	"columnDataItem",
-    // 	"masterDataList",
-    // 	"end"
-    // ];
-
-    // localStorageKeys.forEach(element => {
-    // 	if (localStorage.getItem(element)) {
-    // 		localStorage.removeItem(element);
-    // 	}
-    // });
-
     let user = this.getUser();
     localStorage.removeItem(user);
   };

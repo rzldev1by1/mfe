@@ -1,5 +1,6 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import './Dropdown.css';
+
 class Dropdown extends Component {
     constructor(props) {
         super(props);
@@ -9,21 +10,30 @@ class Dropdown extends Component {
         }
     }
 
+
+    componentDidMount() {
+        const { isOpen } = this.props
+        if (isOpen) { isOpen(false) }
+    }
+
     shouldComponentUpdate() {
         return true
     }
 
-    componentDidMount() {
-        if (this.props.isOpen) { this.props.isOpen(false) }
-    }
-
     render() {
         const { placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected, className = "", tabIndex = "" } = this.props;
-        let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : [];
-        let optionListValue = optionValue ? optionValue.includes(",") ? optionValue.split(",") : [optionValue] : [];
-        let lastIndex = optionListData.length - 1;
+        let optionListData = [];
+        if (optionList) {
+            if (optionList.includes(",")) optionListData = optionList.split(",")
+            else optionListData = [optionList]
+        }
+        let optionListValue = [];
+        if (optionList) {
+            if (optionValue.includes(",")) optionListValue = optionValue.split(",")
+            else optionListValue = [optionList]
+        }
+        const lastIndex = optionListData.length - 1;
         let selectDropdownRef = null;
-        const no = Math.floor(Math.random() * 100000) + 1;
         return (
             <React.Fragment>
                 <ul className={"select_dropdown " + className + " dropdown_closed" + (!this.state.close && (this.props.usedFor == "SalesOrderCreate") ? " dropDownForOrderLine" : "")} ref={(selectDropdown) => { selectDropdownRef = selectDropdown }} style={style} tabIndex={tabIndex} onKeyDown={(e) => { if (e.key == "Escape") { this.refs["closeDropdown"].checked = true } }}>
@@ -35,7 +45,6 @@ class Dropdown extends Component {
                         <label className="select_dropdown_closeLabel" htmlFor={"select-close" + placeHolder + this.state.no}></label>
 
                         <ul className={"select_dropdown_options" + (optionList ? "" : " d-none") + (usedFor == "Datepicker" ? " select_datepicker_options" : "") + (this.props.showAll ? " showAllLists" : "")}>
-                            {/* {this.selectOption()} */}
                             {optionList ? optionListData.map((data, idx) => {
                                 if (idx == 0) {
                                     return (

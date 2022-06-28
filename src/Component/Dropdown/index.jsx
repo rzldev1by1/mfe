@@ -47,16 +47,16 @@ const Dropdown = ({
       onMenuOpen();
     }
   }, [isOpen]);
+  const rerequired = required ? 'required' : ''
   return (
     <div className={parentDivClassName}>
-      {!title ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
+      {!title ? null : <label className={`text-muted mb-0 ${rerequired}`}>{title}</label>}
       <Select
         className={className}
         isDisabled={isDisabled || false}
         isClearable={!readOnly}
         isSearchable={!readOnly}
         openMenuOnClick={!readOnly}
-        // id={entryListIdx`dropdown${entryListIdx}${poListIdx}`}
         value={selectedValue?.value ? selectedValue : false}
         menuIsOpen={isOpen}
         menuPortal
@@ -65,7 +65,6 @@ const Dropdown = ({
         onMenuOpen={() => setIsOpen(true)}
         onMenuClose={() => setIsOpen(false)}
         onChange={(val, { action }) => onChangeHandler(val, action)}
-        // menuPortalTarget={document.body}
         maxMenuHeight={200}
         menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}
         filterOption={(option, inputVal) => {

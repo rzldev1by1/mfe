@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Breadcrumb from 'Component/Breadcrumb';
 import { FormFeedback } from 'reactstrap';
 import { CCard, CCardBody } from '@coreui/react';
-import ModuleAccess from '../ModuleAccess';
+import Breadcrumb from '../../../Component/Breadcrumb';
 import Site from '../Site';
 import Client from '../Client';
-import { getAccountInfo, onBlurEmail, onChangeEmail, onChangeName, saveClick } from '../../../apiService';
-import { disabledCharacterName, onClieckSuspendUser, gotoUM, onClickResetPassword, buttonValidation } from './service';
+import { getAccountInfo, onChangeEmail, onChangeName, saveClick } from '../../../apiService';
+import { disabledCharacterName, onClickSuspendUser, gotoUM, onClickResetPassword, buttonValidation } from './service';
 import loading from '../../../assets/icons/loading/LOADING-MLS.gif';
 import ResetModal from '../../../Component/Modal/PopUpResetUm';
 import './index.scss';
-import { validateButton } from '../Create/services';
+import ModuleAccess from '../ModuleAccess';
 
 const UserManagementDetail = (props) => {
   const dispatch = useDispatch();
@@ -46,18 +45,16 @@ const UserManagementDetail = (props) => {
     },
   });
 
-  const user = useSelector((state) => state.user);
-  const usersData = useSelector((state) => state.usersData);
-  const accountInfo = useSelector((state) => state.accountInfo);
-  const userid = props.match.params.id;
-  const loadSite = useSelector((state) => state.loadSite);
-  const loadClient = useSelector((state) => state.loadClient);
-  const moduleAccess = useSelector((state) => state.moduleAccess);
+  const { match } = props
+  const userId = match.params.id;
+  const loadSite = useSelector((data) => data.loadSite);
+  const loadClient = useSelector((data) => data.loadClient);
+  const moduleAccess = useSelector((data) => data.moduleAccess);
   const [isButton, setIsButton] = useState(false);
   const newState = { ...state };
 
   useEffect(() => {
-    getAccountInfo({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess });
+    getAccountInfo({ userId, state, setState, dispatch, loadSite, loadClient, moduleAccess, });
   }, []);
 
   useEffect(() => {
@@ -75,10 +72,13 @@ const UserManagementDetail = (props) => {
   useEffect(() => {
     buttonValidation({ setIsButton, validation: newState?.validation });
   }, [state]);
+
+  const btnCss = newState.accountInfo.passwordChange === '' ? 'btn-outline-active' : 'btn-outline-notActive'
+
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
-      <CCard  style={{borderRadius:"0.25rem"}}>
+      <CCard style={{ borderRadius: "0.25rem" }}>
         <CCardBody className="p-3">
           <form
             onSubmit={(e) => {
@@ -91,32 +91,32 @@ const UserManagementDetail = (props) => {
               <div className="row mb-3">
                 <div className="col-12">
                   <h3 className="mb-0 d-flex">
-                    <i class="fa newIcon-profile pr-3" aria-hidden="true"></i>
-                    <label className="text-primary">{newState.accountInfo.user}</label>
+                    <i className="fa newIcon-profile pr-3" aria-hidden="true" />
+                    <span className="text-primary">{newState.accountInfo.user}</span>
                   </h3>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-md-1">
-                  <label className="text-title-detail">User ID</label>
+                  <span className="text-title-detail">User ID</span>
                 </div>
                 <div className="col-md-3">
-                  <label className="text-title-detail">Email</label>
+                  <span className="text-title-detail">Email</span>
                 </div>
                 <div className="col-md-2">
-                  <label className="text-title-detail">Name</label>
+                  <span className="text-title-detail">Name</span>
                 </div>
                 {newState?.accountInfo?.request_forgot_password && newState.statusReset ? (
                   <div className="col-md-3 pr-0">
-                    <label className="text-title-detail">Reset Password</label>
+                    <span className="text-title-detail">Reset Password</span>
                   </div>
                 ) : (
                   ''
                 )}
 
                 <div className={`col-md-3 pr-0 ${newState.adminClass}`}>
-                  <label className="text-title-detail">Suspend Users</label>
+                  <span className="text-title-detail">Suspend Users</span>
                 </div>
               </div>
               <div className="row mb-3">
@@ -128,7 +128,7 @@ const UserManagementDetail = (props) => {
                     readOnly
                     type="email"
                     name="email"
-                    className={`form-control ${newState.validation.email['isValid'] ? '' : newState.validation.email['invalidClass']
+                    className={`form-control ${newState.validation.email.isValid ? '' : newState.validation.email.invalidClass
                       }`}
                     onChange={(e) => {
                       onChangeEmail({ e, state, setState });
@@ -146,8 +146,7 @@ const UserManagementDetail = (props) => {
                   <input
                     readOnly
                     type="text"
-                    className={`form-control ${newState.validation.name['isValid'] ? '' : newState.validation.name['invalidClass']
-                      }`}
+                    className={`form-control ${newState.validation.name.isValid ? '' : newState.validation.name.invalidClass}`}
                     maxLength="60"
                     onChange={(e) => {
                       onChangeName({ e, state, setState });
@@ -167,15 +166,8 @@ const UserManagementDetail = (props) => {
                       <div className="col-5">
                         <button
                           type="button"
-                          className={
-                            'btn ' +
-                            (newState.accountInfo.passwordChange === ''
-                              ? 'btn-outline-active'
-                              : 'btn-outline-notActive')
-                          }
-                          onClick={(e) => {
-                            onClickResetPassword({ state, setState });
-                          }}
+                          className={`btn ${btnCss}`}
+                          onClick={() => onClickResetPassword({ state, setState })}
                         >
                           RESET
                         </button>
@@ -196,13 +188,8 @@ const UserManagementDetail = (props) => {
                     <div className="col-6">
                       <button
                         type="button"
-                        className={
-                          'btn ' +
-                          (!newState.accountInfo.disabled ? 'btn-outline-active' : 'btn-outline-notActive px-0')
-                        }
-                        onClick={(e) => {
-                          onClieckSuspendUser({ state, setState });
-                        }}
+                        className={`btn ${!newState.accountInfo.disabled ? 'btn-outline-active' : 'btn-outline-notActive px-0'}`}
+                        onClick={() => onClickSuspendUser({ state, setState })}
                       >
                         {!newState.accountInfo.disabled ? 'SUSPEND' : 'ENABLE'}
                       </button>
@@ -215,14 +202,14 @@ const UserManagementDetail = (props) => {
               <div className="row">
                 <div className="col-12">
                   <h3 className="mb-0">
-                    <label className="text-primary mb-0">System</label>
+                    <span className="text-primary mb-0">System</span>
                   </h3>
                 </div>
               </div>
               <div className="row">
                 <div className="col-4">
                   <ModuleAccess
-                    module={'detail'}
+                    module='detail'
                     state={state}
                     setState={setState}
                     moduleAccess={newState.moduleAccess}
@@ -232,7 +219,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 pl-0">
                   <Site
                     state={state}
-                    module={'detail'}
+                    module='detail'
                     setState={setState}
                     sites={newState.sites}
                     isEnableAllSite={newState.isEnableAllSite}
@@ -241,7 +228,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 um-client-scrollbar">
                   <Client
                     state={state}
-                    module={'detail'}
+                    module='detail'
                     setState={setState}
                     clients={newState.clients}
                     isEnableAllClient={newState.isEnableAllClient}
@@ -255,28 +242,28 @@ const UserManagementDetail = (props) => {
                   <input
                     type="checkbox"
                     name="moduleAccess"
-                    className={`d-none ${newState.validation.modules['isValid'] ? '' : newState.validation.modules['invalidClass']
+                    className={`d-none ${newState.validation.modules.isValid ? '' : newState.validation.modules.invalidClass
                       }`}
                   />
-                  <FormFeedback>{`${newState.validation.modules['message']}`}</FormFeedback>
+                  <FormFeedback>{`${newState.validation.modules.message}`}</FormFeedback>
                 </div>
                 <div className="col-4 pl-0">
                   <input
                     type="checkbox"
                     name="sites"
-                    className={`d-none ${newState.validation.sites['isValid'] ? '' : newState.validation.sites['invalidClass']
+                    className={`d-none ${newState.validation.sites.isValid ? '' : newState.validation.sites.invalidClass
                       }`}
                   />
-                  <FormFeedback>{`${newState.validation.sites['message']}`}</FormFeedback>
+                  <FormFeedback>{`${newState.validation.sites.message}`}</FormFeedback>
                 </div>
                 <div className="col-4 um-client-scrollbar">
                   <input
                     type="checkbox"
                     name="clients"
-                    className={`d-none ${newState.validation.clients['isValid'] ? '' : newState.validation.clients['invalidClass']
+                    className={`d-none ${newState.validation.clients.isValid ? '' : newState.validation.clients.invalidClass
                       }`}
                   />
-                  <FormFeedback>{`${newState.validation.clients['message']}`}</FormFeedback>
+                  <FormFeedback>{`${newState.validation.clients.message}`}</FormFeedback>
                 </div>
               </div>
             </div>
@@ -284,11 +271,9 @@ const UserManagementDetail = (props) => {
               <button
                 type="button"
                 className=" font-lg btn btn-primary btn-submit default-box-height"
-                onClick={(e) => {
-                  gotoUM(props);
-                }}
+                onClick={() => gotoUM(props)}
               >
-                <label className="create-user-label mb-0">{`BACK`}</label>
+                <span className="create-user-label mb-0">BACK</span>
               </button>
               <p>
                 {/* <label className={newState.isValidForm ? 'errorText ' : ' d-none'}>
@@ -300,12 +285,10 @@ const UserManagementDetail = (props) => {
                 className={`font-lg btn btn-submit default-box-height ${newState.changed && isButton ? 'btn-primary' : 'btn-grey'
                   }`}
                 disabled={!newState.changed || !isButton}
-                onClick={() => {
-                  saveClick({ props, state, setState, dispatch });
-                }}
+                onClick={() => saveClick({ props, state, setState, dispatch })}
               >
                 {newState.isSaveProgressing ? (
-                  <img src={loading} className="mt-min-5" width="45" height="45" />
+                  <img src={loading} alt="" className="mt-min-5" width="45" height="45" />
                 ) : (
                   'SAVE'
                 )}

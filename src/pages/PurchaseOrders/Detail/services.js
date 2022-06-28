@@ -1,8 +1,23 @@
 import React from 'react';
 
+// https://github.com/tannerlinsley/react-table/issues/94
+
+// const getColumnWidth = (data, accessor, headerText) => {
+//   if (typeof accessor === 'string' || accessor instanceof String) {
+//     accessor = d => d[accessor]; // eslint-disable-line no-param-reassign
+//   }
+//   const maxWidth = 600;
+//   const magicSpacing = 10;
+//   const cellLength = Math.max(
+//     ...data.map(row => (`${accessor(row)}` || '').length),
+//     headerText.length,
+//   );
+//   return Math.min(maxWidth, cellLength * magicSpacing);
+// };
+
 export const schemaColumnDetailPO = [
   {
-    accessor: 'line',
+    accessor: 'rn',
     placeholder: 'Line No',
     Header: 'Line No',
     width: 100,
@@ -18,7 +33,7 @@ export const schemaColumnDetailPO = [
     Cell: (props) => props.value || '-',
   },
   {
-    accessor: 'product_description',
+    accessor: 'product_name',
     placeholder: 'Description',
     Header: 'Description',
     width: 150,
@@ -26,25 +41,25 @@ export const schemaColumnDetailPO = [
     Cell: (props) => props.value || '-',
   },
   {
-    accessor: 'qty',
+    accessor: 'quantity',
     placeholder: 'Qty',
     Header: 'Qty',
     width: 60,
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     sortType: 'float',
-    sortable: true,
     Cell: (props) => props.value || '-',
-    textAlign: "right"
+    textAlign: 'right',
+    sortable: true,
   },
   {
-    accessor: 'uom',
+    accessor: 'packdesc_1',
     placeholder: 'UOM',
     Header: 'UOM',
     width: 80,
-    sortable: true,
     Cell: (props) => props.value || '-',
     headerStyle: { textAlign: 'right' },
+    sortable: true,
   },
   {
     accessor: 'qty_processed',
@@ -53,10 +68,10 @@ export const schemaColumnDetailPO = [
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     width: 130,
-    sortable: true,
     sortType: 'float',
     Cell: (props) => props.value || '-',
-    textAlign: "right"
+    textAlign: 'right',
+    sortable: true,
   },
   {
     accessor: 'weight',
@@ -66,9 +81,9 @@ export const schemaColumnDetailPO = [
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     sortType: 'float',
-    sortable: true,
     Cell: (props) => props.value || '-',
-    textAlign: "right"
+    textAlign: 'right',
+    sortable: true,
   },
   {
     accessor: 'weight_processed',
@@ -78,9 +93,9 @@ export const schemaColumnDetailPO = [
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     sortType: 'float',
-    sortable: true,
     Cell: (props) => props.value || '-',
-    textAlign: "right"
+    textAlign: 'right',
+    sortable: true,
   },
   {
     accessor: 'completed',
@@ -89,17 +104,7 @@ export const schemaColumnDetailPO = [
     width: 100,
     sortable: true,
     Cell: (row) => (
-      <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
-  },
-  {
-    accessor: 'oos',
-    placeholder: 'OOS',
-    Header: 'OOS',
-    width: 100,
-    sortable: true,
-    Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     ),
   },
   {
@@ -107,85 +112,75 @@ export const schemaColumnDetailPO = [
     placeholder: 'Released',
     Header: 'Released',
     width: 100,
-    sortable: true,
     Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     ),
   },
   {
     accessor: 'batch',
     placeholder: 'Batch',
     Header: 'Batch',
-    width: 350,
-    sortable: true,
     headerStyle: { textAlign: 'left' },
     Cell: (props) => props.value || '-',
+    width: 130,
+    sortable: true,
   },
   {
     accessor: 'rotadate',
     placeholder: 'Rotadate',
     Header: 'Rotadate',
-    width: 350,
-    sortable: true,
-    headerStyle: { textAlign: 'left' },
     Cell: (props) => props.value || '-',
+    width: 130,
+    sortable: true,
   },
   {
     accessor: 'ref3',
     placeholder: 'Ref3',
     Header: 'Ref3',
-    width: 350,
-    sortable: true,
     Cell: (props) => props.value || '-',
+    sortable: true,
   },
   {
     accessor: 'ref4',
     placeholder: 'Ref4',
     Header: 'Ref4',
-    width: 350,
-    sortable: true,
     Cell: (props) => props.value || '-',
+    width: 120,
+    sortable: true,
   },
   {
     accessor: 'disposition',
     placeholder: 'Disposition',
     Header: 'Disposition',
-    width: 200,
-    sortable: true,
+    width: 120,
     Cell: (props) => props.value || '-',
-  },
-  {
-    accessor: 'pack_id',
-    placeholder: 'Pack ID',
-    Header: 'Pack ID',
-    width: 200,
     sortable: true,
-    Cell: (props) => props.value || '-',
   },
 ];
 
+export const headerDetailRight = [
+  { accessor: 'site', Header: 'Site' },
+  { accessor: 'client', Header: 'Client' },
+  { accessor: 'order_no', Header: 'Order No' },
+  { accessor: 'order_type', Header: 'Order Type' },
+  { accessor: 'isis_task', Header: 'Task' },
+  { accessor: 'status', Header: 'Status' },
+]
+
+export const headerDetailCenter = [
+  { accessor: 'supplier_no', Header: 'Supplier No' },
+  { accessor: 'supplier_name', Header: 'Supplier Name' },
+  { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
+  { accessor: 'vendor_ord_ref', Header: 'Vendor Order Ref' },
+]
+
+export const headerDetailLeft = [
+  { accessor: 'delivery_date', Header: 'Order Date' },
+  { accessor: 'date_received', Header: 'Date Received' },
+  { accessor: 'date_released', Header: 'Date Released' },
+  { accessor: 'date_completed', Header: 'Date Completed' },
+]
+
 export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });
-};
-
-export const siteCheck = ({ val, site }) => {
-  let ret = null;
-  site.map((data) => {
-    if (data?.value !== val) {
-      return 0;
-    }
-    ret = data.label
-  })
-  return ret;
-}
-
-export const clientCheck = ({ val, client }) => {
-  let ret = null;
-  client.map((data) => {
-    if (data?.value !== val) {
-      return 0;
-    }
-    ret = data.label
-  })
-  return ret;
 };

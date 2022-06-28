@@ -4,12 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Nav, NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { CRow } from '@coreui/react';
-import numeral from 'numeral';
 import TableMaster from '../../../Component/TableMaster';
 import DetailHeader from '../../../Component/DetailHeader';
 import Breadcrumb from '../../../Component/Breadcrumb/index';
 import { getDetailData, getDetailHeader, getForescast } from '../../../apiService';
-import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO, schameColumnForesCast } from './services';
+import { setExportData, schemaColumnDetailPO, schameColumnForesCast, headerDetailCenter, headerDetailLeft } from '../services';
 import './index.scss';
 
 const StockHoldingDetail = (props) => {
@@ -19,8 +18,6 @@ const StockHoldingDetail = (props) => {
   const shDetailForescast = useSelector((state) => state.shDetailForescast);
   const paginationShDetail = useSelector((state) => state.paginationShDetail);
   const paginationShForecast = useSelector((state) => state.paginationShForecast);
-  const siteData = useSelector((state) => state.siteData);
-  const clientData = useSelector((state) => state.clientData);
   const user = useSelector((state) => state.user);
   const module = 'stockHolding';
   const [activeTab, setActiveTab] = useState('1');
@@ -53,33 +50,10 @@ const StockHoldingDetail = (props) => {
       />
       <div className="pb-3">
         <DetailHeader
+          headerDetailCenter={headerDetailCenter}
+          headerDetailLeft={headerDetailLeft}
+          data={shDetail}
           module={module}
-          // title Center
-          titleCenter
-          titleCenterOne="Site"
-          titleCenterTwo="Client"
-          titleCenterThree="Product"
-          titleCenterFour="Description"
-          titleCenterFive="UOM"
-          // Valeu Center
-          valeuCenterOne={siteCheck({ val: shDetail?.site, site: siteData }) || '-'}
-          valeuCenterTwo={clientCheck({ val: shDetail?.client, client: clientData }) || '-'}
-          valeuCenterThree={shDetail?.product || '-'}
-          valeuCenterFour={shDetail?.description || '-'}
-          valeuCenterFive={shDetail?.uom || '-'}
-          // title Left
-          titleLeft
-          titleLeftOne="Pickable Stock On Hand"
-          titleLeftTwo="Projected Available Qty"
-          titleLeftThree="Expected In Qty"
-          titleLeftFour="Expected Out Qty"
-          titleLeftFive="Rotadate Type"
-          // Valeu Left
-          valeuLeftOne={numeral(shDetail?.stock_on_hand).format('0,0') || '-'}
-          valeuLeftTwo={numeral(shDetail?.projected_available_qty).format('0,0') || '-'}
-          valeuLeftThree={numeral(shDetail?.expected_in_qty).format('0,0') || '-'}
-          valeuLeftFour={numeral(shDetail?.expected_out_qty).format('0,0') || '-'}
-          valeuLeftFive={shDetail?.rotadate_type || '-'}
         />
       </div>
 
@@ -95,9 +69,8 @@ const StockHoldingDetail = (props) => {
                   style={{ marginLeft: '0px' }}
                 >
                   <div
-                    className={`row rowTabCustom align-items-center tabColumn mx-0 ${
-                      activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
-                    }`}
+                    className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
+                      }`}
                   >
                     <span className="newIcon-stock_details tabTitleText" />
                     {activeTab === '1'}
@@ -107,8 +80,8 @@ const StockHoldingDetail = (props) => {
               </NavItem>
 
               {parseInt(shDetail?.expected_in_qty) === 0 &&
-              parseInt(shDetail?.expected_out_qty) === 0 &&
-              parseInt(shDetail?.stock_on_hand) + parseInt(shDetail?.expected_in_qty) >= shDetail?.expected_out_qty ? (
+                parseInt(shDetail?.expected_out_qty) === 0 &&
+                parseInt(shDetail?.stock_on_hand) + parseInt(shDetail?.expected_in_qty) >= shDetail?.expected_out_qty ? (
                 ''
               ) : (
                 <NavItem className={`p-0 ml-2 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`}>
@@ -118,9 +91,8 @@ const StockHoldingDetail = (props) => {
                     onClick={() => setActiveTab('2')}
                   >
                     <div
-                      className={`row rowTabCustom align-items-center tabColumn mx-0 ${
-                        activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
-                      }`}
+                      className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
+                        }`}
                     >
                       <span className="newIcon-stock_balance tabTitleText" />
                       {activeTab === '2'}
