@@ -43,6 +43,15 @@ const Create = ({ show, setShow }) => {
     getDisposition({ dispatch });
   }, []);
 
+  const submitButton =
+    isSubmitStatus === 'loading' ? (
+      <div className="m-iconLoad">
+        <img src={loading} width="45" height="45" alt="" />
+      </div>
+    ) : (
+      'SUBMIT'
+    );
+
   return (
     <div>
       <Modal
@@ -60,12 +69,12 @@ const Create = ({ show, setShow }) => {
               <span className="ml-7">Enter Order and line details to create a new purchase order</span>
             </Col>
             <Col className="text-right px-0">
-              <i 
-                className="iconU-close pointer" 
+              <i
+                className="iconU-close pointer"
                 onClick={() => {
                   setShow(false);
                   setIsReset(0);
-                }} 
+                }}
               />
             </Col>
           </Row>
@@ -129,7 +138,7 @@ const Create = ({ show, setShow }) => {
                     </button>
                   </Col>
                 </Row>
-              )} 
+              )}
               {activeTab === 'review' ? (
                 <Row className="mt-3 pt-3">
                   <Col lg={2}>
@@ -138,14 +147,13 @@ const Create = ({ show, setShow }) => {
                     </button>
                   </Col>
                   <Col lg={8}>
-                    {isSubmitStatus === 'success' ? (
+                    {isSubmitStatus === 'success' && (
                       <div className="text-center text-secondary mt-2">
                         {' '}
                         <span className="text-success">Success, </span>
-                        order has been successfully submitted for processing
-                        {' '}
+                        order has been successfully submitted for processing{' '}
                       </div>
-                    ) : null}
+                    )}
                   </Col>
                   <Col lg={2} className="text-right">
                     <button
@@ -163,13 +171,7 @@ const Create = ({ show, setShow }) => {
                         });
                       }}
                     >
-                      {isSubmitStatus === 'loading' ? (
-                        <div className="m-iconLoad">
-                          <img src={loading} width="45" height="45" alt="" />
-                        </div>
-                      ) : (
-                        'SUBMIT'
-                      )}
+                      {submitButton}
                     </button>
                   </Col>
                 </Row>
@@ -178,14 +180,14 @@ const Create = ({ show, setShow }) => {
           </TabContent>
         </Modal.Body>
       </Modal>
-      {activeTab === 'message' && (
-        isSubmitReturn?.message === 'Successfully added' ||
+      {activeTab === 'message' &&
+        (isSubmitReturn?.message === 'Successfully added' ||
         isSubmitReturn?.message === 'create successfully' ||
         isSubmitReturn?.status === 'ok' ? (
           <PopUpCreateSucces
             modal={modal}
             setModal={setModal}
-            module='Purchase Order'
+            module="Purchase Order"
             submitReturn={isSubmitReturn}
             exit={() => {
               setShow(false);
@@ -194,8 +196,7 @@ const Create = ({ show, setShow }) => {
           />
         ) : (
           <PopUpLoss modal={modal} setModal={setModal} back={() => setActiveTab('detail')} />
-        )
-      )}
+        ))}
     </div>
   );
 };

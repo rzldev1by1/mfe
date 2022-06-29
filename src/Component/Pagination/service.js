@@ -79,46 +79,92 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
   const newPage = { ...page };
   let paramPaging = '';
   let paramType = '';
-  if (module === 'StockHolding') {
-    paramType = 'GET_SH_SUMMARY';
-    paramPaging = 'PAGING_SH';
+  switch (module) {
+    case 'StockHolding':
+      paramType = 'GET_SH_SUMMARY';
+      paramPaging = 'PAGING_SH';
+      break;
+    case 'purchaseOrder':
+      paramType = 'GET_PO_SUMMARY';
+      paramPaging = 'PAGING_PO';
+      break;
+    case 'salesOrder':
+      paramType = 'GET_SO_SUMMARY';
+      paramPaging = 'PAGING_SO';
+
+      break;
+    case 'UserManagement':
+      paramType = 'GET_UM_SUMMARY';
+      paramPaging = 'PAGING_UM';
+
+      break;
+    case 'StockHoldingForecast':
+      paramType = 'GET_SH_DETAIL_FORESCAST';
+      paramPaging = 'PAGING_SH_FORECAST';
+
+      break;
+    case 'StockHoldingDetail':
+      paramType = 'GET_SH_DETAIL_TABLE';
+      paramPaging = 'PAGING_SH_DETAIL';
+      break;
+    case 'PurchaseOrdersDetail':
+      paramType = 'GET_PO_DETAIL_TABLE';
+      paramPaging = 'PAGING_PO_DETAIL';
+      break;
+    case 'SalesOrdersDetail':
+      paramType = 'GET_SO_DETAIL_TABLE';
+      paramPaging = 'PAGING_SO_DETAIL';
+      break;
+    case 'SupplierManagement':
+      paramType = 'GET_SP_SUMMARY';
+      paramPaging = 'PAGING_SP';
+      break;
+    case 'SupplierManagementDetail':
+      paramType = 'GET_SP_DETAIL_TABLE';
+      paramPaging = 'PAGING_SP_DETAIL';
+      break;
   }
-  if (module === 'purchaseOrder') {
-    paramType = 'GET_PO_SUMMARY';
-    paramPaging = 'PAGING_PO';
-  }
-  if (module === 'salesOrder') {
-    paramType = 'GET_SO_SUMMARY';
-    paramPaging = 'PAGING_SO';
-  }
-  if (module === 'UserManagement') {
-    paramType = 'GET_UM_SUMMARY';
-    paramPaging = 'PAGING_UM';
-  }
-  if (module === 'StockHoldingForecast') {
-    paramType = 'GET_SH_DETAIL_FORESCAST';
-    paramPaging = 'PAGING_SH_FORECAST';
-  }
-  if (module === 'StockHoldingDetail') {
-    paramType = 'GET_SH_DETAIL_TABLE';
-    paramPaging = 'PAGING_SH_DETAIL';
-  }
-  if (module === 'PurchaseOrdersDetail') {
-    paramType = 'GET_PO_DETAIL_TABLE';
-    paramPaging = 'PAGING_PO_DETAIL';
-  }
-  if (module === 'SalesOrdersDetail') {
-    paramType = 'GET_SO_DETAIL_TABLE';
-    paramPaging = 'PAGING_SO_DETAIL';
-  }
-  if (module === 'SupplierManagement') {
-    paramType = 'GET_SP_SUMMARY';
-    paramPaging = 'PAGING_SP';
-  }
-  if (module === 'SupplierManagementDetail') {
-    paramType = 'GET_SP_DETAIL_TABLE';
-    paramPaging = 'PAGING_SP_DETAIL';
-  }
+
+  // if (module === 'StockHolding') {
+  //   paramType = 'GET_SH_SUMMARY';
+  //   paramPaging = 'PAGING_SH';
+  // }
+  // if (module === 'purchaseOrder') {
+  //   paramType = 'GET_PO_SUMMARY';
+  //   paramPaging = 'PAGING_PO';
+  // }
+  // if (module === 'salesOrder') {
+  //   paramType = 'GET_SO_SUMMARY';
+  //   paramPaging = 'PAGING_SO';
+  // }
+  // if (module === 'UserManagement') {
+  //   paramType = 'GET_UM_SUMMARY';
+  //   paramPaging = 'PAGING_UM';
+  // }
+  // if (module === 'StockHoldingForecast') {
+  //   paramType = 'GET_SH_DETAIL_FORESCAST';
+  //   paramPaging = 'PAGING_SH_FORECAST';
+  // }
+  // if (module === 'StockHoldingDetail') {
+  //   paramType = 'GET_SH_DETAIL_TABLE';
+  //   paramPaging = 'PAGING_SH_DETAIL';
+  // }
+  // if (module === 'PurchaseOrdersDetail') {
+  //   paramType = 'GET_PO_DETAIL_TABLE';
+  //   paramPaging = 'PAGING_PO_DETAIL';
+  // }
+  // if (module === 'SalesOrdersDetail') {
+  //   paramType = 'GET_SO_DETAIL_TABLE';
+  //   paramPaging = 'PAGING_SO_DETAIL';
+  // }
+  // if (module === 'SupplierManagement') {
+  //   paramType = 'GET_SP_SUMMARY';
+  //   paramPaging = 'PAGING_SP';
+  // }
+  // if (module === 'SupplierManagementDetail') {
+  //   paramType = 'GET_SP_DETAIL_TABLE';
+  //   paramPaging = 'PAGING_SP_DETAIL';
+  // }
 
   if (newPage.goPage === 0 || newPage.goPage === null || newPage.goPage === '' || newPage.goPage === undefined) {
     return false;

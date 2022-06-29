@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import numeral from 'numeral';
 import { checkOrderNo, submitPurchaseOrder } from '../../../apiService';
 
 export const cleanOrderDetails = {
@@ -16,72 +15,6 @@ export const cleanOrderDetails = {
   validation_client: false,
   validation_orderNo: false,
   validation_orderDate: false,
-};
-
-const decimalFormatter = (name, value) => {
-  let newVal = value;
-  if (name === 'weight') {
-    if (newVal.length > 11)
-      newVal = newVal
-        .split('')
-        .filter((d) => (d !== ',' ? d : null))
-        .map((d, i) => {
-          if (i > 10 && !newVal.includes('.')) {
-            return null;
-          }
-          return d;
-        })
-        .join('');
-    const dot = newVal.indexOf('.');
-
-    if (dot === -1 && newVal.length === 11) {
-      newVal = newVal
-        .slice(0, dot)
-        .split('')
-        .filter((d) => d !== ',')
-        .join('');
-    }
-    if (dot !== -1 && newVal.length) {
-      let number;
-      const decimal = newVal
-        .slice(dot + 1, dot + 4)
-        .split('')
-        .filter((d) => d !== '.' && d !== ',')
-        .join('');
-      const integer = newVal
-        .slice(0, dot)
-        .split('')
-        .filter((d) => d !== ',')
-        .join('');
-      if (integer.length <= 6) {
-        if (integer.length >= 4) {
-          const idxSepr1 = integer.slice(0, integer.length - 3);
-          const idxSepr2 = integer.slice(integer.length - 3);
-          number = `${idxSepr1},${idxSepr2}.${decimal}`;
-        } else number = `${integer}.${decimal}`;
-      }
-      if (integer.length > 6 && integer.length <= 9) {
-        const idxSepr1 = integer.slice(0, integer.length - 6);
-        const idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3);
-        const idxSepr3 = integer.slice(integer.length - 3);
-        number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`;
-      }
-      if (integer.length > 9 && integer.length <= 8) {
-        const idxSepr1 = integer.slice(0, integer.length - 9);
-        const idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6);
-        const idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3);
-        const idxSepr4 = integer.slice(integer.length - 3);
-        number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`;
-      }
-
-      number = number?.split('');
-      if (number && number[0] === ',') delete number[0];
-      number = number?.join('');
-      return number;
-    }
-    numeral(newVal).format('0,0');
-  } else if (name === 'qty' && newVal) numeral(newVal).format('0,0')
-  return value;
 };
 
 export const cleanOrderLines = {
@@ -215,21 +148,19 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
 export const changeOrderDetailSiteAndClient = ({ valClient, valSite, setOrderDetails, orderDetails }) => {
   const od = { ...orderDetails };
 
-  if (valClient) {
-    od.client = valClient;
-    od.validation_client = !!valClient;
-  }
+  // client
+  od.client = valClient;
+  od.validation_client = !!valClient;
 
-  if (valSite) {
-    od.site = valSite;
-    od.validation_site = !!valSite;
-  }
+  // site
+  od.site = valSite;
+  od.validation_site = !!valSite;
+
   setOrderDetails(od);
 };
 
 export const changeClient = async ({ value, orderDetails, setOrderDetails, setOrderLines }) => {
   const od = { ...orderDetails };
-  // if(value || !value){
   const resetOrderLines = [
     {
       batch: "",
@@ -251,8 +182,6 @@ export const changeClient = async ({ value, orderDetails, setOrderDetails, setOr
   ];
 
   setOrderLines(resetOrderLines)
-  // }
-
   od.client = value;
   od.validation_client = !!value;
   od.supplier = null;
@@ -343,22 +272,8 @@ export const removeLine = ({ i, line, setLine }) => {
   }
 };
 
-export const lineChange = (i, e, line, setLine) => {
-  const newOrderLine = { ...line };
-  const { name, value } = e.target;
-
-  let formatted = value;
-  formatted = decimalFormatter(name, value);
-
-  const tes = [...newOrderLine.orderLine];
-  tes[i][name] = formatted;
-
-  newOrderLine.orderLine = tes;
-  setLine(newOrderLine);
-};
-
 export const numberCheck = (e) => {
-  if (!/^[0-9]+$/.test(e.key)) e.preventDefault();
+  if (!/D+$/.test(e.key)) e.preventDefault();
 };
 
 export const submit = async ({
