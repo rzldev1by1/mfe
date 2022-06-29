@@ -77,7 +77,7 @@ const PurchaseOrders = (props) => {
         : [];
       let tmp = null;
       if (reqColumnHidden) {
-        reqColumnHidden.map((data, idx) => {
+        reqColumnHidden.map(data => {
           if (data.title === 'Stock Holding Summary') {
             tmp = data.columns;
           }

@@ -287,10 +287,10 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   }
 };
 
-export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
+export const getForecast = async ({ export_ = 'false', dispatch, active, props }) => {
   const { product, client, site } = props?.match?.params;
   const url = `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
-  dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
+  dispatch({ type: 'GET_SH_DETAIL_FORECAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
   let forecast = [];
@@ -301,7 +301,6 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
     }
     const modifiedData = forecast;
     const Meta = data?.meta;
-    const Links = data?.links;
     modifiedData.forEach((item, idx) => {
       item.in = numeral(item.in).format('0,0');
       item.out = numeral(item.out).format('0,0');
@@ -315,7 +314,7 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
       from: Meta?.from,
       to: Meta?.to,
     };
-    dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: modifiedData });
+    dispatch({ type: 'GET_SH_DETAIL_FORECAST', data: modifiedData });
     dispatch({ type: 'PAGING_SH_FORECAST', data: pagination });
   }
 };

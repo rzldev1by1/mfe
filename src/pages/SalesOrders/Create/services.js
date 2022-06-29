@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import numeral from 'numeral';
 import { checkOrderNo, submitSalesOrder } from '../../../apiService';
 
@@ -142,7 +143,6 @@ export const changeClient = async ({
   setOrderLines
 }) => {
   const od = { ...orderDetails };
-  // if(value ){
   const resetOrderLines = [
     {
       batch: "",
@@ -186,16 +186,10 @@ export const changeClient = async ({
   od.client = value;
   od.validation_client = !!value;
   setOrderDetails(od);
-
-  // let cd = { ...customerDetails };
-  // cd['customer'] = '';
-  // cd['validation_customer'] = value ? true : false;
-  // setCustomerDetails(od);
 };
 
 export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails }) => {
   let cd = { ...customerDetails };
-  // if (selected) {
   cd[column] = value;
   cd = !!value;
   if (!value) {
@@ -278,12 +272,8 @@ export const removeLine = ({ i, line, setLine }) => {
 export const lineChange = (i, e, line, setLine) => {
   const newOrderLine = { ...line };
   const { name, value } = e.target;
-
-  let formatted = value;
-  formatted = this.decimalFormatter(name, value);
-
   const tes = [...newOrderLine.orderLine];
-  tes[i][name] = formatted;
+  tes[i][name] = this.decimalFormatter(name, value);
 
   newOrderLine.orderLine = tes;
   setLine(newOrderLine);
@@ -368,14 +358,12 @@ export const decimalFormatter = (name, value) => {
       }
 
       number = number?.split('');
-      if (number && number[0] === ',') delete number[0];
-      number = number?.join('');
+      if (!number && number[0] === ',') number = number?.join('');
       return number;
     }
     return numeral(newVal).format('0,0');
-  } else if (name === 'qty') {
-    return newVal ? numeral(newVal).format('0,0') : newVal
-  };
+  }
+  if (name === 'qty') return newVal ? numeral(newVal).format('0,0') : newVal
   return value;
 };
 
@@ -483,7 +471,7 @@ export const submit = async ({
 
   const status = ret?.data?.status;
   const message = ret?.data;
-  const submitReturn = { status: status, message: message, orderNo: orderDetails?.orderNo };
+  const submitReturn = { status, message, orderNo: orderDetails?.orderNo };
   await setIsSubmitReturn(submitReturn);
 
   await setActiveTab('message');
@@ -507,7 +495,7 @@ export const getCustomerDetail = async ({ client, customer, setCustomerDetails }
   // set customer Details
   const identity = customer.data;
   const customerDetails = {
-    customer: customer,
+    customer,
     address1: identity?.address_1 || '',
     address2: identity?.address_2 || '',
     address3: identity?.address_3 || '',

@@ -1,79 +1,4 @@
-import { getSummaryData, getForescast, getDetailData } from '../../apiService';
-
-// export const onActivePageChange = ({ e, pagination, goto, dispatch, module, props, searchFilter, user }) => {
-//   const active = parseInt(e > 1 ? e : 1);
-//   let paramPaging = '';
-//   let paramType = '';
-//   if (module === 'StockHolding') {
-//     paramType = 'GET_SH_SUMMARY';
-//     paramPaging = 'PAGING_SH';
-//   }
-//   if (module === 'purchaseOrder') {
-//     paramType = 'GET_PO_SUMMARY';
-//     paramPaging = 'PAGING_PO';
-//   }
-//   if (module === 'salesOrder') {
-//     paramType = 'GET_SO_SUMMARY';
-//     paramPaging = 'PAGING_SO';
-//   }
-//   if (module === 'UserManagement') {
-//     paramType = 'GET_UM_SUMMARY';
-//     paramPaging = 'PAGING_UM';
-//   }
-//   if (module === 'StockHoldingForecast') {
-//     paramType = 'GET_SH_DETAIL_FORESCAST';
-//     paramPaging = 'PAGING_SH_FORECAST';
-//   }
-//   if (module === 'StockHoldingDetail') {
-//     paramType = 'GET_SH_DETAIL_TABLE';
-//     paramPaging = 'PAGING_SH_DETAIL';
-//   }
-//   if (module === 'PurchaseOrdersDetail') {
-//     paramType = 'GET_PO_DETAIL_TABLE';
-//     paramPaging = 'PAGING_PO_DETAIL';
-//   }
-//   if (module === 'SalesOrdersDetail') {
-//     paramType = 'GET_SO_DETAIL_TABLE';
-//     paramPaging = 'PAGING_SO_DETAIL';
-//   }
-//   if (module === 'SupplierManagement') {
-//     paramType = 'GET_SP_SUMMARY';
-//     paramPaging = 'PAGING_SP';
-//   }
-//   if (module === 'SupplierManagementDetail') {
-//     paramType = 'GET_SP_DETAIL_TABLE';
-//     paramPaging = 'PAGING_SP_DETAIL';
-//   }
-//   dispatch({ type: paramType, data: [] });
-//   if (goto) {
-//     goto(active);
-//   } else {
-//     dispatch({ type: paramPaging || 'PAGING', data: { ...pagination, active } });
-//   }
-//   const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
-//   if (arraySummary.includes(module)) {
-//     getSummaryData({
-//       dispatch,
-//       active,
-//       module,
-//       props,
-//       siteVal: searchFilter.siteVal,
-//       clientVal: searchFilter.clientVal,
-//       orderType: searchFilter.orderType,
-//       task: searchFilter.task,
-//       status: searchFilter.status,
-//       user
-//     })
-//   }
-
-//   if (module === 'StockHoldingForecast') {
-//     getForescast({ dispatch, active, module, props });
-//   }
-//   const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
-//   if (arrayDetail.includes(module)) {
-//     getDetailData({ dispatch, active, module, props });
-//   }
-// };
+import { getSummaryData, getForecast, getDetailData } from '../../apiService';
 
 export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, props, searchFilter, user }) => {
   const newPage = { ...page };
@@ -209,7 +134,7 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
   }
 
   if (module === 'StockHoldingForecast') {
-    getForescast({ dispatch, active: newPage.goPage, module, props });
+    getForecast({ dispatch, active: newPage.goPage, module, props });
   }
   const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
   if (arrayDetail.includes(module)) {
@@ -254,7 +179,7 @@ export const changePage = ({ active, dispatch, module, props, searchFilter, user
       paramType = 'GET_UM_SUMMARY';
       break;
     case 'StockHoldingForecast':
-      paramType = 'GET_SH_DETAIL_FORESCAST';
+      paramType = 'GET_SH_DETAIL_FORECAST';
       break;
     case 'StockHoldingDetail':
       paramType = 'GET_SH_DETAIL_TABLE';
@@ -272,37 +197,6 @@ export const changePage = ({ active, dispatch, module, props, searchFilter, user
       paramType = 'GET_SP_DETAIL_TABLE';
       break;
   }
-
-  // if (module === 'StockHolding') {
-  //   paramType = 'GET_SH_SUMMARY';
-  // }
-  // if (module === 'purchaseOrder') {
-  //   paramType = 'GET_PO_SUMMARY';
-  // }
-  // if (module === 'salesOrder') {
-  //   paramType = 'GET_SO_SUMMARY';
-  // }
-  // if (module === 'UserManagement') {
-  //   paramType = 'GET_UM_SUMMARY';
-  // }
-  // if (module === 'StockHoldingForecast') {
-  //   paramType = 'GET_SH_DETAIL_FORESCAST';
-  // }
-  // if (module === 'StockHoldingDetail') {
-  //   paramType = 'GET_SH_DETAIL_TABLE';
-  // }
-  // if (module === 'PurchaseOrdersDetail') {
-  //   paramType = 'GET_PO_DETAIL_TABLE';
-  // }
-  // if (module === 'SalesOrdersDetail') {
-  //   paramType = 'GET_SO_DETAIL_TABLE';
-  // }
-  // if (module === 'SupplierManagement') {
-  //   paramType = 'GET_SP_SUMMARY';
-  // }
-  // if (module === 'SupplierManagementDetail') {
-  //   paramType = 'GET_SP_DETAIL_TABLE';
-  // }
   dispatch({ type: paramType, data: [] });
   const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
   if (arraySummary.includes(module)) {
@@ -321,7 +215,7 @@ export const changePage = ({ active, dispatch, module, props, searchFilter, user
   }
 
   if (module === 'StockHoldingForecast') {
-    getForescast({ dispatch, active, module, props });
+    getForecast({ dispatch, active, module, props });
   }
   const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
   if (arrayDetail.includes(module)) {
