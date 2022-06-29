@@ -169,46 +169,98 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
         return;
       }
 
-      if (dataKey === 6) {
-        const dataColumns = data.row.raw[6];
-        if (dataColumns === 'Suspended') {
-          doc.setTextColor(252, 28, 3);
-        }
-        if (dataColumns === 'Active') {
-          doc.setTextColor(5, 237, 245);
-        }
+      let dataColumns;
+      switch (dataKey) {
+        case 6:
+          dataColumns = data.row.raw[6];
+          switch (dataColumns) {
+            case 'Suspended':
+              doc.setTextColor(252, 28, 3);
+              break;
+            case 'Active':
+              doc.setTextColor(5, 237, 245);
+              break;
+          }
+          break;
+        case 8:
+          dataColumns = data.row.raw[8];
+          switch (dataColumns) {
+            case 'N':
+              doc.setTextColor(252, 28, 3);
+              break;
+            case 'Y':
+              doc.setTextColor(46, 184, 92);
+              break;
+          }
+          break;
+        case 9:
+          dataColumns = data.row.raw[9];
+          switch (dataColumns) {
+            case 'N':
+              doc.setTextColor(252, 28, 3);
+              break;
+            case 'Y':
+              doc.setTextColor(46, 184, 92);
+              break;
+            default:
+              return;
+          }
+          break;
+        case 10:
+          dataColumns = data.row.raw[10];
+          switch (dataColumns) {
+            case 'N':
+              doc.setTextColor(252, 28, 3);
+              break;
+            case 'Y':
+              doc.setTextColor(46, 184, 92);
+              break;
+            default:
+              return;
+          }
+          break;
       }
-      if (dataKey === 8) {
-        const dataColumns = data.row.raw[8];
-        if (dataColumns.toString() === 'N') {
-          doc.setTextColor(252, 28, 3);
-        }
-        if (dataColumns.toString() === 'Y') {
-          doc.setTextColor(46, 184, 92);
-        }
-      }
-      if (dataKey === 9) {
-        const dataColumns = data.row.raw[9];
-        if (!dataColumns) {
-          return;
-        }
-        if (dataColumns.toString() === 'N') {
-          doc.setTextColor(252, 28, 3);
-        } else if (dataColumns.toString() === 'Y') {
-          doc.setTextColor(46, 184, 92);
-        }
-      }
-      if (dataKey === 10) {
-        const dataColumns = data.row.raw[10];
-        if (!dataColumns) {
-          return;
-        }
-        if (dataColumns.toString() === 'N') {
-          doc.setTextColor(252, 28, 3);
-        } else if (dataColumns.toString() === 'Y') {
-          doc.setTextColor(46, 184, 92);
-        }
-      }
+
+      // if (dataKey === 6) {
+      //   const dataColumns = data.row.raw[6];
+      //   if (dataColumns === 'Suspended') {
+      //     doc.setTextColor(252, 28, 3);
+      //   }
+      //   if (dataColumns === 'Active') {
+      //     doc.setTextColor(5, 237, 245);
+      //   }
+      // }
+      // if (dataKey === 8) {
+      //   const dataColumns = data.row.raw[8];
+      //   if (dataColumns.toString() === 'N') {
+      //     doc.setTextColor(252, 28, 3);
+      //   }
+      //   if (dataColumns.toString() === 'Y') {
+      //     doc.setTextColor(46, 184, 92);
+      //   }
+      // }
+      // if (dataKey === 9) {
+      //   const dataColumns = data.row.raw[9];
+      //   if (!dataColumns) {
+      //     return;
+      //   }
+      //   if (dataColumns.toString() === 'N') {
+      //     doc.setTextColor(252, 28, 3);
+      //   } else if (dataColumns.toString() === 'Y') {
+      //     doc.setTextColor(46, 184, 92);
+      //   }
+      // }
+      // if (dataKey === 10) {
+      //   const dataColumns = data.row.raw[10];
+      //   if (!dataColumns) {
+      //     return;
+      //   }
+      //   if (dataColumns.toString() === 'N') {
+      //     doc.setTextColor(252, 28, 3);
+      //   } else if (dataColumns.toString() === 'Y') {
+      //     doc.setTextColor(46, 184, 92);
+      //   }
+      // }
     },
   });
 

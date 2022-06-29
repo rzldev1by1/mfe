@@ -43,21 +43,25 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
       <form onSubmit={searchForm}>
         <div style={{ width: 'fit-content', height: '49px' }} className="d-flex">
           <div
-            className={`page-item border-right-none ${pagination?.active === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
-              }`}
+            className={`page-item border-right-none ${
+              pagination?.active === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
+            }`}
             onClick={() =>
-              pagination?.active === 1 ? '' : changePage({ active: 1, dispatch, module, props, searchFilter, user })}
+              pagination?.active === 1 ? '' : changePage({ active: 1, dispatch, module, props, searchFilter, user })
+            }
             aria-hidden="true"
           >
             <BsChevronBarLeft className="icon-size-paging-double" />
           </div>
           <div
-            className={`page-item paging-previous ${pagination?.active === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
-              }`}
+            className={`page-item paging-previous ${
+              pagination?.active === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
+            }`}
             onClick={() =>
-              pagination?.active === 1
+              pagination?.active !== 1
                 ? ''
-                : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter, user })}
+                : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter, user })
+            }
             aria-hidden="true"
           >
             <BsChevronLeft className="icon-size-paging" />
@@ -78,8 +82,9 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
             <span className="text-muted-soft ml-2">{xLastPage}</span>
           </div>
           <div
-            className={`page-item margin-none-left border-left-none ${pagination?.active >= xLastPage ? 'text-muted-soft' : ' text-muted-dark click-tab'
-              }`}
+            className={`page-item margin-none-left border-left-none ${
+              pagination?.active >= xLastPage ? 'text-muted-soft' : ' text-muted-dark click-tab'
+            }`}
             onClick={() => {
               if (pagination?.active < xLastPage) {
                 changePage({ active: pagination?.active + 1, dispatch, module, props, searchFilter, user });
@@ -89,16 +94,16 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
           >
             <BsChevronRight className=" icon-size-paging" />
           </div>
-          {isDisplay === false ? (
-            ''
-          ) : (
+          {isDisplay !== false && (
             <span className="text-muted-s px-3 d-flex alig align-items-center">
               <b className="text-muted-soft mr-1" style={{ fontWeight: '400' }}>
                 {' '}
                 Showing
               </b>
               <b className="text-muted-dark mr-1">
-                {`${Number.isNaN(xFrom) ? 0 : xFrom} to ${Number.isNaN(xTo) ? 0 : xTo} of ${xTotal === undefined ? 0 : xTotal}`}
+                {`${Number.isNaN(xFrom) ? 0 : xFrom} to ${Number.isNaN(xTo) ? 0 : xTo} of ${
+                  xTotal === undefined ? 0 : xTotal
+                }`}
               </b>
               <b className="text-muted-soft" style={{ fontWeight: '400' }}>
                 {' '}

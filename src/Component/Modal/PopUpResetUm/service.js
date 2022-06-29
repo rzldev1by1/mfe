@@ -5,7 +5,7 @@ export const closeModalPopupReset = async ({ state, setState }) => {
   let id;
   if (i === 0) {
     i = 1;
-    const element = await document.getElementById('progressBar');
+    let element = document.getElementById('progressBar');
     if (element) {
       let width = 1;
       const frame = () => {

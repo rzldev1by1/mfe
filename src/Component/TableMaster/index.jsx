@@ -39,7 +39,6 @@ const TableMaster = ({
    }, 10000); 
 
   })
-  console.log(schemaColumn);
   return (
     <div>
       <Table

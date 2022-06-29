@@ -194,36 +194,69 @@ export const numberCheck = (e) => {
 
 export const changePage = ({ active, dispatch, module, props, searchFilter, user }) => {
   let paramType = '';
-  if (module === 'StockHolding') {
-    paramType = 'GET_SH_SUMMARY';
+  switch (module) {
+    case 'StockHolding':
+      paramType = 'GET_SH_SUMMARY';
+      break;
+    case 'purchaseOrder':
+      paramType = 'GET_PO_SUMMARY';
+      break;
+    case 'salesOrder':
+      paramType = 'GET_SO_SUMMARY';
+      break;
+    case 'UserManagement':
+      paramType = 'GET_UM_SUMMARY';
+      break;
+    case 'StockHoldingForecast':
+      paramType = 'GET_SH_DETAIL_FORESCAST';
+      break;
+    case 'StockHoldingDetail':
+      paramType = 'GET_SH_DETAIL_TABLE';
+      break;
+    case 'PurchaseOrdersDetail':
+      paramType = 'GET_PO_DETAIL_TABLE';
+      break;
+    case 'SalesOrdersDetail':
+      paramType = 'GET_SO_DETAIL_TABLE';
+      break;
+    case 'SupplierManagement':
+      paramType = 'GET_SP_SUMMARY';
+      break;
+    case 'SupplierManagementDetail':
+      paramType = 'GET_SP_DETAIL_TABLE';
+      break;
   }
-  if (module === 'purchaseOrder') {
-    paramType = 'GET_PO_SUMMARY';
-  }
-  if (module === 'salesOrder') {
-    paramType = 'GET_SO_SUMMARY';
-  }
-  if (module === 'UserManagement') {
-    paramType = 'GET_UM_SUMMARY';
-  }
-  if (module === 'StockHoldingForecast') {
-    paramType = 'GET_SH_DETAIL_FORESCAST';
-  }
-  if (module === 'StockHoldingDetail') {
-    paramType = 'GET_SH_DETAIL_TABLE';
-  }
-  if (module === 'PurchaseOrdersDetail') {
-    paramType = 'GET_PO_DETAIL_TABLE';
-  }
-  if (module === 'SalesOrdersDetail') {
-    paramType = 'GET_SO_DETAIL_TABLE';
-  }
-  if (module === 'SupplierManagement') {
-    paramType = 'GET_SP_SUMMARY';
-  }
-  if (module === 'SupplierManagementDetail') {
-    paramType = 'GET_SP_DETAIL_TABLE';
-  }
+
+  // if (module === 'StockHolding') {
+  //   paramType = 'GET_SH_SUMMARY';
+  // }
+  // if (module === 'purchaseOrder') {
+  //   paramType = 'GET_PO_SUMMARY';
+  // }
+  // if (module === 'salesOrder') {
+  //   paramType = 'GET_SO_SUMMARY';
+  // }
+  // if (module === 'UserManagement') {
+  //   paramType = 'GET_UM_SUMMARY';
+  // }
+  // if (module === 'StockHoldingForecast') {
+  //   paramType = 'GET_SH_DETAIL_FORESCAST';
+  // }
+  // if (module === 'StockHoldingDetail') {
+  //   paramType = 'GET_SH_DETAIL_TABLE';
+  // }
+  // if (module === 'PurchaseOrdersDetail') {
+  //   paramType = 'GET_PO_DETAIL_TABLE';
+  // }
+  // if (module === 'SalesOrdersDetail') {
+  //   paramType = 'GET_SO_DETAIL_TABLE';
+  // }
+  // if (module === 'SupplierManagement') {
+  //   paramType = 'GET_SP_SUMMARY';
+  // }
+  // if (module === 'SupplierManagementDetail') {
+  //   paramType = 'GET_SP_DETAIL_TABLE';
+  // }
   dispatch({ type: paramType, data: [] });
   const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
   if (arraySummary.includes(module)) {
