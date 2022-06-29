@@ -9,7 +9,6 @@ const DropdownAxios = ({
   options,
   selectedValue,
   onChangeDropdown,
-  poListIdx,
   isLoading,
   className,
   onInputChange,
@@ -24,7 +23,6 @@ const DropdownAxios = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isValue, setIsValue] = useState('');
-  const elem = document?.getElementById(`dropdown${entryListIdx}${poListIdx}`);
   const newSelectedValue = !showLabelOnly
     ? selectedValue
     : { label: selectedValue?.value, value: selectedValue?.value };

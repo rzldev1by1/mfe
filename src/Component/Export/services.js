@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import JsPDF from 'jspdf';
 import 'jspdf-autotable';
 import moment from 'moment';

@@ -1,13 +1,13 @@
 
 export const ProgressBarReset = async ({ resetConfirmation }) => {
     let i = 0;
+    let id;
     if (i === 0) {
         i = 1;
         const element = await document.getElementById('progressBar');
         if (element) {
             let width = 1;
-            const id = setInterval(frame, 150);
-            function frame() {
+            const frame = () => {
                 if (width >= 103) {
                     clearInterval(id);
                     i = 0;
@@ -17,18 +17,19 @@ export const ProgressBarReset = async ({ resetConfirmation }) => {
                     element.style.width = `${width}%`;
                 }
             }
+            id = setInterval(frame, 150);
         }
     }
 }
 export const ProgressBar = async ({ setModal, back, exit, status, }) => {
     let i = 0;
+    let id;
     if (i === 0) {
         i = 1;
         const element = await document.getElementById('progressBar');
         if (element) {
             let width = 1;
-            const id = setInterval(frame, 130);
-            function frame() {
+            const frame = () => {
                 if (width >= 120) {
                     clearInterval(id);
                     i = 0;
@@ -40,6 +41,7 @@ export const ProgressBar = async ({ setModal, back, exit, status, }) => {
                     element.style.width = `${width}%`;
                 }
             }
+            id = setInterval(frame, 130);
         }
     }
 }

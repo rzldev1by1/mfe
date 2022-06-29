@@ -44,7 +44,7 @@ const EditRenameColumn = ({
     currentHeader: [],
     templateHeader: []
   });
-  const closeModal = (closeMod, editColumnTemp) => {
+  const closeModal = (closeMod) => {
     const ErrorClose = { ...state };
     setShowMod(closeMod);
     setEditColumnTemp(editColumnTemp);
@@ -55,19 +55,15 @@ const EditRenameColumn = ({
   const Required = ({ error, id }) => {
     if (error) {
       const object = Object.keys(error);
-      if (object.includes(id))
-        return <span className="text-danger position-absolute font-rename-error">{error && error[id]}</span>;
-      else return <div></div>;
+      if (object.includes(id)) return <span className="text-danger position-absolute font-rename-error">{error && error[id]}</span>;
+      return <div> </div>;
     }
   };
 
   const currentOrderColumn = localStorage.getItem(`tables__${module}__${user.name}`)
   let templateColumn = []
-  const newState = { ...state };
-  let currentHeaders = []
-  let templateHeaders = []
-  fields.map((data) => {
-    templateColumn.push(data.accessor)
+  fields.forEach((fieldsData) => {
+    templateColumn.push(fieldsData.accessor)
   });
   const version = endpoints.env.REACT_APP_API_URL_VERSION;
   const UrlHeader = () => {
@@ -79,7 +75,7 @@ const EditRenameColumn = ({
   };
 
   useEffect(() => {
-    let newState = { ...state };
+    const newState = { ...state };
     newState.editColumn = columnHidden || [];
     if (JSON.stringify(currentOrderColumn) === JSON.stringify(templateColumn) || currentOrderColumn === null) {
       newState.disableBtn = true
@@ -94,7 +90,7 @@ const EditRenameColumn = ({
 
   function activeTabIndex(tab) {
     if (state.activeTab !== tab) {
-      let newState = { ...state };
+      const newState = { ...state };
       newState.activeTab = tab;
       setState(newState);
     }
@@ -116,13 +112,13 @@ const EditRenameColumn = ({
     </Tooltip>
   );
 
-  const renderTooltipRename = ({ props, header, defaults, changedColumn, state, setState, fields, id, name }) => (
+  const renderTooltipRename = ({ props, header, defaults, id, name }) => (
     <Tooltip id={`${header !== defaults ? "button-tooltip-input-rename" : "tooltip-input-rename-none"}`} {...props} onClickCapture={() => changedColumn({ state, setState, fields, defaults, id, name })}>
       Default: <span>{defaults}</span>
     </Tooltip>
   );
 
-  let isChanged = fields?.filter(data => data.Header !== data.placeholder)
+  let isChanged = fields?.filter(fieldsData => fieldsData.Header !== fieldsData.placeholder)
   isChanged = isChanged?.length ? false : true
   return (
     <div>
@@ -130,7 +126,7 @@ const EditRenameColumn = ({
         <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
           <Container className="px-0">
             <Col className="mx-0 px-0">
-              <Button onClick={closeModal.bind(this, false, editColumnTemp)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
+              <Button onClick={closeModal.bind(this, false)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
                 <MdClose color="white" size={30} />
               </Button>
               <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
@@ -280,7 +276,7 @@ const EditRenameColumn = ({
                             <OverlayTrigger
                               placement="bottom"
                               delay={{ show: 250, hide: 3000 }}
-                              overlay={renderTooltipRename({ header: item.Header, defaults: item.placeholder, changedColumn, state, setState, fields, id: index, name: item.Header })}
+                              overlay={renderTooltipRename({ header: item.Header, defaults: item.placeholder, id: index, name: item.Header })}
                             >
                               <input
                                 id={index}

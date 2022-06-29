@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -143,9 +144,9 @@ const Search = ({
     getDetailData({ dispatch, props, active: paginationSoDetail?.active, module, fulfill: true });
   };
 
-  const handleClear = ({ dispatch, spDetailTable, setShowClearMod }) => {
+  const handleClear = () => {
     let newArray = [...spDetailTable];
-    newArray = newArray.map((data, idx) => {
+    newArray = newArray.map((data) => {
       data.edit_qty = '';
       data.edit_carton = '';
       data.isInvalidOrderCarton = false;
@@ -158,10 +159,10 @@ const Search = ({
     setShowClearMod(false);
   };
 
-  const fulfillMarkedMod = ({ dispatch, spDetailTable, setShowFulfillMod, markedRow }) => {
-    spDetailTable.map((data) => {
-      const isMarked = data.isMarked;
-      if (isMarked && data.edit_qty !== '' && data.edit_carton !== '') {
+  const fulfillMarkedMod = () => {
+    spDetailTable.forEach((data) => {
+      const isMarkeds = data.isMarked;
+      if (isMarkeds && data.edit_qty !== '' && data.edit_carton !== '') {
         setShowFulfillMod(true);
       } else {
         handleFullFillMarked({ dispatch, spDetailTable, setShowFulfillMod, markedRow });
@@ -181,11 +182,11 @@ const Search = ({
   }, [newDropdownValue.site, newDropdownValue.client]);
 
   useEffect(() => {
-    const newDropdownValue = { ...dropdownValue };
+    const newDropdownValueData = { ...dropdownValue };
     if (module === 'purchaseOrder' || module === 'salesOrder') {
-      if (newDropdownValue.status === '') {
-        newDropdownValue.status = { value: 'open', label: 'All Open' };
-        setdropdownValue(newDropdownValue);
+      if (newDropdownValueData.status === '') {
+        newDropdownValueData.status = { value: 'open', label: 'All Open' };
+        setdropdownValue(newDropdownValueData);
       }
     }
   }, [newDropdownValue.status]);
@@ -454,7 +455,7 @@ const Search = ({
                             <CDropdownDivider />
                             <CDropdownItem
                               onClick={() =>
-                                fulfillMarkedMod({ dispatch, spDetailTable, setShowFulfillMod, markedRow })}
+                                fulfillMarkedMod()}
                             >
                               FULFILL MARKED
                             </CDropdownItem>
@@ -512,7 +513,7 @@ const Search = ({
                           <Button
                             variant="primary"
                             style={{ padding: '0rem 1.08rem' }}
-                            onClick={() => handleClear({ dispatch, spDetailTable, setShowClearMod })}
+                            onClick={() => handleClear()}
                           >
                             CLEAR
                           </Button>

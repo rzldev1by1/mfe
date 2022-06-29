@@ -105,7 +105,7 @@ const PurchaseOrders = (props) => {
       // getSummaryData({ dispatch, active: paginationPo?.active, Export, module });
     }
   }, [Export]);
-  
+
   return (
     <div>
       <Breadcrumb

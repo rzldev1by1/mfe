@@ -4,7 +4,6 @@ import { CButton } from '@coreui/react';
 import loadBtn from '../../../assets/icons/loading/LOADING-MLS.gif';
 import resetDone from '../../../assets/img/reset_done.png';
 import { closeModalPopupReset, closeModalResetUM, confirmResetPassword } from './service';
-// import { ProgressBar } from '../service'
 import './style.scss';
 
 const Reset = ({

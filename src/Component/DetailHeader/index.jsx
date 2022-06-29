@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import { Modal, ModalBody } from 'reactstrap';
 import numeral from 'numeral';
-import { Link } from 'react-router-dom';
 import './index.scss';
 import logoConfirm from '../../assets/img/LOGO5@2x.png';
 
@@ -44,31 +43,25 @@ const DetailHeader = ({
                   const { accessor } = id
                   if (data) {
                     if (accessor === 'site') {
-                      return (
-                        <CRow className='mx-0 pt-1'>
-                          <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
-                          <CCol xs={8}>{data[accessor] ? idAndDetail({ val: data[accessor], detail: siteData }) : '-'}</CCol>
-                        </CRow>
-                      )
+                      <CRow className='mx-0 pt-1'>
+                        <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
+                        <CCol xs={8}>{data[accessor] ? idAndDetail({ val: data[accessor], detail: siteData }) : '-'}</CCol>
+                      </CRow>
                     } else if (accessor === 'client') {
-                      return (
-                        <CRow className='mx-0 pt-1'>
-                          <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
-                          <CCol xs={8}>{data[accessor] ? idAndDetail({ val: data[accessor], detail: clientData }) : '-'}</CCol>
-                        </CRow>
-                      )
+                      <CRow className='mx-0 pt-1'>
+                        <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
+                        <CCol xs={8}>{data[accessor] ? idAndDetail({ val: data[accessor], detail: clientData }) : '-'}</CCol>
+                      </CRow>
                     } else if (accessor === 'deliverydescription') {
-                      return (
-                        <CRow className='mx-0 pt-1'>
-                          <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
-                          <CCol xs={8} className="px-0 line-camp">{data[accessor] ? data[accessor] : '-'}</CCol>
-                          {
-                            data[accessor]?.length > 100 ?
-                              <Link onClick={() => setModalShow(true)}>Show More</Link>
-                              : ''
-                          }
-                        </CRow>
-                      )
+                      <CRow className='mx-0 pt-1'>
+                        <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
+                        <CCol xs={8} className="px-0 line-camp">{data[accessor] ? data[accessor] : '-'}</CCol>
+                        {
+                          data[accessor]?.length > 100 ?
+                            <div className="link-custom" onClick={() => setModalShow(true)} aria-hidden="true">Show More</div>
+                            : ''
+                        }
+                      </CRow>
                     }
                     return (
                       <CRow className='mx-0 pt-1'>
@@ -77,7 +70,7 @@ const DetailHeader = ({
                       </CRow>
                     )
                   }
-                  return
+                  return false
                 })}
               </CCol>
             </CRow>
@@ -89,7 +82,7 @@ const DetailHeader = ({
 
       {headerDetailCenter ? (
         <CCard>
-          <CCardBody className={`mobile-header p-0 my-3 mr-3 ml-0 ${moduleCss} ${headerDetailLeftCss}`} >
+          <CCardBody className={`mobile-header p-0 my-3 mr-3 ml-0 ${moduleCss} ${headerDetailLeftCss}`}>
             <CRow className='mx-0'>
               <CCol lg='12' className="px-0">
                 {headerDetailCenter.map(id => {
@@ -102,6 +95,7 @@ const DetailHeader = ({
                       </CRow>
                     )
                   }
+                  return false
                 })}
               </CCol>
             </CRow>
@@ -135,6 +129,7 @@ const DetailHeader = ({
                       </CRow>
                     )
                   }
+                  return false
                 })}
               </CCol>
             </CRow>
