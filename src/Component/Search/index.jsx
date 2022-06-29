@@ -83,7 +83,7 @@ const Search = ({
   const [showClearMod, setShowClearMod] = useState(false);
   const [showFulfillMod, setShowFulfillMod] = useState(false);
   const markedRow = useSelector((state) => state.markedRow);
-  const [dropdownValue, setdropdownValue] = useState({
+  const [dropdownValue, setDropdownValue] = useState({
     site: '',
     client: '',
     status: '',
@@ -186,7 +186,7 @@ const Search = ({
     if (module === 'purchaseOrder' || module === 'salesOrder') {
       if (newDropdownValueData.status === '') {
         newDropdownValueData.status = { value: 'open', label: 'All Open' };
-        setdropdownValue(newDropdownValueData);
+        setDropdownValue(newDropdownValueData);
       }
     }
   }, [newDropdownValue.status]);
@@ -293,7 +293,7 @@ const Search = ({
                               selected,
                               dispatch,
                               dropdownValue,
-                              setdropdownValue,
+                              setDropdownValue,
                             })}
                           selectedValue={newDropdownValue.site}
                         />
@@ -302,9 +302,8 @@ const Search = ({
                     <CCol
                       sm={4}
                       lg={2}
-                      className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${
-                        filterClient === true ? null : ' d-none'
-                      }`}
+                      className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'
+                        }`}
                     >
                       {user?.client ? (
                         <input
@@ -325,7 +324,7 @@ const Search = ({
                               selected,
                               dispatch,
                               dropdownValue,
-                              setdropdownValue,
+                              setDropdownValue,
                             })}
                           selectedValue={newDropdownValue.client}
                         />
@@ -338,7 +337,7 @@ const Search = ({
                         placeholder="Status"
                         options={statusDataSH || statusData}
                         onChangeDropdown={(selected) =>
-                          setStatus({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
                         selectedValue={newDropdownValue.status}
                       />
                     </CCol>
@@ -349,7 +348,7 @@ const Search = ({
                         placeholder="Order Type"
                         options={orderTypeData}
                         onChangeDropdown={(selected) =>
-                          setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
                         selectedValue={newDropdownValue.orderType}
                       />
                     </CCol>
@@ -360,7 +359,7 @@ const Search = ({
                         placeholder="Task"
                         options={taskData}
                         onChangeDropdown={(selected) =>
-                          setTask({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
                         selectedValue={newDropdownValue.task}
                       />
                     </CCol>
@@ -371,7 +370,7 @@ const Search = ({
                         placeholder="Style"
                         options={styleData}
                         onChangeDropdown={(selected) =>
-                          setStyle({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setStyle({ selected, dispatch, dropdownValue, setDropdownValue })}
                         selectedValue={newDropdownValue.style}
                       />
                     </CCol>
@@ -386,7 +385,7 @@ const Search = ({
                         placeholder="Style Desc."
                         options={styleDescData}
                         onChangeDropdown={(selected) =>
-                          setStyleDesc({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setStyleDesc({ selected, dispatch, dropdownValue, setDropdownValue })}
                         selectedValue={newDropdownValue.styleDesc}
                       />
                     </CCol>
@@ -397,7 +396,7 @@ const Search = ({
                         placeholder="Style Color"
                         options={colorData}
                         onChangeDropdown={(selected) =>
-                          setColor({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setColor({ selected, dispatch, dropdownValue, setDropdownValue })}
                         selectedValue={newDropdownValue.color}
                       />
                     </CCol>
@@ -412,7 +411,7 @@ const Search = ({
                         placeholder="Dimensions"
                         options={dimensionsData}
                         onChangeDropdown={(selected) =>
-                          setDimensions({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setDimensions({ selected, dispatch, dropdownValue, setDropdownValue })}
                         selectedValue={newDropdownValue.dimensions}
                       />
                     </CCol>
@@ -423,7 +422,7 @@ const Search = ({
                         placeholder="Size"
                         options={sizeData}
                         onChangeDropdown={(selected) =>
-                          setSize({ selected, dispatch, dropdownValue, setdropdownValue })}
+                          setSize({ selected, dispatch, dropdownValue, setDropdownValue })}
                         selectedValue={newDropdownValue.size}
                       />
                     </CCol>

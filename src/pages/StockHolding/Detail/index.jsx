@@ -7,7 +7,7 @@ import { CRow } from '@coreui/react';
 import TableMaster from '../../../Component/TableMaster';
 import DetailHeader from '../../../Component/DetailHeader';
 import Breadcrumb from '../../../Component/Breadcrumb/index';
-import { getDetailData, getDetailHeader, getForescast } from '../../../apiService';
+import { getDetailData, getDetailHeader, getForecast } from '../../../apiService';
 import { setExportData, schemaColumnDetailPO, schameColumnForesCast, headerDetailCenter, headerDetailLeft } from '../services';
 import './index.scss';
 
@@ -15,31 +15,25 @@ const StockHoldingDetail = (props) => {
   const dispatch = useDispatch();
   const shDetail = useSelector((state) => state.shDetail);
   const shDetailTable = useSelector((state) => state.shDetailTable);
-  const shDetailForescast = useSelector((state) => state.shDetailForescast);
+  const shDetailForecast = useSelector((state) => state.shDetailForescast);
   const paginationShDetail = useSelector((state) => state.paginationShDetail);
   const paginationShForecast = useSelector((state) => state.paginationShForecast);
   const user = useSelector((state) => state.user);
   const module = 'stockHolding';
   const [activeTab, setActiveTab] = useState('1');
+
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
     getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
-    getForescast({ dispatch, props, active: paginationShForecast?.active || 1 });
-  }, []);
-
-  // useEffect(() => {
-  //   if (!shDetailTable) {
-  //     getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   if (!shDetailForescast) {
-  //     getForescast({ dispatch, props, active: paginationShForecast?.active || 1 });
-  //   }
-  // }, []);
+    getForecast({ dispatch, props, active: paginationShForecast?.active || 1 });
+  }, [])
 
   const height = window.innerHeight - 378;
-  const widht = window.innerWidth;
+
+  const navDetailsCss = activeTab === '2' ? 'bg-tabNonActive' : ''
+  const navForeCastCss = activeTab === '1' ? 'bg-tabNonActive' : ''
+  const tabDetailsCss = activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
+  const tabForeCastCss = activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
   return (
     <div>
       <Breadcrumb
@@ -61,17 +55,14 @@ const StockHoldingDetail = (props) => {
         <div className="stockDetails col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
           <Nav tabs className="mx-0">
             <div className="d-flex">
-              <NavItem className={`p-0 ${activeTab === '2' ? 'bg-tabNonActive' : 'n'}`}>
+              <NavItem className={`p-0 ${navDetailsCss}`}>
                 <NavLink
                   className="d-flex align-items-center pl-0"
                   active={activeTab === '1'}
                   onClick={() => setActiveTab('1')}
                   style={{ marginLeft: '0px' }}
                 >
-                  <div
-                    className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
-                      }`}
-                  >
+                  <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${tabDetailsCss}`}>
                     <span className="newIcon-stock_details tabTitleText" />
                     {activeTab === '1'}
                     Stock Details
@@ -84,16 +75,13 @@ const StockHoldingDetail = (props) => {
                 parseInt(shDetail?.stock_on_hand) + parseInt(shDetail?.expected_in_qty) >= shDetail?.expected_out_qty ? (
                 ''
               ) : (
-                <NavItem className={`p-0 ml-2 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`}>
+                <NavItem className={`p-0 ml-2 ${navForeCastCss}`}>
                   <NavLink
                     className="d-flex align-items-center pl-0"
                     active={activeTab === '2'}
                     onClick={() => setActiveTab('2')}
                   >
-                    <div
-                      className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
-                        }`}
-                    >
+                    <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${tabForeCastCss}`}>
                       <span className="newIcon-stock_balance tabTitleText" />
                       {activeTab === '2'}
                       Stock Balance Forecast
@@ -114,7 +102,7 @@ const StockHoldingDetail = (props) => {
               classNamePaging="display-paging"
               classNameTable="table-detail stock-detail "
               data={shDetailTable}
-              style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
+              style={{ minHeight: height, maxHeight: height }}
               module="StockHoldingDetail"
               noDataText
               pagination={paginationShDetail}
@@ -132,21 +120,21 @@ const StockHoldingDetail = (props) => {
         ) : (
           ''
         )}
-        {activeTab === '2' ? (
+        {activeTab === '2' && shDetailForecast ? (
           <TabPane tabId="2" style={{ background: '#e9eced' }}>
             <TableMaster
               schemaColumn={schameColumnForesCast}
               classNamePaging="display-paging"
               classNameTable="table-detail stock-detail"
-              data={shDetailForescast}
-              style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
+              data={shDetailForecast}
+              style={{ minHeight: height, maxHeight: height }}
               module="StockHoldingForecast"
               noDataText
               pagination={paginationShForecast}
               goto={(e) => {
                 dispatch({ type: 'PAGING_SH_FORECAST', data: { ...paginationShForecast, active: e } });
               }}
-              getExportData={() => setExportData({ dispatch, data: shDetailForescast })}
+              getExportData={() => setExportData({ dispatch, data: shDetailForecast })}
               user={user}
               title="Stock Holding Forecast"
               filename="Microlistics_StockHoldingForecast."

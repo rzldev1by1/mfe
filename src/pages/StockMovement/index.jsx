@@ -1,24 +1,23 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Search from '../../Component/Search';
+import { useSelector } from 'react-redux';
+import Search from './Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableFixedColumn from '../../Component/TableFixedColumn';
 import { customSchema, setupExcel, setupPdf, demoPDF } from './services';
 import './style.scss';
 
-const StockMovement = (props) => {
-  const dispatch = useDispatch();
+const StockMovement = () => {
   const module = 'stockMovement';
   const smData = useSelector((state) => state.smSummaryData);
   const pagination = useSelector((state) => state.pagination);
 
   const [header, setHeader] = useState([]);
-  const [dateHeader, setdateHeader] = useState([]);
+  const [dateHeader, setDateHeader] = useState([]);
   const [tableStatus, setTableStatus] = useState('waiting');
   const [headerExcel, setHeaderExcel] = useState([]);
   const [dataExcel, setDataExcel] = useState([]);
-  const [firstHeader, setFirstHeader] = useState(['Site', 'Client', 'Product', 'Description', 'UOM']);
+  const [firstHeader] = useState(['Site', 'Client', 'Product', 'Description', 'UOM']);
   const [rowSpan, setRowSpan] = useState([]);
   const [dataPDF, setDataPDF] = useState([]);
   const [dimension, setDimension] = useState({
@@ -48,7 +47,7 @@ const StockMovement = (props) => {
     }
 
     if (smData && header.length > 0) {
-      customSchema({ data: smData, schemaColumn: header, setHeader });
+      customSchema({ data: smData, schemaColumns: header, setHeader });
       setupExcel({ data: smData, dateHeader, header, setDataExcel, setHeaderExcel });
       setupPdf({ data: smData, dateHeader, header, setDataPDF, setRowSpan });
     }
@@ -59,7 +58,7 @@ const StockMovement = (props) => {
       <Breadcrumb breadcrumb={[{ to: '/purchase-order', label: 'Stock Movement', active: true }]} />
       <div>
         <div>
-          <Search module={module} setHeader={setHeader} setdateHeader={setdateHeader} btnSearch inputTag />
+          <Search module={module} setHeader={setHeader} setDateHeader={setDateHeader} btnSearch inputTag />
         </div>
         <div>
           <TableFixedColumn
@@ -81,16 +80,14 @@ const StockMovement = (props) => {
       <table id="excel" className="d-none">
         <thead>
           <tr>
-            {headerExcel.map((d, i) => {
-              if (firstHeader.includes(d)) {
-                return <th>{d}</th>;
-              }
+            {headerExcel.map(d => {
+              if (firstHeader.includes(d)) return <th>{d}</th>;
             })}
           </tr>
         </thead>
         <tbody>
           {dataExcel &&
-            dataExcel.map((data, index) => [
+            dataExcel.map(data => [
               <tr>
                 <td>
                   ‎
@@ -112,7 +109,7 @@ const StockMovement = (props) => {
                   ‎
                   {data.uom}
                 </td>
-                {data.column.map((d, i) => {
+                {data.column.map(d => {
                   return (
                     <td>
                       <table>
@@ -160,7 +157,7 @@ const StockMovement = (props) => {
         </thead>
         <tbody>
           {dataPDF &&
-            dataPDF.map((data, index) => {
+            dataPDF.map(data => {
               return data.date.map((d, idx) => {
                 if (idx < 1) {
                   return (

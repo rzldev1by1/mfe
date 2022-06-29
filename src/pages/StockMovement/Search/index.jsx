@@ -3,17 +3,17 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react';
-import { getSite, getClient, getProduct, siteCheck, clientCheck } from 'apiService/dropdown';
-import { getDateRange, getStockMovement } from 'apiService';
-import Dropdown from 'Component/Dropdown';
-import DatePicker from 'shared/DatePicker';
 import moment from 'moment';
-import DropdownAxios from 'Component/Dropdown/DropdownAxios';
-import Input from 'Component/Input';
+import { getSite, getClient, getProduct, siteCheck, clientCheck } from '../../../apiService/dropdown';
+import { getDateRange, getStockMovement } from '../../../apiService';
+import Dropdown from '../../../Component/Dropdown';
+import DatePicker from '../../../shared/DatePicker';
+import DropdownAxios from '../../../Component/Dropdown/DropdownAxios';
+import Input from '../../../Component/Input';
 import { setHeaderSummary } from './services';
 import './style.scss';
 
-const Search = ({ setHeader, setdateHeader }) => {
+const Search = ({ setHeader, setDateHeader }) => {
   // params
   const dispatch = useDispatch();
   const siteData = useSelector((state) => state.siteData);
@@ -25,7 +25,7 @@ const Search = ({ setHeader, setdateHeader }) => {
   const [isSearch, setIsSearch] = useState(true);
   const [defaultDate, setDefaultDate] = useState(null);
 
-  const [dropdownValue, setdropdownValue] = useState({
+  const [dropdownValue, setDropdownValue] = useState({
     siteVal: '',
     clientVal: '',
     fromDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
@@ -34,13 +34,12 @@ const Search = ({ setHeader, setdateHeader }) => {
     period: { value: 'week', label: `Weekly` },
     firstValue: false,
   });
-  const [periodData, setPeriodData] = useState([
+  const [periodData] = useState([
     { value: 'day', label: `Daily` },
     { value: 'week', label: `Weekly` },
     { value: 'month', label: `Monthly` },
   ]);
 
-  const { company, client, site } = user;
   const { siteVal, clientVal, period, fromDate, toDate, productVal, firstValue } = dropdownValue;
 
   // ref
@@ -59,7 +58,7 @@ const Search = ({ setHeader, setdateHeader }) => {
         dispatch({ type: 'GET_ACTIVE_PAGE', data: 1 });
         dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
         getStockMovement({ dropdownValue, dispatch, user });
-        setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
+        setHeaderSummary({ dropdownValue, setHeader, setDateHeader });
       }
     }
     setIsSearch(false);
@@ -77,7 +76,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                 options={periodData}
                 onChangeDropdown={(selected) => {
                   const newDropdownValue = dropdownValue;
-                  setdropdownValue({ ...newDropdownValue, period: selected, fromDate: null, toDate: null });
+                  setDropdownValue({ ...newDropdownValue, period: selected, fromDate: null, toDate: null });
                   dateFrom.current.resetDateValue();
                   dateTo.current.resetDateValue();
                   if (selected) {
@@ -90,40 +89,19 @@ const Search = ({ setHeader, setdateHeader }) => {
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date From</div>
             <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
-              {/* <DatePicker
-                style={{ minWidth: '100%' }}
-                arrowStyle={true}
-                tabIndex="1"
-                placeHolder="Select Date"
-                getDate={(selected) => {
-                  // let newDropdownValue = dropdownValue;
-                  setdropdownValue({ fromDate: selected });
-                  dateTo.current.openDatePicker();
-                }}
-                fromMonth={defaultDate?.minDate}
-                toMonth={defaultDate?.maxDate}
-                selectedDates={new Date(fromDate)}
-                ref={dateFrom}
-              /> */}
               <DatePicker
                 style={{ minWidth: '100%' }}
                 ref={dateFrom}
                 arrowStyle
                 getDate={(e) => {
                   const newDropdownValue = dropdownValue;
-                  setdropdownValue({ ...newDropdownValue, fromDate: e, firstValue: false })
+                  setDropdownValue({ ...newDropdownValue, fromDate: e, firstValue: false })
                 }}
                 defaultValue={new Date(fromDate)}
-                tabIndex="1"
                 placeHolder="Select Date"
-                onChange={(selected) => { dateTo.current.openDatePicker(); }}
+                onChange={() => { dateTo.current.openDatePicker(); }}
                 classNameInput="form-control"
-                onOpen={(e) => {
-                  // dateTo.current.openDatePicker('to');  
-                  if (e) {
-                    dateTo.current.openDatePicker();
-                  }
-                }}
+                onOpen={(e) => { if (e) dateTo.current.openDatePicker(); }}
                 fromMonth={defaultDate?.minDate}
                 toMonth={defaultDate?.maxDate}
                 messageRequired
@@ -137,21 +115,6 @@ const Search = ({ setHeader, setdateHeader }) => {
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date To</div>
             <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
-              {/* <DatePicker
-                style={{ minWidth: '100%' }}
-                arrowStyle={true}
-                tabIndex="1"
-                placeHolder="Select Date"
-                getDate={(selected) => {
-                  let newDropdownValue = dropdownValue;
-                  setdropdownValue({ ...newDropdownValue, toDate: selected });
-                }}
-                firstDate={fromDate ? new Date(fromDate) : null}
-                fromMonth={fromDate ? fromDate : defaultDate?.minDate}
-                toMonth={defaultDate?.maxDate}
-                selectedDates={toDate ? new Date(toDate) : null}
-                ref={dateTo}
-              /> */}
               <DatePicker
                 style={{ minWidth: '100%' }}
                 ref={dateTo}
@@ -162,10 +125,9 @@ const Search = ({ setHeader, setdateHeader }) => {
                 classNameInput="form-control"
                 getDate={(e) => {
                   const newDropdownValue = dropdownValue;
-                  setdropdownValue({ ...newDropdownValue, toDate: e });
+                  setDropdownValue({ ...newDropdownValue, toDate: e });
                 }}
                 defaultValue={new Date(toDate)}
-                tabIndex="1"
                 placeHolder="Select Date"
                 fromMonth={defaultDate?.minDate}
                 toMonth={defaultDate?.maxDate}
@@ -192,7 +154,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                       options={siteData}
                       onChangeDropdown={(selected) => {
                         const newDropdownValue = dropdownValue;
-                        setdropdownValue({ ...newDropdownValue, siteVal: selected });
+                        setDropdownValue({ ...newDropdownValue, siteVal: selected });
                       }}
                       selectedValue={siteVal}
                       className="z-99"
@@ -210,7 +172,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                       options={clientData}
                       onChangeDropdown={(selected) => {
                         const newDropdownValue = dropdownValue;
-                        setdropdownValue({ ...newDropdownValue, clientVal: selected, productVal: [] });
+                        setDropdownValue({ ...newDropdownValue, clientVal: selected, productVal: [] });
                       }}
                       selectedValue={clientVal}
                     />
@@ -225,7 +187,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                     className="width-100 z-99"
                     onChangeDropdown={(selected) => {
                       const newDropdownValue = dropdownValue;
-                      setdropdownValue({ ...newDropdownValue, productVal: selected });
+                      setDropdownValue({ ...newDropdownValue, productVal: selected });
                     }}
                     isLoading={isLoading}
                     onInputChange={(val) => {

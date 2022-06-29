@@ -88,7 +88,7 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, shDetail: data };
     case 'GET_SH_DETAIL_TABLE':
       return { ...state, shDetailTable: data };
-    case 'GET_SH_DETAIL_FORESCAST':
+    case 'GET_SH_DETAIL_FORECAST':
       return { ...state, shDetailForescast: data };
     // Purchase Order End
 
