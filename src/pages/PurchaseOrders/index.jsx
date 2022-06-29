@@ -4,13 +4,13 @@ import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import {schemaColumn}  from './services';
+import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
 import endpoints from '../../helpers/endpoints';
 
 const PurchaseOrders = (props) => {
-  const {history} = props
+  const { history } = props;
   const showDetails = (item) => {
     history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
   };
@@ -102,7 +102,6 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      // getSummaryData({ dispatch, active: paginationPo?.active, Export, module });
     }
   }, [Export]);
 
@@ -110,14 +109,14 @@ const PurchaseOrders = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={(
+        button={
           <CButton
             onClick={() => setShowModal(true)}
             className={`btn btn-primary btn-create float-right ${createBtn === 'true' ? '' : 'd-none'}`}
           >
             CREATE PURCHASE ORDER
           </CButton>
-        )}
+        }
       />
       <div>
         <div>

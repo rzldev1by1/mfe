@@ -100,15 +100,16 @@ const Form = ({
   }, [activeTab]);
 
   useEffect(() => {
-    if (orderLineSelectOpen === 'datePicker') {
+    if (orderLineSelectOpen == 'datePicker') {
       setDropdownExpandStyle('lineDetailsTopExpand');
-    } else if (orderLineSelectOpen === 'dropdown') {
+    } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
     } else {
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
-
+  const messageShowOrderType = isValidation && !orderDetails?.orderType?.value;
+  const styleAddLine = isReadonly ? `btn-light-two` : `btn-light-ones`;
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
@@ -136,15 +137,17 @@ const Form = ({
             title="Order Type"
             options={resources?.orderType}
             selectedValue={orderDetails?.orderType}
-            onChangeDropdown={(selected) => changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })}
+            onChangeDropdown={(selected) =>
+              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })
+            }
             required
             readOnly={isReadonly}
             messageRequired
             messageParam={{
-              messageShow: isValidation && !orderDetails?.orderType?.value,
+              messageShow: messageShowOrderType,
               value: orderDetails?.orderType,
             }}
-            parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
+            parentDivClassName={messageShowOrderType ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
@@ -153,7 +156,9 @@ const Form = ({
             title="Supplier"
             options={supplier}
             selectedValue={orderDetails?.supplier}
-            onChangeDropdown={(selected) => changeOrderDetails({ column: 'supplier', value: selected, orderDetails, setOrderDetails })}
+            onChangeDropdown={(selected) =>
+              changeOrderDetails({ column: 'supplier', value: selected, orderDetails, setOrderDetails })
+            }
             readOnly={isReadonly}
           />
         </Col>
@@ -162,7 +167,9 @@ const Form = ({
             name="customerOrderRef"
             title="Customer Order Ref"
             placeholder={orderDetails?.customerOrderRef}
-            onChange={(val) => changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })}
+            onChange={(val) =>
+              changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })
+            }
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -239,11 +246,11 @@ const Form = ({
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
             classNameInput={`form-control ${isValidation && !orderDetails?.orderDate ? 'input-danger' : ''}`}
-            selectedDates={orderDetails?.orderDate || ''}
+            selectedDates={orderDetails?.orderDate}
           />
           <Input
             name="orderDate"
-            placeholder='Order Date'
+            placeholder="Order Date"
             value={formatDate(orderDetails?.orderDate)}
             readOnly
             style={!isReadonly ? { display: 'none' } : null}
@@ -257,8 +264,10 @@ const Form = ({
         <Col lg="3">
           <Input
             name="vendorOrderRef"
-            title='Vendor Order Ref'
-            onChange={(e) => changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })}
+            title="Vendor Order Ref"
+            onChange={(e) =>
+              changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })
+            }
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -282,13 +291,11 @@ const Form = ({
               </td>
               <td>
                 {' '}
-                <div className="c-400 required px-1">Product</div>
-                {' '}
+                <div className="c-400 required px-1">Product</div>{' '}
               </td>
               <td>
                 {' '}
-                <div className="c-600 px-1">Description</div>
-                {' '}
+                <div className="c-600 px-1">Description</div>{' '}
               </td>
               <td>
                 <div className="c-100 required px-1">Qty</div>
@@ -342,7 +349,7 @@ const Form = ({
       <div>
         <button
           type="button"
-          className={`btn m-0 ${isReadonly ? `btn-light-none` : `btn-light-blue`}`}
+          className={`btn m-0 ${styleAddLine}`}
           onClick={async () => {
             setIsValidation(true);
             const validate = await validationOrderLines({ orderLines, setOrderLines });

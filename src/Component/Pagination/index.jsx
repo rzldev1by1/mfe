@@ -16,16 +16,16 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
   const active = pagination?.active;
   const show = pagination?.show;
   let total = pagination?.total;
-  total = pagination && pagination.total ? pagination.total : data?.length;
+  total = pagination?.total ?? data?.length;
   const startIndex = (active - 1) * (total < show ? total : show);
   const endIndex = startIndex + (total < show ? total : show);
   const pages = Math.ceil(total / show);
   const tmpStartIndex = data?.length > 0 && startIndex < 1 ? 1 : startIndex;
   // pagination
-  const xTotal = pagination && pagination.total ? pagination.total : total;
-  const xLastPage = pagination && pagination.last_page ? pagination.last_page : 1;
-  const xFrom = pagination && pagination.from ? pagination.from : tmpStartIndex;
-  const xTo = pagination && pagination.to ? pagination.to : endIndex;
+  const xTotal = pagination?.total ? pagination.total : total;
+  const xLastPage = pagination?.last_page ? pagination.last_page : 1;
+  const xFrom = pagination?.from ? pagination.from : tmpStartIndex;
+  const xTo = pagination?.to ? pagination.to : endIndex;
 
   const search = async (e) => {
     if (e.key === 'Enter') {

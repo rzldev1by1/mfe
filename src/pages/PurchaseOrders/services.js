@@ -105,18 +105,22 @@ export const schemaColumn = [
       const { original } = row
       switch (original.status) {
         case '0: Not Available':
-          return <div className="status-unavailable">UNAVAILABLE</div>;
+          <div className="status-unavailable">UNAVAILABLE</div>;
+          break;
         case '1: Available':
-          return <div className="status-available">AVAILABLE</div>;
+          <div className="status-available">AVAILABLE</div>;
+          break;
         case '2: Released':
-          return <div className="status-Release">RELEASED</div>;
+          <div className="status-Release">RELEASED</div>;
+          break;
         case '3: Part Released':
-          return <div className="status-partRelease">PART RELEASED</div>;
+          <div className="status-partRelease">PART RELEASED</div>;
+          break;
         case '4: Completed':
-          return <div className="status-complete">COMPLETED</div>;
+          <div className="status-complete">COMPLETED</div>;
+          break;
         case 'All Open':
-          return <div className="status-ok">ALL OPEN</div>;
-        default:
+          <div className="status-ok">ALL OPEN</div>;
           break;
       }
       return false;
@@ -362,29 +366,3 @@ export const schemaColumnDetailPO = [
     sortable: true,
   },
 ];
-
-export const setExportData = async ({ dispatch, data }) => {
-  await dispatch({ type: 'EXPORT_DATA', data });
-};
-
-export const siteCheck = ({ val, site }) => {
-  let ret = null;
-  site.map((data) => {
-    if (data?.value !== val) {
-      return 0;
-    }
-    return ret = data.label;
-  });
-  return ret;
-};
-
-export const clientCheck = ({ val, client }) => {
-  let ret = null;
-  client.map((data) => {
-    if (data?.value !== val) {
-      return 0;
-    }
-    return ret = data.label;
-  });
-  return ret;
-};

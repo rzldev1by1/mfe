@@ -1,20 +1,5 @@
 import React from 'react';
 
-// https://github.com/tannerlinsley/react-table/issues/94
-
-// const getColumnWidth = (data, accessor, headerText) => {
-//   if (typeof accessor === 'string' || accessor instanceof String) {
-//     accessor = d => d[accessor]; // eslint-disable-line no-param-reassign
-//   }
-//   const maxWidth = 600;
-//   const magicSpacing = 10;
-//   const cellLength = Math.max(
-//     ...data.map(row => (`${accessor(row)}` || '').length),
-//     headerText.length,
-//   );
-//   return Math.min(maxWidth, cellLength * magicSpacing);
-// };
-
 export const schemaColumnDetailPO = [
   {
     accessor: 'rn',
