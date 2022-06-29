@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import { Modal, ModalBody } from 'reactstrap';
 import numeral from 'numeral';
-import { Link } from 'react-router-dom';
 import './index.scss';
 import logoConfirm from '../../assets/img/LOGO5@2x.png';
 
@@ -26,12 +25,16 @@ const DetailHeader = ({
 
   const idAndDetail = ({ val, detail }) => {
     let ret = null;
-    detail.forEach(detailData => {
-      if (!detailData?.value !== val) ret = detailData.label;
-    });
+    if (val) {
+      detail.forEach(detailData => {
+        if (!detailData?.value !== val) ret = detailData.label;
+      });
+    } else {
+      ret = '-'
+    }
     return ret;
   };
-
+  
   return (
     <div className="card-group" style={{ borderRadius: "0.25rem" }}>
 
@@ -43,41 +46,39 @@ const DetailHeader = ({
                 {headerDetailRight.map(id => {
                   const { accessor } = id
                   if (data) {
-                    if (accessor === 'site') {
-                      return (
+                    switch (accessor) {
+                      case 'site':
                         <CRow className='mx-0 pt-1'>
                           <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
-                          <CCol xs={8}>{data[accessor] ? idAndDetail({ val: data[accessor], detail: siteData }) : '-'}</CCol>
+                          <CCol xs={8}>{idAndDetail({ val: data[accessor], detail: siteData })}</CCol>
                         </CRow>
-                      )
-                    } else if (accessor === 'client') {
-                      return (
+                        break;
+                      case 'client':
                         <CRow className='mx-0 pt-1'>
                           <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
-                          <CCol xs={8}>{data[accessor] ? idAndDetail({ val: data[accessor], detail: clientData }) : '-'}</CCol>
+                          <CCol xs={8}>{idAndDetail({ val: data[accessor], detail: clientData })}</CCol>
                         </CRow>
-                      )
-                    } else if (accessor === 'deliverydescription') {
-                      return (
+                        break;
+                      case 'deliverydescription':
                         <CRow className='mx-0 pt-1'>
                           <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
                           <CCol xs={8} className="px-0 line-camp">{data[accessor] ? data[accessor] : '-'}</CCol>
                           {
                             data[accessor]?.length > 100 ?
-                              <Link onClick={() => setModalShow(true)}>Show More</Link>
+                              <div className="link-custom" onClick={() => setModalShow(true)} aria-hidden="true">Show More</div>
                               : ''
                           }
                         </CRow>
-                      )
+                        break;
                     }
                     return (
                       <CRow className='mx-0 pt-1'>
                         <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
-                        <CCol xs={8}>{data[accessor] ? data[accessor] : '-'}</CCol>
+                        <CCol xs={8}>{data[accessor] ?? '-'}</CCol>
                       </CRow>
                     )
                   }
-                  return
+                  return false
                 })}
               </CCol>
             </CRow>
@@ -87,9 +88,9 @@ const DetailHeader = ({
         ' '
       )}
 
-      {headerDetailCenter ? (
+      {headerDetailCenter && (
         <CCard>
-          <CCardBody className={`mobile-header p-0 my-3 mr-3 ml-0 ${moduleCss} ${headerDetailLeftCss}`} >
+          <CCardBody className={`mobile-header p-0 my-3 mr-3 ml-0 ${moduleCss} ${headerDetailLeftCss}`}>
             <CRow className='mx-0'>
               <CCol lg='12' className="px-0">
                 {headerDetailCenter.map(id => {
@@ -98,17 +99,16 @@ const DetailHeader = ({
                     return (
                       <CRow className='mx-0 pt-1'>
                         <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
-                        <CCol xs={8}>{data[accessor] ? data[accessor] : '-'}</CCol>
+                        <CCol xs={8}>{data[accessor] ?? '-'}</CCol>
                       </CRow>
                     )
                   }
+                  return false
                 })}
               </CCol>
             </CRow>
           </CCardBody>
         </CCard>
-      ) : (
-        ''
       )}
 
       {headerDetailLeft ? (
@@ -131,10 +131,11 @@ const DetailHeader = ({
                     return (
                       <CRow className='mx-0 pt-1'>
                         <CCol xs={4} className='text-light-gray'>{id.Header}</CCol>
-                        <CCol xs={8}>{data[accessor] ? data[accessor] : '-'}</CCol>
+                        <CCol xs={8}>{data[accessor] ?? '-'}</CCol>
                       </CRow>
                     )
                   }
+                  return false
                 })}
               </CCol>
             </CRow>

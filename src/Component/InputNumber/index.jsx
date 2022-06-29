@@ -1,6 +1,6 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
-import RequiredMessage from 'Component/RequiredMessage';
+import RequiredMessage from '../RequiredMessage';
 
 const InputNumber = ({
   name,
@@ -30,8 +30,7 @@ const InputNumber = ({
         readOnly={isReadOnly}
         decimalScale={isDecimal ? 3 : 0}
         isAllowed={(values) => {
-          const { value } = values;
-          const number = value.split('.');
+          const number = values.split('.');
           return number[0].length <= maxLength;
         }}
       />

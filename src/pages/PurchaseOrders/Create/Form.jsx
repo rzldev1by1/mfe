@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
-import Dropdown from 'Component/Dropdown';
-import DatePicker from 'shared/DatePicker';
-import Input from 'Component/Input';
-import FormLine from './FormLine';
-import RequiredMessage from 'Component/RequiredMessage';
-
+import { Row, Col } from 'react-bootstrap';
+import { getSupplier, getDisposition } from '../../../apiService/dropdown';
 import {
   changeOrderDetails,
   addOrderLines,
@@ -16,9 +11,11 @@ import {
   validationOrderLines,
   changeOrderDetailSiteAndClient,
 } from './services';
-import { getSupplier, getDisposition } from 'apiService/dropdown';
-import { validate } from 'email-validator';
-
+import DatePicker from '../../../shared/DatePicker';
+import Dropdown from '../../../Component/Dropdown';
+import Input from '../../../Component/Input';
+import RequiredMessage from '../../../Component/RequiredMessage';
+import FormLine from './FormLine';
 import './style.scss';
 
 const Form = ({
@@ -36,8 +33,6 @@ const Form = ({
   const siteData = useSelector((state) => state.siteData);
   const user = useSelector((state) => state.user);
 
-  const [orderDate, setOrderDate] = useState({});
-  const [line, setLine] = useState([]);
   const [clientOption, setClientOption] = useState(null);
   const [siteOption, setSiteOption] = useState(null);
   const [supplier, setSupplier] = useState([]);
@@ -45,8 +40,7 @@ const Form = ({
   const [orderLineSelectOpen, setOrderLineSelectOpen] = useState(false);
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
   const [checkingOrderNo, setCheckingOrderNo] = useState(null);
-  const { company, client, site } = user;
-  // const { orderDetails, orderLines, orderLinesData } = createData;
+  const { client, site } = user;
 
   useEffect(() => {
     if (orderLines?.length < 1) {
@@ -56,14 +50,14 @@ const Form = ({
 
   useEffect(() => {
     // set client dropdown option
-    let clientOption = [];
-    let siteOption = [];
+    const reqClientOption = [];
+    const reqSiteOption = [];
     let valClient = null;
     let valSite = null;
     if (clientData) {
-      clientData.map((item, key) => {
+      clientData.forEach((item) => {
         if (item.value !== 'all') {
-          clientOption.push(item);
+          reqClientOption.push(item);
         }
 
         if (client === item.value) {
@@ -77,9 +71,9 @@ const Form = ({
 
     // set site dropdown option
     if (siteData) {
-      siteData.map((item, key) => {
+      siteData.forEach((item) => {
         if (item.value !== 'all') {
-          siteOption.push(item);
+          reqSiteOption.push(item);
         }
         if (site === item.value) {
           valSite = {
@@ -90,17 +84,15 @@ const Form = ({
       });
     }
 
-    if (client) {
-      getSupplier({ client: client, site: orderDetails?.site, setSupplier });
-    }
+    if (client) getSupplier({ client, site: orderDetails?.site, setSupplier });
 
     changeOrderDetailSiteAndClient({ valClient, valSite, setOrderDetails, orderDetails });
-    setSiteOption(siteOption);
-    setClientOption(clientOption);
+    setSiteOption(reqSiteOption);
+    setClientOption(reqClientOption);
   }, [clientData, siteData]);
 
   useEffect(() => {
-    if (activeTab == 'review') {
+    if (activeTab === 'review') {
       setIsReadOnly(true);
     } else {
       setIsReadOnly(false);
@@ -108,9 +100,9 @@ const Form = ({
   }, [activeTab]);
 
   useEffect(() => {
-    if (orderLineSelectOpen == 'datePicker') {
+    if (orderLineSelectOpen === 'datePicker') {
       setDropdownExpandStyle('lineDetailsTopExpand');
-    } else if (orderLineSelectOpen == 'dropdown') {
+    } else if (orderLineSelectOpen === 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
     } else {
       setDropdownExpandStyle(null);
@@ -133,7 +125,7 @@ const Form = ({
             }}
             required
             readOnly={isReadonly || site}
-            messageRequired={true}
+            messageRequired
             messageParam={{ messageShow: isValidation, value: orderDetails?.site }}
             parentDivClassName={isValidation && !orderDetails?.site ? 'input-danger' : ''}
           />
@@ -144,12 +136,10 @@ const Form = ({
             title="Order Type"
             options={resources?.orderType}
             selectedValue={orderDetails?.orderType}
-            onChangeDropdown={(selected) =>
-              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })
-            }
+            onChangeDropdown={(selected) => changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })}
             required
             readOnly={isReadonly}
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation && !orderDetails?.orderType?.value,
               value: orderDetails?.orderType,
@@ -163,9 +153,7 @@ const Form = ({
             title="Supplier"
             options={supplier}
             selectedValue={orderDetails?.supplier}
-            onChangeDropdown={(selected) =>
-              changeOrderDetails({ column: 'supplier', value: selected, orderDetails, setOrderDetails })
-            }
+            onChangeDropdown={(selected) => changeOrderDetails({ column: 'supplier', value: selected, orderDetails, setOrderDetails })}
             readOnly={isReadonly}
           />
         </Col>
@@ -174,9 +162,7 @@ const Form = ({
             name="customerOrderRef"
             title="Customer Order Ref"
             placeholder={orderDetails?.customerOrderRef}
-            onChange={(val) =>
-              changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })
-            }
+            onChange={(val) => changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -199,7 +185,7 @@ const Form = ({
               }
             }}
             readOnly={isReadonly || client}
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation,
               value: orderDetails?.client,
@@ -215,7 +201,7 @@ const Form = ({
             style={{ marginLeft: '-3px' }}
             maxLength={12}
             onChange={(e) => {
-              let val = e.target.value.toUpperCase();
+              const val = e.target.value.toUpperCase();
               if (val !== orderDetails?.client) {
                 changeOrderNo({
                   orderNo: e.target.value.toUpperCase(),
@@ -230,13 +216,13 @@ const Form = ({
               (isValidation && !orderDetails?.orderNo) || checkingOrderNo?.status === false ? 'input-danger' : ''
             }
             onKeyUp={(e) => {
-              let orderNo = e.target.value;
+              const orderNo = e.target.value;
               e.target.value = orderNo.toUpperCase();
             }}
             alphaNumeric
             required
             readOnly={isReadonly}
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation || checkingOrderNo?.status === false,
               value: orderDetails?.orderNo,
@@ -257,11 +243,11 @@ const Form = ({
           />
           <Input
             name="orderDate"
-            placeholder={'Order Date'}
+            placeholder='Order Date'
             value={formatDate(orderDetails?.orderDate)}
             readOnly
             style={!isReadonly ? { display: 'none' } : null}
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation,
               value: orderDetails?.orderDate,
@@ -271,10 +257,8 @@ const Form = ({
         <Col lg="3">
           <Input
             name="vendorOrderRef"
-            title={'Vendor Order Ref'}
-            onChange={(e) =>
-              changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })
-            }
+            title='Vendor Order Ref'
+            onChange={(e) => changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -298,11 +282,13 @@ const Form = ({
               </td>
               <td>
                 {' '}
-                <div className="c-400 required px-1">Product</div>{' '}
+                <div className="c-400 required px-1">Product</div>
+                {' '}
               </td>
               <td>
                 {' '}
-                <div className="c-600 px-1">Description</div>{' '}
+                <div className="c-600 px-1">Description</div>
+                {' '}
               </td>
               <td>
                 <div className="c-100 required px-1">Qty</div>
@@ -358,9 +344,8 @@ const Form = ({
           type="button"
           className={`btn m-0 ${isReadonly ? `btn-light-none` : `btn-light-blue`}`}
           onClick={async () => {
-            //validate first
             setIsValidation(true);
-            let validate = await validationOrderLines({ orderLines, setOrderLines });
+            const validate = await validationOrderLines({ orderLines, setOrderLines });
             if (validate) {
               addOrderLines({ orderLines, setOrderLines });
             }

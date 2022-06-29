@@ -37,7 +37,10 @@
         "tsx": "never"
       }
     ],
-    "requireConfigFile": false
+    // "requireConfigFile": false,
+    "jsx-a11y/label-has-associated-control": false,
+    "jsx-a11y/label-has-for": false,
+    "requireConfigFile": false,
   },
   "ignorePatterns": [
     "build/*"

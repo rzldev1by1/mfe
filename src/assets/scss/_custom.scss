@@ -1157,3 +1157,15 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
   text-align: left;
   color: black;
 }
+
+// link custom
+.link-custom {
+  text-decoration: none;
+    background-color: transparent;
+    color: #376BFB;
+}
+
+.link-custom:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}

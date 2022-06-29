@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Modal, ModalBody } from 'reactstrap';
-import logoConfirm from 'assets/img/LOGO5@2x.png';
+import logoConfirm from '../../../assets/img/LOGO5@2x.png';
 import './index.scss';
 
 const PopUpExport = ({ modalShow, setModalShow }) => {
@@ -13,13 +13,12 @@ const PopUpExport = ({ modalShow, setModalShow }) => {
           ? setTimeout(() => {
               setModalShow(false);
             }, 3000)
-          : {}
-      }
+          : {}}
       contentClassName="modal-content-paging box-er-pagination"
       closeOnBackdrop={false}
     >
       <ModalBody>
-        <div className="text-right px-0" style={{ fontSize: '14px' }} onClick={() => setModalShow(false)}>
+        <div className="text-right px-0" style={{ fontSize: '14px' }} onClick={() => setModalShow(false)} aria-hidden="true">
           <i className="iconU-close pointer" />
         </div>
         <div className="d-flex d-inline-flex">
@@ -31,7 +30,11 @@ const PopUpExport = ({ modalShow, setModalShow }) => {
               Please try to export the report again.
             </div>
             <div style={{ paddingTop: '12px' }}>
-              Note the maximum you <br /> can download are: <br />
+              Note the maximum you 
+              <br />
+              {' '}
+              an download are: 
+              <br />
             </div>
             <div style={{ color: '#b4b9bb' }}>Maximum 75,000 records</div>
           </div>

@@ -1,9 +1,6 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import { onChangeHandler } from './services';
-import RequiredMessage from 'Component/RequiredMessage';
+import RequiredMessage from '../RequiredMessage';
 
 const DropdownAxios = ({
   name,
@@ -11,9 +8,7 @@ const DropdownAxios = ({
   placeholder,
   options,
   selectedValue,
-  entryListIdx,
   onChangeDropdown,
-  poListIdx,
   isLoading,
   className,
   onInputChange,
@@ -28,7 +23,6 @@ const DropdownAxios = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isValue, setIsValue] = useState('');
-  const elem = document?.getElementById(`dropdown${entryListIdx}${poListIdx}`);
   const newSelectedValue = !showLabelOnly
     ? selectedValue
     : { label: selectedValue?.value, value: selectedValue?.value };
@@ -77,7 +71,7 @@ const DropdownAxios = ({
         placeholder={placeholder || title}
         required={required}
         filterOption={(option, inputVal) => {
-          return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase();
+          return option.label.substr(0, inputVal.length).toUpperCase() === inputVal.toUpperCase();
         }}
         styles={{
           option: provided => ({

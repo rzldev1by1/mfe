@@ -1,45 +1,53 @@
 
 export const ProgressBarReset = async ({ resetConfirmation }) => {
     let i = 0;
-    if (i == 0) {
+    let id;
+    if (i === 0) {
         i = 1;
-        let element = await document.getElementById('progressBar');
+        const element = document.getElementById('progressBar');
         if (element) {
             let width = 1;
-            let id = setInterval(frame, 150);
-            function frame() {
+            const frame = () => {
                 if (width >= 103) {
                     clearInterval(id);
                     i = 0;
                     resetConfirmation()
                 } else {
-                    width++;
-                    element.style.width = width + "%";
+                    width += 1;
+                    element.style.width = `${width}%`;
                 }
             }
+            id = setInterval(frame, 150);
         }
     }
 }
 export const ProgressBar = async ({ setModal, back, exit, status, }) => {
     let i = 0;
-    if (i == 0) {
+    let id;
+    if (i === 0) {
         i = 1;
-        let element = await document.getElementById('progressBar');
+        const element = document.getElementById('progressBar');
         if (element) {
             let width = 1;
-            let id = setInterval(frame, 130);
-            function frame() {
+            const frame = () => {
                 if (width >= 120) {
                     clearInterval(id);
                     i = 0;
                     setModal(false);
-                    if (status == 'sukses') exit();
-                    if (status == 'loos') back();
+                    switch (status) {
+                        case 'sukses':
+                            exit();
+                            break;
+                        case 'loos':
+                            back()
+                            break;
+                    }
                 } else {
-                    width++;
-                    element.style.width = width + "%";
+                    width += 1;
+                    element.style.width = `${width}%`;
                 }
             }
+            id = setInterval(frame, 130);
         }
     }
 }

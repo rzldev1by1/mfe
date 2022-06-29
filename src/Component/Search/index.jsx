@@ -1,5 +1,4 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-use-before-define */
+/* eslint-disable no-param-reassign */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -91,12 +90,6 @@ const Search = ({
     orderType: '',
     task: '',
   });
-  const [isDisabled, setIsDisabled] = useState({
-    clearAll: false,
-    clearMarked: false,
-    fulfillAll: false,
-    fulfillMarked: false,
-  });
 
   let paramType = '';
   if (module === 'StockHolding') {
@@ -151,9 +144,9 @@ const Search = ({
     getDetailData({ dispatch, props, active: paginationSoDetail?.active, module, fulfill: true });
   };
 
-  const handleClear = ({ dispatch, spDetailTable, setShowClearMod }) => {
+  const handleClear = () => {
     let newArray = [...spDetailTable];
-    newArray = newArray.map((data, idx) => {
+    newArray = newArray.map((data) => {
       data.edit_qty = '';
       data.edit_carton = '';
       data.isInvalidOrderCarton = false;
@@ -166,10 +159,10 @@ const Search = ({
     setShowClearMod(false);
   };
 
-  const fulfillMarkedMod = ({ dispatch, spDetailTable, setShowFulfillMod, markedRow }) => {
-    spDetailTable.map((data) => {
-      const isMarked = data.isMarked;
-      if (isMarked && data.edit_qty !== '' && data.edit_carton !== '') {
+  const fulfillMarkedMod = () => {
+    spDetailTable.forEach((data) => {
+      const isMarkeds = data.isMarked;
+      if (isMarkeds && data.edit_qty !== '' && data.edit_carton !== '') {
         setShowFulfillMod(true);
       } else {
         handleFullFillMarked({ dispatch, spDetailTable, setShowFulfillMod, markedRow });
@@ -189,11 +182,11 @@ const Search = ({
   }, [newDropdownValue.site, newDropdownValue.client]);
 
   useEffect(() => {
-    const newDropdownValue = { ...dropdownValue };
+    const newDropdownValueData = { ...dropdownValue };
     if (module === 'purchaseOrder' || module === 'salesOrder') {
-      if (newDropdownValue.status === '') {
-        newDropdownValue.status = { value: 'open', label: 'All Open' };
-        setdropdownValue(newDropdownValue);
+      if (newDropdownValueData.status === '') {
+        newDropdownValueData.status = { value: 'open', label: 'All Open' };
+        setdropdownValue(newDropdownValueData);
       }
     }
   }, [newDropdownValue.status]);
@@ -277,8 +270,7 @@ const Search = ({
                       searchInput,
                       module,
                       user,
-                    }) && dispatch({ type: paramType, data: [] })
-                  }
+                    }) && dispatch({ type: paramType, data: [] })}
                 >
                   SEARCH
                 </button>
@@ -302,8 +294,7 @@ const Search = ({
                               dispatch,
                               dropdownValue,
                               setdropdownValue,
-                            })
-                          }
+                            })}
                           selectedValue={newDropdownValue.site}
                         />
                       )}
@@ -335,8 +326,7 @@ const Search = ({
                               dispatch,
                               dropdownValue,
                               setdropdownValue,
-                            })
-                          }
+                            })}
                           selectedValue={newDropdownValue.client}
                         />
                       )}
@@ -348,8 +338,7 @@ const Search = ({
                         placeholder="Status"
                         options={statusDataSH || statusData}
                         onChangeDropdown={(selected) =>
-                          setStatus({ selected, dispatch, dropdownValue, setdropdownValue })
-                        }
+                          setStatus({ selected, dispatch, dropdownValue, setdropdownValue })}
                         selectedValue={newDropdownValue.status}
                       />
                     </CCol>
@@ -360,8 +349,7 @@ const Search = ({
                         placeholder="Order Type"
                         options={orderTypeData}
                         onChangeDropdown={(selected) =>
-                          setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })
-                        }
+                          setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })}
                         selectedValue={newDropdownValue.orderType}
                       />
                     </CCol>
@@ -372,8 +360,7 @@ const Search = ({
                         placeholder="Task"
                         options={taskData}
                         onChangeDropdown={(selected) =>
-                          setTask({ selected, dispatch, dropdownValue, setdropdownValue })
-                        }
+                          setTask({ selected, dispatch, dropdownValue, setdropdownValue })}
                         selectedValue={newDropdownValue.task}
                       />
                     </CCol>
@@ -384,8 +371,7 @@ const Search = ({
                         placeholder="Style"
                         options={styleData}
                         onChangeDropdown={(selected) =>
-                          setStyle({ selected, dispatch, dropdownValue, setdropdownValue })
-                        }
+                          setStyle({ selected, dispatch, dropdownValue, setdropdownValue })}
                         selectedValue={newDropdownValue.style}
                       />
                     </CCol>
@@ -400,8 +386,7 @@ const Search = ({
                         placeholder="Style Desc."
                         options={styleDescData}
                         onChangeDropdown={(selected) =>
-                          setStyleDesc({ selected, dispatch, dropdownValue, setdropdownValue })
-                        }
+                          setStyleDesc({ selected, dispatch, dropdownValue, setdropdownValue })}
                         selectedValue={newDropdownValue.styleDesc}
                       />
                     </CCol>
@@ -412,8 +397,7 @@ const Search = ({
                         placeholder="Style Color"
                         options={colorData}
                         onChangeDropdown={(selected) =>
-                          setColor({ selected, dispatch, dropdownValue, setdropdownValue })
-                        }
+                          setColor({ selected, dispatch, dropdownValue, setdropdownValue })}
                         selectedValue={newDropdownValue.color}
                       />
                     </CCol>
@@ -428,8 +412,7 @@ const Search = ({
                         placeholder="Dimensions"
                         options={dimensionsData}
                         onChangeDropdown={(selected) =>
-                          setDimensions({ selected, dispatch, dropdownValue, setdropdownValue })
-                        }
+                          setDimensions({ selected, dispatch, dropdownValue, setdropdownValue })}
                         selectedValue={newDropdownValue.dimensions}
                       />
                     </CCol>
@@ -440,8 +423,7 @@ const Search = ({
                         placeholder="Size"
                         options={sizeData}
                         onChangeDropdown={(selected) =>
-                          setSize({ selected, dispatch, dropdownValue, setdropdownValue })
-                        }
+                          setSize({ selected, dispatch, dropdownValue, setdropdownValue })}
                         selectedValue={newDropdownValue.size}
                       />
                     </CCol>
@@ -456,8 +438,7 @@ const Search = ({
                             <CDropdownDivider />
                             <CDropdownItem
                               onClick={() =>
-                                handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })
-                              }
+                                handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })}
                             >
                               CLEAR MARKED
                             </CDropdownItem>
@@ -474,8 +455,7 @@ const Search = ({
                             <CDropdownDivider />
                             <CDropdownItem
                               onClick={() =>
-                                fulfillMarkedMod({ dispatch, spDetailTable, setShowFulfillMod, markedRow })
-                              }
+                                fulfillMarkedMod()}
                             >
                               FULFILL MARKED
                             </CDropdownItem>
@@ -516,6 +496,7 @@ const Search = ({
                           className="text-right px-0"
                           style={{ fontSize: '14px' }}
                           onClick={() => setShowClearMod(!showClearMod)}
+                          aria-hidden="true"
                         >
                           <i className="iconU-close pointer" />
                         </div>
@@ -525,14 +506,14 @@ const Search = ({
                             <p className="mb-0" style={{ color: '#D6D8DA' }}>
                               Are you sure?
                             </p>
-                            <p>To clear all 'Edit Qty' and 'Edit Carton' fields.</p>
+                            <p>To clear all &apos;Edit Qty&apos; and &apos;Edit Carton&apos; fields.</p>
                           </div>
                         </div>
                         <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
                           <Button
                             variant="primary"
                             style={{ padding: '0rem 1.08rem' }}
-                            onClick={() => handleClear({ dispatch, spDetailTable, setShowClearMod })}
+                            onClick={() => handleClear()}
                           >
                             CLEAR
                           </Button>
@@ -545,6 +526,7 @@ const Search = ({
                           className="text-right px-0"
                           style={{ fontSize: '14px' }}
                           onClick={() => setShowFulfillMod(!showFulfillMod)}
+                          aria-hidden="true"
                         >
                           <i className="iconU-close pointer" />
                         </div>
@@ -559,8 +541,7 @@ const Search = ({
                             variant="primary"
                             style={{ padding: '0rem 1.08rem' }}
                             onClick={() =>
-                              handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })
-                            }
+                              handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })}
                           >
                             DONE
                           </Button>

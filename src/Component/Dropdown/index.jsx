@@ -1,10 +1,7 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-use-before-define */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './Dropdown.scss';
-import RequiredMessage from 'Component/RequiredMessage';
+import RequiredMessage from '../RequiredMessage';
 
 const Dropdown = ({
   name,
@@ -63,7 +60,7 @@ const Dropdown = ({
         value={selectedValue?.value ? selectedValue : false}
         menuIsOpen={isOpen}
         menuPortal
-        placeholder={placeholder ? placeholder : title}
+        placeholder={placeholder ?? title}
         options={options}
         onMenuOpen={() => setIsOpen(true)}
         onMenuClose={() => setIsOpen(false)}
@@ -71,7 +68,7 @@ const Dropdown = ({
         maxMenuHeight={200}
         menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}
         filterOption={(option, inputVal) => {
-          return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase();
+          return option.label.substr(0, inputVal.length).toUpperCase() === inputVal.toUpperCase();
         }}
         styles={{
           option: (provided) => ({

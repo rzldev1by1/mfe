@@ -39,18 +39,18 @@ const Export = ({
       return;
     }
 
-    //if use custom function for export, example stockmovement
+    // if use custom function for export, example stockmovement
     if (customExportXls || customExportPdf) {
-      if (runExport == 'PDF') {
+      if (runExport === 'PDF') {
         customExportPdf();
-      } else if (runExport == 'XLS') {
+      } else if (runExport === 'XLS') {
         exportXLS();
       }
       setRunExport(null);
       return;
     }
 
-    //cleaning data export
+    // cleaning data export
     dispatch({ type: 'EXPORT_DATA', data: null });
 
     if (totalData > 75000) {
@@ -72,9 +72,9 @@ const Export = ({
       return;
     }
 
-    if (runExport == 'PDF') {
+    if (runExport === 'PDF') {
       exportPDF({ filename, exportData, schemaColumn });
-    } else if (runExport == 'XLS') {
+    } else if (runExport === 'XLS') {
       exportXLS();
     }
     setExportStatus('ready');
@@ -94,13 +94,7 @@ const Export = ({
     'on_hand_wgt',
     'customer_no',
   ];
-  const columnRightCharacter = [
-    'qty',
-    'qty_processed',
-    'weight',
-    'weight_processed',
-    'quantity',
-  ];
+  const columnRightCharacter = ['qty', 'qty_processed', 'weight', 'weight_processed', 'quantity'];
   return (
     <div>
       <ButtonDropdown
@@ -139,8 +133,9 @@ const Export = ({
             <div>
               <DropdownItem
                 className={`export-excel so-export px-1 d-flex justify-content-center
-                  ${exportPdf === false ? ' radius-top-export' : ''}`}
-                onClick={() => setRunExport('XLS')}>
+                ${exportPdf === false ? ' radius-top-export' : ''}`}
+                onClick={() => setRunExport('XLS')}
+              >
                 <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
@@ -163,9 +158,9 @@ const Export = ({
         <table className="d-none" id="excel">
           <thead>
             <tr>
-              {schemaColumn?.map((data, idx) => {
+              {schemaColumn?.map((data) => {
                 return (
-                  <th key={idx} id={data.accessor}>
+                  <th key={data.header} id={data.accessor}>
                     {data.Header}
                   </th>
                 );
@@ -177,16 +172,16 @@ const Export = ({
               <div> No data available </div>
             ) : (
               exportData?.map((data, i) => (
-                <tr key={i}>
+                <tr key={data?.[i]?.no}>
                   {schemaColumn.map((column, columnIdx) => {
-                    let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
+                    const dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
                     if (columnHiddenCharacter.includes(column.accessor)) {
-                      return <td key={columnIdx}>{dataReturn}</td>;
+                      return <td key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
                     }
                     if (columnRightCharacter.includes(column.accessor)) {
-                      return <td style={{ textAlign: 'right' }} key={columnIdx}>{dataReturn}</td>;
+                      return <td style={{ textAlign: 'right' }} key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
                     }
-                    return <td key={columnIdx}>{dataReturn}</td>;
+                    return <td key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
                   })}
                 </tr>
               ))

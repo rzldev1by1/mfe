@@ -1,15 +1,14 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-unresolved */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Breadcrumb from 'Component/Breadcrumb';
-import DetailHeader from 'Component/DetailHeader';
-import TableMaster from 'Component/TableMaster';
+import TableMaster from '../../../Component/TableMaster';
+import DetailHeader from '../../../Component/DetailHeader';
+import Breadcrumb from '../../../Component/Breadcrumb';
 import { getDetailData, getDetailHeader } from '../../../apiService';
 import { setExportData, schemaColumnDetailPO, headerDetailCenter, headerDetailRight, headerDetailLeft } from './services';
 import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {
+  const {match} = props
   const dispatch = useDispatch();
   const poDetail = useSelector((state) => state.poDetail);
   const poDetailTable = useSelector((state) => state.poDetailTable);
@@ -19,7 +18,6 @@ const PurchaseOrdersDetail = (props) => {
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
   const module = 'purchaseOrder';
-
   // dimension
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 355,
@@ -57,8 +55,8 @@ const PurchaseOrdersDetail = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
-      let x = columnHidden?.map((data, idx) => {
+      const reqColumnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      reqColumnHidden?.forEach((data) => {
         if (data.title === 'Purchase Order Details') {
           setColumnHidden(data.columns);
         }
@@ -69,9 +67,9 @@ const PurchaseOrdersDetail = (props) => {
 
   useEffect(() => {
     if (state2) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      const reqColumnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let tmp = null;
-      let x = columnHidden?.map((data, idx) => {
+      reqColumnHidden?.forEach((data) => {
         if (data.title === 'Purchase Order Details') {
           tmp = data.columns;
         }
@@ -97,7 +95,7 @@ const PurchaseOrdersDetail = (props) => {
       <Breadcrumb
         breadcrumb={[
           { to: '/purchase-order', label: 'Purchase Order' },
-          { to: '', label: props.match.params.orderdetail, active: true },
+          { to: '', label: match.params.orderdetail, active: true },
         ]}
       />
       <div className="pb-3">
@@ -111,7 +109,7 @@ const PurchaseOrdersDetail = (props) => {
       <TableMaster
         schemaColumn={schemaColumnDetailPO}
         classNamePaging="display-paging"
-        classNameTable="table-detail "
+        classNameTable="table-detail"
         data={poDetailTable}
         style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
         module="PurchaseOrdersDetail"
