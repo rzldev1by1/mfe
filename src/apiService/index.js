@@ -106,11 +106,10 @@ export const getSummaryData = async ({
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
   const Meta = newData?.data?.meta;
-  const Links = newData?.data?.links;
   const Data = newData?.data?.data;
 
   // Table Status
-  let element = document.getElementById('searchInput');
+  const element = document.getElementById('searchInput');
   if (element) {
     if (element.value !== searchInput) {
       return;
@@ -125,31 +124,32 @@ export const getSummaryData = async ({
   // End Table Status
 
   if (Data) {
-    Data.map((item, idx) => {
-      item.product = String(item.product);
-      item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
-      item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
-      item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
-      item.pallets = numeral(item.pallets).format('0,0');
-      item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
-      item.weight = numeral(item.weight).format('0,0.000');
-      item.weight_processed = numeral(item.weight_processed).format('0,0.000');
-      item.price = numeral(item.price).format('0,0.00');
-      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
-      item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
-      item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
-      item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
-      // Supplier Management PO Date format
-      item.no = idx + 1;
-      item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
-      item.total_order = numeral(item.total_order).format('0,0');
-      // User Management Data
-      item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
-      item.site = item.site && item.site !== '' ? item.site : 'All';
-      item.client = item.client && item.client !== '' ? item.client : 'All';
-      item.last_access =
-        item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
-    });
+    // Data.map((item, idx) => {
+    //   item.product = String(item.product);
+    //   item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
+    //   item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
+    //   item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
+    //   item.pallets = numeral(item.pallets).format('0,0');
+    //   item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
+    //   item.weight = numeral(item.weight).format('0,0.000');
+    //   item.weight_processed = numeral(item.weight_processed).format('0,0.000');
+    //   item.price = numeral(item.price).format('0,0.00');
+    //   item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
+    //   item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
+    //   item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
+    //   item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
+    //   // Supplier Management PO Date format
+    //   item.no = idx + 1;
+    //   item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
+    //   item.total_order = numeral(item.total_order).format('0,0');
+    //   // User Management Data
+    //   item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
+    //   item.site = item.site && item.site !== '' ? item.site : 'All';
+    //   item.client = item.client && item.client !== '' ? item.client : 'All';
+    //   item.last_access =
+    //     item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
+    //   return false
+    // });
 
     if (Export === true) {
       await dispatch({ type: 'EXPORT_DATA', data: Data });
@@ -231,7 +231,6 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(url);
   const Meta = newData?.data?.meta;
-  const Links = newData?.data?.links;
   const Data = newData?.data?.data;
 
   // Table Status
@@ -242,16 +241,16 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   }
   // End Table Status
   if (Data) {
-    let txt = [];
-    let modifiedData = Data.map((m) => {
-      m.qty = numeral(m.qty).format('0,0'); //qty
-      m.quantity = numeral(m.quantity).format('0,0'); //qty in purchase order details
+    const txt = [];
+    const modifiedData = Data.map((m) => {
+      m.qty = numeral(m.qty).format('0,0'); // qty
+      m.quantity = numeral(m.quantity).format('0,0'); // qty in purchase order details
       m.qty_processed = numeral(m.qty_processed).format('0,0');
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
-      m.completed = m.completed == 'Y' ? 'Yes' : 'x';
-      m.released = m.released == 'Y' ? 'Yes' : 'x';
+      m.completed = m.completed === 'Y' ? 'Yes' : 'x';
+      m.released = m.released === 'Y' ? 'Yes' : 'x';
 
       // Supplier Management
       m.carton_qty = numeral(m.carton_qty).format('0,0'); // carton_qty
@@ -268,8 +267,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       txt.push(m.batch?.length);
       return m;
     });
-    if (export_ === 'true') {
-    } else {
+    if (!export_ === 'true') {
       const pagination = {
         active: active || Meta?.current_page,
         show: Meta?.per_page,
@@ -293,7 +291,7 @@ export const getForecast = async ({ export_ = 'false', dispatch, active, props }
   dispatch({ type: 'GET_SH_DETAIL_FORECAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
-  let forecast = [];
+  const forecast = [];
   Object.keys(data.data).forEach((value) => forecast.push(data.data[value]));
   if (data) {
     if (!data && forecast.length === 0) {
@@ -301,7 +299,7 @@ export const getForecast = async ({ export_ = 'false', dispatch, active, props }
     }
     const modifiedData = forecast;
     const Meta = data?.meta;
-    modifiedData.forEach((item, idx) => {
+    modifiedData.forEach((item) => {
       item.in = numeral(item.in).format('0,0');
       item.out = numeral(item.out).format('0,0');
       item.balance = numeral(item.balance).format('0,0');
@@ -317,6 +315,7 @@ export const getForecast = async ({ export_ = 'false', dispatch, active, props }
     dispatch({ type: 'GET_SH_DETAIL_FORECAST', data: modifiedData });
     dispatch({ type: 'PAGING_SH_FORECAST', data: pagination });
   }
+  return false
 };
 
 export const submitPurchaseOrder = async ({ orderDetail, lineDetails }) => {
@@ -354,12 +353,11 @@ export const checkOrderNo = async ({ client, orderNo, module = 'sales-orders' })
 // Stock Movement
 export const getDateRange = async ({ setDefaultDate }) => {
   const url = `${endpoints.stockDateRange}`;
-  let productData = [];
 
   await axios
     .get(url)
     .then((res) => {
-      let data = res?.data?.data[0];
+      const data = res?.data?.data[0];
       setDefaultDate({
         minDate: data?.min_date,
         maxDate: data?.max_date,
@@ -373,11 +371,10 @@ export const getDateRange = async ({ setDefaultDate }) => {
 export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
   const url = `${endpoints.stockMovement}`;
   let { siteVal, clientVal, period, fromDate, toDate, productVal } = dropdownValue;
-  console.log(siteVal.value, clientVal.value);
-  let paramUrl = [];
+  const paramUrl = [];
   period = period?.value || 'week';
 
-  //get Data
+  // get Data
   paramUrl.push(`startDate=${fromDate || ''}`);
   paramUrl.push(`endDate=${toDate || ''}`);
   paramUrl.push(`filterType=${period}`);
@@ -388,40 +385,31 @@ export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
   await axios
     .get(`${url}?${paramUrl.join('&')}`)
     .then((res) => {
-      let data = res?.data?.data;
-      let newData = [];
+      const data = res?.data?.data;
+      const newData = [];
 
       // re arrange data array
-      data.map((data, index) => {
-        let tmp_row = {
-          site: data.site,
-          client: data.client,
-          uom: data.uom,
-          product: data.product,
-          product_name: data.product_name,
+      data.map((datas) => {
+        const tmpRow = {
+          site: datas.site,
+          client: datas.client,
+          uom: datas.uom,
+          product: datas.product,
+          product_name: datas.product_name,
         };
 
-        for (var key in data) {
+        for (const key in datas) {
           if (key.includes('sum_')) {
-            let dates = key.replace('sum_', '');
-            let tmp = data[key];
-            let tmp_arr = tmp.split('-');
-            tmp_row[`sa_plus_${dates}`] = numeral(tmp_arr[0]).format('0,0');
-            tmp_row[`sa_minus_${dates}`] = numeral(tmp_arr[1]).format('0,0');
-            tmp_row[`rec_${dates}`] = numeral(tmp_arr[2]).format('0,0');
-            tmp_row[`send_${dates}`] = numeral(tmp_arr[3]).format('0,0');
+            const dates = key.replace('sum_', '');
+            const tmp = datas[key];
+            const tmpArr = tmp.split('-');
+            tmpRow[`sa_plus_${dates}`] = numeral(tmpArr[0]).format('0,0');
+            tmpRow[`sa_minus_${dates}`] = numeral(tmpArr[1]).format('0,0');
+            tmpRow[`rec_${dates}`] = numeral(tmpArr[2]).format('0,0');
+            tmpRow[`send_${dates}`] = numeral(tmpArr[3]).format('0,0');
           }
         }
-
-        // let detail = data.detail;
-        // detail.map((details) => {
-        //   let dates = details.date.replaceAll('-', '_');
-        //   tmp_row['sa_plus_' + dates] = details.sa_plus;
-        //   tmp_row['sa_minus_' + dates] = details.sa_minus;
-        //   tmp_row['rec_' + dates] = details.recv_weight;
-        //   tmp_row['send_' + dates] = details.send_weight;
-        // });
-        newData.push(tmp_row);
+        return newData.push(tmpRow);
       });
 
       const pagination = {
@@ -441,13 +429,51 @@ export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
 };
 // End Stock Movement
 
+export const restuctureMenuList = (sources) => {
+  let newUserMenu = [];
+  const userMenu = sources;
+  if (userMenu.length) {
+    newUserMenu = sources.map((item) => {
+      const newItem = {};
+      newItem.menuid = item.menu_id;
+      newItem.menuname = item.menu_name;
+      return newItem;
+    });
+  }
+  return newUserMenu;
+};
+
+export const restructureAccount = (sources) => {
+  const newAccount = {};
+  const account = sources?.data;
+
+  if (account) {
+    newAccount.user = account.name;
+    newAccount.email = account.email;
+    newAccount.lastAccess = today;
+    newAccount.lastLogin = today;
+    newAccount.thisAccess = today;
+    newAccount.thisLogin = today;
+    newAccount.userMenu = restuctureMenuList(account.user_menus);
+    newAccount.userId = account.userid;
+    newAccount.client = account.client;
+    newAccount.disabled = account.disabled === 'Y';
+    newAccount.passwordChange = account.passwordChange ? account.passwordChange : '';
+    newAccount.site = account.site;
+    newAccount.web_group = account.web_group;
+    newAccount.web_user = account.web_user;
+    newAccount.request_forgot_password = account.request_forgot_password;
+  }
+  return newAccount;
+};
+
 // User Management
 
 // Get Info Account
 export const getAccountInfo = async ({ userId, state, setState, dispatch, loadSite, loadClient, moduleAccess }) => {
   const { data } = await axios.get(endpoints.userManagementUser_Detail + userId);
   const newState = { ...state };
-  let result = restructureAccount(data);
+  const result = restructureAccount(data);
   if (data && data !== '') {
     let adminClassName = newState.adminClass;
 
@@ -463,7 +489,7 @@ export const getAccountInfo = async ({ userId, state, setState, dispatch, loadSi
   // ModalAccess
   const isDevelopment = endpoints.env.REACT_APP_SUPPLIER;
   let newIsEnableAllModule = { ...newState.isEnableAllModule };
-  let userMenu = [...accountInfoUser.userMenu].map((item, index) => {
+  let userMenu = [...accountInfoUser.userMenu].map((item) => {
     return item.menuid;
   });
 
@@ -533,43 +559,6 @@ export const getAccountInfo = async ({ userId, state, setState, dispatch, loadSi
   setState(newState);
 };
 
-export const restructureAccount = (sources) => {
-  let newAccount = {};
-  let account = sources?.data;
-
-  if (account) {
-    newAccount.user = account.name;
-    newAccount.email = account.email;
-    newAccount.lastAccess = today;
-    newAccount.lastLogin = today;
-    newAccount.thisAccess = today;
-    newAccount.thisLogin = today;
-    newAccount.userMenu = restuctureMenuList(account.user_menus);
-    newAccount.userId = account.userid;
-    newAccount.client = account.client;
-    newAccount.disabled = account.disabled === 'Y';
-    newAccount.passwordChange = account.passwordChange ? account.passwordChange : '';
-    newAccount.site = account.site;
-    newAccount.web_group = account.web_group;
-    newAccount.web_user = account.web_user;
-    newAccount.request_forgot_password = account.request_forgot_password;
-  }
-  return newAccount;
-};
-
-export const restuctureMenuList = (sources) => {
-  let newUserMenu = [];
-  let userMenu = sources;
-  if (userMenu.length) {
-    newUserMenu = sources.map((item) => {
-      let newItem = {};
-      newItem.menuid = item.menu_id;
-      newItem.menuname = item.menu_name;
-      return newItem;
-    });
-  }
-  return newUserMenu;
-};
 // End Get Info Account
 
 // Check Email

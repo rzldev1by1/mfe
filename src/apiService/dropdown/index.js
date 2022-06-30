@@ -33,7 +33,7 @@ export const getStatus = async ({ dispatch }) => {
 
 export const getOrderType = async ({ dispatch, company, client, module }) => {
   let url = '';
-  if (module == 'purchaseOrder') {
+  if (module === 'purchaseOrder') {
     url = endpoints.getPOResources;
   } else {
     url = endpoints.getSoResources;
@@ -41,7 +41,7 @@ export const getOrderType = async ({ dispatch, company, client, module }) => {
 
   const { data } = await axios.get(`${url}?company=${company}&client=${client}`);
   let orderTypeFilterData = [];
-  if (module == 'purchaseOrder') {
+  if (module === 'purchaseOrder') {
     orderTypeFilterData = data.orderTypeFilter.map((dataIndex) => ({
       value: dataIndex.code,
       label: `${dataIndex.code}: ${dataIndex.description}`,
@@ -64,7 +64,7 @@ export const getTask = async ({ dispatch, client, site }) => {
   const siteParam = site?.value ? site.value : site;
   // if (client && site) {
   const { data } = await axios.get(`${endpoints.getIsisTask}?client=${clientParam}&site=${siteParam}&order=po`);
-  const taskData = data && data.map((c, i) => ({ value: c.code, label: `${c.code}: ${c.name}` }));
+  const taskData = data && data.map((c) => ({ value: c.code, label: `${c.code}: ${c.name}` }));
   const task = { value: 'all', label: 'All Task' };
   taskData.splice(0, 0, task);
   dispatch({ type: 'TASK_DATA', data: taskData });
@@ -94,44 +94,44 @@ export const clientCheck = (clientData, client) => {
 };
 
 export const getPOResources = async ({ user, dispatch }) => {
-  let { data } = await axios.get(
+  const { data } = await axios.get(
     `${endpoints.getPOResources}?company=${user.company || ''}&client=${user.client || 'all'}`,
   );
 
-  let orderTypeData = data.orderType.map((data, i) => ({
-    value: data.code,
-    label: `${data.code}: ${data.description}`,
+  const orderTypeData = data.orderType.map((datas) => ({
+    value: datas.code,
+    label: `${datas.code}: ${datas.description}`,
   }));
 
-  let resources = { orderType: orderTypeData };
+  const resources = { orderType: orderTypeData };
   dispatch({ type: 'PO_RESOURCES', data: resources });
 };
 
 export const getSOResources = async ({ user, dispatch }) => {
-  let { data } = await axios.get(
+  const { data } = await axios.get(
     `${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || 'all'}`,
   );
 
-  //Order Type
-  let orderType = data.orderType.map((data, idx) => ({
-    value: data.code,
-    label: `${data.code}: ${data.name}`,
+  // Order Type
+  const orderType = data.orderType.map((datas) => ({
+    value: datas.code,
+    label: `${datas.code}: ${datas.name}`,
   }));
 
-  //Order Type for Filter
-  let orderTypeFilter = data.orderTypeFilter.map((data, idx) => ({
-    value: data.code,
-    label: `${data.code}: ${data.name}`,
+  // Order Type for Filter
+  const orderTypeFilter = data.orderTypeFilter.map((datas) => ({
+    value: datas.code,
+    label: `${datas.code}: ${datas.name}`,
   }));
 
-  let resources = { orderTypeFilter, orderType };
+  const resources = { orderTypeFilter, orderType };
   dispatch({ type: 'SO_RESOURCES', data: resources });
 };
 
 export const getDisposition = async ({ dispatch, client }) => {
   const { data } = await axios.get(`${endpoints.getDisposition}?client=${client || ''}`);
   const dispositionData = [];
-  data.map((c, i) => {
+  data.map((c) => {
     if (c.code.length > 0 && c.code !== ' ') dispositionData.push({ value: c.code, label: c.code });
   });
   dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
@@ -151,14 +151,14 @@ export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) =>
   await axios
     .get(url)
     .then((res) => {
-      const data = res.data;
-      productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, data, i }));
+      const data = res?.data;
+      productData = data.map((datas, i) => ({ value: datas.code, label: `${datas.name}`, datas, i }));
     })
     .catch((error) => {
       console.log(error);
     });
   setIsLoading(false);
-  
+
   setIsProduct(productData);
 };
 
@@ -177,8 +177,8 @@ export const getCustomer = async ({ client, setCustomerData }) => {
   setCustomerData(customerData);
 };
 
-export const getFilterDetailSP = async ({field, dispatch}) => {
-  const data = await axios.get(`${endpoints.getFilterDetailSP}`)
-  // console.log(data);
-  // dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
-}
+// export const getFilterDetailSP = async ({ field, dispatch }) => {
+//   const data = await axios.get(`${endpoints.getFilterDetailSP}`)
+//   // console.log(data);
+//   // dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
+// }

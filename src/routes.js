@@ -2,12 +2,12 @@ import React from 'react';
 
 // Component
 const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
-const Component = React.lazy(() => import('../src/pages/Component'));
+const Component = React.lazy(() => import('./pages/Component'));
 const StockHolding = React.lazy(() => import('./pages/StockHolding'));
 const StockHoldingDetail = React.lazy(() => import('./pages/StockHolding/Detail'));
-const PurchaseOrders = React.lazy(() => import('../src/pages/PurchaseOrders'));
+const PurchaseOrders = React.lazy(() => import('./pages/PurchaseOrders'));
 const PurchaseOrdersDetail = React.lazy(() => import('./pages/PurchaseOrders/Detail'));
-const SalesOrder = React.lazy(() => import('./pages/SalesOrders/'));
+const SalesOrder = React.lazy(() => import('./pages/SalesOrders'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrders/Detail'));
 const StockMovement = React.lazy(() => import('./pages/StockMovement'));
 const UserManagement = React.lazy(() => import('./pages/UserManagement'));
@@ -28,7 +28,7 @@ const routes = [
     name: 'Component',
     component: Component,
   },
-  
+
   // Stock Holding --------------------------------------------------------
   {
     path: '/stock-holding',

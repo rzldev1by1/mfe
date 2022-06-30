@@ -71,6 +71,7 @@ const DetailHeader = ({ headerDetailRight, headerDetailCenter, headerDetailLeft,
                           )}
                         </CRow>;
                         break;
+                      default:
                     }
                     return (
                       <CRow className="mx-0 pt-1">
@@ -81,6 +82,7 @@ const DetailHeader = ({ headerDetailRight, headerDetailCenter, headerDetailLeft,
                       </CRow>
                     );
                   }
+                  return false
                 })}
               </CCol>
             </CRow>
@@ -107,6 +109,7 @@ const DetailHeader = ({ headerDetailRight, headerDetailCenter, headerDetailLeft,
                       </CRow>
                     );
                   }
+                  return false
                 })}
               </CCol>
             </CRow>
@@ -148,6 +151,7 @@ const DetailHeader = ({ headerDetailRight, headerDetailCenter, headerDetailLeft,
                       </CRow>
                     );
                   }
+                  return false
                 })}
               </CCol>
             </CRow>

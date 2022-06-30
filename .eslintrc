@@ -49,9 +49,12 @@
     "no-param-reassign": 0,
     "no-restricted-syntax": [
       "error",
-      "FunctionExpression",
       "WithStatement",
-      "BinaryExpression[operator='in']"
+      "ForInStatement",
+      "LabeledStatement"
+    ],
+    "react/jsx-indent": [
+      "off"
     ],
   },
   "ignorePatterns": [

@@ -5,13 +5,13 @@ const RequiredMessage = ({ messageShow, column, columnText, value, customMessage
   const [message, setMessage] = useState(null);
   useEffect(() => {
     setMessage('');
-    if (column == 'qty') {
-      //if column qty logic
+    if (column === 'qty') {
+      // if column qty logic
       if (value < 1) setMessage('Qty cannot be 0');
     }
 
-    if (column == 'OrderLines') {
-      //if column order lines logic
+    if (column === 'OrderLines') {
+      // if column order lines logic
       if (value < 1) setMessage('At least one line is required to continue');
       else setMessage('');
     }
@@ -20,7 +20,7 @@ const RequiredMessage = ({ messageShow, column, columnText, value, customMessage
       setMessage(customMessage);
     }
 
-    //if empty
+    // if empty
     if (!value) setMessage(`${columnText} must be entered`);
 
     if (column === 'orderType') {
@@ -61,7 +61,7 @@ const RequiredMessage = ({ messageShow, column, columnText, value, customMessage
           style={{ color: 'transparent !important' }}
           className={`pl-0 text-tranparent font-12 ${column === 'validDates' ? style : null}`}
         >
-          {'a'}
+          a
         </p>
       )}
     </div>
