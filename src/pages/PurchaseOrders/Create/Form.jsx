@@ -100,9 +100,9 @@ const Form = ({
   }, [activeTab]);
 
   useEffect(() => {
-    if (orderLineSelectOpen == 'datePicker') {
+    if (orderLineSelectOpen === 'datePicker') {
       setDropdownExpandStyle('lineDetailsTopExpand');
-    } else if (orderLineSelectOpen == 'dropdown') {
+    } else if (orderLineSelectOpen === 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
     } else {
       setDropdownExpandStyle(null);
@@ -138,8 +138,7 @@ const Form = ({
             options={resources?.orderType}
             selectedValue={orderDetails?.orderType}
             onChangeDropdown={(selected) =>
-              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })
-            }
+              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })}
             required
             readOnly={isReadonly}
             messageRequired
@@ -157,8 +156,7 @@ const Form = ({
             options={supplier}
             selectedValue={orderDetails?.supplier}
             onChangeDropdown={(selected) =>
-              changeOrderDetails({ column: 'supplier', value: selected, orderDetails, setOrderDetails })
-            }
+              changeOrderDetails({ column: 'supplier', value: selected, orderDetails, setOrderDetails })}
             readOnly={isReadonly}
           />
         </Col>
@@ -168,8 +166,7 @@ const Form = ({
             title="Customer Order Ref"
             placeholder={orderDetails?.customerOrderRef}
             onChange={(val) =>
-              changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })
-            }
+              changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -266,8 +263,7 @@ const Form = ({
             name="vendorOrderRef"
             title="Vendor Order Ref"
             onChange={(e) =>
-              changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })
-            }
+              changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -291,11 +287,13 @@ const Form = ({
               </td>
               <td>
                 {' '}
-                <div className="c-400 required px-1">Product</div>{' '}
+                <div className="c-400 required px-1">Product</div>
+                {' '}
               </td>
               <td>
                 {' '}
-                <div className="c-600 px-1">Description</div>{' '}
+                <div className="c-600 px-1">Description</div>
+                {' '}
               </td>
               <td>
                 <div className="c-100 required px-1">Qty</div>

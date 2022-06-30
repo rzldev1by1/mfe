@@ -14,6 +14,9 @@
     "jest": true
   },
   "rules": {
+    "react/jsx-props-no-spreading": [
+      "off"
+    ],
     "prefer-promise-reject-errors": [
       "off"
     ],
@@ -36,6 +39,12 @@
         "ts": "never",
         "tsx": "never"
       }
+    ],
+    "max-classes-per-file": [
+      "off"
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      "off"
     ],
   },
   "ignorePatterns": [

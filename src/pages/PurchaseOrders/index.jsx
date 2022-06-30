@@ -109,14 +109,14 @@ const PurchaseOrders = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={
+        button={(
           <CButton
             onClick={() => setShowModal(true)}
             className={`btn btn-primary btn-create float-right ${createBtn === 'true' ? '' : 'd-none'}`}
           >
             CREATE PURCHASE ORDER
           </CButton>
-        }
+        )}
       />
       <div>
         <div>
