@@ -362,7 +362,10 @@ export const schameColumnForesCast = [
   },
   {
     accessor: 'in',
-    Cell: (row) => row.value === '-' ? <div className="alg-right">-</div> : row.value,
+    Cell: (row) => {
+      const { value } = row
+      return value === '-' ? <div className="alg-right">-</div> : value
+    },
     placeholder: 'Expected In',
     Header: 'Expected In',
     className: 'align-right',
@@ -372,7 +375,10 @@ export const schameColumnForesCast = [
   },
   {
     accessor: 'out',
-    Cell: (row) => row.value === '-' ? <div className="alg-right">-</div> : row.value,
+    Cell: (row) => {
+      const { value } = row
+      return value === '-' ? <div className="alg-right">-</div> : value
+    },
     placeholder: 'Expected Out',
     Header: 'Expected Out',
     className: 'align-right',
@@ -382,7 +388,10 @@ export const schameColumnForesCast = [
   },
   {
     accessor: 'balance',
-    Cell: (row) => row.value === '-' ? <div className="alg-right">-</div> : row.value,
+    Cell: (row) => {
+      const { value } = row
+      return value === '-' ? <div className="alg-right">-</div> : value
+    },
     placeholder: 'Balance',
     Header: 'Balance',
     className: 'align-right',

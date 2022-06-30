@@ -1,5 +1,5 @@
 /* eslint-disable prefer-const */
-import jsPDF from 'jspdf';
+import JsPDF from 'jspdf';
 import 'jspdf-autotable';
 import moment from 'moment';
 import endpoints from '../../helpers/endpoints'
@@ -127,9 +127,9 @@ export const Dates = () => {
     'December',
   ];
   let date = new Date();
-  let date1 = date.getDate(),
-    month = date.getMonth(),
-    year = date.getFullYear();
+  let date1 = date.getDate();
+  let month = date.getMonth();
+  let year = date.getFullYear();
   return `${date1}-${arrMonth2[month]}-${year}`;
 };
 
@@ -182,17 +182,17 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
     if (index > 0) {
       restRow2 = restRow;
     }
-    dataPdfArray.date.map(d => {
+    dataPdfArray.date.forEach(d => {
       if (j > 19 || j === restRow2) {
         dateTmp.push([]);
-        i++;
+        i += 1;
         j = 0;
         restRow = 20;
         restRow2 = 20;
       }
       dateTmp[i].push(d);
-      j++;
-      restRow--;
+      j += 1;
+      restRow -= 1;
     });
     dateTmp.forEach(d => {
       let obj = {
@@ -212,11 +212,11 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
 
 export const setupExcel = ({ data, dateHeader, header, setDataExcel, setHeaderExcel }) => {
   let newHeader = [];
-  header.map((dataHeader, index) => {
+  header.forEach((dataHeader, index) => {
     if (index > 0) {
       newHeader.push(dataHeader.Header);
     } else {
-      dataHeader.columns.map(d => {
+      dataHeader.columns.forEach(d => {
         newHeader.push(d.Header);
       });
     }
@@ -337,7 +337,7 @@ export const demoPDF = ({ filename, rowSpan }) => {
   const unit = 'pt';
   const size = 'A4';
   const orientation = 'landscape';
-  const pdf = new jsPDF(orientation, unit, size);
+  const pdf = new JsPDF(orientation, unit, size);
   let title = ExportName(filename);
   let originDate = Dates();
   let date = moment(originDate).format(dateFormate);
@@ -376,11 +376,11 @@ export const demoPDF = ({ filename, rowSpan }) => {
       textColor: [255, 255, 255],
       rowHeight: 22,
     },
-    willDrawCell: function (data) {
-      const section = data.row.section;
-      const index = data.row.index;
-      const dataKey = data.column.dataKey;
-      if (section == 'head') {
+    willDrawCell: (data) => {
+      const section = data?.row?.section;
+      const index = data?.row?.index;
+      const dataKey = data?.column?.dataKey;
+      if (section === 'head') {
         return;
       }
 
@@ -395,7 +395,7 @@ export const demoPDF = ({ filename, rowSpan }) => {
         if (i % 2) color = 1;
         else color = 2;
       } else {
-        i++;
+        i += 1;
         if (i % 2) color = 1;
         else color = 2;
       }
@@ -403,7 +403,7 @@ export const demoPDF = ({ filename, rowSpan }) => {
       if (color === 1) pdf.setFillColor(240, 239, 242);
       else pdf.setFillColor(217, 213, 221);
     },
-    didDrawPage: function () {
+    didDrawPage: () => {
       pdf.text(`${title} Data Microlistics ${date}`, 15, finalY + 15);
       pdf.addImage(img, 'PNG', 785, 5, 45, 40, 'a', 'FAST');
     },

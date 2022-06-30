@@ -46,6 +46,13 @@
     "jsx-a11y/label-has-associated-control": [
       "off"
     ],
+    "no-param-reassign": 0,
+    "no-restricted-syntax": [
+      "error",
+      "FunctionExpression",
+      "WithStatement",
+      "BinaryExpression[operator='in']"
+    ],
   },
   "ignorePatterns": [
     "build/*"

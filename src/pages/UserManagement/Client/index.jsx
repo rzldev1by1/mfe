@@ -40,8 +40,8 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
         {clients && client.length
           ? clients.map((item, index) => {
             return (
-              <div className="flex-column mb-1" style={{ paddingRight: '1.5px' }} key={index}>
-                <div className="d-flex" key={index}>
+              <div className="flex-column mb-1" style={{ paddingRight: '1.5px' }} key={item.code}>
+                <div className="d-flex">
                   <span className="col-6 text-muted px-0 py-2" key={item.code}>
                     {module === 'detail' ? `${item.code}: ${item.name}` : `${item.name}`}
                   </span>
