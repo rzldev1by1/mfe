@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/prefer-default-export */
 const INITIAL_STATE = {
   sidebarShow: 'responsive',
   asideShow: false,
@@ -13,10 +11,7 @@ const INITIAL_STATE = {
 };
 
 // REDUCERS
-export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest }) => {
-  let createPO = null;
-  let createSO = null;
-  let tmp = null;
+const rootReducer = (state = INITIAL_STATE, { type, data, column }) => {
   let customerDetails = null;
   let orderDetails = null;
   let orderLinesData = null;
@@ -217,3 +212,5 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return state;
   }
 };
+
+export default rootReducer
