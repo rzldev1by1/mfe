@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { isMobile, isLandscape } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'assets/scss/style.scss';
 import endpoints from 'helpers/endpoints';

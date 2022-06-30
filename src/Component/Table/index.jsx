@@ -69,6 +69,10 @@ const Table = ({
       dispatch,
     });
   }, [data, fields, columnHidden]);
+  const tes1 = ''
+  const tes2 = tes1 !== false
+  console.log(tes2);
+
 
   return (
     <div

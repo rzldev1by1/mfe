@@ -17,7 +17,7 @@ const RequiredMessage = ({ messageShow, column, columnText, value, customMessage
     }
 
     if (column === 'product') {
-      setMessage(customMessage)
+      setMessage(customMessage);
     }
 
     //if empty
@@ -25,17 +25,17 @@ const RequiredMessage = ({ messageShow, column, columnText, value, customMessage
 
     if (column === 'orderType') {
       if (customMessage) {
-        setMessage(customMessage)
+        setMessage(customMessage);
       } else {
-        setMessage(`${columnText} must be entered`)
+        setMessage(`${columnText} must be entered`);
       }
     }
 
     if (column === 'orderNo') {
       if (customMessage) {
-        setMessage(customMessage)
-      } else if (!value){
-        setMessage(`${columnText} must be entered`)
+        setMessage(customMessage);
+      } else if (!value) {
+        setMessage(`${columnText} must be entered`);
       }
     }
 
@@ -44,7 +44,7 @@ const RequiredMessage = ({ messageShow, column, columnText, value, customMessage
         setMessage(`${columnText} must be entered`);
       }
       if (checkDateTo !== undefined && value) {
-        setMessage('Please select a valid date')
+        setMessage('Please select a valid date');
       }
     }
   }, [columnText, value, customMessage]);
@@ -54,7 +54,16 @@ const RequiredMessage = ({ messageShow, column, columnText, value, customMessage
     //   {messageShow ? <span className="pl-0 text-danger font-12">{message}</span> : null}
     // </div>
     <div className={messageShow ? 'text-error' : null}>
-      {messageShow ? <p className={`pl-0 text-danger font-12 ${column === 'validDates' ? style : null}`}>{message}</p> : <p style={{ color: 'transparent !important' }} className={`pl-0 text-tranparent font-12 ${column === 'validDates' ? style : null}`}>{'a'}</p>}
+      {messageShow ? (
+        <p className={`pl-0 text-danger font-12 ${column === 'validDates' ? style : null}`}>{message}</p>
+      ) : (
+        <p
+          style={{ color: 'transparent !important' }}
+          className={`pl-0 text-tranparent font-12 ${column === 'validDates' ? style : null}`}
+        >
+          {'a'}
+        </p>
+      )}
     </div>
   );
 };

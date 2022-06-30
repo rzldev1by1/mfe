@@ -1,26 +1,17 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable max-len */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-vars */
-// import library
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import withFixedColumns from 'react-table-hoc-fixed-columns';
 import { CRow, CCol } from '@coreui/react';
+import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
 import Export from '../Export';
 import Pagination from '../Pagination/PagingMove';
-
-// import style
 import 'react-table-v6/react-table.css';
 import 'react-table-hoc-fixed-columns/lib/styles.css';
-import loading from 'assets/icons/loading/LOADING-MLS-GRAY.gif';
 import './style.scss';
 
-const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, filename, customExportPdf }) => {
+const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, filename, customExportPdf }) => {
   const ReactTableFixedColumns = withFixedColumns(ReactTable);
-  const [dataPaging, setDataPaging] = useState();
   const activePage = useSelector((state) => state.getActivePage);
   // const [activePage, setActivePage] = useState(1)
   const noDataMessage = (
@@ -30,21 +21,8 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
   );
   const loadingMessage = (
     <div>
-      <img src={loading} width="45" height="45" />
+      <img src={loading} width="45" height="45" alt="" />
     </div>
-  );
-  const icon = (
-    <svg
-      stroke="currentColor"
-      fill="currentColor"
-      strokeWidth="0"
-      viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z" />
-    </svg>
   );
 
   const total = data?.length;
@@ -68,9 +46,9 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
         style={style}
         noDataText={tableStatus === 'noData' ? noDataMessage : loadingMessage}
         minRows="0"
-        getTdProps={(state, rowInfo, column, instance) => {
+        getTdProps={(state, rowInfo, column) => {
           return {
-            style: { textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' },
+            style: { textAlign: Number.isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' },
           };
         }}
       />
