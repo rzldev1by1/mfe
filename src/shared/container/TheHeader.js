@@ -37,9 +37,9 @@ const TheHeader = (props) => {
         {/* <CToggler inHeader onClick={toggleSidebar} className="p-0 d-md-down-none" /> */}
         {/* <CBreadcrumbRouter className="border-0 c-subheader-nav mr-auto" routes={routes} /> */}
         <CBreadcrumb className="no-border no-shadow mr-auto m-0 py-3">
-          {breadcrumb ? breadcrumb.map((b, i) => {
-            return b.active ? <CBreadcrumbItem key={i} active>{b.label}</CBreadcrumbItem>
-              : <CBreadcrumbItem key={i}><Link to={b.to}>{b.label}</Link></CBreadcrumbItem>
+          {breadcrumb ? breadcrumb.map((b) => {
+            return b.active ? <CBreadcrumbItem key={b.to} active>{b.label}</CBreadcrumbItem>
+              : <CBreadcrumbItem key={b.to}><Link to={b.to}>{b.label}</Link></CBreadcrumbItem>
           }) : ''}
         </CBreadcrumb>
         <div className="c-subheader-nav">

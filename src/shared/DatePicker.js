@@ -136,22 +136,24 @@ class DatePicker extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.firstDate) {
-      if (moment(prevProps.firstDate).format(dateFormate) !== moment(this.props.firstDate).format(dateFormate)) {
-        if (!this.props.firstValue) {
-          const firstDate = new Date(this.props.firstDate);
-          firstDate.setDate(firstDate.getDate() + 1)
-          this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format(dateFormate) });
-          this.props.getDate(moment(firstDate).format("YYYY-MM-DD"))
-        }
-      }
+  componentDidMount() {
+    const { showDatePicker } = this.props
+    if (showDatePicker) {
+      showDatePicker(this.state.showDatePicker)
     }
   }
 
-  componentDidMount() {
-    if (this.props.showDatePicker) {
-      this.props.showDatePicker(this.state.showDatePicker)
+  componentDidUpdate(prevProps) {
+    const { firstDate, firstValue, getDate } = this.props
+    if (firstDate) {
+      if (moment(prevProps.firstDate).format(dateFormate) !== moment(firstDate).format(dateFormate)) {
+        if (!firstValue) {
+          const firstDateData = new Date(firstDate);
+          firstDateData.setDate(firstDateData.getDate() + 1)
+          this.setState({ month: firstDateData, selectedDay: firstDateData, defaultValue: moment(firstDateData).format(dateFormate) });
+          getDate(moment(firstDateData).format("YYYY-MM-DD"))
+        }
+      }
     }
   }
 
@@ -160,20 +162,23 @@ class DatePicker extends React.Component {
   }
 
   handleDayClick = (day, modifiers = {}) => {
+    const { getDate, onChange } = this.props
     if (modifiers.disabled) {
       return;
     }
     this.setState({
       selectedDay: day, defaultValue: moment(day).format(dateFormate)
     });
-    this.props.getDate(moment(day).format("YYYY-MM-DD"))
+    getDate(moment(day).format("YYYY-MM-DD"))
     this.setState({ showDatePicker: false });
-    if (this.props.onChange) {
-      this.props.onChange()
+    if (onChange) {
+      onChange()
     }
   }
+
   currentDate = () => {
-    return this.state.month;
+    const { month } = this.state
+    return month;
   }
 
   dateValueProcess = (e) => {
@@ -182,16 +187,15 @@ class DatePicker extends React.Component {
     const dateNumber2 = dateFormate === ('MM/DD/YYYY') ? 4 : 1
     const monthNumber = dateFormate === ('MM/DD/YYYY') ? 0 : 3
     const monthNumber2 = dateFormate === ('MM/DD/YYYY') ? 1 : 4
-
+    const { getDate } = this.props
     if (e.target.value.length >= 10) {
-      let value = e.target.value.split("");
-      let year = value[6] + value[7] + value[8] + value[9]
-      let month = value[monthNumber] + value[monthNumber2];
-      let date = value[dateNumber] + value[dateNumber2];
+      const value = e.target.value.split("");
+      const year = value[6] + value[7] + value[8] + value[9]
+      const month = value[monthNumber] + value[monthNumber2];
+      const date = value[dateNumber] + value[dateNumber2];
       if ((month <= 12) && (date <= 31)) {
-        this.setState({ selectedDay: new Date(year + "-" + month + "-" + date), month: new Date(year + "-" + month + "-" + date) })
-        this.props.getDate(moment(new Date(year + "-" + month + "-" + date)).format("YYYY-MM-DD"))
-
+        this.setState({ selectedDay: new Date(`${year}-${month}-${date}`), month: new Date(`${year}-${month}-${date}`) })
+        getDate(moment(new Date(`${year}-${month}-${date}`)).format("YYYY-MM-DD"))
       }
     }
   }
@@ -221,10 +225,10 @@ class DatePicker extends React.Component {
       e.preventDefault();
     }
 
-    //limit month
+    // limit month
     else if ((e.target.selectionStart === 3) && ((e.key !== "Backspace") && (e.key > monthNumber))) {
       e.preventDefault();
-    } else if (((e.target.selectionStart === 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] === 0)) {
+    } else if (((e.target.selectionStart === 4) && ((e.key !== "Backspace") && (e.key === 0))) && (e.target.value[3] === 0)) {
       e.preventDefault();
     } else if (((e.target.selectionStart === 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] === monthNumber)) {
       e.preventDefault();
@@ -250,14 +254,14 @@ class DatePicker extends React.Component {
     }
 
 
-    //limit year
+    // limit year
     else if ((e.target.selectionStart === 6) && ((e.key !== "Backspace") && ((e.key === 0) || (e.key > 2)))) {
       e.preventDefault();
     } else if (((e.target.selectionStart === 7) && ((e.key !== "Backspace") && (e.key !== 9))) && (e.target.value[6] === 1)) {
       e.preventDefault();
     } else if (((e.target.selectionStart === 7) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[6] === 2)) {
       e.preventDefault();
-    } else if (((e.target.selectionStart === 8) && ((e.key > 3) && ((e.key !== "Backspace") && (e.key < 10)))) && (e.target.value[5] == 1)) {
+    } else if (((e.target.selectionStart === 8) && ((e.key > 3) && ((e.key !== "Backspace") && (e.key < 10)))) && (e.target.value[5] === 1)) {
       e.preventDefault();
     }
 
@@ -276,17 +280,19 @@ class DatePicker extends React.Component {
   }
 
   openDatePicker = () => {
+    const { showDatePicker } = this.props
     this.setState({ showDatePicker: true })
-    if (this.props.showDatePicker) {
-      this.props.showDatePicker(true)
+    if (showDatePicker) {
+      showDatePicker(true)
     }
   }
 
   closeDatePicker = () => {
+    const { isShow, showDatePicker } = this.props
     this.setState({ showDatePicker: false })
     if (this.props.showDatePicker) {
-      if (!this.props.isShow) {
-        this.props.showDatePicker(false)
+      if (!isShow) {
+        showDatePicker(false)
       }
     }
   }
@@ -296,62 +302,73 @@ class DatePicker extends React.Component {
   }
 
   render() {
-    let placeHolder = "Select Date";
-    let firstDate = new Date(this.props.firstDate);
-    firstDate.setDate(firstDate.getDate() + 1)
+    const {
+      firstDate, messageParam, style, tabIndex, placeHolder, classNameInput, onOpen, formStyle, arrowStyle, field, top, fixedTop, right, shortFormat, fromMonth, toMonth, messageRequired
+    } = this.props
+    const { showDatePicker, defaultValue, selectedDay, month } = this.state
+    const placeHolderDate = "Select Date";
+    const firstDates = new Date(firstDate);
+    firstDates.setDate(firstDates.getDate() + 1)
     const no = Math.floor(Math.random() * 100000) + 1;
-    const className = `select_date ${this.state.showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
-    const messageParam = this.props.messageParam;
+    const className = `select_date ${showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
+    const messageParams = messageParam;
 
     return (
-      <React.Fragment>
-        <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
-          <input type="text"
+      <>
+        <ul className={className} style={style} tabIndex={tabIndex ? tabIndex : null}>
+          <input
+            type="text"
             ref="dateValue"
-            placeholder={this.props.placeHolder ? this.props.placeHolder : dateFormate}
-            className={this.props.classNameInput}
+            placeholder={placeHolder ?? dateFormate}
+            className={classNameInput}
             maxLength="10"
-            value={this.state.defaultValue}
+            value={defaultValue}
             onChange={(e) => {
               this.dateValueProcess(e);
             }}
-            // onChange={(e) => { this.dateValueProcess(e); if(this.props.onChange) {this.props.onChange()} }}
-            onFocus={() => { this.openDatePicker(); if (this.props.onOpen) { this.props.onOpen() } }}
+            onFocus={() => { this.openDatePicker(); if (onOpen) { onOpen() } }}
             onKeyUp={(e) => this.dateValueFormat(e)}
             onKeyDown={(e) => this.disabledAlpha(e)}
-            style={this.props.formStyle} />
-          {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
-          {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format(dateFormate) : placeHolder}</span> */}
-
-          {/* <li className="select_date_items"> */}
-          <input className={"select_date_expand" + (this.props.arrowStyle ? " select_arrow_expand" : " select_calendar_expand")} ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
-          <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.closeDatePicker()}></label>
+            style={formStyle}
+          />
+          <input
+            className={`select_date_expand ${arrowStyle ? "select_arrow_expand" : "select_calendar_expand"}`}
+            ref="opener"
+            type="checkbox"
+            name={`select${placeHolderDate}${no}`}
+            value=""
+            checked={showDatePicker}
+            id={`select-opener${placeHolderDate}${no}`}
+          />
+          <label
+            className="select_date_closeLabel"
+            htmlFor={`select-opener${placeHolderDate}${no}`}
+            onClick={() => this.closeDatePicker()}
+            aria-hidden="true"
+          />
           <ReactResizeDetector
-            handleWidth handleHeight
+            handleWidth
+            handleHeight
             refreshRate={2000}
-          // bounds={true}
-          // onResize={contentRect => {
-          // this.setState({ top: contentRect.bounds.height, left: contentRect.bounds.width })
-          // }}
           >
             {({ width, height }) => (
               <div
-                // onHeightReady={height => this.setState({ top: "-"+(height)+"px" })} 
-                className={"select_date_options " + (this.props.field === "smallField " ? " smallField " : "") + ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? "fixed-top-position" : "")}
-                style={(((this.props.top && !this.props.fixedTop)) ? { marginTop: "-" + height + "px", marginLeft: "-" + (width + 6) + "px" } : null) || (((this.props.right && !this.props.fixedTop)) ? { marginTop: "-50px", marginLeft: (width + 24) + "px" } : null)}>
+                className={`select_date_options ${field === "smallField " ? " smallField " : ""} ${top && fixedTop || fixedTop ? "fixed-top-position" : ""}`}
+                style={(((top && !fixedTop)) ? { marginTop: `-${height}px`, marginLeft: `-${width + 6}px` } : null) || (((right && !fixedTop)) ? { marginTop: "-50px", marginLeft: `${width + 24}px` } : null)}
+              >
                 <div className="dateInfo">
-                  {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")}
+                  {selectedDay ? moment(selectedDay).format(shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")}
                 </div>
                 <DayPicker
                   className="datepicker-content"
                   tabIndex="-1"
-                  selectedDays={this.state.selectedDay ? this.state.selectedDay : new Date()}
+                  selectedDays={selectedDay ?? new Date()}
                   onDayClick={this.handleDayClick}
-                  month={this.state.month}
-                  fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : new Date(new Date().getFullYear() - 5, 0)}
-                  toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
-                  disabledDays={this.props.fromMonth ? [{
-                    before: this.props.firstDate ? firstDate : new Date(this.props.fromMonth)
+                  month={month}
+                  fromMonth={fromMonth ? new Date(fromMonth) : new Date(new Date().getFullYear() - 5, 0)}
+                  toMonth={toMonth ? new Date(new Date(toMonth).getFullYear(), 11) : new Date(new Date(month).getFullYear() + 10, 11)}
+                  disabledDays={fromMonth ? [{
+                    before: firstDate ? firstDates : new Date(fromMonth)
                   }] : false}
                   onMonthChange={(e) => this.setState({ month: e })}
                   captionElement={({ date, localeUtils }) => (
@@ -359,10 +376,9 @@ class DatePicker extends React.Component {
                       date={date}
                       localeUtils={localeUtils}
                       onChange={this.handleYearMonthChange}
-                      current={this.state.month}
-                      fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : new Date(new Date().getFullYear() - 5, 0)}
-                      toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date().getFullYear() + 5, 11)}
-
+                      current={month}
+                      fromMonth={fromMonth ? new Date(fromMonth) : new Date(new Date().getFullYear() - 5, 0)}
+                      toMonth={toMonth ? new Date(new Date(toMonth).getFullYear(), 11) : new Date(new Date().getFullYear() + 5, 11)}
                     />
                   )}
                   navbarElement={<Navbar />}
@@ -370,22 +386,20 @@ class DatePicker extends React.Component {
               </div>
             )}
           </ReactResizeDetector>
-          {/* <label className="select_date_expandLabel" htmlFor={"select-opener" + placeHolder + no}></label> */}
-          {/* </li> */}
         </ul>
-        {!this.props.messageRequired ? null : (
+        {!messageRequired ? null : (
           <RequiredMessage
-            messageShow={this.state.defaultValue === '' || messageParam.checkDateTo ? true : false}
-            column={messageParam.column}
-            columnText={messageParam.columnText}
-            value={this.state?.defaultValue !== '' ? this.state?.defaultValue : null}
-            fieldName={messageParam.fieldName}
-            style={messageParam.style}
-            checkDateTo={messageParam.checkDateTo}
+            messageShow={defaultValue === '' || messageParams.checkDateTo ? true : false}
+            column={messageParams.column}
+            columnText={messageParams.columnText}
+            value={defaultValue !== '' ? defaultValue : null}
+            fieldName={messageParams.fieldName}
+            style={messageParams.style}
+            checkDateTo={messageParams.checkDateTo}
           />
         )}
 
-      </React.Fragment>
+      </>
     )
   }
 }

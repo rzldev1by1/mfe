@@ -40,9 +40,9 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module }) =
         {sites && sites.length
           ? sites.map((item, index) => {
             return (
-              <div className="flex-column mb-1" key={index}>
-                <div className="d-flex" key={index}>
-                  <span className="col-6 text-muted px-0 py-2" key={item.site}>{module === 'detail' ? `${item.site}: ${item.name}` : `${item.name}`}</span>
+              <div className="flex-column mb-1" key={item.site}>
+                <div className="d-flex">
+                  <span className="col-6 text-muted px-0 py-2">{module === 'detail' ? `${item.site}: ${item.name}` : `${item.name}`}</span>
                   <div className="col-6">
                     <button
                       type="button"

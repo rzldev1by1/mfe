@@ -10,7 +10,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { icons } from './assets/icons';
+import icons from './assets/icons';
 import rootReducer from './store';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

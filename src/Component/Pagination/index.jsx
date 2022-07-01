@@ -47,8 +47,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
               pagination?.active === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
             }`}
             onClick={() =>
-              pagination?.active === 1 ? '' : changePage({ active: 1, dispatch, module, props, searchFilter, user })
-            }
+              pagination?.active === 1 ? '' : changePage({ active: 1, dispatch, module, props, searchFilter, user })}
             aria-hidden="true"
           >
             <BsChevronBarLeft className="icon-size-paging-double" />
@@ -60,8 +59,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
             onClick={() =>
               pagination?.active !== 1
                 ? ''
-                : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter, user })
-            }
+                : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter, user })}
             aria-hidden="true"
           >
             <BsChevronLeft className="icon-size-paging" />
