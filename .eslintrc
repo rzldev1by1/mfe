@@ -82,6 +82,12 @@
     ],
     "react/jsx-one-expression-per-line": [
       "off"
+    ],
+    "eqeqeq": [
+      "off"
+    ],
+    "react/no-did-update-set-state": [
+      "off"
     ]
   },
   "ignorePatterns": [
