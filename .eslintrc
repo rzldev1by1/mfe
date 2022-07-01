@@ -48,14 +48,41 @@
     ],
     "no-param-reassign": 0,
     "no-restricted-syntax": [
-      "error",
-      "WithStatement",
-      "ForInStatement",
-      "LabeledStatement"
+      "off"
     ],
     "react/jsx-indent": [
       "off"
     ],
+    "no-unused-expressions": [
+      "off"
+    ],
+    "react/no-unused-state": [
+      "off"
+    ],
+    "prefer-destructuring": [
+      "off"
+    ],
+    "no-unneeded-ternary": [
+      "off"
+    ],
+    "react/jsx-no-bind": [
+      "off"
+    ],
+    "prefer-object-spread": [
+      "off"
+    ],
+    "react/no-string-refs": [
+      "off"
+    ],
+    "react/destructuring-assignment": [
+      "off"
+    ],
+    "class-methods-use-this": [
+      "off"
+    ],
+    "react/jsx-one-expression-per-line": [
+      "off"
+    ]
   },
   "ignorePatterns": [
     "build/*"

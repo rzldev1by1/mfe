@@ -83,80 +83,75 @@ class Dropdown extends Component {
             >
               {optionList ? optionListData.map((data, idx) => {
                 if (idx === 0) {
-                  return (
-                    <li key={data} className="select_dropdown_option">
-                      <input
-                        className="select_dropdown_input"
-                        type="radio"
-                        name={`select ${placeHolder} ${no}`}
-                        value={optionListValue[idx]}
-                        onClick={(e) => {
-                          getValue(e.target.value, data);
-                          if (isOpen) { isOpen(false) }
-                          selectDropdownRef.className = `select_dropdown ${className} dropdown_closed`
-                        }}
-                        id={`select-${data}${no}`}
-                        defaultChecked={optionSelected === data || optionSelected === optionListValue[idx] ? true : firstChecked}
-                      />
-                      <label
-                        className={`select_dropdown_label ${usedFor === "Datepicker" ? "select_datepicker_label" : ""}`}
-                        htmlFor={`select-${data}${no}`}
-                        style={{ borderTopLeftRadius: "5px", borderTopRightRadius: "5px" }}
-                      >
-                        {data}
-                      </label>
-                    </li>
-                  )
+                  <li key={data} className="select_dropdown_option">
+                    <input
+                      className="select_dropdown_input"
+                      type="radio"
+                      name={`select ${placeHolder} ${no}`}
+                      value={optionListValue[idx]}
+                      onClick={(e) => {
+                        getValue(e.target.value, data);
+                        if (isOpen) { isOpen(false) }
+                        selectDropdownRef.className = `select_dropdown ${className} dropdown_closed`
+                      }}
+                      id={`select-${data}${no}`}
+                      defaultChecked={optionSelected === data || optionSelected === optionListValue[idx] ? true : firstChecked}
+                    />
+                    <label
+                      className={`select_dropdown_label ${usedFor === "Datepicker" ? "select_datepicker_label" : ""}`}
+                      htmlFor={`select-${data}${no}`}
+                      style={{ borderTopLeftRadius: "5px", borderTopRightRadius: "5px" }}
+                    >
+                      {data}
+                    </label>
+                  </li>
                 } else if (idx === lastIndex) {
-                  return (
-                    <li key={data} className="select_dropdown_option">
-                      <input
-                        className="select_dropdown_input"
-                        type="radio"
-                        name={`select${placeHolder}${no}`}
-                        value={optionListValue[idx]}
-                        onClick={(e) => {
-                          getValue(e.target.value, data);
-                          if (isOpen) { isOpen(false) }
-                          selectDropdownRef.className = `select_dropdown ${className} dropdown_closed"`
-                        }}
-                        id={`select-${data}${no}`}
-                        defaultChecked={optionSelected === data || optionSelected === optionListValue[idx] ? true : false}
-                      />
-                      <label
-                        className={`select_dropdown_label ${usedFor === "Datepicker" ? " select_datepicker_label" : ""}`}
-                        htmlFor={`select-${data}${no}`}
-                        style={{ borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px" }}
-                      >
-                        {data}
-                      </label>
-                    </li>
-                  )
+                  <li key={data} className="select_dropdown_option">
+                    <input
+                      className="select_dropdown_input"
+                      type="radio"
+                      name={`select${placeHolder}${no}`}
+                      value={optionListValue[idx]}
+                      onClick={(e) => {
+                        getValue(e.target.value, data);
+                        if (isOpen) { isOpen(false) }
+                        selectDropdownRef.className = `select_dropdown ${className} dropdown_closed"`
+                      }}
+                      id={`select-${data}${no}`}
+                      defaultChecked={optionSelected === data || optionSelected === optionListValue[idx] ? true : false}
+                    />
+                    <label
+                      className={`select_dropdown_label ${usedFor === "Datepicker" ? " select_datepicker_label" : ""}`}
+                      htmlFor={`select-${data}${no}`}
+                      style={{ borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px" }}
+                    >
+                      {data}
+                    </label>
+                  </li>
                 } else {
-                  return (
-                    <li key={data} className="select_dropdown_option">
-                      <input
-                        className="select_dropdown_input"
-                        type="radio"
-                        name={`select${placeHolder}${no}`}
-                        value={optionListValue[idx]}
-                        onClick={(e) => {
-                          getValue(e.target.value, data);
-                          if (isOpen) { isOpen(false) }
-                          selectDropdownRef.className = `select_dropdown ${className} dropdown_closed`
-                        }}
-                        id={`select-${data}${no}`}
-                        defaultChecked={optionSelected === data || optionSelected === optionListValue[idx] ? true : false}
-                      />
-                      <label
-                        className={`select_dropdown_label ${usedFor === "Datepicker" ? "select_datepicker_label" : ""}`}
-                        htmlFor={`select-${data}${no}`}
-                      >
-                        {data}
-                      </label>
-                    </li>
-                  )
+                  <li key={data} className="select_dropdown_option">
+                    <input
+                      className="select_dropdown_input"
+                      type="radio"
+                      name={`select${placeHolder}${no}`}
+                      value={optionListValue[idx]}
+                      onClick={(e) => {
+                        getValue(e.target.value, data);
+                        if (isOpen) { isOpen(false) }
+                        selectDropdownRef.className = `select_dropdown ${className} dropdown_closed`
+                      }}
+                      id={`select-${data}${no}`}
+                      defaultChecked={optionSelected === data || optionSelected === optionListValue[idx] ? true : false}
+                    />
+                    <label
+                      className={`select_dropdown_label ${usedFor === "Datepicker" ? "select_datepicker_label" : ""}`}
+                      htmlFor={`select-${data}${no}`}
+                    >
+                      {data}
+                    </label>
+                  </li>
                 }
+                return false
               }) : null}
 
 

@@ -57,7 +57,8 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
     years.push(i);
   }
 
-  let monthValue, yearValue;
+  let monthValue;
+  let yearValue;
   monthValue = date.getMonth();
   yearValue = date.getFullYear();
 
