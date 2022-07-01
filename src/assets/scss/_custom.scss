@@ -19,11 +19,6 @@ html{
   border-color: #f44336 !important;
 }
 
-.breadcrumb-item a {
-  color: #637176 !important;
-  font-weight: 400 !important;
-}
-
 // fix fa-spin rotating arround center
 .fa-spin {
   width: initial !important;
@@ -99,10 +94,6 @@ button:focus {
 /*Change text in autofill textbox*/
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
-}
-
-::placeholder {
-  color: #b4b9bb !important;
 }
 
 ::-webkit-scrollbar {
@@ -312,9 +303,6 @@ input.input-in-table {
   background-color: #fff;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-input.input-in-table{
   &:focus { 
     outline: none !important;
     }
@@ -357,6 +345,7 @@ input.outOfRemaining-input:focus {
   padding-left: 20px;
   padding-right: 20px;
   color: #fff;
+  letter-spacing: 1px !important;
 }
 
 .badge-secondary {
@@ -456,16 +445,12 @@ header {
 }
 
 .breadcrumb-item a {
-  text-decoration: none !important;
-  color: $primary;
+  color: #637176 !important;
+  font-weight: 400 !important;
 }
 
 .breadcrumb-item a:hover {
   color: $secondary;
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-  content: '>' !important;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -612,10 +597,6 @@ header {
   z-index: 0 !important;
 }
 
-.btn {
-  letter-spacing: 1px !important;
-}
-
 .btn-grey {
   color: #fff;
   background-color: #d5d8da;
@@ -739,11 +720,6 @@ header {
     .modal-xl {
       max-width: 1525px !important;
     }
-  }
-
-  .um-create,
-  .sales-order-create,
-  .purchase-order-create {
     .container,
     .container-sm,
     .container-md,
@@ -779,11 +755,6 @@ header {
   .pagination-custom {
     display: none !important;
   }
-}
-
-.rightColumn {
-  display: inline-block !important;
-  text-align: right;
 }
 
 .alg-right {
