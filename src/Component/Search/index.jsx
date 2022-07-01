@@ -302,8 +302,9 @@ const Search = ({
                     <CCol
                       sm={4}
                       lg={2}
-                      className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'
-                        }`}
+                      className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${
+                        filterClient === true ? null : ' d-none'
+                      }`}
                     >
                       {user?.client ? (
                         <input
@@ -452,12 +453,7 @@ const Search = ({
                           <CDropdownMenu className="mt-2 shadow-none border">
                             <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
                             <CDropdownDivider />
-                            <CDropdownItem
-                              onClick={() =>
-                                fulfillMarkedMod()}
-                            >
-                              FULFILL MARKED
-                            </CDropdownItem>
+                            <CDropdownItem onClick={() => fulfillMarkedMod()}>FULFILL MARKED</CDropdownItem>
                           </CDropdownMenu>
                         </CDropdown>
                       ) : (
@@ -509,11 +505,7 @@ const Search = ({
                           </div>
                         </div>
                         <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
-                          <Button
-                            variant="primary"
-                            style={{ padding: '0rem 1.08rem' }}
-                            onClick={() => handleClear()}
-                          >
+                          <Button variant="primary" style={{ padding: '0rem 1.08rem' }} onClick={() => handleClear()}>
                             CLEAR
                           </Button>
                         </Col>

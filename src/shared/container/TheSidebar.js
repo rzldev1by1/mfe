@@ -7,7 +7,7 @@ import {
   // CSidebarBrand,
   CSidebarNav,
 } from '@coreui/react';
-import Logo from 'assets/img/logo-white.png';
+import Logo from '../../assets/img/logo-white.png';
 import nav from './_nav';
 import './TheSidebar.css';
 
@@ -25,7 +25,7 @@ const TheSidebar = () => {
     const ret = await axios.post('auth/logout', payload);
     return ret;
   };
-  let userMenu = user.userModules.map((item) => item.menu_id);
+  const userMenu = user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];
 
   let navigation = nav;
@@ -63,28 +63,27 @@ const TheSidebar = () => {
       <ul className="sidebar-nav-header">
         <li className="c-sidebar-item">
           {/* <Link onClick={() => darkModeMLS({ darkMode, dispatch })}> */}
-          <Link>
+          <div className="link-custom">
             <img src={Logo} height="35" alt="logo" />
-          </Link>
+          </div>
         </li>
         <Link to="/" className="text-logo">
           <li className="c-sidebar-item logo-text text-white">Microlistics</li>
         </Link>
-        <li></li>
       </ul>
       <CSidebarNav className="sidebar-nav-menu">
-        {navigation.map((n, i) => {
-          let string = location.pathname;
+        {navigation.map((n) => {
+          const string = location.pathname;
           const isActive = string.includes(n.to);
           const isHover = hover === n.to;
           let hoverIcon = n.icon
-          if (isHover) hoverIcon = n.icon + '-hover'
-          else if (isActive) hoverIcon = n.icon + '-active'
+          if (isHover) hoverIcon = `${n.icon}-hover`
+          else if (isActive) hoverIcon = `${n.icon}-active`
           const icon = `nav/${hoverIcon}.png`;
           return (
             <Link to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
               <li
-                key={i}
+                key={n.to}
                 className="c-sidebar-item links"
                 onMouseEnter={() => setHover(n.to)}
                 onMouseLeave={() => setHover(null)}
@@ -105,10 +104,16 @@ const TheSidebar = () => {
                 ? lastChangedUser.name
                 : user.name}
             </div>
-            <div>ID: {user.userId} </div>
+            <div>
+              ID:
+              {' '}
+              {user.userId}
+              {' '}
+            </div>
             <a href="#/" onClick={signOut} className="logOutHover">
               {' '}
-              LOGOUT{' '}
+              LOGOUT
+              {' '}
             </a>
           </div>
         </li>

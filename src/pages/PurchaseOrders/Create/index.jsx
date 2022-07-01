@@ -75,6 +75,7 @@ const Create = ({ show, setShow }) => {
                   setShow(false);
                   setIsReset(0);
                 }}
+                aria-hidden="true"
               />
             </Col>
           </Row>
@@ -151,7 +152,8 @@ const Create = ({ show, setShow }) => {
                       <div className="text-center text-secondary mt-2">
                         {' '}
                         <span className="text-success">Success, </span>
-                        order has been successfully submitted for processing{' '}
+                        order has been successfully submitted for processing
+                        {' '}
                       </div>
                     )}
                   </Col>

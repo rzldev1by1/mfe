@@ -74,7 +74,7 @@ const UserManagementDetail = (props) => {
   }, [state]);
 
   const btnCss = newState.accountInfo.passwordChange === '' ? 'btn-outline-active' : 'btn-outline-notActive'
-
+  
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />

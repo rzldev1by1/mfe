@@ -53,7 +53,7 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
 
   const status = ret?.status;
   const message = ret?.data?.message;
-  const submitReturn = { status: status, message: message, role: isAdmin ? 'Admin' : 'Regular', name };
+  const submitReturn = { status, message, role: isAdmin ? 'Admin' : 'Regular', name };
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');
@@ -144,11 +144,9 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
           item.status = false;
           moduleAccessOption.push(item);
         }
-      } else {
-        if (allowedValues.includes(item.menu_id)) {
-          item.status = false;
-          moduleAccessOption.push(item);
-        }
+      } else if (allowedValues.includes(item.menu_id)) {
+        item.status = false;
+        moduleAccessOption.push(item);
       }
     });
   }
@@ -157,8 +155,48 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
   setState(state);
 };
 
+export function generateUserID({ textValue }) {
+  const newText = textValue.substring(0, 1);
+  let result = '';
+
+  if (textValue && textValue.length > 0) {
+    const anysize = 4;
+    const charset = 'abcdefghijklmnopqrstuvwxyz';
+    for (let i = 0; i < anysize; i += 1) result += charset[Math.floor(Math.random() * 26)];
+  }
+
+  return {
+    userId: newText.toLowerCase() + result,
+    password: result + newText.toLowerCase(),
+  };
+}
+
+export const validateButton = ({ state, setState }) => {
+  const newState = { ...state };
+  const validation = newState?.validation;
+
+  let status = true;
+
+  for (const key in validation) {
+    // if (admin && !menuForAdmin.includes(key)) {
+    //   continue;
+    // }
+
+    if (!validation[key].isValid) {
+      status = false;
+    }
+  }
+  if (setState) {
+    newState.validate = status;
+    setState(newState);
+  } else {
+    return status;
+  }
+  return false
+};
+
 export const changeDetails = async ({ isAdmin, setState, state, column, e }) => {
-  let value = e.target.value;
+  const value = e?.target?.value;
   const newState = { ...state };
   let isValid = true;
   if (!value) {
@@ -206,31 +244,6 @@ export const changeDetails = async ({ isAdmin, setState, state, column, e }) => 
   setState(newState);
 };
 
-export const validateButton = ({ isAdmin, state, setState }) => {
-  const newState = { ...state };
-  const validation = newState.validation;
-  const admin = isAdmin;
-
-  let status = true;
-  const menuForAdmin = ['name', 'email'];
-
-  for (var key in validation) {
-    if (admin && !menuForAdmin.includes(key)) {
-      continue;
-    }
-
-    if (!validation[key].isValid) {
-      status = false;
-    }
-  }
-  if (setState) {
-    newState.validate = status;
-    setState(newState);
-  } else {
-    return status;
-  }
-};
-
 export const resetState = ({ setState }) => {
   setState({
     userId: null,
@@ -262,22 +275,6 @@ export const resetState = ({ setState }) => {
   });
 };
 
-export function generateUserID({ textValue }) {
-  const newText = textValue.substring(0, 1);
-  let result = '';
-
-  if (textValue && textValue.length > 0) {
-    var anysize = 4;
-    var charset = 'abcdefghijklmnopqrstuvwxyz';
-    for (var i = 0; i < anysize; i++) result += charset[Math.floor(Math.random() * 26)];
-  }
-
-  return {
-    userId: newText.toLowerCase() + result,
-    password: result + newText.toLowerCase(),
-  };
-}
-
 export const setIsAdmin = async ({ state, setState }) => {
   const newState = { ...state };
   const admin = !newState.isAdmin;
@@ -289,9 +286,8 @@ export const setIsAdmin = async ({ state, setState }) => {
 export const disabledCharacterName = (e) => {
   if (e.target.selectionStart === 0 && !/[a-zA-Z0-9]/g.test(e.key)) {
     e.preventDefault();
-  } else {
-    if (!/[a-zA-Z0-9 _-]/g.test(e.key)) {
-      e.preventDefault();
-    }
+  }
+  if (!/[a-zA-Z0-9 _-]/g.test(e.key)) {
+    e.preventDefault();
   }
 };

@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-return-await */
 import React from 'react';
 import { CRow } from '@coreui/react';
 import Export from '../Export';
@@ -28,17 +26,10 @@ const TableMaster = ({
   splitModule,
   props,
   exportBtn,
-  printBtn,
   editOrderQty,
   editCarton
 }) => {
-  const checkItsClear = data?.filter((data, idx) => {
-   setTimeout(() => {
-    const elementEditCarton = document.getElementById(`edit_carton_${idx}`)?.value;// id for column element Edit Carton Qty
-    const elementEditQty = document.getElementById(`edit_qty_${idx}`)?.value;// id for column element input Edit Qty
-   }, 10000); 
 
-  })
   return (
     <div>
       <Table
@@ -70,17 +61,15 @@ const TableMaster = ({
 
         {pagination && pagination.total < 1 ? (
           ''
-        // eslint-disable-next-line no-nested-ternary
-        ) : exportBtn ? (
-          <Export
-            filename={filename}
-            getExportData={async () => await getExportData()}
-            exportApi={exportApi}
-            schemaColumn={schemaColumn}
-            exportPdf={exportPdf}
-          />
-        )
-        : ''}
+          ) : exportBtn && (
+            <Export
+              filename={filename}
+              getExportData={getExportData}
+              exportApi={exportApi}
+              schemaColumn={schemaColumn}
+              exportPdf={exportPdf}
+            />
+        )}
       </CRow>
     </div>
   );

@@ -43,9 +43,9 @@ const ModuleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
         {moduleAccess && moduleAccess.length
           ? moduleAccess.map((item, index) => {
             return (
-              <div className="flex-column mb-1" key={index}>
-                <div className="d-flex" key={index}>
-                  <span className="col-6 text-muted px-0 py-2" key={item.menu_id}>
+              <div className="flex-column mb-1" key={item.menu_id}>
+                <div className="d-flex">
+                  <span className="col-6 text-muted px-0 py-2">
                     {item.menu_name.toLowerCase() === 'create sales order' ? 'Sales Orders' : item.menu_name}
                   </span>
                   <div className="col-6">

@@ -122,6 +122,7 @@ export const schemaColumn = [
         case 'All Open':
           <div className="status-ok">ALL OPEN</div>;
           break;
+        default:
       }
       return false;
     },

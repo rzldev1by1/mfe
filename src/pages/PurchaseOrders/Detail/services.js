@@ -88,18 +88,20 @@ export const schemaColumnDetailPO = [
     Header: 'Completed',
     width: 100,
     sortable: true,
-    Cell: (row) => (
-      <i className={`${row.original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
+    Cell: (row) => {
+      const { original } = row
+      return <i className={`${original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    },
   },
   {
     accessor: 'released',
     placeholder: 'Released',
     Header: 'Released',
     width: 100,
-    Cell: (row) => (
-      <i className={`${row.original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
+    Cell: (row) => {
+      const { original } = row
+      return <i className={`${original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    },
   },
   {
     accessor: 'batch',

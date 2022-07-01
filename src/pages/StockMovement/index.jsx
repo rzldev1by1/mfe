@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Search from './Search';
@@ -80,8 +79,9 @@ const StockMovement = () => {
       <table id="excel" className="d-none">
         <thead>
           <tr>
-            {headerExcel.map(d => {
+            {headerExcel.forEach(d => {
               if (firstHeader.includes(d)) return <th>{d}</th>;
+              return false
             })}
           </tr>
         </thead>
@@ -180,6 +180,7 @@ const StockMovement = () => {
                     </tr>
                   );
                 }
+                return false
               });
             })}
         </tbody>

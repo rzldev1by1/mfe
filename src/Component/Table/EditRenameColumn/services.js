@@ -1,6 +1,7 @@
+/* eslint-disable no-param-reassign */
 import axios from 'axios';
+import endpoints from '../../../helpers/endpoints';
 import validations from './validations';
-import endpoints from 'helpers/endpoints';
 
 export const showColumn = ({ header, length, setState, state }) => {
   const max = length - Object.keys(state.editColumn).length > 1;
@@ -82,7 +83,7 @@ export const changedColumn = ({ e, state, setState, fields, defaults, id, name }
   }
 
   if (value.length > 0) {
-    changedColumns.map((item, idx) => {
+    changedColumns.forEach((item, idx) => {
       if (item.headerData) {
         if (item.headerData === names) {
           changedColumns.splice(idx, 1);
@@ -97,14 +98,14 @@ export const changedColumn = ({ e, state, setState, fields, defaults, id, name }
     newVal.changedColumns = changedColumns;
     setState(newVal);
   }
+  return false
 };
 
-export const headerRename = async ({ UrlHeader, state, setState, fields, setFields, data }) => {
-  const newVal = { ...state };
-  let dataSum = data
+export const headerRename = async ({ UrlHeader, fields, setFields, data }) => {
+  const dataSum = data
   if (UrlHeader) {
     const url = UrlHeader();
-    const { data } = await axios.get(url);
+    const { getData } = await axios.get(url);
     const newfields = [];
     const accessor = fields.map((datas) => {
       const split = datas.accessor;
@@ -156,7 +157,7 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       return split;
     });
 
-    const headerData = Object.keys(data[0]);
+    const headerData = Object.keys(getData[0]);
     accessor.forEach((accessorNew, idx) => {
       const lowerCase = accessorNew?.toLowerCase();
       if (lowerCase?.includes(' ')) {
@@ -168,7 +169,7 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       }
     });
 
-    Object.values(data[0]).forEach((dataHeader, idx) => {
+    Object.values(getData[0]).forEach((dataHeader, idx) => {
       const headerTable = {
         accessor: '',
         Header: '',
@@ -196,8 +197,8 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       }
       newfields.push(headerTable);
     });
-    if (data.length) {
-      // newVal.products = data.data[0]
+    if (getData.length) {
+      // newVal.products = getData.data[0]
       // newVal.fields = newfields
       setFields(newfields);
       // setState(newVal);
@@ -212,7 +213,7 @@ const renameSubmits = async ({ state, UrlAll, fields, setFields }) => {
   const changedFieldHeader = [];
   const newState = { ...state };
 
-  changedField.map((item) => {
+  changedField.forEach((item) => {
     changedFieldHeaderData.push(item.headerData);
     changedFieldHeader.push(item.header);
   });
@@ -228,14 +229,14 @@ const renameSubmits = async ({ state, UrlAll, fields, setFields }) => {
 
   setFields(ni);
 
-  let payload = {};
+  const payload = {};
   ni.map((obj) => {
-    payload[obj.headerData.replaceAll(' ', '_').toLowerCase()] = obj.Header;
+    return payload[obj.headerData.replaceAll(' ', '_').toLowerCase()] = obj.Header;
   });
   newState.columnsPayload = payload;
   const baseUrl = endpoints.env.REACT_APP_API_URL;
   try {
-    const urlAll = await axios.post(baseUrl + UrlAll(), payload);
+    await axios.post(baseUrl + UrlAll(), payload);
   } catch (error) {
     console.log(error);
   }
@@ -261,7 +262,7 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setF
 export const resetColumnName = async ({ user, splitModule }) => {
   const baseUrl = endpoints.env.REACT_APP_API_URL;
   const version = endpoints.env.REACT_APP_API_URL_VERSION;
-  const { data, status } = await axios.post(`${baseUrl}/${version}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
+  await axios.post(`${baseUrl}/${version}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
   window.location.reload()
 }
 
