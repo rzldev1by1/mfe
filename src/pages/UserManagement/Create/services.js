@@ -36,24 +36,25 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
   };
 
   submitData.userMenu = isAdmin ? adminMenu : userMenu;
-  if (!isAdmin) {
-    if (!siteValue.length === sites.length) {
-      submitData.site = siteValue[0]
-    }
-  }
-  if (!isAdmin) {
-    if (!clientValue.length === clients.length) {
-      submitData.client = clientValue[0]
-    }
-  }
+  if (isAdmin) submitData.site = null
+  else if (siteValue.length == sites.length) submitData.site = null
+  else submitData.site = siteValue[0]
+
+  if (isAdmin) submitData.client = null
+  else if (clientValue.length == clients.length) submitData.client = null
+  else submitData.client = clientValue[0]
+
+  // submitData.site = isAdmin ? null : siteValue.length == sites.length ? null : siteValue[0];
+  // submitData.client = isAdmin ? null : clientValue.length == clients.length ? null : clientValue[0];
   submitData.webGroup = isAdmin ? 'Admin' : 'Regular';
   submitData.disabled = 'N';
 
   const ret = await submitUserManagement({ data: submitData });
-
+  const Role = isAdmin ? 'Admin' : 'Regular'
   const status = ret?.status;
   const message = ret?.data?.message;
-  const submitReturn = { status, message, role: isAdmin ? 'Admin' : 'Regular', name };
+  const submitReturn = { status, message, role: Role, name };
+  console.log(submitReturn)
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');
@@ -178,10 +179,6 @@ export const validateButton = ({ state, setState }) => {
   let status = true;
 
   for (const key in validation) {
-    // if (admin && !menuForAdmin.includes(key)) {
-    //   continue;
-    // }
-
     if (!validation[key].isValid) {
       status = false;
     }
