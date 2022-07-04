@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.scss';
 import { onModuleAccessClick, onEnabledAllModuleAccess } from '../services';
 
-const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isReadOnly, module }) => {
+const ModuleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isReadOnly, module }) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
@@ -11,7 +11,7 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
   const heightFirst = window.innerHeight - 680;
   const heightDetail = window.innerHeight - 510;
 
-  const filterModuleAccess = moduleAccess.filter((val) => val.menu_name !== 'Manage Supplier Users');
+  // const filterModuleAccess = moduleAccess.filter((val) => val.menu_name !== 'Manage Supplier Users');
   return (
     <div>
       <div className='flex-column line-border mr-2 my-3'>
@@ -41,11 +41,11 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
         }
       >
         {moduleAccess && moduleAccess.length
-          ? filterModuleAccess.map((item, index) => {
+          ? moduleAccess.map((item, index) => {
             return (
-              <div className="flex-column mb-1" key={index}>
-                <div className="d-flex" key={index}>
-                  <span className="col-6 text-muted px-0 py-2" key={item.menu_id}>
+              <div className="flex-column mb-1" key={item.menu_id}>
+                <div className="d-flex">
+                  <span className="col-6 text-muted px-0 py-2">
                     {item.menu_name.toLowerCase() === 'create sales order' ? 'Sales Orders' : item.menu_name}
                   </span>
                   <div className="col-6">
@@ -70,4 +70,4 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
   );
 };
 
-export default moduleAccess;
+export default ModuleAccess;

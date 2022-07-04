@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Container } from 'react-bootstrap';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+import { TabContent, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+import loading from '../../../assets/icons/loading/LOADING-MLS.gif';
+import { getPOResources, getDisposition } from '../../../apiService/dropdown';
+import { validation, submit, cleanOrderDetails } from './services';
+import PopUpCreateSucces from '../../../Component/Modal/PopUpCreateSucces';
+import PopUpLoss from '../../../Component/Modal/PopUpLoss';
 import Form from './Form';
-import { resetCreate, validation, submit, cleanOrderDetails, cleanOrderLines } from './services.js';
-import { getPOResources, getDisposition } from 'apiService/dropdown';
-import loading from 'assets/icons/loading/LOADING-MLS.gif';
-import PopUpCreateSucces from 'Component/Modal/PopUpCreateSucces';
-import PopUpLoss from 'Component/Modal/PopUpLoss';
 import './style.scss';
 
 const Create = ({ show, setShow }) => {
   const dispatch = useDispatch();
-  const resources = useSelector((state) => state.po_resources);
-  const disposition = useSelector((state) => state.po_disposition);
   const user = useSelector((state) => state.user);
   const darkMode = useSelector((state) => state.darkModeMLS);
 
@@ -45,19 +43,29 @@ const Create = ({ show, setShow }) => {
     getDisposition({ dispatch });
   }, []);
 
+  const submitButton =
+    isSubmitStatus === 'loading' ? (
+      <div className="m-iconLoad">
+        <img src={loading} width="45" height="45" alt="" />
+      </div>
+    ) : (
+      'SUBMIT'
+    );
+
   return (
     <div>
       <Modal
         show={show}
         size="xl"
-        className={`purchase-order-create ${activeTab == 'message' ? ' d-none' : ' '} 
+        className={`purchase-order-create ${activeTab === 'message' ? ' d-none' : ' '} 
         ${darkMode ? 'customDarkMode' : ''}`}
       >
         <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
           <Row className="mx-0 px-9">
             <Col xs={10} className="px-0">
-              <i className="iconU-createModal font-20"></i>
-              <span className="font-20 pl-2">Create Purchase Order</span> <br />
+              <i className="iconU-createModal font-20" />
+              <span className="font-20 pl-2">Create Purchase Order</span>
+              <br />
               <span className="ml-7">Enter Order and line details to create a new purchase order</span>
             </Col>
             <Col className="text-right px-0">
@@ -67,7 +75,8 @@ const Create = ({ show, setShow }) => {
                   setShow(false);
                   setIsReset(0);
                 }}
-              ></i>
+                aria-hidden="true"
+              />
             </Col>
           </Row>
           <Nav tabs className="px-8 m-0">
@@ -98,7 +107,7 @@ const Create = ({ show, setShow }) => {
           <TabContent>
             <Container className="px-9 pt-4 pb-9">
               {/* Tabs */}
-              {activeTab == 'message' ? (
+              {activeTab === 'message' ? (
                 ''
               ) : (
                 <Form
@@ -113,41 +122,45 @@ const Create = ({ show, setShow }) => {
               )}
 
               {/* Button */}
-              {activeTab == 'details' ? (
+              {activeTab === 'details' && (
                 <Row className="mt-3 pt-3">
-                  <Col lg={2}></Col>
-                  <Col lg={8}></Col>
+                  <Col lg={2} />
+                  <Col lg={8} />
                   <Col lg={2} className="text-right">
                     <button
-                      className={'btn btn-primary '}
+                      className="btn btn-primary"
                       onClick={() => {
                         validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
                         setIsValidation(true);
                       }}
+                      type="button"
                     >
-                      {'NEXT'}
+                      NEXT
                     </button>
                   </Col>
                 </Row>
-              ) : activeTab == 'review' ? (
+              )}
+              {activeTab === 'review' ? (
                 <Row className="mt-3 pt-3">
                   <Col lg={2}>
-                    <button className="btn btn-primary" onClick={() => setActiveTab('details')}>
-                      {'BACK'}
+                    <button className="btn btn-primary" onClick={() => setActiveTab('details')} type="button">
+                      BACK
                     </button>
                   </Col>
                   <Col lg={8}>
-                    {isSubmitStatus === 'success' ? (
+                    {isSubmitStatus === 'success' && (
                       <div className="text-center text-secondary mt-2">
                         {' '}
-                        <span className="text-success">Success,</span> order has been successfully submitted for
-                        processing{' '}
+                        <span className="text-success">Success, </span>
+                        order has been successfully submitted for processing
+                        {' '}
                       </div>
-                    ) : null}
+                    )}
                   </Col>
                   <Col lg={2} className="text-right">
                     <button
                       className="btn btn-primary"
+                      type="button"
                       onClick={() => {
                         setIsSubmitStatus('loading');
                         submit({
@@ -160,13 +173,7 @@ const Create = ({ show, setShow }) => {
                         });
                       }}
                     >
-                      {isSubmitStatus === 'loading' ? (
-                        <div className="m-iconLoad">
-                          <img src={loading} width="45" height="45" />
-                        </div>
-                      ) : (
-                        'SUBMIT'
-                      )}
+                      {submitButton}
                     </button>
                   </Col>
                 </Row>
@@ -175,14 +182,14 @@ const Create = ({ show, setShow }) => {
           </TabContent>
         </Modal.Body>
       </Modal>
-      {activeTab == 'message' ? (
-        isSubmitReturn?.message === 'Successfully added' ||
+      {activeTab === 'message' &&
+        (isSubmitReturn?.message === 'Successfully added' ||
         isSubmitReturn?.message === 'create successfully' ||
-        isSubmitReturn?.status == 'ok' ? (
+        isSubmitReturn?.status === 'ok' ? (
           <PopUpCreateSucces
             modal={modal}
             setModal={setModal}
-            module={'Purchase Order'}
+            module="Purchase Order"
             submitReturn={isSubmitReturn}
             exit={() => {
               setShow(false);
@@ -191,10 +198,7 @@ const Create = ({ show, setShow }) => {
           />
         ) : (
           <PopUpLoss modal={modal} setModal={setModal} back={() => setActiveTab('detail')} />
-        )
-      ) : (
-        ''
-      )}
+        ))}
     </div>
   );
 };

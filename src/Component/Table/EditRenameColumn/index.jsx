@@ -5,9 +5,9 @@ import { MdClose } from 'react-icons/md';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 import { Button, Container, Row, Col, Modal, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
+import PopUpResetTable from '../../Modal/PopUpResetTable'
+import endpoints from '../../../helpers/endpoints';
 import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename, resetColumnName, resetColumnTable } from './services';
-import PopUpResetTable from 'Component/Modal/PopUpResetTable'
-import endpoints from 'helpers/endpoints';
 import './style.scss';
 
 const EditRenameColumn = ({
@@ -25,7 +25,6 @@ const EditRenameColumn = ({
   data
 }) => {
   const dispatch = useDispatch();
-  const reorder = useSelector((state) => state.reorder);
   const darkMode = useSelector((state) => state.darkModeMLS);
   const dragStatus = useSelector((state) => state.dragStatus);
   const [modalReset, setModalReset] = useState(false);
@@ -44,7 +43,7 @@ const EditRenameColumn = ({
     currentHeader: [],
     templateHeader: []
   });
-  const closeModal = (closeMod, editColumnTemp) => {
+  const closeModal = (closeMod) => {
     const ErrorClose = { ...state };
     setShowMod(closeMod);
     setEditColumnTemp(editColumnTemp);
@@ -55,19 +54,16 @@ const EditRenameColumn = ({
   const Required = ({ error, id }) => {
     if (error) {
       const object = Object.keys(error);
-      if (object.includes(id))
-        return <span className="text-danger position-absolute font-rename-error">{error && error[id]}</span>;
-      else return <div></div>;
+      if (object.includes(id)) return <span className="text-danger position-absolute font-rename-error">{error && error[id]}</span>;
+      return <div> </div>;
     }
+    return false
   };
 
   const currentOrderColumn = localStorage.getItem(`tables__${module}__${user.name}`)
-  let templateColumn = []
-  const newState = { ...state };
-  let currentHeaders = []
-  let templateHeaders = []
-  fields.map((data) => {
-    templateColumn.push(data.accessor)
+  const templateColumn = []
+  fields.forEach((fieldsData) => {
+    templateColumn.push(fieldsData.accessor)
   });
   const version = endpoints.env.REACT_APP_API_URL_VERSION;
   const UrlHeader = () => {
@@ -79,7 +75,7 @@ const EditRenameColumn = ({
   };
 
   useEffect(() => {
-    let newState = { ...state };
+    const newState = { ...state };
     newState.editColumn = columnHidden || [];
     if (JSON.stringify(currentOrderColumn) === JSON.stringify(templateColumn) || currentOrderColumn === null) {
       newState.disableBtn = true
@@ -94,7 +90,7 @@ const EditRenameColumn = ({
 
   function activeTabIndex(tab) {
     if (state.activeTab !== tab) {
-      let newState = { ...state };
+      const newState = { ...state };
       newState.activeTab = tab;
       setState(newState);
     }
@@ -116,31 +112,40 @@ const EditRenameColumn = ({
     </Tooltip>
   );
 
-  const renderTooltipRename = ({ props, header, defaults, changedColumn, state, setState, fields, id, name }) => (
+  const renderTooltipRename = ({ props, header, defaults, id, name }) => (
     <Tooltip id={`${header !== defaults ? "button-tooltip-input-rename" : "tooltip-input-rename-none"}`} {...props} onClickCapture={() => changedColumn({ state, setState, fields, defaults, id, name })}>
-      Default: <span>{defaults}</span>
+      Default:
+      {' '}
+      <span>{defaults}</span>
     </Tooltip>
   );
 
-  let isChanged = fields?.filter(data => data.Header !== data.placeholder)
-  isChanged = isChanged?.length ? false : true
+  let isChanged = fields?.filter(fieldsData => fieldsData.Header !== fieldsData.placeholder)
+  isChanged = isChanged?.length !== false
   return (
     <div>
       <Modal show={showModal} size="xl" centered>
         <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
           <Container className="px-0">
             <Col className="mx-0 px-0">
-              <Button onClick={closeModal.bind(this, false, editColumnTemp)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
+              <Button onClick={closeModal.bind(this, false)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
                 <MdClose color="white" size={30} />
               </Button>
               <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
                 <div className="d-flex">
                   <FaRegEdit color="white" size={25} /> &nbsp;
-                  <span className="font-20" style={{ color: '#A6BCFC' }}>{title}:</span>&nbsp;
+                  <span className="font-20" style={{ color: '#A6BCFC' }}>
+                    {title}:
+                  </span>
+                  &nbsp;
                   <span className="font-20 text-white">Edit Column</span>
                 </div>
                 <span style={{ marginLeft: '29px' }} className="text-white">
-                  Please select columns to {state.activeTab === '2' ? 'rename' : 'show'}.
+                  Please select columns to
+                  {' '}
+                  {state.activeTab === '2' ? 'rename' : 'show'}
+                  {' '}
+                  .
                 </span>
               </Col>
             </Col>
@@ -178,7 +183,11 @@ const EditRenameColumn = ({
                       }}
                     >
                       <div className="row rowTabCustom align-items-center">
-                        <span className="tabTitleText font-18">{state.activeTab === '2'} RENAME COLUMN</span>
+                        <span className="tabTitleText font-18">
+                          {state.activeTab === '2'}
+                          {' '}
+                          RENAME COLUMN
+                        </span>
                       </div>
                     </NavLink>
                   </NavItem>
@@ -192,11 +201,11 @@ const EditRenameColumn = ({
                 <TabPane tabId="1">
                   <Row xl={5} lg={10} className="mx-0 grid-col">
                     {fields &&
-                      fields.map((item, index) => {
+                      fields.map((item) => {
                         return (
-                          <Col key={index} className="p-2">
+                          <Col key={item.accessor} className="p-2">
                             <button
-                              type
+                              type="button"
                               className={`text-left btn btn-block pl-2 ver-center-item ${!state.editColumn?.includes(item.accessor) ? 'btn-outline-primary' : 'btn-light-gray'
                                 }`}
                               onClick={() =>
@@ -205,15 +214,18 @@ const EditRenameColumn = ({
                                   length: fields.length,
                                   setState,
                                   state,
-                                })
-                              }
+                                })}
                             >
                               {!state.editColumn?.includes(item.accessor) ? (
                                 <AiOutlineEye size={25} />
                               ) : (
                                 <AiOutlineEyeInvisible size={25} />
                               )}
-                              <b className="p-0 pl-1"> {item.Header} </b>
+                              <b className="p-0 pl-1">
+                                {' '}
+                                {item.Header}
+                                {' '}
+                              </b>
                             </button>
                           </Col>
                         );
@@ -251,8 +263,7 @@ const EditRenameColumn = ({
                           variant="primary"
                           style={{ padding: '0rem 1.08rem' }}
                           onClick={() =>
-                            resetColumnTable({ module, user, editColumnTemp, fields, state, setState, dragStatus, dispatch })
-                          }
+                            resetColumnTable({ module, user, editColumnTemp, fields, state, setState, dragStatus, dispatch })}
                           disabled={!dragStatus}
                           className={!dragStatus ? "btn-disabled" : ""}
                         >
@@ -264,8 +275,7 @@ const EditRenameColumn = ({
                       variant="primary"
                       style={{ padding: '0rem 1.08rem' }}
                       onClick={() =>
-                        saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch })
-                      }
+                        saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch })}
                     >
                       SAVE
                     </Button>
@@ -276,11 +286,11 @@ const EditRenameColumn = ({
                     {fields &&
                       fields.map((item, index) => {
                         return (
-                          <div key={index} className="p-2">
+                          <div key={item.accessor} className="p-2">
                             <OverlayTrigger
                               placement="bottom"
                               delay={{ show: 250, hide: 3000 }}
-                              overlay={renderTooltipRename({ header: item.Header, defaults: item.placeholder, changedColumn, state, setState, fields, id: index, name: item.Header })}
+                              overlay={renderTooltipRename({ header: item.Header, defaults: item.placeholder, id: index, name: item.Header })}
                             >
                               <input
                                 id={index}
@@ -289,10 +299,7 @@ const EditRenameColumn = ({
                                 name={item.Header}
                                 sortable={item.sortable}
                                 onChange={(e) => changedColumn({ e, state, setState, fields })}
-                                className={
-                                  'text-left form-rename' +
-                                  (state.sameColumnsIdx?.includes(index.toString()) ? ' input-danger' : '')
-                                }
+                                className={`text-left form-rename ${state.sameColumnsIdx?.includes(index.toString()) ? ' input-danger' : ''}`}
                               />
                             </OverlayTrigger>
                           </div>
@@ -331,8 +338,7 @@ const EditRenameColumn = ({
                           variant="primary"
                           style={{ padding: '0rem 1.08rem' }}
                           onClick={() =>
-                            resetColumnTable({ module, user, editColumnTemp, fields, state, setState, dragStatus, dispatch })
-                          }
+                            resetColumnTable({ module, user, editColumnTemp, fields, state, setState, dragStatus, dispatch })}
                           disabled={!dragStatus}
                           className={!dragStatus ? "btn-disabled" : ""}
                         >
@@ -362,10 +368,11 @@ const EditRenameColumn = ({
         <PopUpResetTable
           modal={modalReset}
           setModalReset={setModalReset}
-          resetConfirmation={resetConfirmation}
+          resetConfirmation
           resetColumnName={resetColumnName}
           user={user}
-          splitModule={splitModule} />
+          splitModule={splitModule} 
+        />
       )}
     </div>
   );

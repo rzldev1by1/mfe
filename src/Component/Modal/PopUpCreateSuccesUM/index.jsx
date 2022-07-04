@@ -1,13 +1,12 @@
 import React from 'react';
 import { Modal, ModalBody } from 'reactstrap'
-import logo from 'assets/img/success.png'
+import logo from '../../../assets/img/success.png'
 import { ProgressBar } from '../service'
 import "./index.scss";
 
 const PopUpCreateSuccesUM = ({
   modal,
   setModal,
-  module,
   submitReturn,
 }) => {
   setTimeout(() => {
@@ -26,6 +25,7 @@ const PopUpCreateSuccesUM = ({
           className="text-right px-0"
           style={{ fontSize: '14px' }}
           onClick={() => { setModal(false); }}
+          aria-hidden="true"
         >
           <i className="iconU-close pointer" />
         </div>
@@ -36,15 +36,15 @@ const PopUpCreateSuccesUM = ({
               Thank you
             </div>
             <div className="text-muted-soft">
-              {'You have created a new ' + submitReturn?.role + ' User for ' + submitReturn?.name + '. The ' + submitReturn?.role +
-                ' User ' + submitReturn?.name + ' will receive an email shortly with their user ID and password to access the portal.'}
+              {`You have created a new ${submitReturn?.role} User for ${submitReturn?.name}. The ${submitReturn?.role} User ${submitReturn?.name} will receive an email shortly with their user ID and password to access the portal.`}
             </div>
           </div>
         </div>
         <button
           type="button"
           onClick={() => { setModal(false); }}
-          className="btn btn-search mobile-search btn-primary float-right">
+          className="btn btn-search mobile-search btn-primary float-right"
+        >
           DONE
         </button>
       </ModalBody>

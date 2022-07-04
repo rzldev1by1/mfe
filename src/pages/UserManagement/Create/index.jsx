@@ -10,11 +10,11 @@ import Form from './Form';
 import { renewState, submit, validateButton } from './services';
 
 const Create = ({ show, setShow }) => {
-  const user = useSelector((state) => state.user);
-  const clientData = useSelector((state) => state.clientData);
-  const siteData = useSelector((state) => state.siteData);
-  const moduleAccess = useSelector((state) => state.moduleAccess);
-  const darkMode = useSelector((state) => state.darkModeMLS);
+  const user = useSelector((data) => data.user);
+  const clientData = useSelector((data) => data.clientData);
+  const siteData = useSelector((data) => data.siteData);
+  const moduleAccess = useSelector((data) => data.moduleAccess);
+  const darkMode = useSelector((data) => data.darkModeMLS);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);

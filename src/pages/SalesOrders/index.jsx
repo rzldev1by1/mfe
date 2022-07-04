@@ -4,7 +4,7 @@ import { CButton } from '@coreui/react';
 import endpoints from '../../helpers/endpoints';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
-import TableMaster from '../../Component/TableMaster';
+import TableMaster from '../../Component/TableMaster'
 import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';

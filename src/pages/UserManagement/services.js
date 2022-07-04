@@ -107,7 +107,12 @@ export const onModuleAccessClick = ({ index, state, setState }) => {
   const isEnableAll = newModules.filter((item) => {
     return item.status === true;
   }).length;
-  const isEnableAllModule = moduleAccess.length === isEnableAll ? true : false;
+  let isEnableAllModule;
+  if (moduleAccess.length === isEnableAll) {
+    isEnableAllModule = true
+  } else {
+    isEnableAllModule = false
+  }
 
   newValidation.modules.isValid = isEnableAll > 0;
   newState.moduleAccess = newModules;
@@ -149,7 +154,12 @@ export const onSiteStatusClick = ({ index, state, setState }) => {
   const isEnableAll = newSites.filter((item) => {
     return item.status === true;
   }).length;
-  const isEnableAllSite = sites.length === isEnableAll ? true : false;
+  let isEnableAllSite;
+  if (sites.length === isEnableAll) {
+    isEnableAllSite = true
+  } else {
+    isEnableAllSite = false
+  }
 
   newValidation.sites.isValid = isEnableAll > 0;
   newState.sites = newSites;
@@ -191,7 +201,12 @@ export const onClientStatusClick = ({ index, state, setState }) => {
   const isEnableAll = newClients.filter((item) => {
     return item.status === true;
   }).length;
-  const newIsEnableAllClient = clients.length === isEnableAll ? true : false;
+  let newIsEnableAllClient;
+  if (clients.length === isEnableAll) {
+    newIsEnableAllClient = true
+  } else {
+    newIsEnableAllClient = false
+  }
 
   newValidation.clients.isValid = isEnableAll > 0;
 

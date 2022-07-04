@@ -14,6 +14,9 @@
     "jest": true
   },
   "rules": {
+    "react/jsx-props-no-spreading": [
+      "off"
+    ],
     "prefer-promise-reject-errors": [
       "off"
     ],
@@ -26,6 +29,7 @@
     "no-return-assign": [
       "off"
     ],
+    "beforeSelfClosing": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -36,7 +40,55 @@
         "tsx": "never"
       }
     ],
-    "requireConfigFile": false
+    "max-classes-per-file": [
+      "off"
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      "off"
+    ],
+    "no-param-reassign": 0,
+    "no-restricted-syntax": [
+      "off"
+    ],
+    "react/jsx-indent": [
+      "off"
+    ],
+    "no-unused-expressions": [
+      "off"
+    ],
+    "react/no-unused-state": [
+      "off"
+    ],
+    "prefer-destructuring": [
+      "off"
+    ],
+    "no-unneeded-ternary": [
+      "off"
+    ],
+    "react/jsx-no-bind": [
+      "off"
+    ],
+    "prefer-object-spread": [
+      "off"
+    ],
+    "react/no-string-refs": [
+      "off"
+    ],
+    "react/destructuring-assignment": [
+      "off"
+    ],
+    "class-methods-use-this": [
+      "off"
+    ],
+    "react/jsx-one-expression-per-line": [
+      "off"
+    ],
+    "eqeqeq": [
+      "off"
+    ],
+    "react/no-did-update-set-state": [
+      "off"
+    ]
   },
   "ignorePatterns": [
     "build/*"

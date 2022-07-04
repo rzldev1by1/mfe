@@ -1,7 +1,7 @@
 import React from 'react';
+
 const Textarea = ({
   title,
-  showTitle = false,
   autoComplete = 'off',
   onChange,
   placeholder,
@@ -14,9 +14,12 @@ const Textarea = ({
   required = false,
   readOnly = false,
 }) => {
+
+  const requireds = required ? 'required' : ''
+
   return (
     <div>
-      {!title ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
+      {!title ? null : <label className={`text-muted mb-0 ${requireds}`}>{title}</label>}
       <textarea
         name={name}
         autoComplete={autoComplete}
@@ -28,7 +31,7 @@ const Textarea = ({
         readOnly={readOnly}
         value={value}
         style={style}
-      ></textarea>
+      />
     </div>
   );
 };

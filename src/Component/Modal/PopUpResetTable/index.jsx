@@ -5,7 +5,6 @@ import { ProgressBarReset } from '../service';
 import "./index.scss";
 import logoConfirm from '../../../assets/img/warning.png';
 
-
 const PopUpResetTable = ({
   modal,
   resetConfirmation,
