@@ -69,16 +69,10 @@ const Table = ({
       dispatch,
     });
   }, [data, fields, columnHidden]);
-  const tes1 = ''
-  const tes2 = tes1 !== false
-  console.log(tes2);
-
-
   return (
     <div
-      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${
-        (data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
-      }`}
+      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
+        }`}
     >
       <ReactTableDraggableColumns
         draggableColumns={{
@@ -186,7 +180,7 @@ const Table = ({
           // force null and undefined to the bottom
           a = a ?? (type === 'string' ? '' : -999999999999);
           b = b ?? (type === 'string' ? '' : -999999999999);
-          
+
           // Return either 1 or -1 to indicate a sort priority
           if (a > b) {
             return 1;

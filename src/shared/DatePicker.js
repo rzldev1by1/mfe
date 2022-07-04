@@ -12,12 +12,9 @@ import Dropdown from './Dropdown';
 const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
 
 function Navbar({
-  // nextMonth,
-  // previousMonth,
   onPreviousClick,
   onNextClick,
   className,
-  // localeUtils,
 }) {
   const styleLeft = {
     float: 'left',
@@ -71,12 +68,12 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
   };
 
   const monthsIndex = [];
-  months.forEach((value, index) => {
+  months.forEach((_value, index) => {
     monthsIndex.push(index);
   })
 
   const yearIndex = [];
-  years.forEach((value, index) => {
+  years.forEach((_value, index) => {
     yearIndex.push(index);
   })
 
@@ -103,20 +100,6 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
         usedFor="Datepicker"
         field="orderDate"
       />
-      {/* <select name="month" onChange={handleChange} value={date.getMonth()}>
-        {months.map((month, i) => (
-          <option key={month} value={i}>
-            {month}
-          </option>
-        ))}
-      </select>
-      <select name="year" onChange={handleChange} value={date.getFullYear()}>
-        {years.map(year => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select> */}
     </form>
   );
 }
@@ -313,6 +296,9 @@ class DatePicker extends React.Component {
     const no = Math.floor(Math.random() * 100000) + 1;
     const className = `select_date ${showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
     const messageParams = messageParam;
+    const defaultValues = defaultValue !== '' ? defaultValue : null
+    const messageParamShow = defaultValue === '' || messageParams.checkDateTo ? true : false
+    const selectedDays = selectedDay ? moment(selectedDay).format(shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")
 
     return (
       <>
@@ -355,10 +341,10 @@ class DatePicker extends React.Component {
             {({ width, height }) => (
               <div
                 className={`select_date_options ${field === "smallField " ? " smallField " : ""} ${top && fixedTop || fixedTop ? "fixed-top-position" : ""}`}
-                style={(((top && !fixedTop)) ? { marginTop: `-${height}px`, marginLeft: `-${width + 6}px` } : null) || (((right && !fixedTop)) ? { marginTop: "-50px", marginLeft: `${width + 24}px` } : null)}
+                style={(top && !fixedTop) ? { marginTop: `-${height}px`, marginLeft: `-${width + 6}px` } : null || (right && !fixedTop ? { marginTop: "-50px", marginLeft: `${width + 24}px` } : null)}
               >
                 <div className="dateInfo">
-                  {selectedDay ? moment(selectedDay).format(shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")}
+                  {selectedDays}
                 </div>
                 <DayPicker
                   className="datepicker-content"
@@ -390,10 +376,10 @@ class DatePicker extends React.Component {
         </ul>
         {!messageRequired ? null : (
           <RequiredMessage
-            messageShow={defaultValue === '' || messageParams.checkDateTo ? true : false}
+            messageShow={messageParamShow}
             column={messageParams.column}
             columnText={messageParams.columnText}
-            value={defaultValue !== '' ? defaultValue : null}
+            value={defaultValues}
             fieldName={messageParams.fieldName}
             style={messageParams.style}
             checkDateTo={messageParams.checkDateTo}

@@ -124,32 +124,28 @@ export const getSummaryData = async ({
   // End Table Status
 
   if (Data) {
-    // Data.map((item, idx) => {
-    //   item.product = String(item.product);
-    //   item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
-    //   item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
-    //   item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
-    //   item.pallets = numeral(item.pallets).format('0,0');
-    //   item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
-    //   item.weight = numeral(item.weight).format('0,0.000');
-    //   item.weight_processed = numeral(item.weight_processed).format('0,0.000');
-    //   item.price = numeral(item.price).format('0,0.00');
-    //   item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
-    //   item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
-    //   item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
-    //   item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
-    //   // Supplier Management PO Date format
-    //   item.no = idx + 1;
-    //   item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
-    //   item.total_order = numeral(item.total_order).format('0,0');
-    //   // User Management Data
-    //   item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
-    //   item.site = item.site && item.site !== '' ? item.site : 'All';
-    //   item.client = item.client && item.client !== '' ? item.client : 'All';
-    //   item.last_access =
-    //     item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
-    //   return false
-    // });
+    Data.forEach((item, idx) => {
+      item.product = String(item.product);
+      item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
+      item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
+      item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
+      item.pallets = numeral(item.pallets).format('0,0');
+      item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
+      item.weight = numeral(item.weight).format('0,0.000');
+      item.weight_processed = numeral(item.weight_processed).format('0,0.000');
+      item.price = numeral(item.price).format('0,0.00');
+      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
+      item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
+      item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
+      item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
+      item.no = idx + 1;
+      item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
+      item.total_order = numeral(item.total_order).format('0,0');
+      item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
+      item.site = item.site && item.site !== '' ? item.site : 'All';
+      item.client = item.client && item.client !== '' ? item.client : 'All';
+      item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
+    });
 
     if (Export === true) {
       await dispatch({ type: 'EXPORT_DATA', data: Data });
@@ -267,7 +263,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       txt.push(m.batch?.length);
       return m;
     });
-    if (!export_ === 'true') {
+    if (!export_ == 'true') {
       const pagination = {
         active: active || Meta?.current_page,
         show: Meta?.per_page,

@@ -56,19 +56,16 @@ export const getOrderType = async ({ dispatch, company, client, module }) => {
   const orderType = { value: 'all', label: 'All Order Type' };
   orderTypeFilterData.splice(0, 0, orderType);
   dispatch({ type: 'ORDER_TYPE_DATA', data: orderTypeFilterData });
-  // }
 };
 
 export const getTask = async ({ dispatch, client, site }) => {
   const clientParam = client?.value ? client.value : client;
   const siteParam = site?.value ? site.value : site;
-  // if (client && site) {
   const { data } = await axios.get(`${endpoints.getIsisTask}?client=${clientParam}&site=${siteParam}&order=po`);
   const taskData = data && data.map((c) => ({ value: c.code, label: `${c.code}: ${c.name}` }));
   const task = { value: 'all', label: 'All Task' };
   taskData.splice(0, 0, task);
   dispatch({ type: 'TASK_DATA', data: taskData });
-  // }
 };
 
 export const siteCheck = (siteData, site) => {

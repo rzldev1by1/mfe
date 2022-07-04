@@ -100,9 +100,9 @@ const Form = ({
   }, [activeTab]);
 
   useEffect(() => {
-    if (orderLineSelectOpen === 'datePicker') {
+    if (orderLineSelectOpen == 'datePicker') {
       setDropdownExpandStyle('lineDetailsTopExpand');
-    } else if (orderLineSelectOpen === 'dropdown') {
+    } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
     } else {
       setDropdownExpandStyle(null);

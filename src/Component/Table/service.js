@@ -1,167 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 
-// const changeRowOnFocus = async ({ e, props, column, action }) => {
-//   const val = e.target.value
-//   const elementOrderQty = document.getElementById(`order_qty_${props?.row._index}`);// id for column Order Qty
-//   const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
-//   const elementNoOfCarton = document.getElementById(`no_of_carton_${props?.row._index}`);// id for column No. Of Carton
-//   const elementEditCarton = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element Edit Carton Qty
-//   const elementTooltip = document.getElementById(`tooltip-bottom_orderQty_${props?.row._index}`)
-//   const elementTooltipCarton = document.getElementById(`tooltip-bottom_noOfCarton_${props?.row._index}`)
-//   const printLabels = document.getElementById(`print-labels`)
-
-//   elementOrderQty.setAttribute('class', `row_1`)
-
-//   // change the style of the row in detail Table SP module when the input element is onfocus
-//   if (action === 'onFocus') {
-//     if (column === 'edit_qty') {
-//       if (parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)) {
-//         if (elementEditCarton.value.replace(/,/g, '') > parseFloat(props?.original.no_of_carton)) {
-//           elementNoOfCarton.style.color = 'red'
-//           elementEditCarton.classList.add("invalid-input");
-//         }
-//         elementOrderQty.style.color = 'red'
-//         elementEditQty.classList.add("remaining-input");
-//         if (elementTooltip) elementTooltip.classList.add("tooltip-outOfReamining");
-//       } else {
-//         if (elementEditCarton.value.replace(/,/g, '') > parseFloat(props?.original.no_of_carton)) {
-//           elementNoOfCarton.style.color = 'red'
-//           elementEditCarton.classList.add("invalid-input");
-//         } else {
-//           elementOrderQty.style.color = elementNoOfCarton.style.color = 'orange'
-//           elementEditQty.classList.add("remaining-input");
-//         }
-//       }
-//     }
-//     if (column === 'edit_carton') {
-//       if (parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)) {
-//         if (elementEditQty.value.replace(/,/g, '') > parseFloat(props?.original.order_qty)) {
-//           elementOrderQty.style.color = 'red'
-//           elementEditQty.classList.add("invalid-input");
-//         }
-//         elementNoOfCarton.style.color = 'red'
-//         elementEditCarton.classList.add("remaining-input");
-//         if (elementTooltipCarton) elementTooltipCarton.classList.add("tooltip-outOfReamining");
-//       } else {
-//         if (elementEditQty.value.replace(/,/g, '') > parseFloat(props?.original.order_qty)) {
-//           elementOrderQty.style.color = 'red'
-//           elementEditQty.classList.add("invalid-input");
-//         } else {
-//           elementOrderQty.style.color = elementNoOfCarton.style.color = 'orange'
-//         }
-//       }
-//     }
-//   }
-
-//   // change the style of the row in detail Table SP module when user type a value in edit qty and edit carton 
-//   if (action === 'onChange') {
-//     if (column === 'edit_qty') {
-//       if (parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)) {
-//         elementOrderQty.style.color = 'red'
-//         elementEditQty.classList.add("outOfRemaining-input");
-//         if (elementTooltip) elementTooltip.classList.add("tooltip-outOfReamining");
-//       } else {
-//         elementOrderQty.style.color = 'orange';
-//         elementEditQty.classList.remove("outOfRemaining-input");
-//         if (elementTooltip) elementTooltip.classList.remove("tooltip-outOfReamining");
-//         elementEditQty.classList.remove("invalid-input");
-//         elementEditQty.classList.add("remaining-input");
-//       }
-//     }
-//     if (column === 'edit_carton') {
-//       if (parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)) {
-//         elementNoOfCarton.style.color = 'red'
-//         elementEditCarton.classList.add("outOfRemaining-input");
-//         if (elementTooltipCarton) elementTooltipCarton.classList.add("tooltip-outOfReamining");
-//       } else {
-//         elementNoOfCarton.style.color = 'orange';
-//         elementEditCarton.classList.remove("outOfRemaining-input");
-//         if (elementTooltipCarton) elementTooltipCarton.classList.remove("tooltip-outOfReamining");
-//         elementEditCarton.classList.add("remaining-input");
-//       }
-//     }
-//   }
-
-//   // change the style of the row in detail Table SP module when user move the pointer around the element input
-//   if (action === 'mouseEnter') {
-//     if (column === 'edit_qty') {
-//       if (parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)) {
-//         setTimeout(() => {
-//           const elementTooltipz = document.getElementById(`tooltip-bottom_orderQty_${props?.row._index}`)
-//           if (elementTooltipz) elementTooltipz.classList.add("tooltip-outOfReamining")
-
-//           elementOrderQty.style.color = 'red'
-//         }, 451);
-//       }
-//     }
-//     if (column === 'edit_carton') {
-//       if (parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)) {
-//         setTimeout(() => {
-//           const elementTooltipCartonz = document.getElementById(`tooltip-bottom_noOfCarton_${props?.row._index}`)
-//           if (elementTooltipCartonz) elementTooltipCartonz.classList.add("tooltip-outOfReamining")
-
-//           elementNoOfCarton.style.color = 'red'
-//         }, 451);
-//       }
-//     }
-//   }
-
-//   // detect element which have invalid value
-//   if (action === 'onBlur') {
-//     const valEditQty = [];
-//     const valOrderQty = [];
-//     const valEditCarton = [];
-//     const valCartonQty = [];
-
-//     document.querySelectorAll('.val-order-qty').forEach(function (qty) {
-//       valOrderQty.push(qty.innerHTML);
-//     })
-//     document.querySelectorAll('.input-order-qty').forEach(function (el) {
-//       valEditQty.push(el.value);
-//     });
-
-//     document.querySelectorAll('.val-carton-qty').forEach(function (qty) {
-//       valCartonQty.push(qty.innerHTML);
-//     })
-//     document.querySelectorAll('.input-carton-qty').forEach(function (el) {
-//       valEditCarton.push(el.value);
-//     });
-
-//     valEditQty.forEach((data, idx) => {
-//       const elementOrderQtys = document.getElementById(`order_qty_${idx}`);// id for column Order Qty
-//       const elementEditQtys = document.getElementById(`edit_qty_${idx}`);// id for column element input Edit Qty
-//       const elementNoOfCartons = document.getElementById(`no_of_carton_${idx}`);// id for column No. Of Carton
-
-//       if (valOrderQty[idx] < data.replace(/,/g, '')) {
-//         elementOrderQtys.style.color = 'red';
-//         elementNoOfCartons.style.color = 'black';
-//         elementEditQtys.classList.add("invalid-input");
-//       } else {
-//         elementOrderQtys.style.color = 'black';
-//         elementNoOfCartons.style.color = 'black';
-//         elementEditQtys.classList.remove("invalid-input");
-//       }
-//     })
-
-//     valEditCarton.forEach((data, idx) => {
-//       const elementOrderQtys = document.getElementById(`order_qty_${idx}`);// id for column Order Qty
-//       const elementNoOfCartons = document.getElementById(`no_of_carton_${idx}`);// id for column No. Of Carton
-//       const elementEditCartons = document.getElementById(`edit_carton_${idx}`);// id for column element Edit Carton Qty
-
-//       if (valCartonQty[idx] < parseFloat(data.replace(/,/g, ''))) {
-//         elementOrderQtys.style.color = 'balck';
-//         elementNoOfCartons.style.color = 'red';
-//         elementEditCartons.classList.add("invalid-input");
-//       } else {
-//         elementOrderQtys.style.color = 'black';
-//         elementNoOfCartons.style.color = 'black';
-//         elementEditCartons.classList.remove("invalid-input");
-//       }
-//     })
-//   }
-// }
-
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const magicSpacing = 9;
   const cellLength = Math.max(...rows.map((row) => (`${row[accessor]}` || '').length), headerText.length);
@@ -183,12 +22,10 @@ export const renewColumn = async ({
   columnHidden,
   dispatch
 }) => {
-  // reorder column
   const key = `tables__${module}__${userId}`;
   let schema = [];
   const oldSchema = localStorage.getItem(key);
   const schemaOrder = JSON.parse(oldSchema);
-  // reorder column first
   const tmpOldSchema = [];
   const defaultSchema = [];
   await fields.forEach(async (d, idx) => {
@@ -205,7 +42,6 @@ export const renewColumn = async ({
   if (schemaOrder?.toString() !== defaultSchema?.toString() && schemaOrder && defaultSchema) dispatch({ type: 'DRAG_STATUS', data: true });
   else dispatch({ type: 'DRAG_STATUS', data: false });
 
-  // hide column
   if (columnHidden !== null && columnHidden !== undefined) {
     await tmpOldSchema.forEach((d) => {
       if (columnHidden.includes(d.accessor)) {
@@ -217,7 +53,6 @@ export const renewColumn = async ({
     schema = tmpOldSchema;
   }
 
-  // Edit & Rename Column button icon
   if (editColumn !== 'false' && module !== 'SupplierManagementDetail') {
     const editBtn = (
       <div className="edit-column" onClick={() => showModal(true)} aria-hidden="true">
@@ -250,7 +85,6 @@ export const saveSchemaToLocal = ({
   newIndex,
   module,
 }) => {
-  // get old schema from local storage data , if null then set schemaColumn as oldSchema
   const key = `tables__${module}__${userId}`;
   const newSchemaOrder = [];
   let oldSchema = localStorage.getItem(key) || null;
@@ -263,30 +97,21 @@ export const saveSchemaToLocal = ({
   }
   const { length } = oldSchema;
 
-  // move item from old schema to newschema
   newSchemaOrder[newIndex] = oldSchema[oldIndex];
   oldSchema.splice(oldIndex, 1);
 
-  // reorder
   let i = 0;
   while (i < length) {
     if (i < newIndex) {
-      // index before new index, position will same
       newSchemaOrder[i] = oldSchema[i];
     } else if (i === newIndex) {
-      // index == newindex, abaikan
       i += 1;
-      // continue;
     } else {
-      // index after newindex, index-1
       newSchemaOrder[i] = oldSchema[i - 1];
     }
     i += 1;
   }
 
-  // set to local storage
   localStorage.removeItem(key);
   localStorage.setItem(key, JSON.stringify(newSchemaOrder));
-  // set Local
-
 };

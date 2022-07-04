@@ -13,7 +13,6 @@ import './style.scss';
 const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, filename, customExportPdf }) => {
   const ReactTableFixedColumns = withFixedColumns(ReactTable);
   const activePage = useSelector((state) => state.getActivePage);
-  // const [activePage, setActivePage] = useState(1)
   const noDataMessage = (
     <div className="caution-caution">
       <div>No Data Available</div>
@@ -46,7 +45,7 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, filename, cu
         style={style}
         noDataText={tableStatus === 'noData' ? noDataMessage : loadingMessage}
         minRows="0"
-        getTdProps={(state, rowInfo, column) => {
+        getTdProps={(rowInfo, column) => {
           return {
             style: { textAlign: Number.isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' },
           };
