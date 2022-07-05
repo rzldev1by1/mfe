@@ -663,8 +663,8 @@ export const submitUserManagement = async ({ data }) => {
 
 export const updateRequest = async ({ param, state, setState, props, dispatch }) => {
   const newState = { ...state };
-  const { userId, user, email, webUser } = newState.accountInfo;
-  const url = `${endpoints.userManagementUpdate}${webUser}`;
+  const { userId, user, email } = newState.accountInfo;
+  const url = `${endpoints.userManagementUpdate}${newState.accountInfo.web_user}`;
 
   const { status } = await axios.put(url, param);
   if (status === 200) {
