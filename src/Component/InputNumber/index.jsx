@@ -30,7 +30,8 @@ const InputNumber = ({
         readOnly={isReadOnly}
         decimalScale={isDecimal ? 3 : 0}
         isAllowed={(values) => {
-          const number = values.split('.');
+          const { value } = values;
+          const number = value.split('.');
           return number[0].length <= maxLength;
         }}
       />

@@ -245,8 +245,8 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
-      m.completed = m.completed === 'Y' ? 'Yes' : 'x';
-      m.released = m.released === 'Y' ? 'Yes' : 'x';
+      m.completed = m.completed == 'Y' ? 'Yes' : 'x';
+      m.released = m.released == 'Y' ? 'Yes' : 'x';
 
       // Supplier Management
       m.carton_qty = numeral(m.carton_qty).format('0,0'); // carton_qty
@@ -263,7 +263,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       txt.push(m.batch?.length);
       return m;
     });
-    if (!export_ == 'true') {
+    if (export_ !== 'true') {
       const pagination = {
         active: active || Meta?.current_page,
         show: Meta?.per_page,
