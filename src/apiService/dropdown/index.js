@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import axios from 'axios';
 import endpoints from '../../helpers/endpoints';
 
@@ -72,7 +71,7 @@ export const siteCheck = (siteData, site) => {
   let l = null;
   if (site)
     if (siteData) {
-      siteData.map((data) => {
+      siteData.forEach((data) => {
         if (data.value === site) l = data.label;
       });
     }
@@ -83,7 +82,7 @@ export const clientCheck = (clientData, client) => {
   let l = null;
   if (client)
     if (clientData) {
-      clientData.map((data) => {
+      clientData.forEach((data) => {
         if (data.value === client) l = data.label;
       });
     }
@@ -128,7 +127,7 @@ export const getSOResources = async ({ user, dispatch }) => {
 export const getDisposition = async ({ dispatch, client }) => {
   const { data } = await axios.get(`${endpoints.getDisposition}?client=${client || ''}`);
   const dispositionData = [];
-  data.map((c) => {
+  data.forEach((c) => {
     if (c.code.length > 0 && c.code !== ' ') dispositionData.push({ value: c.code, label: c.code });
   });
   dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
@@ -148,8 +147,8 @@ export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) =>
   await axios
     .get(url)
     .then((res) => {
-      const data = res?.data;
-      productData = data.map((datas, i) => ({ value: datas.code, label: `${datas.name}`, datas, i }));
+      const data = res.data;
+      productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, data, i }));
     })
     .catch((error) => {
       console.log(error);
