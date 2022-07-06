@@ -189,9 +189,9 @@ export const changeClient = async ({
 };
 
 export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails }) => {
-  let cd = { ...customerDetails };
+  const cd = { ...customerDetails };
   cd[column] = value;
-  cd = !!value;
+  cd[`validation_${column}`] = value ? true : false;
   if (!value) {
     cd.address1 = ""
     cd.address2 = ""
