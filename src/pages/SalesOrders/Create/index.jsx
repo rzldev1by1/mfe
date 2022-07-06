@@ -119,30 +119,6 @@ const Create = ({ show, setShow }) => {
     )
   }
 
-  const ActiveMassage = () => {
-    if (activeTab === 'message') {
-      if (isSubmitReturn?.message === 'Successfully added' || isSubmitReturn?.message === 'create successfully' || isSubmitReturn?.status === 'ok') {
-        <PopUpCreateSucces
-          modal={modal}
-          setModal={setModal}
-          module='Sales Order'
-          submitReturn={isSubmitReturn}
-          exit={() => {
-            setShow(false);
-            setIsReset(0);
-          }}
-        />
-      } else {
-        <PopUpLoss
-          modal={modal}
-          setModal={setModal}
-          back={() => setActiveTab('detail')}
-        />
-      }
-    }
-  }
-
-
   return (
     <div>
       <Modal show={show} size="xl" className={`sales-order-create  ${activeTab === 'message' ? ' d-none' : ' '}`}>
@@ -212,7 +188,27 @@ const Create = ({ show, setShow }) => {
           </TabContent>
         </Modal.Body>
       </Modal>
-      {ActiveMassage}
+      {activeTab === 'message' && (
+        isSubmitReturn?.message === 'Successfully added' || 
+        isSubmitReturn?.message === 'create successfully' ||
+        isSubmitReturn?.status === 'ok' ? (
+          <PopUpCreateSucces
+            modal={modal}
+            setModal={setModal}
+            module='Sales Order'
+            submitReturn={isSubmitReturn}
+            exit={() => {
+              setShow(false);
+              setIsReset(0);
+            }}
+          />
+          ) : (
+          <PopUpLoss
+            modal={modal}
+            setModal={setModal}
+            back={() => setActiveTab('detail')}
+          />
+          ))}
     </div>
   );
 };
