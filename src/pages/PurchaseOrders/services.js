@@ -102,29 +102,23 @@ export const schemaColumn = [
     sortable: true,
     width: 130,
     Cell: (row) => {
-      const { original } = row
-      switch (original.status) {
+      switch (row.original.status) {
         case '0: Not Available':
-          <div className="status-unavailable">UNAVAILABLE</div>;
-          break;
+          return <div className="status-unavailable">UNAVAILABLE</div>;
         case '1: Available':
-          <div className="status-available">AVAILABLE</div>;
-          break;
+          return <div className="status-available">AVAILABLE</div>;
         case '2: Released':
-          <div className="status-Release">RELEASED</div>;
-          break;
+          return <div className="status-Release">RELEASED</div>;
         case '3: Part Released':
-          <div className="status-partRelease">PART RELEASED</div>;
-          break;
+          return <div className="status-partRelease">PART RELEASED</div>;
         case '4: Completed':
-          <div className="status-complete">COMPLETED</div>;
-          break;
+          return <div className="status-complete">COMPLETED</div>;
         case 'All Open':
-          <div className="status-ok">ALL OPEN</div>;
-          break;
+          return <div className="status-ok">ALL OPEN</div>;
         default:
+          break;
       }
-      return false;
+      return false
     },
   },
   {

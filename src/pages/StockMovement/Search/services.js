@@ -137,7 +137,7 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setDateHeader }) =>
         },
         {
           Header: 'Rec',
-          accessor: `rec__${dateAccessor}`,
+          accessor: `rec_${dateAccessor}`,
           Cell: '-',
           className: 'text-right',
           headerClassName: 'borderBottom blueColor text-center',

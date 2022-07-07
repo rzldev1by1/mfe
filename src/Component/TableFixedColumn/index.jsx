@@ -45,7 +45,7 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, filename, cu
         style={style}
         noDataText={tableStatus === 'noData' ? noDataMessage : loadingMessage}
         minRows="0"
-        getTdProps={(rowInfo, column) => {
+        getTdProps={(state, rowInfo, column) => {
           return {
             style: { textAlign: Number.isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' },
           };
