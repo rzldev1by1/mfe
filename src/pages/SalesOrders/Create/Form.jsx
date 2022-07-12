@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
-import Dropdown from 'Component/Dropdown';
-import DatePicker from 'shared/DatePicker';
-import Input from 'Component/Input';
-import Textarea from 'Component/Textarea';
+import { Row, Col } from 'react-bootstrap';
+import { getCustomer, getDisposition } from '../../../apiService/dropdown';
+
+
+import RequiredMessage from '../../../Component/RequiredMessage';
+import Dropdown from '../../../Component/Dropdown';
+import DatePicker from '../../../shared/DatePicker';
+import Input from '../../../Component/Input';
+import Textarea from '../../../Component/Textarea';
 import FormLine from './FormLine';
-import RequiredMessage from 'Component/RequiredMessage';
 
 import {
   changeOrderDetails,
@@ -14,13 +17,11 @@ import {
   changeOrderNo,
   formatDate,
   changeCustomerDetails,
-  clearCustomerData,
   getCustomerDetail,
   changeClient,
   validationOrderLines,
   changeOrderDetailSiteAndClient
 } from './services';
-import { getCustomer, getDisposition } from 'apiService/dropdown';
 
 import './style.scss';
 
@@ -37,13 +38,10 @@ const Form = ({
 }) => {
   const dispatch = useDispatch();
   const resources = useSelector((state) => state.so_resources);
-  const createSO = useSelector((state) => state.createSO);
   const clientData = useSelector((state) => state.clientData);
   const siteData = useSelector((state) => state.siteData);
   const user = useSelector((state) => state.user);
 
-  const [orderDate, setOrderDate] = useState({});
-  const [line, setLine] = useState([]);
   const [clientOption, setClientOption] = useState(null);
   const [siteOption, setSiteOption] = useState(null);
   const [customerData, setCustomerData] = useState([]);
@@ -52,7 +50,6 @@ const Form = ({
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
   const [checkingOrderNo, setCheckingOrderNo] = useState(null);
   const { client, site } = user;
-  const [address1, setAddress1] = useState(customerDetails?.address1);
 
   useEffect(() => {
     if (orderLines?.length < 1) {
@@ -62,14 +59,14 @@ const Form = ({
 
   useEffect(() => {
     // set client dropdown option
-    let clientOption = [];
-    let siteOption = [];
+    const clientOptionArray = [];
+    const siteOptionArray = [];
     let valClient = null;
     let valSite = null;
     if (clientData) {
-      clientData.map((item, key) => {
+      clientData.forEach(item => {
         if (item.value !== 'all') {
-          clientOption.push(item);
+          clientOptionArray.push(item);
         }
 
         if (client === item.value) {
@@ -83,9 +80,9 @@ const Form = ({
 
     // set site dropdown option
     if (siteData) {
-      siteData.map((item, key) => {
+      siteData.forEach(item => {
         if (item.value !== 'all') {
-          siteOption.push(item);
+          siteOptionArray.push(item);
         }
         if (site === item.value) {
           valSite = {
@@ -97,55 +94,13 @@ const Form = ({
     }
 
     changeOrderDetailSiteAndClient({ valClient, valSite, setOrderDetails, orderDetails });
-    setSiteOption(siteOption);
-    setClientOption(clientOption);
+    setSiteOption(siteOptionArray);
+    setClientOption(clientOptionArray);
   }, [clientData, siteData]);
 
-  // useEffect(() => {
-  //   // set client dropdown option
-  //   let clientOption = [];
-  //   let tmp = clientData?.map((item, key) => {
-  //     if (item.value !== 'all') {
-  //       clientOption.push(item);
-  //     }
-
-  //     if (client === item.value) {
-  //       let val = {
-  //         value: item.value,
-  //         label: `${item.label}`,
-  //       };
-  //       changeOrderDetails({ column: 'client', value: val, dispatch, setOrderDetails });
-  //       return 0;
-  //     }
-  //   });
-  //   setClientOption(clientOption);
-  // }, [clientData]);
-
-  // useEffect(() => {
-  //   // set site dropdown option
-  //   let siteOption = [];
-  //   let tmp = siteData?.map((item, key) => {
-  //     if (item.value !== 'all') {
-  //       siteOption.push(item);
-  //     }
-  //     if (site === item.value) {
-  //       let val = {
-  //         value: item.value,
-  //         label: `${item.label}`,
-  //       };
-  //       changeOrderDetails({ column: 'site', value: val, dispatch, setOrderDetails });
-  //       return 0;
-  //     }
-  //   });
-  //   setSiteOption(siteOption);
-  // }, [siteData]);
-
   useEffect(() => {
-    if (activeTab == 'review') {
-      setIsReadOnly(true);
-    } else {
-      setIsReadOnly(false);
-    }
+    if (activeTab === 'review') setIsReadOnly(true);
+    else setIsReadOnly(false);
   }, [activeTab]);
 
   useEffect(() => {
@@ -173,7 +128,7 @@ const Form = ({
           <Dropdown
             name="site"
             options={siteOption}
-            title={'Site'}
+            title='Site'
             selectedValue={orderDetails?.site}
             onChangeDropdown={(selected) => {
               changeOrderDetails({ column: 'site', value: selected, orderDetails, setOrderDetails });
@@ -189,7 +144,7 @@ const Form = ({
           <Dropdown
             name="orderType"
             options={resources?.orderType}
-            title={'Order Type'}
+            title='Order Type'
             selectedValue={orderDetails?.orderType}
             onChangeDropdown={(selected) => {
               changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails });
@@ -204,16 +159,14 @@ const Form = ({
         <Col lg="3">
           <Input
             name="customerOrderRef"
-            title={'Customer Order Ref'}
-            onChange={(e) =>
-              changeOrderDetails({ column: 'customerOrderRef', value: e.target.value, orderDetails, setOrderDetails })
-            }
+            title='Customer Order Ref'
+            onChange={(e) => changeOrderDetails({ column: 'customerOrderRef', value: e.target.value, orderDetails, setOrderDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
         </Col>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Delivery Date</label>
+          <span className="text-muted mb-0 required">Delivery Date</span>
           <DatePicker
             getDate={(date) => {
               changeOrderDetails({ column: 'deliveryDate', value: date, orderDetails, setOrderDetails });
@@ -225,11 +178,11 @@ const Form = ({
           />
           <Input
             name="deliveryDate"
-            placeholder={'Order Date'}
+            placeholder='Order Date'
             value={formatDate(orderDetails?.deliveryDate)}
             readOnly
             style={!isReadonly ? { display: 'none' } : null}
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation,
               value: orderDetails?.deliveryDate,
@@ -263,7 +216,7 @@ const Form = ({
               }
             }}
             readOnly={isReadonly || client}
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation,
               value: orderDetails?.client,
@@ -279,7 +232,7 @@ const Form = ({
             style={{ marginLeft: '0.5px' }}
             maxLength={12}
             onChange={(e) => {
-              let val = e.target.value.toUpperCase();
+              const val = e.target.value.toUpperCase();
               if (val !== orderDetails?.client) {
                 changeOrderNo({
                   orderNo: e.target.value.toUpperCase(),
@@ -294,13 +247,13 @@ const Form = ({
               (isValidation && !orderDetails?.orderNo) || checkingOrderNo?.status === false ? 'input-danger' : ''
             }
             onKeyUp={(e) => {
-              let orderNo = e.target.value;
+              const orderNo = e.target.value;
               e.target.value = orderNo.toUpperCase();
             }}
             alphaNumeric
             required
             readOnly={isReadonly}
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation || checkingOrderNo?.status === false,
               value: orderDetails?.orderNo,
@@ -311,11 +264,9 @@ const Form = ({
         <Col lg="3">
           <Input
             name="vendorOrderRef"
-            title={'Vendor Order Ref'}
+            title='Vendor Order Ref'
             showTitle
-            onChange={(e) =>
-              changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })
-            }
+            onChange={(e) => changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -329,10 +280,9 @@ const Form = ({
                 value: e.target.value,
                 orderDetails,
                 setOrderDetails,
-              })
-            }
+              })}
             className="form-control"
-            title={'Delivery Instructions'}
+            title='Delivery Instructions'
             readOnly={isReadonly}
             maxLength={240}
           />
@@ -347,7 +297,7 @@ const Form = ({
           <Dropdown
             name="customer"
             options={customerData}
-            title={'Customer'}
+            title='Customer'
             selectedValue={customerDetails?.customer}
             onChangeDropdown={(selected) => {
               changeCustomerDetails({ column: 'customer', value: selected, customerDetails, setCustomerDetails, selected });
@@ -362,16 +312,14 @@ const Form = ({
         <Col lg="3">
           <Input
             name="address1"
-            title={'Address 1'}
+            title='Address 1'
             value={customerDetails?.address1}
             showTitle
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'address1', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'address1', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
             required
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation,
               value: customerDetails?.address1,
@@ -384,9 +332,7 @@ const Form = ({
             name="address2"
             value={customerDetails?.address2}
             title="Address 2"
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'address2', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'address2', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -397,9 +343,7 @@ const Form = ({
             value={customerDetails?.address3}
             title="Address 2"
             showTitle
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'address3', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'address3', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -411,9 +355,7 @@ const Form = ({
             name="address4"
             value={customerDetails?.address4}
             title="Address 4"
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'address4', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'address4', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -423,9 +365,7 @@ const Form = ({
             name="address5"
             value={customerDetails?.address5}
             title="Address 5"
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'address5', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'address5', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -437,9 +377,7 @@ const Form = ({
             name="suburb"
             value={customerDetails?.suburb}
             title="Suburb"
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'suburb', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'suburb', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -449,13 +387,11 @@ const Form = ({
             name="postcode"
             value={customerDetails?.postcode}
             title="Postcode"
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'postcode', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'postcode', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
             required
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation,
               value: customerDetails?.postcode,
@@ -468,13 +404,11 @@ const Form = ({
             name="state"
             title="State"
             value={customerDetails?.state}
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'state', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'state', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
             required
-            messageRequired={true}
+            messageRequired
             messageParam={{
               messageShow: isValidation,
               value: customerDetails?.state,
@@ -487,9 +421,7 @@ const Form = ({
             name="country"
             value={customerDetails?.country}
             title="Country"
-            onChange={(e) =>
-              changeCustomerDetails({ column: 'country', value: e.target.value, customerDetails, setCustomerDetails })
-            }
+            onChange={(e) => changeCustomerDetails({ column: 'country', value: e.target.value, customerDetails, setCustomerDetails })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -514,11 +446,13 @@ const Form = ({
               </td>
               <td>
                 {' '}
-                <div className="c-400 required px-1">Product</div>{' '}
+                <div className="c-400 required px-1">Product</div>
+                {' '}
               </td>
               <td>
                 {' '}
-                <div className="c-600 px-1">Description</div>{' '}
+                <div className="c-600 px-1">Description</div>
+                {' '}
               </td>
               <td>
                 <div className="c-100 required px-1">Qty</div>
@@ -577,9 +511,8 @@ const Form = ({
           type="button"
           className={`btn m-0 ${isReadonly ? `btn-light-none` : `btn-light-blue`}`}
           onClick={async () => {
-            //validate first
             setIsValidation(true);
-            let validate = await validationOrderLines({ orderLines, setOrderLines });
+            const validate = await validationOrderLines({ orderLines, setOrderLines });
             if (validate) {
               addOrderLines({ orderLines, setOrderLines });
             }

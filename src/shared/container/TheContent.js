@@ -11,7 +11,7 @@ import routes from '../../routes';
 
 const loading = (
   <div className="pt-3 text-center">
-    <div className="sk-spinner sk-spinner-pulse"></div>
+    <div className="sk-spinner sk-spinner-pulse" />
   </div>
 );
 
@@ -21,11 +21,11 @@ const TheContent = () => {
       <CContainer fluid className="px-3">
         <Suspense fallback={loading}>
           <Switch>
-            {routes.map((route, idx) => {
+            {routes.map((route) => {
               return (
                 route.component && (
                   <Route
-                    key={idx}
+                    key={route.component}
                     path={route.path}
                     exact={route.exact}
                     name={route.name}

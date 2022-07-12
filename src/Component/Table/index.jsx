@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // import library
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +9,6 @@ import EditRenameColumn from './EditRenameColumn';
 // import style
 import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
 import { setDraggableColumn, saveSchemaToLocal, renewColumn } from './service';
-import { markRow } from './service';
 import 'react-table-v6/react-table.css';
 import 'react-table-hoc-draggable-columns/dist/styles.css';
 import './style.scss';
@@ -27,18 +27,14 @@ const Table = ({
   columnHidden,
   splitModule,
   editColumn,
-  editOrderQty,
-  editCarton,
 }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.userId);
   const [showMod, setShowMod] = useState(false);
   const [editColumnTemp, setEditColumnTemp] = useState({});
   const tableStatus = useSelector((state) => state.tableStatus);
-  const dragStatus = useSelector((state) => state.dragStatus);
   const [fields, setFields] = useState(schemaColumn);
   const [newSchema, setNewSchema] = useState(schemaColumn);
-  const isInvalidOrderQty = useSelector((state) => state.isInvalidOrderQty);
   const markedRow = useSelector((state) => state.markedRow);
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
@@ -73,12 +69,10 @@ const Table = ({
       dispatch,
     });
   }, [data, fields, columnHidden]);
-
   return (
     <div
-      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${
-        (data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
-      }`}
+      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
+        }`}
     >
       <ReactTableDraggableColumns
         draggableColumns={{
@@ -141,8 +135,8 @@ const Table = ({
           if (a && a.includes('/')) {
             const str = a.split('/');
             const date = formateMonths ? `${str[0]}-${str[1]}-${str[2]}` : `${str[1]}-${str[0]}-${str[2]}`;
-            let tmp = new Date(date).getTime();
-            if (!isNaN(tmp)) {
+            const tmp = new Date(date).getTime();
+            if (!Number.isNaN(tmp)) {
               a = tmp;
               type = 'date';
             }
@@ -150,42 +144,42 @@ const Table = ({
           if (b && b.includes('/')) {
             const str = b.split('/');
             const date = formateMonths ? `${str[0]}-${str[1]}-${str[2]}` : `${str[1]}-${str[0]}-${str[2]}`;
-            let tmp = new Date(date).getTime();
-            if (!isNaN(tmp)) {
+            const tmp = new Date(date).getTime();
+            if (!Number.isNaN(tmp)) {
               b = tmp;
               type = 'date';
             }
           }
-          //end date
+          // end date
 
-          //check format if number
+          // check format if number
           const regex = /^\d*(\.\d+)?$/;
           let typeA = 'string';
           let typeB = 'string';
-          if (type == 'string' && a.match(regex)) {
-            let tmp = parseFloat(a);
-            if (!isNaN(tmp)) {
+          if (type === 'string' && a.match(regex)) {
+            const tmp = parseFloat(a);
+            if (!Number.isNaN(tmp)) {
               a = tmp;
               typeA = 'number';
             }
-          } else if (type == 'string') {
+          } else if (type === 'string') {
             a = a.toLowerCase();
           }
-          if (type == 'string' && b.match(regex)) {
-            let tmp = parseFloat(b);
-            if (!isNaN(tmp)) {
+          if (type === 'string' && b.match(regex)) {
+            const tmp = parseFloat(b);
+            if (!Number.isNaN(tmp)) {
               b = tmp;
               typeB = 'number';
             }
-          } else if (type == 'string') {
+          } else if (type === 'string') {
             b = b.toLowerCase();
           }
-          type = typeA == 'number' && typeB == 'number' ? 'number' : 'string';
-          //end check number
+          type = typeA === 'number' && typeB === 'number' ? 'number' : 'string';
+          // end check number
 
           // force null and undefined to the bottom
-          a = a === '' ? (type === 'string' ? '' : -999999999999) : a;
-          b = b === '' ? (type === 'string' ? '' : -999999999999) : b;
+          a = a ?? (type === 'string' ? '' : -999999999999);
+          b = b ?? (type === 'string' ? '' : -999999999999);
 
           // Return either 1 or -1 to indicate a sort priority
           if (a > b) {
@@ -200,7 +194,7 @@ const Table = ({
         }}
       />
 
-      {editColumn == 'false' ? null : (
+      {editColumn === 'false' ? null : (
         <EditRenameColumn
           showModal={showMod}
           setShowMod={setShowMod}

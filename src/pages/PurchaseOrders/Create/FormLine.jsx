@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Dropdown from 'Component/Dropdown';
-import DropdownAxios from 'Component/Dropdown/DropdownAxios';
-import DatePicker from 'shared/DatePicker';
-import InputNumber from 'Component/InputNumber';
-import Input from 'Component/Input';
-
+import { getProduct } from '../../../apiService/dropdown';
+import Dropdown from '../../../Component/Dropdown';
+import DropdownAxios from '../../../Component/Dropdown/DropdownAxios';
+import DatePicker from '../../../shared/DatePicker';
+import InputNumber from '../../../Component/InputNumber';
+import Input from '../../../Component/Input';
 import { productHandler, numberCheck, changeOrderLines, deleteOrderLines, formatDate } from './services';
-import { getProduct } from 'apiService/dropdown';
 
 const FormLine = ({
   index,
@@ -24,7 +23,7 @@ const FormLine = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isProduct, setIsProduct] = useState('');
   const [isUom, setIsUom] = useState(null);
-
+  
   return (
     <tr className="py-1 orderline-row" style={{ height: '70px' }}>
       <td className="px-1">
@@ -68,7 +67,7 @@ const FormLine = ({
       </td>
       <td className="px-1">
         <InputNumber
-          placeholder={'Qty'}
+          placeholder='Qty'
           name="qty"
           autoComplete="off"
           onKeyPress={(e) => numberCheck(e)}
@@ -80,13 +79,12 @@ const FormLine = ({
               index,
               orderLines,
               setOrderLines,
-            })
-          }
+            })}
           type="text"
           className={`form-control ${isValidation && !data?.validation_qty ? 'input-danger' : ''}`}
           maxLength={9}
           isReadOnly={isReadonly}
-          messageRequired={true}
+          messageRequired
           messageParam={{
             messageShow: !isInvalidProduct ? isValidation : false,
             value: data?.qty,
@@ -96,7 +94,7 @@ const FormLine = ({
       <td className="px-1">
         <InputNumber
           name="weight"
-          placeholder={'Weight'}
+          placeholder='Weight'
           autoComplete="off"
           onKeyPress={(e) => numberCheck(e)}
           onChange={(e) =>
@@ -106,20 +104,19 @@ const FormLine = ({
               index,
               orderLines,
               setOrderLines,
-            })
-          }
+            })}
           type="text"
           maxLength={8}
           isReadOnly={isReadonly}
           isDecimal
-          className={`form-control`}
+          className='form-control'
           value={data.weight}
         />
       </td>
       <td className="px-1">
         <Dropdown
           name="uom"
-          placeholder={'UOM'}
+          placeholder='UOM'
           options={isUom}
           required
           selectedValue={data?.uom}
@@ -130,12 +127,11 @@ const FormLine = ({
               index,
               orderLines,
               setOrderLines,
-            })
-          }
+            })}
           readOnly={isReadonly}
           onMenuOpen={() => setOrderLineSelectOpen('dropdown')}
           onMenuClose={() => setOrderLineSelectOpen(null)}
-          messageRequired={true}
+          messageRequired
           messageParam={{
             messageShow: !isInvalidProduct ? isValidation : false,
             value: data?.uom,
@@ -146,8 +142,8 @@ const FormLine = ({
 
       <td className="px-1">
         <Input
-          name={'batch'}
-          placeholder={'Batch'}
+          name='batch'
+          placeholder='Batch'
           autoComplete="off"
           onChange={(e) =>
             changeOrderLines({
@@ -156,8 +152,7 @@ const FormLine = ({
               index,
               orderLines,
               setOrderLines,
-            })
-          }
+            })}
           className="form-control"
           maxLength="30"
           readOnly={isReadonly}
@@ -167,7 +162,7 @@ const FormLine = ({
       <td className="px-1">
         <Input
           name="ref3"
-          placeholder={'Ref3'}
+          placeholder='Ref3'
           autoComplete="off"
           onChange={(e) =>
             changeOrderLines({
@@ -176,8 +171,7 @@ const FormLine = ({
               index,
               orderLines,
               setOrderLines,
-            })
-          }
+            })}
           className="form-control"
           maxLength="30"
           readOnly={isReadonly}
@@ -188,7 +182,7 @@ const FormLine = ({
       <td className="px-1">
         <Input
           name="ref4"
-          placeholder={'Ref4'}
+          placeholder='Ref4'
           autoComplete="off"
           onChange={(e) =>
             changeOrderLines({
@@ -197,8 +191,7 @@ const FormLine = ({
               index,
               orderLines,
               setOrderLines,
-            })
-          }
+            })}
           className="form-control"
           maxLength="30"
           readOnly={isReadonly}
@@ -208,7 +201,7 @@ const FormLine = ({
       <td className="px-1">
         <Dropdown
           name="disposition"
-          placeholder={'Disposition'}
+          placeholder='Disposition'
           options={dispositionData}
           required
           selectedValue={data?.disposition}
@@ -228,7 +221,7 @@ const FormLine = ({
       </td>
       <td className="px-1">
         <DatePicker
-          top={true}
+          top
           getDate={(date) => {
             changeOrderLines({
               val: date,
@@ -247,7 +240,6 @@ const FormLine = ({
           style={isReadonly ? { display: 'none' } : null}
           selectedDates={data?.rotaDate || ''}
         />
-
         <Input
           value={formatDate(data?.rotaDate)}
           readOnly

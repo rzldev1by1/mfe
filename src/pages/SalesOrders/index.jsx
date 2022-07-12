@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
+import endpoints from '../../helpers/endpoints';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
-import TableMaster from '../../Component/TableMaster';
+import TableMaster from '../../Component/TableMaster'
 import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
-import endpoints from 'helpers/endpoints';
 
 const SalesOrders = (props) => {
+  const { history } = props
   const showDetails = (item) => {
-    props.history.push(`/sales-order/${item.client}/${item.site}/${item.orderno}`);
+    history.push(`/sales-order/${item.client}/${item.site}/${item.orderno}`);
   };
 
   const createBtn = endpoints.env.REACT_APP_API_URL_CREATE;
@@ -57,30 +58,31 @@ const SalesOrders = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Sales Order Summary') {
-          setColumnHidden(data.columns);
-        }
-      });
+      const reqColumHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      if (reqColumHidden) {
+        reqColumHidden.forEach(data => {
+          if (data.title === 'Sales Order Summary') {
+            setColumnHidden(data.columns);
+          }
+        });
+      }
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
   }, [stateChangeHeader]);
 
   useEffect(() => {
     if (state2) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      const reqColumHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let tmp = null;
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Sales Order Summary') {
-          tmp = data.columns;
-        }
-      });
-      if (tmp) {
-        setColumnHidden(tmp);
-      } else {
-        setColumnHidden([]);
+      if (reqColumHidden) {
+        reqColumHidden.forEach(data => {
+          if (data.title === 'Sales Order Summary') {
+            tmp = data.columns;
+          }
+        });
       }
+      if (tmp) setColumnHidden(tmp);
+      else setColumnHidden([]);
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -89,7 +91,6 @@ const SalesOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      // getSummaryData({ dispatch, active: paginationSo?.active, Export, module });
     }
   }, [Export]);
   return (
