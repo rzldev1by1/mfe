@@ -5,6 +5,7 @@
 /src/coreui-new
 /src/coreui-icons
 /src/coreui-charts
+/src/.scannerwork
 
 # testing
 /coverage
@@ -21,6 +22,8 @@
 # misc
 .DS_Store
 .idea
+.scannerwork
+.sonar-scanner.properties
 .env
 .env.local
 .env.development.local

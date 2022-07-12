@@ -1,20 +1,35 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": false,
     "codeFrame": false
   },
-  "extends": ["airbnb", "prettier"],
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
   "env": {
     "browser": true,
     "jest": true
   },
   "rules": {
-    "prefer-promise-reject-errors": ["off"],
-    "react/jsx-filename-extension": ["off"],
-    "react/prop-types": ["warn"],
-    "no-return-assign": ["off"],
+    "react/jsx-props-no-spreading": [
+      "off"
+    ],
+    "prefer-promise-reject-errors": [
+      "off"
+    ],
+    "react/jsx-filename-extension": [
+      "off"
+    ],
+    "react/prop-types": [
+      "warn"
+    ],
+    "no-return-assign": [
+      "off"
+    ],
+    "beforeSelfClosing": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -24,6 +39,61 @@
         "ts": "never",
         "tsx": "never"
       }
-   ]
-  }
+    ],
+    "max-classes-per-file": [
+      "off"
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      "off"
+    ],
+    "no-param-reassign": 0,
+    "no-restricted-syntax": [
+      "off"
+    ],
+    "react/jsx-indent": [
+      "off"
+    ],
+    "no-unused-expressions": [
+      "off"
+    ],
+    "react/no-unused-state": [
+      "off"
+    ],
+    "prefer-destructuring": [
+      "off"
+    ],
+    "no-unneeded-ternary": [
+      "off"
+    ],
+    "react/jsx-no-bind": [
+      "off"
+    ],
+    "prefer-object-spread": [
+      "off"
+    ],
+    "react/no-string-refs": [
+      "off"
+    ],
+    "react/destructuring-assignment": [
+      "off"
+    ],
+    "class-methods-use-this": [
+      "off"
+    ],
+    "react/jsx-one-expression-per-line": [
+      "off"
+    ],
+    "eqeqeq": [
+      "off"
+    ],
+    "react/no-did-update-set-state": [
+      "off"
+    ],
+    "no-shadow": [
+      "off"
+    ]
+  },
+  "ignorePatterns": [
+    "build/*"
+  ],
 }

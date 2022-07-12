@@ -1,15 +1,12 @@
-import React from 'react';
-import { Modal, ModalBody } from 'reactstrap'
-import logoConfirm from 'assets/img/warning.png'
-import { Button, Col, Row } from 'react-bootstrap';
+import React from "react";
+import { Modal, ModalBody } from 'reactstrap';
+import { CCol, CButton } from '@coreui/react';
 import { ProgressBarReset } from '../service';
 import "./index.scss";
-
-
+import logoConfirm from '../../../assets/img/warning.png';
 
 const PopUpResetTable = ({
   modal,
-  setModal,
   resetConfirmation,
   resetColumnName,
   user,
@@ -28,11 +25,12 @@ const PopUpResetTable = ({
     >
       <ModalBody>
         <div
+          role="button"
+          tabIndex={0}
           className="text-right px-0"
           style={{ fontSize: '14px' }}
-          onClick={() =>
-            resetConfirmation()
-          }
+          onKeyDown={() => resetConfirmation()}
+          onClick={() => resetConfirmation()}
         >
           <i className="iconU-close pointer" />
         </div>
@@ -43,29 +41,22 @@ const PopUpResetTable = ({
             <p>To reset all the Rename Column that has been modified, this action can not be undo.</p>
           </div>
         </div>
-        <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
-          <Button
-            variant="primary"
+        <CCol className="px-0 pb-0 pt-3 d-flex justify-content-end">
+          <CButton
+            className="btn btn-primary"
             style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
-            onClick={() =>
-              resetConfirmation()
-            }
+            onClick={() => resetConfirmation()}
           >
             CANCEL
-          </Button>
-          <Button
-            variant="primary"
+          </CButton>
+          <CButton
+            className="btn btn-primary"
             style={{ padding: '0rem 1.08rem' }}
-            onClick={() =>
-              // resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
-              resetColumnName({ user, splitModule })
-            }
-          // disabled={state.disableBtn}
-          // className={state.disableBtn ? "btn-disabled" : ""}
+            onClick={() => resetColumnName({ user, splitModule })}
           >
             DONE
-          </Button>
-        </Col>
+          </CButton>
+        </CCol>
       </ModalBody>
     </Modal>
   );

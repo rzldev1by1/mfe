@@ -1,20 +1,17 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-unresolved */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Breadcrumb from 'Component/Breadcrumb';
-import DetailHeader from 'Component/DetailHeader';
-import TableMaster from 'Component/TableMaster';
+import Breadcrumb from '../../../Component/Breadcrumb';
+import DetailHeader from '../../../Component/DetailHeader';
+import TableMaster from '../../../Component/TableMaster';
 import { getDetailData, getDetailHeader } from '../../../apiService';
-import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO, formatDate } from './services';
+import { setExportData, schemaColumnDetailPO, headerDetailCenter, headerDetailRight, headerDetailLeft } from '../services'
 
 const SalesOrdersDetail = (props) => {
+  const { match } = props
   const dispatch = useDispatch();
   const soDetail = useSelector((state) => state.soDetail);
   const soDetailTable = useSelector((state) => state.soDetailTable);
   const paginationSoDetail = useSelector((state) => state.paginationSoDetail);
-  const siteData = useSelector((state) => state.siteData);
-  const clientData = useSelector((state) => state.clientData);
   const stateChangeHeader = useSelector((state) => state.changeHeader);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
@@ -58,25 +55,29 @@ const SalesOrdersDetail = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Sales Order Details') {
-          setColumnHidden(data.columns);
-        }
-      });
+      const reqColumHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      if (reqColumHidden) {
+        reqColumHidden.forEach(data => {
+          if (data.title === 'Sales Order Details') {
+            setColumnHidden(data.columns);
+          }
+        });
+      }
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
   }, [stateChangeHeader]);
 
   useEffect(() => {
     if (state2) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      const reqColumHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let tmp = null;
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Sales Order Details') {
-          tmp = data.columns;
-        }
-      });
+      if (reqColumHidden) {
+        reqColumHidden.forEach(data => {
+          if (data.title === 'Sales Order Details') {
+            tmp = data.columns;
+          }
+        });
+      }
       if (tmp) {
         setColumnHidden(tmp);
       } else {
@@ -93,88 +94,22 @@ const SalesOrdersDetail = (props) => {
       getDetailData({ dispatch, active: paginationSoDetail?.active, Export, module });
     }
   }, [Export]);
-  
+
   return (
     <div className="so-detail">
       <Breadcrumb
         breadcrumb={[
           { to: '/sales-order', label: 'Sales Order' },
-          { to: '', label: props.match.params.orderno, active: true },
+          { to: '', label: match.params.orderno, active: true },
         ]}
       />
       <div className="pb-3">
         <DetailHeader
-          // title Right
-          titleRight
-          titleRightOne="Site"
-          titleRightTwo="Client"
-          titleRightThree="Order No"
-          titleRightFour="Order Type"
-          titleRightFive="Task"
-          titleRightSix="Customer No"
-          titleRightSeven="Customer Name"
-          titleRightEight="Customer Order Ref"
-          titleRightNine="Vendor Order Ref"
-          titleRightEleven="Delivery Instructions"
-          // Valeu Right
-          valeuRightOne={siteCheck({ val: soDetail?.site, site: siteData }) || '-'}
-          valeuRightTwo={clientCheck({ val: soDetail?.client, client: clientData }) || '-'}
-          valeuRightThree={soDetail?.orderno || '-'}
-          valeuRightFour={soDetail?.ordertype || '-'}
-          valeuRightFive={soDetail?.isistask || '-'}
-          valeuRightSix={soDetail?.customer || '-'}
-          valeuRightSeven={soDetail?.customername || '-'}
-          valeuRightEight={soDetail?.customerpono || '-'}
-          valeuRightNine={soDetail?.vendororderno || '-'}
-          valeuRightEleven={soDetail?.deliverydescription || '-'}
-          // title Center
-          titleCenter
-          titleCenterOne="Address 1"
-          titleCenterTwo="Address 2"
-          titleCenterThree="Address 3"
-          titleCenterFour="Address 4"
-          titleCenterFive="Address 5"
-          titleCenterSix="Ship To Name"
-          titleCenterSeven="Suburb"
-          titleCenterEight="Postcode"
-          titleCenterNine="State"
-          titleCenterTen="Country"
-          // Valeu Center
-          valeuCenterOne={soDetail?.address1 || '-'}
-          valeuCenterTwo={soDetail?.address2 || '-'}
-          valeuCenterThree={soDetail?.address3 || '-'}
-          valeuCenterFour={soDetail?.address4 || '-'}
-          valeuCenterFive={soDetail?.address5 || '-'}
-          valeuCenterSix={soDetail?.ship_to_name || '-'}
-          valeuCenterSeven={soDetail?.suburb || '-'}
-          valeuCenterEight={soDetail?.postcode || '-'}
-          valeuCenterNine={soDetail?.state || '-'}
-          valeuCenterTen={soDetail?.country || '-'}
-          // title Left
-          titleLeft
-          titleLeftOne="Status"
-          titleLeftTwo="Delivery Date"
-          titleLeftThree="Date Received"
-          titleLeftFour="Date Released"
-          titleLeftFive="Date Completed"
-          titleLeftSix="Load Number"
-          titleLeftSeven="Loadout Start"
-          titleLeftEight="Loadout Finish"
-          titleLeftNine="Consignment No"
-          titleLeftTen="Freight Charge"
-          // Valeu Left
-          valeuLeftOne={
-            (soDetail?.status && soDetail?.status.includes('0:') ? '0: Unavailable' : soDetail?.status) || '-'
-          }
-          valeuLeftTwo={soDetail?.deliverydate || '-'}
-          valeuLeftThree={soDetail?.datereceived || '-'}
-          valeuLeftFour={soDetail?.datereleased || '-'}
-          valeuLeftFive={soDetail?.datecompleted || '-'}
-          valeuLeftSix={soDetail?.loadnumber || '-'}
-          valeuLeftSeven={soDetail?.loadoutstart || '-'}
-          valeuLeftEight={soDetail?.loadoutfinish || '-'}
-          valeuLeftNine={soDetail?.consignmentno || '-'}
-          valeuLeftTen={soDetail?.freightcharge || '-'}
+          headerDetailCenter={headerDetailCenter}
+          headerDetailRight={headerDetailRight}
+          headerDetailLeft={headerDetailLeft}
+          data={soDetail}
+          valueModal={soDetail?.deliverydescription || '-'}
         />
       </div>
       <TableMaster

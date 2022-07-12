@@ -1,18 +1,19 @@
-export const setSite = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setdropdownValue}) => {
+/* eslint-disable no-param-reassign */
+export const setSite = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.site = selected 
+  if (selected) newDropdownValue.site = selected
   else newDropdownValue.site = null
 
   if (onChangeGetTask) {
     getTask({ dispatch, client: getTaskParam?.client, site: selected });
   }
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setdropdownValue}) => {
+export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
   if (selected) {
-    newDropdownValue.client = selected 
+    newDropdownValue.client = selected
   }
   else {
     newDropdownValue.client = null
@@ -21,76 +22,76 @@ export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTas
 
   if (onChangeGetTask) {
     getTask({ dispatch, client: selected, site: getTaskParam?.site });
-    setdropdownValue(newDropdownValue)
+    setDropdownValue(newDropdownValue)
   }
 };
 
-export const setOrderType = ({ selected, dropdownValue, setdropdownValue }) => {
+export const setOrderType = ({ selected, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.orderType = selected 
+  if (selected) newDropdownValue.orderType = selected
   else newDropdownValue.orderType = null
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const setTask = ({ selected, dropdownValue, setdropdownValue }) => {
+export const setTask = ({ selected, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.task = selected 
+  if (selected) newDropdownValue.task = selected
   else newDropdownValue.task = null
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const setStatus = ({ selected, dropdownValue, setdropdownValue  }) => {
+export const setStatus = ({ selected, dropdownValue, setDropdownValue }) => {
   // if (selected) dispatch({ type: 'STATUS', data: selected });
   // else dispatch({ type: 'STATUS', data: null });
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.status = selected 
+  if (selected) newDropdownValue.status = selected
   else newDropdownValue.status = null
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const setStyle = ({ selected, dropdownValue, setdropdownValue  }) => {
+export const setStyle = ({ selected, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.style = selected 
+  if (selected) newDropdownValue.style = selected
   else newDropdownValue.style = null
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const setStyleDesc = ({ selected, dropdownValue, setdropdownValue  }) => {
+export const setStyleDesc = ({ selected, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.styleDesc = selected 
+  if (selected) newDropdownValue.styleDesc = selected
   else newDropdownValue.styleDesc = null
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const setColor = ({ selected, dropdownValue, setdropdownValue  }) => {
+export const setColor = ({ selected, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.color = selected 
+  if (selected) newDropdownValue.color = selected
   else newDropdownValue.color = null
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const setDimensions = ({ selected, dropdownValue, setdropdownValue  }) => {
+export const setDimensions = ({ selected, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.dimensions = selected 
+  if (selected) newDropdownValue.dimensions = selected
   else newDropdownValue.dimensions = null
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const setSize = ({ selected, dropdownValue, setdropdownValue  }) => {
+export const setSize = ({ selected, dropdownValue, setDropdownValue }) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.size = selected 
+  if (selected) newDropdownValue.size = selected
   else newDropdownValue.size = null
-  setdropdownValue(newDropdownValue)
+  setDropdownValue(newDropdownValue)
 };
 
-export const handleFullFillMarked = ({dispatch, spDetailTable, clearMarked, setShowFulfillMod}) =>{
+export const handleFullFillMarked = ({ dispatch, spDetailTable, clearMarked, setShowFulfillMod }) => {
   let newArray = [...spDetailTable]
-  newArray = newArray.map((data,idx) => {
-    const isMarked = data.isMarked
-    if(isMarked){
+  newArray = newArray.map((data) => {
+    const isMarkeds = data.isMarked
+    if (isMarkeds) {
       data.edit_qty = clearMarked ? '' : data.order_qty
       data.edit_carton = clearMarked ? '' : data.no_of_carton
-      if(clearMarked){
+      if (clearMarked) {
         data.isMarked = false
         data.isInvalidOrderCarton = false
         data.isInvalidOrderQty = false
@@ -99,6 +100,6 @@ export const handleFullFillMarked = ({dispatch, spDetailTable, clearMarked, setS
     return data
   });
 
-  dispatch({type:'GET_SP_DETAIL_TABLE', data:newArray})
+  dispatch({ type: 'GET_SP_DETAIL_TABLE', data: newArray })
   setShowFulfillMod(false)
 }

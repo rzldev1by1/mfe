@@ -8,10 +8,12 @@
   height: 33px;
   width: 38px;
   font-family: 'Rubik', Arial, Verdana, Tahoma, sans-serif !important;
+  &:focus{
+    border: solid 1px #376bfb ;
+    outline: none;
+  }
 }
-.number-pag:focus{
-  border: solid 1px #376bfb ;
-}
+
 .click-tab{
   cursor: pointer;
 }
@@ -20,10 +22,6 @@
 }
 .outLineNone:focus{
 outline: none;
-}
-
-.number-pag:focus{
-  outline: none;
 }
 
 input[type=number] {

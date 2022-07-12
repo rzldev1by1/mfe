@@ -1,18 +1,14 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable max-len */
-/* eslint-disable import/no-unresolved */
 import React, { useState } from 'react'
 import { CRow, CCol } from '@coreui/react'
-import Dropdown from 'Component/Dropdown'
-import InputNumber from 'Component/InputNumber'
-import Breadcrumb from 'Component/Breadcrumb'
-import Search from 'Component/Search'
-import DetailHeader from 'Component/DetailHeader'
-import TableFixedColumn from 'Component/TableFixedColumn'
-import Table from 'Component/Table'
-import PopUpPages from 'Component/Modal/PopUpPages'
-import { showModal } from 'Component/Modal/PopUpPages/service'
-import Pagination from 'Component/Pagination'
+import Dropdown from '../../Component/Dropdown'
+import InputNumber from '../../Component/InputNumber'
+import Breadcrumb from '../../Component/Breadcrumb'
+import DetailHeader from '../../Component/DetailHeader'
+import TableFixedColumn from '../../Component/TableFixedColumn'
+import Table from '../../Component/Table'
+import PopUpPages from '../../Component/Modal/PopUpPages'
+import { showModal } from '../../Component/Modal/PopUpPages/service'
+import Pagination from '../../Component/Pagination'
 import { category, simpleSchema, simpleData } from './service'
 
 const Component = () => {
@@ -68,7 +64,7 @@ const Component = () => {
             />
           </CCol>
           <CCol lg={2}>
-            <button className="btn btn-search btn-primary" onClick={() => showModal({ page, setPage })}>Pop Up</button>
+            <button className="btn btn-search btn-primary" onClick={() => showModal({ page, setPage })} type="button">Pop Up</button>
             <PopUpPages
               page={page}
               setPage={setPage}

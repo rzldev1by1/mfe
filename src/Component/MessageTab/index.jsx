@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { CRow, CCol, CContainer } from '@coreui/react';
 import './MessageTab.css';
 import attention from 'assets/img/Attention.png';
 import complete from 'assets/img/Complete.png';
@@ -52,15 +52,15 @@ const MessageTab = ({ module, submitReturn, back, exit }) => {
   }, [submitReturn]);
 
   return (
-    <Container className="px-5 py-5 tab-content">
-      <Col className="pl-4 pb-4 mb-1">
+    <CContainer className="px-5 py-5 tab-content">
+      <CCol className="pl-4 pb-4 mb-1">
         <i style={{ color: '#cccccc' }} className={'img-msg ' + imgClass}></i>
         <div className="h1 bold text-gray-title font-2xl mt-4">{title}</div>
         <div className="h4 text-gray w-75 msg-tab text-gray-md font-2xl">
           {statusMessage}
           <span className="h4 text-gray w-50 font-2xl">{isSuccess ? null : 'Please try again.'}</span>
         </div>
-        <Row className="flex justify-content-between align-items-center">
+        <CRow className="flex justify-content-between align-items-center">
           {isSuccess ? (
             <button
               className="font-lg font-md font-sm btn mr-5 mb-4 ml-n2"
@@ -86,9 +86,9 @@ const MessageTab = ({ module, submitReturn, back, exit }) => {
           <div className="text-right vertical-middle h-fit-content e-text-color">{`${
             isSuccess ? 'Code 200' : status == 200 ? 'Error Code 400' : 'Error Code ' + status
           }`}</div>
-        </Row>
-      </Col>
-    </Container>
+        </CRow>
+      </CCol>
+    </CContainer>
   );
 };
 

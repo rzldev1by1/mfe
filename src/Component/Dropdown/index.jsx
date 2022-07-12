@@ -1,10 +1,7 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-use-before-define */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './Dropdown.scss';
-import RequiredMessage from 'Component/RequiredMessage';
+import RequiredMessage from '../RequiredMessage';
 
 const Dropdown = ({
   name,
@@ -19,7 +16,6 @@ const Dropdown = ({
   className,
   onMenuOpen,
   onMenuClose,
-  showTitle,
   title = null,
   required,
   readOnly,
@@ -51,29 +47,28 @@ const Dropdown = ({
       onMenuOpen();
     }
   }, [isOpen]);
+  const rerequired = required ? 'required' : ''
   return (
     <div className={parentDivClassName}>
-      {!title ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
+      {!title ? null : <label className={`text-muted mb-0 ${rerequired}`}>{title}</label>}
       <Select
         className={className}
         isDisabled={isDisabled || false}
         isClearable={!readOnly}
         isSearchable={!readOnly}
         openMenuOnClick={!readOnly}
-        // id={entryListIdx`dropdown${entryListIdx}${poListIdx}`}
         value={selectedValue?.value ? selectedValue : false}
         menuIsOpen={isOpen}
         menuPortal
-        placeholder={placeholder ? placeholder : title}
+        placeholder={placeholder ?? title}
         options={options}
         onMenuOpen={() => setIsOpen(true)}
         onMenuClose={() => setIsOpen(false)}
         onChange={(val, { action }) => onChangeHandler(val, action)}
-        // menuPortalTarget={document.body}
         maxMenuHeight={200}
         menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}
         filterOption={(option, inputVal) => {
-          return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase();
+          return option.label.substr(0, inputVal.length).toUpperCase() === inputVal.toUpperCase();
         }}
         styles={{
           option: (provided) => ({

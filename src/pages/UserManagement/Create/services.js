@@ -1,52 +1,60 @@
-import endpoints from 'helpers/endpoints';
-import { submitUserManagement, checkEmails } from 'apiService';
 import * as EmailValidator from 'email-validator';
+import endpoints from '../../../helpers/endpoints';
+import { submitUserManagement, checkEmails } from '../../../apiService';
 
 export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, setIsSubmitStatus, setShow }) => {
   const { moduleAccess, clients, sites, name } = data;
 
 
-  let adminMenu = moduleAccess.map((item, index) => {
+  const adminMenu = moduleAccess.map(item => {
     return item.menu_id;
   });
 
-  let userMenu = moduleAccess
+  const userMenu = moduleAccess
     .filter((item) => {
       return item.status === true;
     })
-    .map((item, index) => {
+    .map(item => {
       return item.menu_id;
     });
 
-  let siteFiltered = sites.filter((item) => {
+  const siteFiltered = sites.filter((item) => {
     return item.status === true;
   });
-  let siteValue =
+  const siteValue =
     siteFiltered.length === 1 || siteFiltered.length === sites.length ? siteFiltered.map((item) => item.site) : null;
-  let clientFiltered = clients.filter((item) => {
+  const clientFiltered = clients.filter((item) => {
     return item.status === true;
   });
-  let clientValue =
+  const clientValue =
     clientFiltered.length === 1 || clientFiltered.length === clients.length
       ? clientFiltered.map((item) => item.code)
       : null;
 
-  let submitData = {
+  const submitData = {
     ...data,
   };
 
   submitData.userMenu = isAdmin ? adminMenu : userMenu;
-  submitData.site = isAdmin ? null : siteValue.length == sites.length ? null : siteValue[0];
-  submitData.client = isAdmin ? null : clientValue.length == clients.length ? null : clientValue[0];
+  if (isAdmin) submitData.site = null
+  else if (siteValue.length == sites.length) submitData.site = null
+  else submitData.site = siteValue[0]
+
+  if (isAdmin) submitData.client = null
+  else if (clientValue.length == clients.length) submitData.client = null
+  else submitData.client = clientValue[0]
+
+  // submitData.site = isAdmin ? null : siteValue.length == sites.length ? null : siteValue[0];
+  // submitData.client = isAdmin ? null : clientValue.length == clients.length ? null : clientValue[0];
   submitData.webGroup = isAdmin ? 'Admin' : 'Regular';
   submitData.disabled = 'N';
 
   const ret = await submitUserManagement({ data: submitData });
-
-  //check return
-  let status = ret?.status;
-  let message = ret?.data?.message;
-  let submitReturn = { status: status, message: message, role: isAdmin ? 'Admin' : 'Regular', name };
+  const Role = isAdmin ? 'Admin' : 'Regular'
+  const status = ret?.status;
+  const message = ret?.data?.message;
+  const submitReturn = { status, message, role: Role, name };
+  console.log(submitReturn)
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');
@@ -54,7 +62,6 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
 };
 
 export const renewState = ({ setState, state, siteData, clientData, moduleAccess, reset = false }) => {
-  //if reset
   if (reset) {
     state = {
       userId: null,
@@ -86,36 +93,37 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
     };
   }
 
-  //renew client option
-  let clientOption = [];
-  let tmp = clientData?.map((item, key) => {
-    if (item.value !== 'all') {
-      let newItem = {
-        code: item.value,
-        name: item.label,
-        status: false,
-      };
-      clientOption.push(newItem);
-    }
-  });
+  const clientOption = [];
+  if (clientData) {
+    clientData?.forEach(item => {
+      if (item.value !== 'all') {
+        const newItem = {
+          code: item.value,
+          name: item.label,
+          status: false,
+        };
+        clientOption.push(newItem);
+      }
+    });
+  }
 
-  // renew site dropdown
-  let siteOption = [];
-  tmp = siteData?.map((item, key) => {
-    if (item.value !== 'all') {
-      let newItem = {
-        site: item.value,
-        name: item.label,
-        status: false,
-      };
-      siteOption.push(newItem);
-    }
-  });
+  const siteOption = [];
+  if (siteData) {
+    siteData.forEach(item => {
+      if (item.value !== 'all') {
+        const newItem = {
+          site: item.value,
+          name: item.label,
+          status: false,
+        };
+        siteOption.push(newItem);
+      }
+    });
+  }
 
-  //renew module Access Option
   const isDevelopment = endpoints.env.REACT_APP_SUPPLIER;
-  let moduleAccessOption = [];
-  let allowedValues = [
+  const moduleAccessOption = [];
+  const allowedValues = [
     'menu_orders_po_open',
     'menu_orders_highSoOrder',
     'menu_inventory_stkHolding',
@@ -123,105 +131,114 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
     'menu_inventory_sPortal',
     'menu_manageUsers_supplierUsers',
   ];
-  let allowedValuesNotSP = [
+  const allowedValuesNotSP = [
     'menu_orders_po_open',
     'menu_orders_highSoOrder',
     'menu_inventory_stkHolding',
     'menu_inventory_stkMovement',
     'menu_inventory_sPortal',
   ];
-  tmp = moduleAccess?.map((item, key) => {
-    if (isDevelopment == "false") {
-      if (allowedValuesNotSP.includes(item.menu_id)) {
+  if (moduleAccess) {
+    moduleAccess?.forEach(item => {
+      if (isDevelopment === "false") {
+        if (allowedValuesNotSP.includes(item.menu_id)) {
+          item.status = false;
+          moduleAccessOption.push(item);
+        }
+      } else if (allowedValues.includes(item.menu_id)) {
         item.status = false;
         moduleAccessOption.push(item);
       }
-    } else {
-      if (allowedValues.includes(item.menu_id)) {
-        item.status = false;
-        moduleAccessOption.push(item);
-      }
-    }
-  });
+    });
+  }
 
   state = { ...state, sites: siteOption, clients: clientOption, moduleAccess: moduleAccessOption };
   setState(state);
 };
 
+export function generateUserID({ textValue }) {
+  const newText = textValue.substring(0, 1);
+  let result = '';
+
+  if (textValue && textValue.length > 0) {
+    const anysize = 4;
+    const charset = 'abcdefghijklmnopqrstuvwxyz';
+    for (let i = 0; i < anysize; i += 1) result += charset[Math.floor(Math.random() * 26)];
+  }
+
+  return {
+    userId: newText.toLowerCase() + result,
+    password: result + newText.toLowerCase(),
+  };
+}
+
+export const validateButton = ({ state, setState }) => {
+  const newState = { ...state };
+  const validation = newState?.validation;
+
+  let status = true;
+
+  for (const key in validation) {
+    if (!validation[key].isValid) {
+      status = false;
+    }
+  }
+  if (setState) {
+    newState.validate = status;
+    setState(newState);
+  } else {
+    return status;
+  }
+  return false
+};
+
 export const changeDetails = async ({ isAdmin, setState, state, column, e }) => {
-  let value = e.target.value;
-  let newState = { ...state };
+  const value = e?.target?.value;
+  const newState = { ...state };
   let isValid = true;
   if (!value) {
     isValid = false;
   }
   newState[column] = value;
 
-  newState['validation'][column]['isValid'] = isValid;
+  newState.validation[column].isValid = isValid;
 
-  if (column == 'email') {
-    let validFormat = EmailValidator.validate(value);
+  if (column === 'email') {
+    const validFormat = EmailValidator.validate(value);
     if (!validFormat) {
-      newState['validation'][column]['isValid'] = false;
-      newState['validation'][column]['message'] = 'Invalid format (eg. microlistics@test.com)';
+      newState.validation[column].isValid = false;
+      newState.validation[column].message = 'Invalid format (eg. microlistics@test.com)';
     } else {
-      let check = await checkEmails({ email: value });
-      let statusCode = check?.status;
+      const check = await checkEmails({ email: value });
+      const statusCode = check?.status;
       if (statusCode === 200) {
         if (check?.data?.exists) {
-          newState['validation'][column]['isValid'] = false;
-          newState['validation'][column]['message'] = 'Email address has been registered';
+          newState.validation[column].isValid = false;
+          newState.validation[column].message = 'Email address has been registered';
         } else {
-          newState['validation'][column]['isValid'] = true;
-          newState['validation'][column]['message'] = 'Invalid format (eg. microlistics@test.com)';
+          newState.validation[column].isValid = true;
+          newState.validation[column].message = 'Invalid format (eg. microlistics@test.com)';
         }
       } else if (statusCode === 422) {
-        newState['validation'][column]['isValid'] = false;
-        newState['validation'][column]['message'] = 'The email must be a valid email address.';
+        newState.validation[column].isValid = false;
+        newState.validation[column].message = 'The email must be a valid email address.';
       }
     }
   }
-  if (column == 'name') {
+  if (column === 'name') {
     if (!value) {
-      newState['validation'][column]['message'] = 'username must be entered';
+      newState.validation[column].message = 'username must be entered';
     }
 
-    let generate = await generateUserID({ textValue: value });
-    newState['userId'] = generate?.userId;
-    newState['password'] = generate?.password;
+    const generate = await generateUserID({ textValue: value });
+    newState.userId = generate?.userId;
+    newState.password = generate?.password;
   }
-  newState['changed'] = true;
+  newState.changed = true;
 
-  //validate
-  let validate = await validateButton({ isAdmin, state });
-  newState['validate'] = validate;
+  const validate = await validateButton({ isAdmin, state });
+  newState.validate = validate;
   setState(newState);
-};
-
-export const validateButton = ({ isAdmin, state, setState }) => {
-  let newState = { ...state };
-  const validation = newState['validation'];
-  const admin = isAdmin;
-
-  let status = true;
-  let menuForAdmin = ['name', 'email'];
-
-  for (var key in validation) {
-    //if admin only check name and email
-    if (admin && !menuForAdmin.includes(key)) {
-      continue;
-    }
-
-    if (!validation[key]['isValid']) {
-      status = false;
-    }
-  }
-  if (setState) {
-    newState['validate'] = status;
-    setState(newState);
-  } else {
-    return status;
-  }
 };
 
 export const resetState = ({ setState }) => {
@@ -255,36 +272,19 @@ export const resetState = ({ setState }) => {
   });
 };
 
-export function generateUserID({ textValue }) {
-  let newText = textValue.substring(0, 1);
-  let result = '';
-
-  if (textValue && textValue.length > 0) {
-    var anysize = 4; //the size of string
-    var charset = 'abcdefghijklmnopqrstuvwxyz'; //from where to create
-    for (var i = 0; i < anysize; i++) result += charset[Math.floor(Math.random() * 26)];
-  }
-
-  return {
-    userId: newText.toLowerCase() + result,
-    password: result + newText.toLowerCase(),
-  };
-}
-
 export const setIsAdmin = async ({ state, setState }) => {
-  let newState = { ...state };
-  let admin = !newState['isAdmin'];
+  const newState = { ...state };
+  const admin = !newState.isAdmin;
 
-  newState['isAdmin'] = admin;
+  newState.isAdmin = admin;
   setState(newState);
 };
 
 export const disabledCharacterName = (e) => {
-  if (e.target.selectionStart == 0 && !/[a-zA-Z0-9]/g.test(e.key)) {
+  if (e.target.selectionStart === 0 && !/[a-zA-Z0-9]/g.test(e.key)) {
     e.preventDefault();
-  } else {
-    if (!/[a-zA-Z0-9 _-]/g.test(e.key)) {
-      e.preventDefault();
-    }
+  }
+  if (!/[a-zA-Z0-9 _-]/g.test(e.key)) {
+    e.preventDefault();
   }
 };

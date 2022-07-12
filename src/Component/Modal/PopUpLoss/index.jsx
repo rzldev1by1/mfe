@@ -1,9 +1,8 @@
 import React from 'react';
 import { Modal, ModalBody } from 'reactstrap'
-import logo from 'assets/img/Internet-Problem-Red.png'
+import logo from '../../../assets/img/Internet-Problem-Red.png'
 import { ProgressBar } from '../service';
 import "./index.scss";
-
 
 const PopUpLoss = ({
   modal,
@@ -26,6 +25,7 @@ const PopUpLoss = ({
           className="text-right px-0"
           style={{ fontSize: '14px' }}
           onClick={() => { setModal(false); back(); }}
+          aria-hidden="true"
         >
           <i className="iconU-close pointer" />
         </div>
@@ -44,7 +44,8 @@ const PopUpLoss = ({
         <button
           type="button"
           onClick={() => { setModal(false); back(); }}
-          className="btn btn-search mobile-search btn-primary float-right">
+          className="btn btn-search mobile-search btn-primary float-right"
+        >
           DONE
         </button>
       </ModalBody>
