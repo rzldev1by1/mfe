@@ -67,7 +67,7 @@ const TheSidebar = () => {
           const isHover = hover === n.to;
           let icon = `nav/${isHover ? n.icon + '-hover' : isActive ? n.icon + '-active' : n.icon}.png`;
           return (
-            <Link key={i} to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
+            <Link to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
               <li
                 key={i}
                 className="c-sidebar-item links"

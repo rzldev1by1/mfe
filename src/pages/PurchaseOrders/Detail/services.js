@@ -103,7 +103,9 @@ export const schemaColumnDetailPO = [
     width: 100,
     sortable: true,
     Cell: (row) => (
-      <span className={`${row.original.completed === 'Yes' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`} />
+      <span
+        className={`${row.original.completed === 'Yes' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`}
+      />
     ),
   },
   {
@@ -112,7 +114,9 @@ export const schemaColumnDetailPO = [
     Header: 'Released',
     width: 100,
     Cell: (row) => (
-      <span className={`${row.original.released === 'Yes' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`} />
+      <span
+        className={`${row.original.released === 'Yes' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`}
+      />
     ),
   },
   {
@@ -168,22 +172,21 @@ export const headerDetailRight = [
   { accessor: 'order_type', Header: 'Order Type' },
   { accessor: 'isis_task', Header: 'Task' },
   { accessor: 'status', Header: 'Status' },
-]
+];
 
 export const headerDetailCenter = [
   { accessor: 'supplier_no', Header: 'Supplier No' },
   { accessor: 'supplier_name', Header: 'Supplier Name' },
   { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   { accessor: 'vendor_ord_ref', Header: 'Vendor Order Ref' },
-]
+];
 
 export const headerDetailLeft = [
   { accessor: 'delivery_date', Header: 'Order Date' },
   { accessor: 'date_received', Header: 'Date Received' },
   { accessor: 'date_released', Header: 'Date Released' },
   { accessor: 'date_completed', Header: 'Date Completed' },
-]
-
+];
 
 export const siteCheck = ({ val, site }) => {
   let ret = null;
@@ -206,5 +209,3 @@ export const clientCheck = ({ val, client }) => {
   });
   return ret;
 };
-
-
