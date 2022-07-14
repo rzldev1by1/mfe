@@ -161,6 +161,30 @@ export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });
 };
 
+export const headerDetailRight = [
+  { accessor: 'site', Header: 'Site' },
+  { accessor: 'client', Header: 'Client' },
+  { accessor: 'order_no', Header: 'Order No' },
+  { accessor: 'order_type', Header: 'Order Type' },
+  { accessor: 'isis_task', Header: 'Task' },
+  { accessor: 'status', Header: 'Status' },
+]
+
+export const headerDetailCenter = [
+  { accessor: 'supplier_no', Header: 'Supplier No' },
+  { accessor: 'supplier_name', Header: 'Supplier Name' },
+  { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
+  { accessor: 'vendor_ord_ref', Header: 'Vendor Order Ref' },
+]
+
+export const headerDetailLeft = [
+  { accessor: 'delivery_date', Header: 'Order Date' },
+  { accessor: 'date_received', Header: 'Date Received' },
+  { accessor: 'date_released', Header: 'Date Released' },
+  { accessor: 'date_completed', Header: 'Date Completed' },
+]
+
+
 export const siteCheck = ({ val, site }) => {
   let ret = null;
   site.map((data) => {
@@ -182,3 +206,5 @@ export const clientCheck = ({ val, client }) => {
   });
   return ret;
 };
+
+

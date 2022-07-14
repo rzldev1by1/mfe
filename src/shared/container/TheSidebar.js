@@ -10,7 +10,6 @@ import nav from './_nav';
 import './TheSidebar.css';
 import Logo from 'assets/img/logo-white.png';
 
-
 const TheSidebar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -35,15 +34,13 @@ const TheSidebar = () => {
   //   });
   // }
 
-
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter((n) => {
       return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
     });
-  }
-  else {
+  } else {
     navigation = navigation.filter((n) => {
-      return n.to !== "/supplier-management"
+      return n.to !== '/supplier-management';
     });
   }
 
@@ -51,7 +48,7 @@ const TheSidebar = () => {
     <CSidebar
       id="theSidebar"
       show={show}
-      style={{ zIndex: "1" }}
+      style={{ zIndex: '1' }}
       className="h-100"
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
     >
@@ -70,7 +67,7 @@ const TheSidebar = () => {
           const isHover = hover === n.to;
           let icon = `nav/${isHover ? n.icon + '-hover' : isActive ? n.icon + '-active' : n.icon}.png`;
           return (
-            <Link to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
+            <Link key={i} to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
               <li
                 key={i}
                 className="c-sidebar-item links"

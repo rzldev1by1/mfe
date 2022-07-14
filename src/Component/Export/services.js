@@ -42,13 +42,13 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       if (dt[0] === null) {
         return ['-'];
       }
-      if (dt[0] === "x") {
-        return ("N");
+      if (dt[0] === 'x') {
+        return 'N';
       }
-      if (dt[0] === "Yes") {
-        return ("Y");
+      if (dt[0] === 'Yes') {
+        return 'Y';
       }
-      console.log(dt[0])
+      console.log(dt[0]);
       return dt;
     });
     return newData2;
@@ -107,6 +107,7 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
     willDrawCell: function (data) {
       const dataKey = data.column.dataKey;
       const section = data.section;
+      console.log('willDrawCell' + data);
 
       //set align right
       if (alignRight.includes(dataKey) && section !== 'head') {
@@ -114,50 +115,51 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
         return;
       }
 
-      if (dataKey === 6) {
-        const dataColumns = data.row.raw[6];
-        if (dataColumns === 'Suspended') {
-          doc.setTextColor(252, 28, 3);
-        }
-        if (dataColumns === 'Active') {
-          doc.setTextColor(5, 237, 245);
-        }
-      }
-      if (dataKey === 8) {
-        const dataColumns = data.row.raw[8];
-        if (dataColumns.toString() === 'N') {
-          doc.setTextColor(252, 28, 3);
-        }
-        if (dataColumns.toString() === 'Y') {
-          doc.setTextColor(46, 184, 92);
-        }
-      }
-      if (dataKey === 9) {
-        const dataColumns = data.row.raw[9];
-        if (!dataColumns) {
-          return;
-        }
-        if (dataColumns.toString() === 'N') {
-          doc.setTextColor(252, 28, 3);
-        } else if (dataColumns.toString() === 'Y') {
-          doc.setTextColor(46, 184, 92);
-        }
-      }
-      if (dataKey === 10) {
-        const dataColumns = data.row.raw[10];
-        if (!dataColumns) {
-          return;
-        }
-        if (dataColumns.toString() === 'N') {
-          doc.setTextColor(252, 28, 3);
-        } else if (dataColumns.toString() === 'Y') {
-          doc.setTextColor(46, 184, 92);
-        }
-      }
+      let dataColumns = data.row.raw[dataKey];
+      checkDataKey({ dataKey, dataColumns });
     },
   });
 
   return doc;
+};
+
+export const checkDataKey = ({ dataKey, dataColumns }) => {
+  switch (dataKey) {
+    case 6:
+      if (dataColumns === 'Suspended') {
+        doc.setTextColor(252, 28, 3);
+      }
+      if (dataColumns === 'Active') {
+        doc.setTextColor(5, 237, 245);
+      }
+      break;
+    case 8:
+      if (dataColumns.toString() === 'N') {
+        doc.setTextColor(252, 28, 3);
+      }
+      if (dataColumns.toString() === 'Y') {
+        doc.setTextColor(46, 184, 92);
+      }
+      break;
+    case 9:
+      if (!dataColumns) {
+        return;
+      }
+      if (dataColumns.toString() === 'N') {
+        doc.setTextColor(252, 28, 3);
+      } else if (dataColumns.toString() === 'Y') {
+        doc.setTextColor(46, 184, 92);
+      }
+    case 10:
+      if (!dataColumns) {
+        return;
+      }
+      if (dataColumns.toString() === 'N') {
+        doc.setTextColor(252, 28, 3);
+      } else if (dataColumns.toString() === 'Y') {
+        doc.setTextColor(46, 184, 92);
+      }
+  }
 };
 
 export const exportPDF = async ({ filename, exportData, schemaColumn }) => {

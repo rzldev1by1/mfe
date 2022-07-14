@@ -6,7 +6,16 @@ import Breadcrumb from 'Component/Breadcrumb';
 import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
 import { getDetailData, getDetailHeader } from '../../../apiService';
-import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO, formatDate } from './services';
+import {
+  setExportData,
+  siteCheck,
+  clientCheck,
+  schemaColumnDetailPO,
+  formatDate,
+  headerDetailCenter,
+  headerDetailRight,
+  headerDetailLeft,
+} from './services';
 import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {

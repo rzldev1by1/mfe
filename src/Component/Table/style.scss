@@ -1,8 +1,8 @@
 :root {
   --widhtTable: {
-    .Table .rt-thead .rt-tr .rt-th{
+    .Table .rt-thead .rt-tr .rt-th {
       min-width: min-content;
-    };
+    }
   }
 }
 
@@ -16,7 +16,7 @@
       margin: 0 !important;
       box-shadow: none !important;
       .rt-tr {
-        .rt-th{
+        .rt-th {
           min-width: min-content;
           box-shadow: none !important;
           height: 40px;
@@ -25,7 +25,7 @@
           font-weight: inherit;
         }
       }
-      .rt-tr:last-child{
+      .rt-tr:last-child {
         border-top-right-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
       }
@@ -38,20 +38,20 @@
 
   //clickable column header
   .rt-th.-cursor-pointer .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-idle.png');
+    content: url('../../assets/img/field-idle.png');
     padding-left: 10px;
     width: 42px;
     height: 42px;
   }
 
   .rt-th.-cursor-pointer.-sort-asc .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-top.png');
+    content: url('../../assets/img/field-top.png');
     padding-left: 10px;
     // content: "  ▲";
   }
 
   .rt-th.-cursor-pointer.-sort-desc .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-bot.png');
+    content: url('../../assets/img/field-bot.png');
     padding-left: 10px;
     // content: "  ▼";
   }
@@ -61,14 +61,14 @@
   .rt-tbody {
     display: flow-root;
     overflow-x: hidden;
-    .rt-tr-group{
-      .rt-tr{
-        .rt-td{
+    .rt-tr-group {
+      .rt-tr {
+        .rt-td {
           width: var(--widhtTable);
         }
       }
     }
-    .rt-tr-group:hover{
+    .rt-tr-group:hover {
       background-color: #eee;
       cursor: pointer !important;
     }
@@ -113,20 +113,20 @@
 
   //clickable column header
   .rt-th.-cursor-pointer .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-idle.png');
+    content: url('../../assets/img/field-idle.png');
     padding-left: 10px;
     width: 42px;
     height: 42px;
   }
 
   .rt-th.-cursor-pointer.-sort-asc .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-top.png');
+    content: url('../../assets/img/field-top.png');
     padding-left: 10px;
     // content: "  ▲";
   }
 
   .rt-th.-cursor-pointer.-sort-desc .rt-resizable-header-content .draggable-header:after {
-    content: url('/field-bot.png');
+    content: url('../../assets/img/field-bot.png');
     padding-left: 10px;
     // content: "  ▼";
   }
@@ -160,7 +160,7 @@
 .show-edit-icon {
   .rt-th:last-child {
     position: absolute;
-    background: #F6F7F9;
+    background: #f6f7f9;
     right: 0;
     justify-content: center;
     border-top-right-radius: 0.25rem;
@@ -168,14 +168,14 @@
   }
   .edit-column img:last-child {
     display: none;
-    cursor: pointer;  
+    cursor: pointer;
   }
   .edit-column:hover img:last-child {
     display: inline;
-    cursor: pointer;  
+    cursor: pointer;
   }
   .edit-column:hover img:first-child {
-    display: none; 
-    cursor: pointer;   
+    display: none;
+    cursor: pointer;
   }
 }
