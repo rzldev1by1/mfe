@@ -95,7 +95,6 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
-  console.log(newData);
   const Meta = newData?.data?.meta;
   const Links = newData?.data?.links;
   const Data = newData?.data?.data;

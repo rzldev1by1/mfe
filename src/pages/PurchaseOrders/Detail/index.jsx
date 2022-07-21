@@ -113,6 +113,12 @@ const PurchaseOrdersDetail = (props) => {
       />
       <div className="pb-3">
         <DetailHeader
+          module={module}
+          // title [NEW]
+          headerDetailCenter={headerDetailCenter}
+          headerDetailRight={headerDetailRight}
+          headerDetailLeft={headerDetailLeft}
+          data={poDetail}
           // title Right
           titleRight
           titleRightOne="Site"

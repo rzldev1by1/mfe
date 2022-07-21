@@ -68,17 +68,15 @@ const TheHeader = (props) => {
               </div>
             </CDropdownToggle>
             <CDropdownMenu className="drop-menu-profil p-0">
-              <CDropdownItem className="menu-item-profil p-0">
-                <Link to={`/users-management/${user.webUser}/detail`} className="user-detail-link">
-                  <div className="menu-item-profil d-flex p-2">
-                    <div className="d-flex" style={{ paddingRight: '45%' }}>
-                      <span className="icon-icon_feather_users icon-drop-menu" />
-                      <div>User Details</div>
-                    </div>
-                    <div>{user?.name} </div>
+              <Link to={`/users-management/${user.webUser}/detail`} className="user-detail-link menu-item-profil p-0">
+                <div className="menu-item-profil d-flex p-2">
+                  <div className="d-flex" style={{ paddingRight: '45%' }}>
+                    <span className="icon-icon_feather_users icon-drop-menu" />
+                    <div>User Details</div>
                   </div>
-                </Link>
-              </CDropdownItem>
+                  <div>{user?.name} </div>
+                </div>
+              </Link>
               {/* <CDropdownItem className="menu-item-profil p-0">
                 <div className="menu-item-profil d-flex p-2">
                   <span className="icon-group_8 icon-drop-menu" />

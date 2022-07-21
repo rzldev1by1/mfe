@@ -8,6 +8,10 @@ import logo_confirm from 'assets/img/LOGO5@2x.png';
 
 const DetailHeader = ({
   module,
+  headerDetailCenter,
+  headerDetailRight,
+  headerDetailLeft,
+  data,
   // titleRight
   titleRight,
   titleRightOne,
@@ -81,7 +85,74 @@ const DetailHeader = ({
   valeuLeftTen,
 }) => {
   const [ModalShow, setModalShow] = useState(false);
-  return (
+
+  const headerDetailCenterCss = headerDetailCenter ? ' border-right' : ' d-none';
+  const headerDetailLeftCss = headerDetailLeft ? ' border-right' : ' d-none';
+  const moduleCss = module === 'stockHolding' ? 'pl-3' : '';
+
+  const poJsx = (
+    <div className="card-group" style={{ borderRadius: '0.25rem' }}>
+      {headerDetailRight !== null ? (
+        <CCard className={titleRight !== null ? null : ' d-none'}>
+          <CCardBody className={`p-0 m-3${titleCenter === true ? ' border-right' : ' d-none'}`}>
+            <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>
+              <CCol lg={'auto'} className="px-0 mr-3 text-header-title">
+                {headerDetailRight.map((id) => {
+                  // return (
+                  //   <CRow key={id.accessor} className={`mx-0 ${header.accessor ? null : ' d-none'}`}>
+                  //     {id.Header}
+                  //   </CRow>
+                  // );
+                })}
+              </CCol>
+              <CCol className="px-0 text-header-val">
+                <CRow className={`mx-0 pb-1 ${valeuRightOne ? null : ' d-none'}`}>{valeuRightOne}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightTwo ? null : ' d-none'}`}>{valeuRightTwo}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightThree ? null : ' d-none'}`}>{valeuRightThree}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightFour ? null : ' d-none'}`}>{valeuRightFour}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightFive ? null : ' d-none'}`}>{valeuRightFive}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightSix ? null : ' d-none'}`}>{valeuRightSix}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightSeven ? null : ' d-none'}`}>{valeuRightSeven}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightEight ? null : ' d-none'}`}>{valeuRightEight}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightNine ? null : ' d-none'}`}>{valeuRightNine}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightTen ? null : ' d-none'}`}>{valeuRightTen}</CRow>
+                <CRow className={`mx-0 pt-1  line-camp ${valeuRightEleven ? null : ' d-none'}`}>
+                  <CCol className="px-0 line-camp">{valeuRightEleven}</CCol>
+                  {valeuRightEleven?.length > 100 ? <Link onClick={() => setModalShow(true)}>Show More</Link> : ''}
+                </CRow>
+              </CCol>
+            </CRow>
+          </CCardBody>
+        </CCard>
+      ) : (
+        ' '
+      )}
+
+      <Modal
+        isOpen={ModalShow}
+        centered
+        contentClassName="modal-content-paging dev-inst"
+        style={{
+          borderLeft: '2px transparent solid !important',
+          borderRight: '2px transparent solid !important',
+          borderBottom: '2px transparent solid !important;',
+        }}
+      >
+        <ModalBody className="align-bottom" style={{ paddingBottom: '2.4rem !important' }}>
+          <div className="text-right px-0" style={{ fontSize: '14px' }}>
+            <span className="icon-group_4696 pointer" onClick={() => setModalShow(false)} />
+          </div>
+          <div className="d-flex d-inline-flex">
+            <img src={logo_confirm} alt="logo" className="px-3" style={{ width: '120px', height: '20%' }} />
+            <p className="m-0 pl-3 pr-4" style={{ overflowWrap: 'anywhere' }}>
+              {valeuRightEleven}
+            </p>
+          </div>
+        </ModalBody>
+      </Modal>
+    </div>
+  );
+  const defaultJsx = (
     <div className="card-group" style={{ borderRadius: '0.25rem' }}>
       {titleRight === true ? (
         <CCard className={titleRight === true ? null : ' d-none'}>
@@ -221,6 +292,7 @@ const DetailHeader = ({
       </Modal>
     </div>
   );
+  return <>{module === 'purchaseOrder' ? defaultJsx : defaultJsx}</>;
 };
 
 DetailHeader.propTypes = {
