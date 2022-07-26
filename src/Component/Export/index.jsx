@@ -116,9 +116,8 @@ const Export = ({
           </div>
         </DropdownToggle>
         <DropdownMenu
-          className={`no-shadow ${
-            exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
-          }`}
+          className={`no-shadow ${exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
+            }`}
         >
           {!exportPdf ? (
             ''
@@ -133,8 +132,7 @@ const Export = ({
           ) : (
             <div>
               <DropdownItem
-                className={`export-excel so-export px-1 d-flex justify-content-center
-                ${exportPdf === false && 'radius-top-export'}`}
+                className={`export-excel so-export px-1 d-flex justify-content-center ${exportPdf === false && 'radius-top-export'}`}
                 onClick={() => setRunExport('XLS')}
               >
                 <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
@@ -174,19 +172,19 @@ const Export = ({
             ) : (
               exportData?.map((data, i) => (
                 <tr key={data?.[i]?.no}>
-                  {schemaColumn.map((column, columnIdx) => {
+                  {schemaColumn.map((column) => {
                     const dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
                     if (columnHiddenCharacter.includes(column.accessor)) {
-                      return <td key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
+                      return <td>{dataReturn}</td>;
                     }
                     if (columnRightCharacter.includes(column.accessor)) {
                       return (
-                        <td style={{ textAlign: 'right' }} key={schemaColumn?.[columnIdx]?.accessor}>
+                        <td style={{ textAlign: 'right' }}>
                           {dataReturn}
                         </td>
                       );
                     }
-                    return <td key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
+                    return <td>{dataReturn}</td>;
                   })}
                 </tr>
               ))
