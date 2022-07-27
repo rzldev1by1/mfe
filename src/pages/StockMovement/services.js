@@ -2,7 +2,7 @@
 import JsPDF from 'jspdf';
 import 'jspdf-autotable';
 import moment from 'moment';
-import endpoints from '../../helpers/endpoints'
+import endpoints from '../../helpers/endpoints';
 import logoExport from '../../assets/img/logo_export2.png';
 
 export const simpleData = [
@@ -75,7 +75,7 @@ export const customSchema = async ({ data, schemaColumns, setHeader }) => {
   await schemaColumns.forEach(async (h, index) => {
     if (index < 1) {
       let newColumns = [];
-      await h.columns.forEach(async d => {
+      await h.columns.forEach(async (d) => {
         d.width = await getColumnWidth(data, d.accessor, d.Header, d.width || '75px');
         newColumns.push(d);
       });
@@ -138,7 +138,7 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
   setRowSpan(indexPart1);
 
   let dataPdf = [];
-  data.forEach(dataTable => {
+  data.forEach((dataTable) => {
     let pdfData = {
       site: dataTable.site,
       client: dataTable.client,
@@ -153,7 +153,7 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
       let obj = {};
       if (idx <= indexPart1) {
         obj[`date_${column}`] = d.datePdf;
-        obj[`sa_plus_${column}`] = dataTable[`sa_plus_${d.dateAccessor}`] || '-';
+        obj[`sa_plus_${column}`] = dataTable[`sa_plus_${d.dateAccessor}`] || `-`;
         obj[`sa_minus_${column}`] = dataTable[`sa_minus_${d.dateAccessor}`] || '-';
         obj[`rec_${column}`] = dataTable[`rec_${d.dateAccessor}`] || '-';
         obj[`send_${column}`] = dataTable[`send_${d.dateAccessor}`] || '-';
@@ -182,7 +182,7 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
     if (index > 0) {
       restRow2 = restRow;
     }
-    dataPdfArray.date.forEach(d => {
+    dataPdfArray.date.forEach((d) => {
       if (j > 19 || j === restRow2) {
         dateTmp.push([]);
         i += 1;
@@ -194,7 +194,8 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
       j += 1;
       restRow -= 1;
     });
-    dateTmp.forEach(d => {
+
+    dateTmp.forEach((d) => {
       let obj = {
         site: dataPdfArray.site,
         client: dataPdfArray.client,
@@ -216,14 +217,14 @@ export const setupExcel = ({ data, dateHeader, header, setDataExcel, setHeaderEx
     if (index > 0) {
       newHeader.push(dataHeader.Header);
     } else {
-      dataHeader.columns.forEach(d => {
+      dataHeader.columns.forEach((d) => {
         newHeader.push(d.Header);
       });
     }
   });
   setHeaderExcel(newHeader);
 
-  let dataExcel = data?.map(dataArrayExcel => {
+  let dataExcel = data?.map((dataArrayExcel) => {
     dataArrayExcel.column = [];
     dateHeader.forEach((d) => {
       let temp = {
@@ -356,11 +357,11 @@ export const demoPDF = ({ filename, rowSpan }) => {
     },
     startY: finalY + 30,
     styles: {
-      rowHeight: 24,
+      minCellHeight: 10,
       cellPadding: {
-        top: 8,
+        top: 5,
         right: 4,
-        bottom: 8,
+        bottom: 5,
         left: 4,
       },
       fontSize: 8,
@@ -386,7 +387,7 @@ export const demoPDF = ({ filename, rowSpan }) => {
 
       let rightAlign = [6, 7, 8, 9, 11, 12, 13, 14];
       if (rightAlign.includes(dataKey)) {
-        data.cell.styles.halign = "right"
+        data.cell.styles.halign = 'right';
       }
 
       if (index <= rowSpan) {
