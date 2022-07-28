@@ -5,7 +5,7 @@ import endpoints from '../../helpers/endpoints';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster'
-import { schemaColumn } from './services';
+import { schemaColumn, filterSummaryDefault } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
 
@@ -21,21 +21,26 @@ const SalesOrders = (props) => {
   const soSummaryData = useSelector((state) => state.soSummaryData);
   const paginationSo = useSelector((state) => state.paginationSo);
   const stateChangeHeader = useSelector((state) => state.changeHeader);
+  const stateChangeFilter = useSelector((state) => state.changeFilter);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
+  const [exportTable, setExportTable] = useState(true);
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
   const module = 'salesOrder';
+  const filterHiddenData = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
 
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 253,
+    height: window.innerHeight - 390,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 253,
+        height: window.innerHeight - 390,
         width: window.innerWidth,
       });
     };
@@ -49,12 +54,16 @@ const SalesOrders = (props) => {
     getSummaryData({ dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client, user });
   }, []);
 
-  const [columnHidden, setColumnHidden] = useState(null);
-  const [state2, setState2] = useState(null);
   if (!columnHidden) {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
   }
+
+  useEffect(() => {
+    if (stateChangeFilter) {
+      dispatch({ type: 'CHANGE_FILTER', data: false });
+    }
+  }, [stateChangeFilter]);
 
   useEffect(() => {
     if (stateChangeHeader) {
@@ -107,21 +116,23 @@ const SalesOrders = (props) => {
         <div>
           <Search
             module={module}
+            filterHidden={filterHiddenData ? filterHiddenData : filterSummaryDefault}
             filterSite
             filterClient
             filterStatus
             filterOrderType
             filterTask
             placeholder="Enter an Order No"
-            filter
             onChangeGetTask
             Export={Export}
             btnSearch
             inputTag
+            setExportTable={setExportTable}
           />
         </div>
         <div>
           <TableMaster
+            exportTable={exportTable}
             onClick={showDetails}
             schemaColumn={schemaColumn}
             data={soSummaryData}

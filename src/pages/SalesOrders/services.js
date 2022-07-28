@@ -663,6 +663,17 @@ export const headerDetailLeft = [
   { accessor: 'consignmentno', Header: 'Consignment No' },
   { accessor: 'freightcharge', Header: 'Freight Charge' },
 ]
+export const filterSummaryDefault = [
+  { name: 'Site', accessor: 'site', hiddenFilter: false },
+  { name: 'Client', accessor: 'client', hiddenFilter: false },
+  { name: 'status', accessor: 'status', hiddenFilter: false },
+  { name: 'Order Type', accessor: 'orderType', hiddenFilter: false },
+  { name: 'Task', accessor: 'task', hiddenFilter: false },
+  { name: 'Delivery Date', accessor: 'deliveryDate', hiddenFilter: false },
+  { name: 'Date Received', accessor: 'dateReceived', hiddenFilter: false },
+  { name: 'Date Released', accessor: 'dateReleased', hiddenFilter: false },
+  { name: 'Date Completed', accessor: 'dateCompleted', hiddenFilter: false },
+]
 
 export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });

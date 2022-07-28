@@ -361,3 +361,15 @@ export const schemaColumnDetailPO = [
     sortable: true,
   },
 ];
+
+export const filterSummaryDefault = [
+  { name: 'Site', accessor: 'site', hiddenFilter: false },
+  { name: 'Client', accessor: 'client', hiddenFilter: false },
+  { name: 'status', accessor: 'status', hiddenFilter: false },
+  { name: 'Order Type', accessor: 'orderType', hiddenFilter: false },
+  { name: 'Task', accessor: 'task', hiddenFilter: false },
+  { name: 'Order Date', accessor: 'orderDate', hiddenFilter: false },
+  { name: 'Date Received', accessor: 'dateReceived', hiddenFilter: false },
+  { name: 'Date Released', accessor: 'dateReleased', hiddenFilter: false },
+  { name: 'Date Completed', accessor: 'dateCompleted', hiddenFilter: false },
+]

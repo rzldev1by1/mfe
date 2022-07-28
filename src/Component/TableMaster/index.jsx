@@ -27,7 +27,8 @@ const TableMaster = ({
   props,
   exportBtn,
   editOrderQty,
-  editCarton
+  editCarton,
+  exportTable
 }) => {
 
   return (
@@ -61,14 +62,15 @@ const TableMaster = ({
 
         {pagination && pagination.total < 1 ? (
           ''
-          ) : exportBtn && (
-            <Export
-              filename={filename}
-              getExportData={getExportData}
-              exportApi={exportApi}
-              schemaColumn={schemaColumn}
-              exportPdf={exportPdf}
-            />
+        ) : exportBtn && (
+          <Export
+            exportTable={exportTable}
+            filename={filename}
+            getExportData={getExportData}
+            exportApi={exportApi}
+            schemaColumn={schemaColumn}
+            exportPdf={exportPdf}
+          />
         )}
       </CRow>
     </div>

@@ -103,3 +103,30 @@ export const handleFullFillMarked = ({ dispatch, spDetailTable, clearMarked, set
   dispatch({ type: 'GET_SP_DETAIL_TABLE', data: newArray })
   setShowFulfillMod(false)
 }
+
+export const showFilter = ({ item, module, filterHidden, dispatch }) => {
+  const dateFilter = ['dateReceived', 'dateReleased', 'dateReleased', 'dateCompleted', 'orderDate', 'deliveryDate']
+  filterHidden.forEach(data => {
+    if (data.accessor === item.accessor) {
+      if (dateFilter.includes(data.accessor)) {
+        filterHidden.forEach(dataDate => {
+          if (dateFilter.includes(dataDate.accessor)) {
+            dataDate.hiddenFilter = false
+          }
+        })
+        data.hiddenFilter = true
+      } else {
+        data.hiddenFilter = !item.hiddenFilter
+      }
+    }
+  });
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  dispatch({ type: 'CHANGE_FILTER', data: true });
+}
+
+export const resetFilter = ({ module, filterHidden, dispatch, setShowModal }) => {
+  filterHidden.forEach(data => { data.hiddenFilter = false })
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  dispatch({ type: 'CHANGE_FILTER', data: true });
+  setShowModal(false)
+}

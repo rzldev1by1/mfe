@@ -50,6 +50,8 @@ const rootReducer = (state = INITIAL_STATE, { type, data, column }) => {
       return { ...state, lastChangedUser: data };
     case 'CHANGE_HEADER':
       return { ...state, changeHeader: data };
+    case 'CHANGE_FILTER':
+      return { ...state, changeFilter: data };
 
     // Pagingation
     case 'PAGING':

@@ -128,7 +128,7 @@ const EditRenameColumn = ({
         <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
           <Container className="px-0">
             <Col className="mx-0 px-0">
-              <Button onClick={closeModal.bind(this, false)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
+              <Button onClick={closeModal.bind(this, false)} className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
                 <MdClose color="white" size={30} />
               </Button>
               <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
@@ -371,7 +371,7 @@ const EditRenameColumn = ({
           resetConfirmation
           resetColumnName={resetColumnName}
           user={user}
-          splitModule={splitModule} 
+          splitModule={splitModule}
         />
       )}
     </div>
