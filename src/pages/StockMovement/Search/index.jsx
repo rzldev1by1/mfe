@@ -87,7 +87,9 @@ const Search = ({ setHeader, setDateHeader }) => {
                 className=" z-99"
               />
             </CCol>
-            <div className="colDateText d-flex text-light-gray align-items-center">Date From</div>
+            <CCol lg={1} sm={11} className="colPeriod d-flex justify-content-center">
+              <div className="colDateText d-flex text-light-gray align-items-center">Date From</div>
+            </CCol>
             <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
               <DatePicker
                 style={{ minWidth: '100%' }}
@@ -113,7 +115,9 @@ const Search = ({ setHeader, setDateHeader }) => {
                 }}
               />
             </CCol>
-            <div className="colDateText d-flex text-light-gray align-items-center">Date To</div>
+            <CCol lg={1} sm={11} className="colPeriod d-flex justify-content-center">
+              <div className="colDateText d-flex text-light-gray align-items-center">Date To</div>
+            </CCol>
             <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
               <DatePicker
                 style={{ minWidth: '100%' }}

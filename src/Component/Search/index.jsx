@@ -718,7 +718,7 @@ const Search = ({
                           (
                             <>
                               <CCol lg={7}>
-                                <CRow>
+                                <div className='d-flex'>
                                   <div className="colDateText d-flex text-light-gray align-items-center pt-3 pr-3">{item.name}</div>
                                   <div className="colDateText d-flex text-light-gray align-items-center pt-3"> From</div>
                                   <CCol lg={4} sm={10} className="colDate pt-3">
@@ -768,7 +768,7 @@ const Search = ({
                                       }}
                                     />
                                   </CCol>
-                                </CRow>
+                                </div>
                               </CCol>
                             </>
                           )

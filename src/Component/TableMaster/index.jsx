@@ -1,5 +1,5 @@
 import React from 'react';
-import { CRow } from '@coreui/react';
+import { CRow, CCol } from '@coreui/react';
 import Export from '../Export';
 import Pagination from '../Pagination';
 import Table from '../Table';
@@ -50,28 +50,31 @@ const TableMaster = ({
         editCarton={editCarton}
       />
       <CRow lg="12" className="mt-3 mb-2 w-100 pagination-custom justify-content-between">
-        <Pagination
-          pagination={pagination}
-          module={module}
-          data={data}
-          goto={goto}
-          schemaColumn={schemaColumn}
-          isDisplay={isDisplay}
-          props={props}
-        />
-
-        {pagination && pagination.total < 1 ? (
-          ''
-        ) : exportBtn && (
-          <Export
-            exportTable={exportTable}
-            filename={filename}
-            getExportData={getExportData}
-            exportApi={exportApi}
+        <CCol>
+          <Pagination
+            pagination={pagination}
+            module={module}
+            data={data}
+            goto={goto}
             schemaColumn={schemaColumn}
-            exportPdf={exportPdf}
+            isDisplay={isDisplay}
+            props={props}
           />
-        )}
+        </CCol>
+        <CCol>
+          {pagination && pagination.total < 1 ? (
+            ''
+          ) : exportBtn && (
+            <Export
+              exportTable={exportTable}
+              filename={filename}
+              getExportData={getExportData}
+              exportApi={exportApi}
+              schemaColumn={schemaColumn}
+              exportPdf={exportPdf}
+            />
+          )}
+        </CCol>
       </CRow>
     </div>
   );
