@@ -24,7 +24,13 @@
       "off"
     ],
     "react/prop-types": [
-      "warn"
+      "off"
+    ],
+    "func-names": [
+      "off"
+    ],
+    "no-console": [
+      "off"
     ],
     "no-return-assign": [
       "off"

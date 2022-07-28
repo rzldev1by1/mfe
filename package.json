@@ -29,7 +29,7 @@
     "@coreui/icons-react": "1.0.1",
     "@coreui/react": "3.0.1",
     "axios": "^0.27.2",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.2.0-beta1",
     "core-js": "3.23.1",
     "email-validator": "^2.0.4",
     "font-awesome": "4.7.0",
@@ -41,7 +41,10 @@
     "moment": "^2.29.3",
     "node-sass": "4.14.1",
     "numeral": "2.0.6",
-    "prop-types": "15.7.2",
+    "overrides": {
+      "autoprefixer": "10.4.5"
+    },
+    "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-app-polyfill": "1.0.6",
     "react-bootstrap": "1.1.1",
