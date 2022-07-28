@@ -97,9 +97,25 @@ const StockMovement = () => {
       <table id="excel" className="d-none">
         <thead>
           <tr>
-            {headerExcel.forEach((d) => {
-              if (firstHeader.includes(d)) return <th>{d}</th>;
-              return false;
+            {headerExcel.map((d) => {
+              if (firstHeader.includes(d)) {
+                return <th>{d}</th>;
+              }
+              return (
+                <th>
+                  <table>
+                    <tr>
+                      <th colSpan="4">{d}</th>
+                    </tr>
+                    <tr>
+                      <th width="25%">SA+</th>
+                      <th width="25%">SA-</th>
+                      <th width="25%">Rec</th>
+                      <th width="25%">Send</th>
+                    </tr>
+                  </table>
+                </th>
+              );
             })}
           </tr>
         </thead>

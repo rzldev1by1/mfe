@@ -191,6 +191,7 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
         restRow2 = 20;
       }
       dateTmp[i].push(d);
+      console.log(d);
       j += 1;
       restRow -= 1;
     });
@@ -205,7 +206,9 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
         rowspan: d.length,
         date: d,
       };
-      newDataPdf.push(obj);
+      if (obj.date.length !== 0) {
+        newDataPdf.push(obj);
+      }
     });
   });
   setDataPDF(newDataPdf);
