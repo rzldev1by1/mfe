@@ -78,10 +78,10 @@ export const Dates = () => {
     'December',
   ];
   const date = new Date();
-  const date1 = date.getDate()
-  const month = date.getMonth()
+  const date1 = date.getDate();
+  const month = date.getMonth();
   const year = date.getFullYear();
-  return (`${date1}-${arrmonth2[month]}-${year}`);
+  return `${date1}-${arrmonth2[month]}-${year}`;
 };
 
 const setupDocPDF = async (filename, exportData, schemaColumn) => {
@@ -96,13 +96,13 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       if (dt[0] === null) {
         return ['-'];
       }
-      if (dt[0] === "x") {
-        return ("N");
+      if (dt[0] === 'x') {
+        return 'N';
       }
-      if (dt[0] === "Yes") {
-        return ("Y");
+      if (dt[0] === 'Yes') {
+        return 'Y';
       }
-      console.log(dt[0])
+      console.log(dt[0]);
       return dt;
     });
     return newData2;
@@ -141,10 +141,10 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       halign: 'left', // 'center' or 'right'
       fillColor: [94, 68, 232],
       textColor: [255, 255, 255],
-      rowHeight: 22,
+      minCellHeight: 22,
     },
     styles: {
-      rowHeight: 24,
+      minCellHeight: 24,
       cellPadding: {
         top: 8,
         right: 4,

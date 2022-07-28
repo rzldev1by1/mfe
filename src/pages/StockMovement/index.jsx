@@ -5,6 +5,7 @@ import Breadcrumb from '../../Component/Breadcrumb';
 import TableFixedColumn from '../../Component/TableFixedColumn';
 import { customSchema, setupExcel, setupPdf, demoPDF } from './services';
 import './style.scss';
+// import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 const StockMovement = () => {
   const module = 'stockMovement';
@@ -52,6 +53,23 @@ const StockMovement = () => {
     }
   }, [smData]);
 
+  const DateDataList = ({ dateData }) => {
+    return (
+      <>
+        <th>{dateData?.date_1}</th>
+        <th>{dateData?.sa_plus_1}</th>
+        <th>{dateData?.sa_minus_1}</th>
+        <th>{dateData?.rec_1}</th>
+        <th>{dateData?.send_1}</th>
+        <th>{dateData?.date_2}</th>
+        <th>{dateData?.sa_plus_2}</th>
+        <th>{dateData?.sa_minus_2}</th>
+        <th>{dateData?.rec_2}</th>
+        <th>{dateData?.send_2}</th>
+      </>
+    );
+  };
+
   return (
     <div className="stockMovement">
       <Breadcrumb breadcrumb={[{ to: '/purchase-order', label: 'Stock Movement', active: true }]} />
@@ -79,7 +97,7 @@ const StockMovement = () => {
       <table id="excel" className="d-none">
         <thead>
           <tr>
-            {headerExcel.map(d => {
+            {headerExcel.map((d) => {
               if (firstHeader.includes(d)) {
                 return <th>{d}</th>;
               }
@@ -103,46 +121,21 @@ const StockMovement = () => {
         </thead>
         <tbody>
           {dataExcel &&
-            dataExcel.map(data => [
+            dataExcel.map((data) => [
               <tr>
-                <td>
-                  ‎
-                  {data.site}
-                </td>
-                <td>
-                  ‎
-                  {data.client}
-                </td>
-                <td>
-                  ‎
-                  {data.product}
-                </td>
-                <td>
-                  ‎
-                  {data.product_name}
-                </td>
-                <td>
-                  ‎
-                  {data.uom}
-                </td>
-                {data.column.map(d => {
+                <td>‎{data.site}</td>
+                <td>‎{data.client}</td>
+                <td>‎{data.product}</td>
+                <td>‎{data.product_name}</td>
+                <td>‎{data.uom}</td>
+                {data.column.map((d) => {
                   return (
                     <td>
                       <table>
-                        <td style={{ textAlign: 'right' }}>
-                          {d.sa_plus}
-                        </td>
-                        <td style={{ textAlign: 'right' }}>
-                          {
-                            d.sa_min
-                          }
-                        </td>
-                        <td style={{ textAlign: 'right' }}>
-                          {d.rec}
-                        </td>
-                        <td style={{ textAlign: 'right' }}>
-                          {d.send}
-                        </td>
+                        <td style={{ textAlign: 'right' }}>{d.sa_plus}</td>
+                        <td style={{ textAlign: 'right' }}>{d.sa_min}</td>
+                        <td style={{ textAlign: 'right' }}>{d.rec}</td>
+                        <td style={{ textAlign: 'right' }}>{d.send}</td>
                       </table>
                     </td>
                   );
@@ -173,31 +166,24 @@ const StockMovement = () => {
         </thead>
         <tbody>
           {dataPDF &&
-            dataPDF.map(data => {
-              return data.date.map((d, idx) => {
-                if (idx < 1) {
-                  return (
-                    <tr>
-                      <td rowSpan={data.rowspan}>{data.site}</td>
-                      <td rowSpan={data.rowspan}>{data.client}</td>
-                      <td rowSpan={data.rowspan}>{data.product}</td>
-                      <td rowSpan={data.rowspan}>{data.product_name}</td>
-                      <td rowSpan={data.rowspan}>{data.uom}</td>
-                      <td>{d.date_1}</td>
-                      <td>{d.sa_plus_1}</td>
-                      <td>{d.sa_minus_1}</td>
-                      <td>{d.rec_1}</td>
-                      <td>{d.send_1}</td>
-                      <td>{d.date_2}</td>
-                      <td>{d.sa_plus_2}</td>
-                      <td>{d.sa_minus_2}</td>
-                      <td>{d.rec_2}</td>
-                      <td>{d.send_2}</td>
-                    </tr>
-                  );
-                }
-                return false
-              });
+            dataPDF.map((data) => {
+              const date1 = data.date[0];
+              const date2 = data.date[1];
+              return (
+                <>
+                  <tr key={data.product}>
+                    <td rowSpan="2">{data.site}</td>
+                    <td rowSpan="2">{data.client}</td>
+                    <td rowSpan="2">{data.product}</td>
+                    <td rowSpan="2">{data.product_name}</td>
+                    <td rowSpan="2">{data.uom}</td>
+                    <DateDataList dateData={date1} />
+                  </tr>
+                  <tr>
+                    <DateDataList dateData={date2} />
+                  </tr>
+                </>
+              );
             })}
         </tbody>
       </table>
