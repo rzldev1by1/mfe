@@ -18,9 +18,9 @@ class PopUpPages extends Component {
     const newPage = { ...page }
     return (
       <Modal
-        isOpen={newPage.notifPaging}
+        isOpen={newPage.noticePaging}
         centered
-        onOpened={() => newPage.notifPaging ? setTimeout(() => { closeModal({ page, setPage }) }, 36000) : {}}
+        onOpened={() => newPage.noticePaging ? setTimeout(() => { closeModal({ page, setPage }) }, 36000) : {}}
         contentClassName={`modal-content-paging ${darkMode ? ' customDarkModes' : ''}`}
         closeOnBackdrop={false}
       >

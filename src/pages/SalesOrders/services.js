@@ -666,7 +666,7 @@ export const headerDetailLeft = [
 export const filterSummaryDefault = [
   { name: 'Site', accessor: 'site', hiddenFilter: false },
   { name: 'Client', accessor: 'client', hiddenFilter: false },
-  { name: 'status', accessor: 'status', hiddenFilter: false },
+  { name: 'Status', accessor: 'status', hiddenFilter: false },
   { name: 'Order Type', accessor: 'orderType', hiddenFilter: false },
   { name: 'Task', accessor: 'task', hiddenFilter: false },
   { name: 'Delivery Date', accessor: 'deliveryDate', hiddenFilter: false },

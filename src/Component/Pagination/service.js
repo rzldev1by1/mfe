@@ -1,73 +1,76 @@
 import { getSummaryData, getForecast, getDetailData } from '../../apiService';
 
+const allModule = {
+  StockHolding: {
+    paramType: 'GET_SH_SUMMARY',
+    paramPaging: 'PAGING_SH'
+  },
+  purchaseOrder: {
+    paramType: 'GET_PO_SUMMARY',
+    paramPaging: 'PAGING_PO'
+  },
+  salesOrder: {
+    paramType: 'GET_SO_SUMMARY',
+    paramPaging: 'PAGING_SO',
+  },
+  UserManagement: {
+    paramType: 'GET_UM_SUMMARY',
+    paramPaging: 'PAGING_UM'
+  },
+  StockHoldingForecast: {
+    paramType: 'GET_SH_DETAIL_FORECAST',
+    paramPaging: 'PAGING_SH_FORECAST'
+  },
+  StockHoldingDetail: {
+    paramType: 'GET_SH_DETAIL_TABLE',
+    paramPaging: 'PAGING_SH_DETAIL'
+  },
+  PurchaseOrdersDetail: {
+    paramType: 'GET_PO_DETAIL_TABLE',
+    paramPaging: 'PAGING_PO_DETAIL',
+  },
+  SalesOrdersDetail: {
+    paramType: 'GET_SO_DETAIL_TABLE',
+    paramPaging: 'PAGING_SO_DETAIL'
+  },
+  SupplierManagement: {
+    paramType: 'GET_SP_SUMMARY',
+    paramPaging: 'PAGING_SP'
+  },
+  SupplierManagementDetail: {
+    paramType: 'GET_SP_DETAIL_TABLE',
+    paramPaging: 'PAGING_SP_DETAIL'
+  }
+}
+const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
+const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
+
 export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, props, searchFilter, user }) => {
   const newPage = { ...page };
-  let paramPaging = '';
-  let paramType = '';
-  switch (module) {
-    case 'StockHolding':
-      paramType = 'GET_SH_SUMMARY';
-      paramPaging = 'PAGING_SH';
-      break;
-    case 'purchaseOrder':
-      paramType = 'GET_PO_SUMMARY';
-      paramPaging = 'PAGING_PO';
-      break;
-    case 'salesOrder':
-      paramType = 'GET_SO_SUMMARY';
-      paramPaging = 'PAGING_SO';
+  let paramPagingData = '';
+  let paramData = '';
 
-      break;
-    case 'UserManagement':
-      paramType = 'GET_UM_SUMMARY';
-      paramPaging = 'PAGING_UM';
-
-      break;
-    case 'StockHoldingForecast':
-      paramType = 'GET_SH_DETAIL_FORESCAST';
-      paramPaging = 'PAGING_SH_FORECAST';
-
-      break;
-    case 'StockHoldingDetail':
-      paramType = 'GET_SH_DETAIL_TABLE';
-      paramPaging = 'PAGING_SH_DETAIL';
-      break;
-    case 'PurchaseOrdersDetail':
-      paramType = 'GET_PO_DETAIL_TABLE';
-      paramPaging = 'PAGING_PO_DETAIL';
-      break;
-    case 'SalesOrdersDetail':
-      paramType = 'GET_SO_DETAIL_TABLE';
-      paramPaging = 'PAGING_SO_DETAIL';
-      break;
-    case 'SupplierManagement':
-      paramType = 'GET_SP_SUMMARY';
-      paramPaging = 'PAGING_SP';
-      break;
-    case 'SupplierManagementDetail':
-      paramType = 'GET_SP_DETAIL_TABLE';
-      paramPaging = 'PAGING_SP_DETAIL';
-      break;
-    default:
-  }
+  Object.keys(allModule).forEach((allModuleKey) => {
+    if (allModuleKey === module) {
+      paramData = allModule[allModuleKey].paramType
+      paramPagingData = allModule[allModuleKey].paramPaging
+    }
+  });
 
   if (newPage.goPage === 0 || newPage.goPage === null || newPage.goPage === '' || newPage.goPage === undefined) {
     return false;
   }
 
   if (newPage.goPage > pagination.last_page) {
-    newPage.notifPaging = true;
+    newPage.noticePaging = true;
     setPage(newPage);
     return 0;
   }
-  dispatch({ type: paramType, data: [] });
+  dispatch({ type: paramData, data: [] });
 
-  if (goto) {
-    goto(newPage.goPage);
-  } else {
-    dispatch({ type: paramPaging || 'PAGING', data: { ...pagination, active: newPage.goPage } });
-  }
-  const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
+  if (goto) goto(newPage.goPage);
+  else dispatch({ type: paramPagingData || 'PAGING', data: { ...pagination, active: newPage.goPage } });
+
   if (arraySummary.includes(module)) {
     getSummaryData({
       dispatch,
@@ -96,7 +99,6 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
   if (module === 'StockHoldingForecast') {
     getForecast({ dispatch, active: newPage.goPage, module, props });
   }
-  const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
   if (arrayDetail.includes(module)) {
     getDetailData({ dispatch, active: newPage.goPage, module, props });
   }
@@ -124,42 +126,13 @@ export const numberCheck = (e) => {
 };
 
 export const changePage = ({ active, dispatch, module, props, searchFilter, user }) => {
-  let paramType = '';
-  switch (module) {
-    case 'StockHolding':
-      paramType = 'GET_SH_SUMMARY';
-      break;
-    case 'purchaseOrder':
-      paramType = 'GET_PO_SUMMARY';
-      break;
-    case 'salesOrder':
-      paramType = 'GET_SO_SUMMARY';
-      break;
-    case 'UserManagement':
-      paramType = 'GET_UM_SUMMARY';
-      break;
-    case 'StockHoldingForecast':
-      paramType = 'GET_SH_DETAIL_FORECAST';
-      break;
-    case 'StockHoldingDetail':
-      paramType = 'GET_SH_DETAIL_TABLE';
-      break;
-    case 'PurchaseOrdersDetail':
-      paramType = 'GET_PO_DETAIL_TABLE';
-      break;
-    case 'SalesOrdersDetail':
-      paramType = 'GET_SO_DETAIL_TABLE';
-      break;
-    case 'SupplierManagement':
-      paramType = 'GET_SP_SUMMARY';
-      break;
-    case 'SupplierManagementDetail':
-      paramType = 'GET_SP_DETAIL_TABLE';
-      break;
-    default:
-  }
-  dispatch({ type: paramType, data: [] });
-  const arraySummary = ['StockHolding', 'purchaseOrder', 'salesOrder', 'UserManagement']
+  let paramData = '';
+  Object.keys(allModule).forEach((allModuleKey) => {
+    if (allModuleKey === module) {
+      paramData = allModule[allModuleKey].paramType
+    }
+  });
+  dispatch({ type: paramData, data: [] });
   if (arraySummary.includes(module)) {
     getSummaryData({
       dispatch,
@@ -174,11 +147,9 @@ export const changePage = ({ active, dispatch, module, props, searchFilter, user
       user
     })
   }
-
   if (module === 'StockHoldingForecast') {
     getForecast({ dispatch, active, module, props });
   }
-  const arrayDetail = ['StockHoldingDetail', 'PurchaseOrdersDetail', 'SalesOrdersDetail']
   if (arrayDetail.includes(module)) {
     getDetailData({ dispatch, active, module, props });
   }

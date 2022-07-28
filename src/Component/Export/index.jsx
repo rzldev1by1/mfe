@@ -35,7 +35,6 @@ const Export = ({
     styleButton = { pointerEvents: 'none' };
   }
 
-  console.log(exportTable)
 
   useEffect(() => {
     if (!runExport) {
