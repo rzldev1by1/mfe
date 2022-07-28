@@ -191,7 +191,6 @@ export const setupPdf = ({ data, dateHeader, setDataPDF, setRowSpan }) => {
         restRow2 = 20;
       }
       dateTmp[i].push(d);
-      console.log(d);
       j += 1;
       restRow -= 1;
     });
