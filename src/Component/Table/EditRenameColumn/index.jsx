@@ -153,7 +153,7 @@ const EditRenameColumn = ({
         </Modal.Header>
         <Modal.Body className={`${darkMode ? 'DarkModesEditRename ' : ' '} p-3`}>
           <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-2' : ''}`}>
-            <Row className="align-items-center rename-columns mx-0 text-align-left">
+            <Row className="align-items-center rename-columns mx-0 text-align-left px-1">
               <Nav tabs className="px-1">
                 <div className="input-group">
                   <NavItem className="pl-0 pr-0">
@@ -282,7 +282,7 @@ const EditRenameColumn = ({
                   </Col>
                 </TabPane>
                 <TabPane tabId="2">
-                  <Row xl={5} lg={10} className="mx-0 grid-col">
+                  <Row className="mx-0 grid-col">
                     {fields &&
                       fields.map((item, index) => {
                         return (
