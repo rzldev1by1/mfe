@@ -530,7 +530,7 @@ export const schemaColumnDetailPO = [
     sortable: true,
     Cell: (row) => {
       const { original } = row
-      return <i className={`${original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      return <i className={`${original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     },
   },
   {
@@ -541,7 +541,7 @@ export const schemaColumnDetailPO = [
     sortable: true,
     Cell: (row) => {
       const { original } = row
-      return <i className={`${original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      return <i className={`${original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     },
   },
   {
@@ -552,7 +552,7 @@ export const schemaColumnDetailPO = [
     sortable: true,
     Cell: (row) => {
       const { original } = row
-      return <i className={`${original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      return <i className={`${original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     },
   },
   {
