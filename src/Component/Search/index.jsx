@@ -286,270 +286,253 @@ const Search = ({
             </CCol>
           ) : (
             <CCol lg={!inputTag ? 12 : 9} className="px-0">
-              <CRow className="mx-0 justify-content-between">
-                <CRow className="col-lg-10">
-                  <CCol sm={4} lg={2} className={`mobile-site px-0 ${filterSite === true ? null : ' d-none'}`}>
-                    {user?.site ? (
-                      <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
-                    ) : (
-                      <Dropdown
-                        className="px-0"
-                        show
-                        placeholder="Site"
-                        options={siteData}
-                        onChangeDropdown={(selected) =>
-                          setSite({
-                            selected,
-                            dispatch,
-                            dropdownValue,
-                            setDropdownValue,
-                          })}
-                        selectedValue={newDropdownValue.site}
-                      />
-                    )}
-                  </CCol>
-                  <CCol
-                    sm={4}
-                    lg={2}
-                    className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'
-                      }`}
-                  >
-                    {user?.client ? (
-                      <input
-                        value={clientCheck(clientData, user.client)}
-                        className="form-control sh-input"
-                        readOnly
-                      />
-                    ) : (
-                      <Dropdown
-                        show
-                        placeholder="Client"
-                        options={clientData}
-                        onChangeDropdown={(selected) =>
-                          setClient({
-                            onChangeGetTask,
-                            getTask,
-                            getTaskParam,
-                            selected,
-                            dispatch,
-                            dropdownValue,
-                            setDropdownValue,
-                          })}
-                        selectedValue={newDropdownValue.client}
-                      />
-                    )}
-                  </CCol>
-                  <CCol sm={4} lg={2} className={`px-0 mobile-status ${filterStatus === true ? null : ' d-none'}`}>
+              <CRow className="mx-0">
+                <CCol sm={4} lg={2} className={`mobile-site px-0 ${filterSite === true ? null : ' d-none'}`}>
+                  {user?.site ? (
+                    <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
+                  ) : (
                     <Dropdown
                       className="px-0"
                       show
-                      placeholder="Status"
-                      options={statusDataSH || statusData}
+                      placeholder="Site"
+                      options={siteData}
                       onChangeDropdown={(selected) =>
-                        setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.status}
+                        setSite({
+                          selected,
+                          dispatch,
+                          dropdownValue,
+                          setDropdownValue,
+                        })}
+                      selectedValue={newDropdownValue.site}
                     />
-                  </CCol>
-                  <CCol sm={4} lg={2} className={`mobile-type ${filterOrderType === true ? null : ' d-none'}`}>
+                  )}
+                </CCol>
+                <CCol sm={4} lg={2} className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'}`}>
+                  {user?.client ? (
+                    <input
+                      value={clientCheck(clientData, user.client)}
+                      className="form-control sh-input"
+                      readOnly
+                    />
+                  ) : (
                     <Dropdown
-                      className="px-0"
                       show
-                      placeholder="Order Type"
-                      options={orderTypeData}
+                      placeholder="Client"
+                      options={clientData}
                       onChangeDropdown={(selected) =>
-                        setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.orderType}
+                        setClient({
+                          onChangeGetTask,
+                          getTask,
+                          getTaskParam,
+                          selected,
+                          dispatch,
+                          dropdownValue,
+                          setDropdownValue,
+                        })}
+                      selectedValue={newDropdownValue.client}
                     />
-                  </CCol>
-                  <CCol sm={4} lg={2} className={`mobile-task px-0 ${filterTask === true ? null : ' d-none'}`}>
-                    <Dropdown
-                      className="px-0"
-                      show
-                      placeholder="Task"
-                      options={taskData}
-                      onChangeDropdown={(selected) =>
-                        setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.task}
-                    />
-                  </CCol>
-                  <CCol sm={4} lg={2} className={`mobile-style pl-0 pr-3 ${filterStyle === true ? null : ' d-none'}`}>
-                    <Dropdown
-                      className="px-0"
-                      show
-                      placeholder="Style"
-                      options={styleData}
-                      onChangeDropdown={(selected) =>
-                        setStyle({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.style}
-                    />
-                  </CCol>
-                  <CCol
-                    sm={4}
-                    lg={2}
-                    className={`mobile-style-desc pl-0 pr-3 ${filterStyleDesc === true ? null : ' d-none'}`}
-                  >
-                    <Dropdown
-                      className="px-0"
-                      show
-                      placeholder="Style Desc."
-                      options={styleDescData}
-                      onChangeDropdown={(selected) =>
-                        setStyleDesc({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.styleDesc}
-                    />
-                  </CCol>
-                  <CCol sm={4} lg={2} className={`mobile-color pl-0 pr-3 ${filterColor === true ? null : ' d-none'}`}>
-                    <Dropdown
-                      className="px-0"
-                      show
-                      placeholder="Style Color"
-                      options={colorData}
-                      onChangeDropdown={(selected) =>
-                        setColor({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.color}
-                    />
-                  </CCol>
-                  <CCol
-                    sm={4}
-                    lg={2}
-                    className={`mobile-dimensions pl-0 pr-3 ${filterDimensions === true ? null : ' d-none'}`}
-                  >
-                    <Dropdown
-                      className={`px-0 `}
-                      show
-                      placeholder="Dimensions"
-                      options={dimensionsData}
-                      onChangeDropdown={(selected) =>
-                        setDimensions({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.dimensions}
-                    />
-                  </CCol>
-                  <CCol sm={4} lg={2} className={`mobile-size px-0 ${filterSize === true ? null : ' d-none'}`}>
-                    <Dropdown
-                      className="px-0"
-                      show
-                      placeholder="Size"
-                      options={sizeData}
-                      onChangeDropdown={(selected) =>
-                        setSize({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.size}
-                    />
-                  </CCol>
-                </CRow>
-                <CRow className={`${btnSearch ? 'pr-3' : ''}`}>
-                  <CCol sm={4} lg={2} className="px-0 d-flex">
-                    {btnClear ? (
-                      <CDropdown className="btn-group btn-clear">
-                        <CDropdownToggle color="primary">CLEAR</CDropdownToggle>
-                        <CDropdownMenu className="mt-2 shadow-none border">
-                          <CDropdownItem onClick={() => setShowClearMod(true)}>CLEAR ALL</CDropdownItem>
-                          <CDropdownDivider />
-                          <CDropdownItem
-                            onClick={() =>
-                              handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })}
-                          >
-                            CLEAR MARKED
-                          </CDropdownItem>
-                        </CDropdownMenu>
-                      </CDropdown>
-                    ) : (
-                      ''
-                    )}
-                    {btnFulfill ? (
-                      <CDropdown className="btn-group mx-3 btn-fulfill">
-                        <CDropdownToggle color="primary">FULFILL</CDropdownToggle>
-                        <CDropdownMenu className="mt-2 shadow-none border">
-                          <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
-                          <CDropdownDivider />
-                          <CDropdownItem onClick={() => fulfillMarkedMod()}>FULFILL MARKED</CDropdownItem>
-                        </CDropdownMenu>
-                      </CDropdown>
-                    ) : (
-                      ''
-                    )}
-                    {btnSearch ? (
-                      <button
-                        type="button"
-                        className="btn btn-search mobile-search btn-primary float-right"
-                        onClick={() => {
-                          getSummaryData({
-                            siteVal: user.site ? user.site : newDropdownValue.site?.value,
-                            clientVal: user.client ? user.client : newDropdownValue.client?.value,
-                            orderType: newDropdownValue.orderType,
-                            task: newDropdownValue.task,
-                            status: newDropdownValue.status,
-                            dispatch,
-                            searchInput,
-                            module,
-                            user,
-                          });
-                          dispatch({ type: paramType, data: [] });
-                          setExportTable(false)
-                        }}
-                      >
-                        SEARCH
-                      </button>
-                    ) : (
-                      ''
-                    )}
-                  </CCol>
-
-                  <Modal show={showClearMod} size="lg" centered className="p-3 modal-confirmation">
-                    <Modal.Body className="p-3">
-                      <div
-                        className="text-right px-0"
-                        style={{ fontSize: '14px' }}
-                        onClick={() => setShowClearMod(!showClearMod)}
-                        aria-hidden="true"
-                      >
-                        <i className="iconU-close pointer" />
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <img src="" alt="logo" style={{ width: '25%', height: '25%' }} />
-                        <div className="pl-3">
-                          <p className="mb-0" style={{ color: '#D6D8DA' }}>
-                            Are you sure?
-                          </p>
-                          <p>To clear all &apos;Edit Qty&apos; and &apos;Edit Carton&apos; fields.</p>
-                        </div>
-                      </div>
-                      <CCol className="px-0 pb-0 pt-3 d-flex justify-content-end">
-                        <Button variant="primary" style={{ padding: '0rem 1.08rem' }} onClick={() => handleClear()}>
-                          CLEAR
-                        </Button>
-                      </CCol>
-                    </Modal.Body>
-                  </Modal>
-                  <Modal show={showFulfillMod} size="lg" centered className="p-3 modal-confirmation">
-                    <Modal.Body className="p-3">
-                      <div
-                        className="text-right px-0"
-                        style={{ fontSize: '14px' }}
-                        onClick={() => setShowFulfillMod(!showFulfillMod)}
-                        aria-hidden="true"
-                      >
-                        <i className="iconU-close pointer" />
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <img src="" alt="logo" style={{ width: '25%', height: '25%' }} />
-                        <div className="pl-3">
-                          <p>System will override data previously entered.</p>
-                        </div>
-                      </div>
-                      <CCol className="px-0 pb-0 pt-3 d-flex justify-content-end">
-                        <Button
-                          variant="primary"
-                          style={{ padding: '0rem 1.08rem' }}
+                  )}
+                </CCol>
+                <CCol sm={4} lg={2} className={`px-0 mobile-status ${filterStatus === true ? null : ' d-none'}`}>
+                  <Dropdown
+                    className="px-0"
+                    show
+                    placeholder="Status"
+                    options={statusDataSH || statusData}
+                    onChangeDropdown={(selected) =>
+                      setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    selectedValue={newDropdownValue.status}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className={`mobile-type ${filterOrderType === true ? null : ' d-none'}`}>
+                  <Dropdown
+                    className="px-0"
+                    show
+                    placeholder="Order Type"
+                    options={orderTypeData}
+                    onChangeDropdown={(selected) =>
+                      setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    selectedValue={newDropdownValue.orderType}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className={`mobile-task px-0 ${filterTask === true ? null : ' d-none'}`}>
+                  <Dropdown
+                    className="px-0"
+                    show
+                    placeholder="Task"
+                    options={taskData}
+                    onChangeDropdown={(selected) =>
+                      setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    selectedValue={newDropdownValue.task}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className={`mobile-style pl-0 pr-3 ${filterStyle === true ? null : ' d-none'}`}>
+                  <Dropdown
+                    className="px-0"
+                    show
+                    placeholder="Style"
+                    options={styleData}
+                    onChangeDropdown={(selected) =>
+                      setStyle({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    selectedValue={newDropdownValue.style}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className={`mobile-style-desc pl-0 pr-3 ${filterStyleDesc === true ? null : ' d-none'}`}>
+                  <Dropdown
+                    className="px-0"
+                    show
+                    placeholder="Style Desc."
+                    options={styleDescData}
+                    onChangeDropdown={(selected) =>
+                      setStyleDesc({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    selectedValue={newDropdownValue.styleDesc}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className={`mobile-color pl-0 pr-3 ${filterColor === true ? null : ' d-none'}`}>
+                  <Dropdown
+                    className="px-0"
+                    show
+                    placeholder="Style Color"
+                    options={colorData}
+                    onChangeDropdown={(selected) =>
+                      setColor({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    selectedValue={newDropdownValue.color}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className={`mobile-dimensions pl-0 pr-3 ${filterDimensions === true ? null : ' d-none'}`}>
+                  <Dropdown
+                    className={`px-0 `}
+                    show
+                    placeholder="Dimensions"
+                    options={dimensionsData}
+                    onChangeDropdown={(selected) =>
+                      setDimensions({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    selectedValue={newDropdownValue.dimensions}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className={`mobile-size px-0 ${filterSize === true ? null : ' d-none'}`}>
+                  <Dropdown
+                    className="px-0"
+                    show
+                    placeholder="Size"
+                    options={sizeData}
+                    onChangeDropdown={(selected) =>
+                      setSize({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    selectedValue={newDropdownValue.size}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className='px-0 d-flex justify-content-end'>
+                  {btnClear ? (
+                    <CDropdown className="btn-group btn-clear">
+                      <CDropdownToggle color="primary">CLEAR</CDropdownToggle>
+                      <CDropdownMenu className="mt-2 shadow-none border">
+                        <CDropdownItem onClick={() => setShowClearMod(true)}>CLEAR ALL</CDropdownItem>
+                        <CDropdownDivider />
+                        <CDropdownItem
                           onClick={() =>
-                            handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })}
+                            handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })}
                         >
-                          DONE
-                        </Button>
-                      </CCol>
-                    </Modal.Body>
-                  </Modal>
-                </CRow>
+                          CLEAR MARKED
+                        </CDropdownItem>
+                      </CDropdownMenu>
+                    </CDropdown>
+                  ) : (
+                    ''
+                  )}
+                  {btnFulfill ? (
+                    <CDropdown className="btn-group mx-3 btn-fulfill">
+                      <CDropdownToggle color="primary">FULFILL</CDropdownToggle>
+                      <CDropdownMenu className="mt-2 shadow-none border">
+                        <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
+                        <CDropdownDivider />
+                        <CDropdownItem onClick={() => fulfillMarkedMod()}>FULFILL MARKED</CDropdownItem>
+                      </CDropdownMenu>
+                    </CDropdown>
+                  ) : (
+                    ''
+                  )}
+                  {btnSearch ? (
+                    <button
+                      type="button"
+                      className="btn btn-search mobile-search btn-primary float-right"
+                      onClick={() => {
+                        getSummaryData({
+                          siteVal: user.site ? user.site : newDropdownValue.site?.value,
+                          clientVal: user.client ? user.client : newDropdownValue.client?.value,
+                          orderType: newDropdownValue.orderType,
+                          task: newDropdownValue.task,
+                          status: newDropdownValue.status,
+                          dispatch,
+                          searchInput,
+                          module,
+                          user,
+                        });
+                        dispatch({ type: paramType, data: [] });
+                        setExportTable(false)
+                      }}
+                    >
+                      SEARCH
+                    </button>
+                  ) : (
+                    ''
+                  )}
+                </CCol>
               </CRow>
+
+              <Modal show={showClearMod} size="lg" centered className="p-3 modal-confirmation">
+                <Modal.Body className="p-3">
+                  <div
+                    className="text-right px-0"
+                    style={{ fontSize: '14px' }}
+                    onClick={() => setShowClearMod(!showClearMod)}
+                    aria-hidden="true"
+                  >
+                    <i className="iconU-close pointer" />
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <img src="" alt="logo" style={{ width: '25%', height: '25%' }} />
+                    <div className="pl-3">
+                      <p className="mb-0" style={{ color: '#D6D8DA' }}>
+                        Are you sure?
+                      </p>
+                      <p>To clear all &apos;Edit Qty&apos; and &apos;Edit Carton&apos; fields.</p>
+                    </div>
+                  </div>
+                  <CCol className="px-0 pb-0 pt-3 d-flex justify-content-end">
+                    <Button variant="primary" style={{ padding: '0rem 1.08rem' }} onClick={() => handleClear()}>
+                      CLEAR
+                    </Button>
+                  </CCol>
+                </Modal.Body>
+              </Modal>
+              <Modal show={showFulfillMod} size="lg" centered className="p-3 modal-confirmation">
+                <Modal.Body className="p-3">
+                  <div
+                    className="text-right px-0"
+                    style={{ fontSize: '14px' }}
+                    onClick={() => setShowFulfillMod(!showFulfillMod)}
+                    aria-hidden="true"
+                  >
+                    <i className="iconU-close pointer" />
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <img src="" alt="logo" style={{ width: '25%', height: '25%' }} />
+                    <div className="pl-3">
+                      <p>System will override data previously entered.</p>
+                    </div>
+                  </div>
+                  <CCol className="px-0 pb-0 pt-3 d-flex justify-content-end">
+                    <Button
+                      variant="primary"
+                      style={{ padding: '0rem 1.08rem' }}
+                      onClick={() =>
+                        handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })}
+                    >
+                      DONE
+                    </Button>
+                  </CCol>
+                </Modal.Body>
+              </Modal>
             </CCol>
           )}
         </CRow>
