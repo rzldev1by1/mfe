@@ -287,84 +287,94 @@ const Search = ({
           ) : (
             <CCol lg={!inputTag ? 12 : 9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2} className={`mobile-site px-0 ${filterSite === true ? null : ' d-none'}`}>
-                  {user?.site ? (
-                    <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
-                  ) : (
+                <CCol sm={4} lg={2} className='mobile-site px-0'>
+                  <div className={`${filterSite === true ? null : ' d-none'}`}>
+                    {user?.site ? (
+                      <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
+                    ) : (
+                      <Dropdown
+                        className="px-0"
+                        show
+                        placeholder="Site"
+                        options={siteData}
+                        onChangeDropdown={(selected) =>
+                          setSite({
+                            selected,
+                            dispatch,
+                            dropdownValue,
+                            setDropdownValue,
+                          })}
+                        selectedValue={newDropdownValue.site}
+                      />
+                    )}
+                  </div>
+                </CCol>
+                <CCol sm={4} lg={2} className='mobile-client px-3'>
+                  <div className={`${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'}`}>
+                    {user?.client ? (
+                      <input
+                        value={clientCheck(clientData, user.client)}
+                        className="form-control sh-input"
+                        readOnly
+                      />
+                    ) : (
+                      <Dropdown
+                        show
+                        placeholder="Client"
+                        options={clientData}
+                        onChangeDropdown={(selected) =>
+                          setClient({
+                            onChangeGetTask,
+                            getTask,
+                            getTaskParam,
+                            selected,
+                            dispatch,
+                            dropdownValue,
+                            setDropdownValue,
+                          })}
+                        selectedValue={newDropdownValue.client}
+                      />
+                    )}
+                  </div>
+                </CCol>
+                <CCol sm={4} lg={2} className='px-0 mobile-status'>
+                  <div className={`${filterStatus === true ? null : ' d-none'}`}>
                     <Dropdown
                       className="px-0"
                       show
-                      placeholder="Site"
-                      options={siteData}
+                      placeholder="Status"
+                      options={statusDataSH || statusData}
                       onChangeDropdown={(selected) =>
-                        setSite({
-                          selected,
-                          dispatch,
-                          dropdownValue,
-                          setDropdownValue,
-                        })}
-                      selectedValue={newDropdownValue.site}
+                        setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
+                      selectedValue={newDropdownValue.status}
                     />
-                  )}
+                  </div>
                 </CCol>
-                <CCol sm={4} lg={2} className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'}`}>
-                  {user?.client ? (
-                    <input
-                      value={clientCheck(clientData, user.client)}
-                      className="form-control sh-input"
-                      readOnly
-                    />
-                  ) : (
+                <CCol sm={4} lg={2} className='mobile-type'>
+                  <div className={`${filterOrderType === true ? null : ' d-none'}`}>
                     <Dropdown
+                      className="px-0"
                       show
-                      placeholder="Client"
-                      options={clientData}
+                      placeholder="Order Type"
+                      options={orderTypeData}
                       onChangeDropdown={(selected) =>
-                        setClient({
-                          onChangeGetTask,
-                          getTask,
-                          getTaskParam,
-                          selected,
-                          dispatch,
-                          dropdownValue,
-                          setDropdownValue,
-                        })}
-                      selectedValue={newDropdownValue.client}
+                        setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
+                      selectedValue={newDropdownValue.orderType}
                     />
-                  )}
+                  </div>
                 </CCol>
-                <CCol sm={4} lg={2} className={`px-0 mobile-status ${filterStatus === true ? null : ' d-none'}`}>
-                  <Dropdown
-                    className="px-0"
-                    show
-                    placeholder="Status"
-                    options={statusDataSH || statusData}
-                    onChangeDropdown={(selected) =>
-                      setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
-                    selectedValue={newDropdownValue.status}
-                  />
-                </CCol>
-                <CCol sm={4} lg={2} className={`mobile-type ${filterOrderType === true ? null : ' d-none'}`}>
-                  <Dropdown
-                    className="px-0"
-                    show
-                    placeholder="Order Type"
-                    options={orderTypeData}
-                    onChangeDropdown={(selected) =>
-                      setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
-                    selectedValue={newDropdownValue.orderType}
-                  />
-                </CCol>
-                <CCol sm={4} lg={2} className={`mobile-task px-0 ${filterTask === true ? null : ' d-none'}`}>
-                  <Dropdown
-                    className="px-0"
-                    show
-                    placeholder="Task"
-                    options={taskData}
-                    onChangeDropdown={(selected) =>
-                      setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
-                    selectedValue={newDropdownValue.task}
-                  />
+                <CCol sm={4} lg={2} className='mobile-task px-0'>
+                  <div className={`${filterTask === true ? null : ' d-none'}`}>
+                    <Dropdown
+                      className="px-0"
+                      show
+                      placeholder="Task"
+                      options={taskData}
+                      onChangeDropdown={(selected) =>
+                        setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
+                      selectedValue={newDropdownValue.task}
+                    />
+                  </div>
                 </CCol>
                 <CCol sm={4} lg={2} className={`mobile-style pl-0 pr-3 ${filterStyle === true ? null : ' d-none'}`}>
                   <Dropdown
