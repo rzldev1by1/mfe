@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React, { useEffect, useState, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,6 +19,9 @@ import {
 import { Button, Modal } from 'react-bootstrap';
 import endpoints from '../../helpers/endpoints';
 import DatePicker from '../../shared/DatePicker';
+import Dropdown from '../Dropdown';
+import { getSummaryData, getDetailData, getDateRange } from '../../apiService';
+import { getSite, getClient, getStatus, getOrderType, getTask, siteCheck, clientCheck } from '../../apiService/dropdown';
 import {
   setSite,
   setClient,
@@ -34,18 +36,8 @@ import {
   handleFullFillMarked,
   showFilter,
   resetFilter,
+  saveFilterSearch,
 } from './service';
-import Dropdown from '../Dropdown';
-import {
-  getSite,
-  getClient,
-  getStatus,
-  getOrderType,
-  getTask,
-  siteCheck,
-  clientCheck,
-} from '../../apiService/dropdown';
-import { getSummaryData, getDetailData, getDateRange } from '../../apiService';
 import './index.scss';
 
 const searchFilter = endpoints.env.REACT_APP_API_URL_SEARCH_FILTER;
@@ -101,12 +93,17 @@ const Search = ({
   const [showClearMod, setShowClearMod] = useState(false);
   const [showFulfillMod, setShowFulfillMod] = useState(false);
   const [defaultDate, setDefaultDate] = useState(null);
+  const [columnFilter, setColumnFilter] = useState(filterHidden);
+  const arrayFilterSearch = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
+  const [triggerColumn, setTriggerColumn] = useState(false);
+
   const [dropdownValue, setDropdownValue] = useState({
     site: '',
     client: '',
     status: '',
     orderType: '',
     task: '',
+    typeDate: '',
     fromDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
     toDate: moment().format('YYYY-MM-DD'),
     firstValue: false
@@ -138,6 +135,9 @@ const Search = ({
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
         status: newDropdownValue.status,
+        typeDate: newDropdownValue.typeDate,
+        fromDate: newDropdownValue.fromDate,
+        toDate: newDropdownValue.toDate,
         searchInput,
         dispatch,
         module,
@@ -224,6 +224,9 @@ const Search = ({
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
         status: newDropdownValue.status,
+        typeDate: newDropdownValue.typeDate,
+        fromDate: newDropdownValue.fromDate,
+        toDate: newDropdownValue.toDate,
         dispatch,
         searchInput,
         module,
@@ -569,7 +572,7 @@ const Search = ({
                 <input
                   id="searchInput"
                   type="text"
-                  className="form-control border-left-0 input-height"
+                  className="form-control border-left-0 ml-0 input-height"
                   placeholder={placeholder}
                   onChange={(e) => setSearchInput(e.target.value)}
                   onKeyPress={(e) => search(e)}
@@ -591,6 +594,9 @@ const Search = ({
                   orderType: newDropdownValue.orderType,
                   task: newDropdownValue.task,
                   status: newDropdownValue.status,
+                  typeDate: newDropdownValue.typeDate,
+                  fromDate: newDropdownValue.fromDate,
+                  toDate: newDropdownValue.toDate,
                   dispatch,
                   searchInput,
                   module,
@@ -602,23 +608,25 @@ const Search = ({
             >
               <i className="ri-search-line" />
             </Button>
-            <Button
-              type="button"
-              onClick={() => setShowModal(!showModal)}
-              className="btn-search icon-search-filter mobile-search ml-2"
-            >
-              <i className="ri-filter-line" />
-            </Button>
+            {module === 'UserManagement' ? '' : (
+              <Button
+                type="button"
+                onClick={() => setShowModal(!showModal)}
+                className="btn-search icon-search-filter mobile-search ml-2"
+              >
+                <i className="ri-filter-line" />
+              </Button>
+            )}
           </CCol>
           <CCol lg={12} className="px-0">
             <CRow>
               <CCol lg={11}>
                 <CRow className="mx-0">
-                  {filterHidden.map(item => {
+                  {arrayFilterSearch?.map(dataHidden => {
                     const dateFilter = ['dateReceived', 'deliveryDate', 'dateReleased', 'dateReleased', 'dateCompleted', 'orderDate']
                     return (
                       <>
-                        {item.accessor === 'site' && item.hiddenFilter === true ?
+                        {dataHidden.accessor === 'site' && dataHidden.hiddenFilter === true ?
                           (
                             <CCol sm={4} lg={2} className={`mobile-site px-0 mr-3 pt-3 ${filterSite === true ? null : ' d-none'}`}>
                               {user?.site ? (
@@ -626,7 +634,7 @@ const Search = ({
                               ) : (
                                 <Dropdown
                                   show
-                                  placeholder="Site"
+                                  placeholder={dataHidden.name}
                                   options={siteData}
                                   onChangeDropdown={(selected) =>
                                     setSite({
@@ -642,7 +650,7 @@ const Search = ({
                           )
                           : ''}
 
-                        {item.accessor === 'client' && item.hiddenFilter === true ?
+                        {dataHidden.accessor === 'client' && dataHidden.hiddenFilter === true ?
                           (
                             <CCol sm={4} lg={2} className={`mobile-client px-0 mr-3 pt-3 ${filterClient === true ? null : ' d-none'}`}>
                               {user?.client ? (
@@ -650,7 +658,7 @@ const Search = ({
                               ) : (
                                 <Dropdown
                                   show
-                                  placeholder="Client"
+                                  placeholder={dataHidden.name}
                                   options={clientData}
                                   onChangeDropdown={(selected) =>
                                     setClient({
@@ -669,12 +677,12 @@ const Search = ({
                           )
                           : ''}
 
-                        {item.accessor === 'status' && item.hiddenFilter === true ?
+                        {dataHidden.accessor === 'status' && dataHidden.hiddenFilter === true ?
                           (
                             <CCol sm={4} lg={2} className={`px-0 mobile-status mr-3 pt-3 ${filterStatus === true ? null : ' d-none'}`}>
                               <Dropdown
                                 show
-                                placeholder="Status"
+                                placeholder={dataHidden.name}
                                 options={statusDataSH || statusData}
                                 onChangeDropdown={(selected) =>
                                   setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
@@ -684,12 +692,12 @@ const Search = ({
                           )
                           : ''}
 
-                        {item.accessor === 'orderType' && item.hiddenFilter === true ?
+                        {dataHidden.accessor === 'orderType' && dataHidden.hiddenFilter === true ?
                           (
                             <CCol sm={4} lg={2} className={`mobile-type px-0 mr-3 pt-3 ${filterOrderType === true ? null : ' d-none'}`}>
                               <Dropdown
                                 show
-                                placeholder="Order Type"
+                                placeholder={dataHidden.name}
                                 options={orderTypeData}
                                 onChangeDropdown={(selected) =>
                                   setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
@@ -699,12 +707,12 @@ const Search = ({
                           )
                           : ''}
 
-                        {item.accessor === 'task' && item.hiddenFilter === true ?
+                        {dataHidden.accessor === 'task' && dataHidden.hiddenFilter === true ?
                           (
                             <CCol sm={4} lg={2} className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}>
                               <Dropdown
                                 show
-                                placeholder="Task"
+                                placeholder={dataHidden.name}
                                 options={taskData}
                                 onChangeDropdown={(selected) =>
                                   setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
@@ -714,19 +722,48 @@ const Search = ({
                           )
                           : ''}
 
-                        {dateFilter.includes(item.accessor) && item.hiddenFilter === true ?
+                        {dataHidden.accessor === 'customerpono' && dataHidden.hiddenFilter === true ?
+                          (
+                            <CCol sm={4} lg={2} className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}>
+                              <input
+                                id="searchInput"
+                                type="text"
+                                className="form-control input-height"
+                                placeholder={dataHidden.name}
+                                // onChange={(e) => setSearchInput(e.target.value)}
+                                style={{ height: '100%' }}
+                              />
+                            </CCol>
+                          )
+                          : ''}
+                        {dataHidden.accessor === 'vendororderno' && dataHidden.hiddenFilter === true ?
+                          (
+                            <CCol sm={4} lg={2} className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}>
+                              <input
+                                id="searchInput"
+                                type="text"
+                                className="form-control input-height"
+                                placeholder={dataHidden.name}
+                                // onChange={(e) => setSearchInput(e.target.value)}
+                                style={{ height: '100%' }}
+                              />
+                            </CCol>
+                          )
+                          : ''}
+
+                        {dateFilter.includes(dataHidden.accessor) && dataHidden.hiddenFilter === true ?
                           (
                             <>
                               <CCol lg={7}>
                                 <div className='d-flex'>
-                                  <div className="colDateText d-flex text-light-gray align-items-center pt-3 pr-3">{item.name}</div>
+                                  <div className="colDateText d-flex text-light-gray align-items-center pt-3 pr-3">{dataHidden.name}</div>
                                   <div className="colDateText d-flex text-light-gray align-items-center pt-3"> From</div>
                                   <CCol lg={4} sm={10} className="colDate pt-3">
                                     <DatePicker
                                       style={{ minWidth: '100%' }}
                                       ref={dateFrom}
                                       arrowStyle
-                                      getDate={(e) => setDropdownValue({ ...newDropdownValue, fromDate: e, firstValue: false })}
+                                      getDate={(e) => setDropdownValue({ ...newDropdownValue, fromDate: e, typeDate: dataHidden.accessor, firstValue: false })}
                                       defaultValue={new Date(newDropdownValue.fromDate)}
                                       placeHolder="Select Date"
                                       onChange={() => { dateTo.current.openDatePicker(); }}
@@ -753,7 +790,7 @@ const Search = ({
                                       firstValue={newDropdownValue.firstValue}
                                       onOpen={() => dateTo.current.openDatePicker('from')}
                                       classNameInput="form-control"
-                                      getDate={(e) => setDropdownValue({ ...newDropdownValue, toDate: e })}
+                                      getDate={(e) => setDropdownValue({ ...newDropdownValue, toDate: e, typeDate: dataHidden.accessor })}
                                       defaultValue={new Date(newDropdownValue.toDate)}
                                       placeHolder="Select Date"
                                       fromMonth={defaultDate?.minDate}
@@ -818,25 +855,27 @@ const Search = ({
         </Modal.Header>
         <Modal.Body className={`${darkMode ? 'DarkModesEditRename ' : ' '} p-3`}>
           <CRow className='px-2'>
-            {filterHidden &&
-              filterHidden.map((item) => {
-                return (
-                  <CCol key={item.accessor} lg={3} className="px-2 py-2">
-                    <button
-                      type="button"
-                      onClick={() => showFilter({ item, module, filterHidden, dispatch })}
-                      className={`text-left btn pl-2 ver-center-item w-100 ${item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'}`}
-                    >
-                      {item.hiddenFilter ? (
-                        <i className="ri-eye-line font-20 mr-2 d-flex align-items-center" />
-                      ) : (
-                        <i className="ri-eye-off-line font-20 mr-2 d-flex align-items-center" />
-                      )}
-                      <b className="p-0 pl-1">{item.name}</b>
-                    </button>
-                  </CCol>
-                );
-              })}
+            {columnFilter && columnFilter.map((item) => {
+              return (
+                <CCol lg={3} className="px-2 py-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      showFilter({ item, columnFilter, setColumnFilter });
+                      setTriggerColumn(!triggerColumn)
+                    }}
+                    className={`btn-edit-filter pl-2 ver-center-item w-100 ${item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'}`}
+                  >
+                    {item.hiddenFilter ? (
+                      <i className="ri-eye-line font-20 mr-2 d-flex align-items-center" />
+                    ) : (
+                      <i className="ri-eye-off-line font-20 mr-2 d-flex align-items-center" />
+                    )}
+                    <b className="p-0 pl-1">{item.name}</b>
+                  </button>
+                </CCol>
+              );
+            })}
             <CCol lg={12} className="px-2 justify-content-between d-flex pt-3">
               <Button
                 variant="primary"
@@ -847,7 +886,7 @@ const Search = ({
               </Button>
               <Button
                 variant="primary"
-                onClick={() => setShowModal(!showModal)}
+                onClick={() => { saveFilterSearch({ module, dispatch, columnFilter }); setShowModal(!showModal) }}
                 style={{ padding: '0rem 1.08rem' }}
               >
                 SAVE

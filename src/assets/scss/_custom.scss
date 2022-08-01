@@ -158,6 +158,11 @@ input:-webkit-autofill {
   border: 1px solid #e4e7ea !important;
 }
 
+.btn-light-gray:hover {
+  color: #fff !important;
+  background-color: darken(#e4e7ea, 10) !important;
+}
+
 .btn-disabled {
   color: #fff !important;
   background-color: #D6D8DA !important;
@@ -165,11 +170,6 @@ input:-webkit-autofill {
 }
 
 .btn-disabled:hover {
-  color: #fff !important;
-  background-color: darken(#e4e7ea, 10) !important;
-}
-
-.btn-light-gray:hover {
   color: #fff !important;
   background-color: darken(#e4e7ea, 10) !important;
 }

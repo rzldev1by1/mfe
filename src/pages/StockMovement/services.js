@@ -414,3 +414,9 @@ export const demoPDF = ({ filename, rowSpan }) => {
 
   pdf.save(`${title}.pdf`);
 };
+
+export const filterSummaryDefault = [
+  { name: 'Site', accessor: 'site', hiddenFilter: false },
+  { name: 'Client', accessor: 'client', hiddenFilter: false },
+  { name: 'Product', accessor: 'product', hiddenFilter: false },
+]

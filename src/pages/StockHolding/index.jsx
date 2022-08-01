@@ -113,7 +113,7 @@ const PurchaseOrders = (props) => {
         <div>
           <Search
             module={module}
-            filterHidden={filterHiddenData ? filterHiddenData : filterSummaryDefault}
+            filterHidden={filterHiddenData || filterSummaryDefault}
             filterSite
             filterClient
             filterStatus

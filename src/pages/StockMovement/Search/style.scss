@@ -2,9 +2,15 @@
   .width-100 {
     width: 100% !important;
   }
+
   .z-99 {
     z-index: 99;
   }
+}
+
+.ver-center-item {
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 991px) {
@@ -13,24 +19,29 @@
       padding-right: 0rem !important;
       padding-top: 15px !important;
     }
+
     .colDate {
       padding-right: 0rem !important;
       padding-top: 15px !important;
       flex: 80%;
     }
+
     .colDateText {
       flex: 20%;
       padding-left: 0.7rem;
     }
+
     .colBtn {
       padding-top: 15px;
       flex: 100%;
       padding-left: 0px;
       padding-right: 0px;
     }
+
     .btn-search {
       width: 100%;
     }
+
     .colOthers {
       padding-top: 15px;
     }
@@ -43,18 +54,22 @@
       padding-right: 1rem !important;
       max-width: 12%;
     }
+
     .colDate {
       padding-right: 1rem !important;
       max-width: 13%;
     }
+
     .colDateText {
       padding-left: 0rem;
       padding-right: 1rem !important;
     }
+
     .colBtn {
       padding-left: 15px;
       padding-right: 0px;
     }
+
     .colProduct {
       padding-right: 15px;
     }

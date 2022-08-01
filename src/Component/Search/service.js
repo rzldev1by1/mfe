@@ -104,12 +104,12 @@ export const handleFullFillMarked = ({ dispatch, spDetailTable, clearMarked, set
   setShowFulfillMod(false)
 }
 
-export const showFilter = ({ item, module, filterHidden, dispatch }) => {
+export const showFilter = ({ item, columnFilter, setColumnFilter }) => {
   const dateFilter = ['dateReceived', 'dateReleased', 'dateReleased', 'dateCompleted', 'orderDate', 'deliveryDate']
-  filterHidden.forEach(data => {
+  columnFilter.forEach(data => {
     if (data.accessor === item.accessor) {
       if (dateFilter.includes(data.accessor)) {
-        filterHidden.forEach(dataDate => {
+        columnFilter.forEach(dataDate => {
           if (dateFilter.includes(dataDate.accessor)) {
             dataDate.hiddenFilter = false
           }
@@ -120,8 +120,7 @@ export const showFilter = ({ item, module, filterHidden, dispatch }) => {
       }
     }
   });
-  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
-  dispatch({ type: 'CHANGE_FILTER', data: true });
+  setColumnFilter(columnFilter)
 }
 
 export const resetFilter = ({ module, filterHidden, dispatch, setShowModal }) => {
@@ -129,4 +128,9 @@ export const resetFilter = ({ module, filterHidden, dispatch, setShowModal }) =>
   localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
   dispatch({ type: 'CHANGE_FILTER', data: true });
   setShowModal(false)
+}
+
+export const saveFilterSearch = ({ module, dispatch, columnFilter }) => {
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(columnFilter));
+  dispatch({ type: 'CHANGE_FILTER', data: true });
 }

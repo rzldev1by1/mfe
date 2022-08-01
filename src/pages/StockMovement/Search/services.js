@@ -159,3 +159,22 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setDateHeader }) =>
   setHeader(tmpHeader);
   setDateHeader(tmpDateHeader);
 };
+
+export const showFilter = ({ item, columnFilter, setColumnFilter }) => {
+  columnFilter.forEach(data => {
+    if (data.accessor === item.accessor) data.hiddenFilter = !item.hiddenFilter
+  });
+  setColumnFilter(columnFilter)
+}
+
+export const resetFilter = ({ module, filterHidden, dispatch, setShowModal }) => {
+  filterHidden.forEach(data => { data.hiddenFilter = false })
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  dispatch({ type: 'CHANGE_FILTER', data: true });
+  setShowModal(false)
+}
+
+export const saveFilterSearch = ({ module, dispatch, columnFilter }) => {
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(columnFilter));
+  dispatch({ type: 'CHANGE_FILTER', data: true });
+}
