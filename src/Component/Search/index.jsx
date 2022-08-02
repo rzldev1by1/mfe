@@ -104,6 +104,8 @@ const Search = ({
     orderType: '',
     task: '',
     typeDate: '',
+    customerOrderRef: '',
+    vendorOrderNo: '',
     fromDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
     toDate: moment().format('YYYY-MM-DD'),
     firstValue: false
@@ -138,6 +140,8 @@ const Search = ({
         typeDate: newDropdownValue.typeDate,
         fromDate: newDropdownValue.fromDate,
         toDate: newDropdownValue.toDate,
+        vendorOrderNo: newDropdownValue.vendorOrderNo,
+        customerOrderRef: newDropdownValue.customerOrderRef,
         searchInput,
         dispatch,
         module,
@@ -227,6 +231,8 @@ const Search = ({
         typeDate: newDropdownValue.typeDate,
         fromDate: newDropdownValue.fromDate,
         toDate: newDropdownValue.toDate,
+        vendorOrderNo: newDropdownValue.vendorOrderNo,
+        customerOrderRef: newDropdownValue.customerOrderRef,
         dispatch,
         searchInput,
         module,
@@ -590,6 +596,8 @@ const Search = ({
                   typeDate: newDropdownValue.typeDate,
                   fromDate: newDropdownValue.fromDate,
                   toDate: newDropdownValue.toDate,
+                  vendorOrderNo: newDropdownValue.vendorOrderNo,
+                  customerOrderRef: newDropdownValue.customerOrderRef,
                   dispatch,
                   searchInput,
                   module,
@@ -629,13 +637,7 @@ const Search = ({
                                   show
                                   placeholder={dataHidden.name}
                                   options={siteData}
-                                  onChangeDropdown={(selected) =>
-                                    setSite({
-                                      selected,
-                                      dispatch,
-                                      dropdownValue,
-                                      setDropdownValue,
-                                    })}
+                                  onChangeDropdown={(selected) => setSite({ selected, dispatch, dropdownValue, setDropdownValue })}
                                   selectedValue={newDropdownValue.site}
                                 />
                               )}
@@ -653,16 +655,7 @@ const Search = ({
                                   show
                                   placeholder={dataHidden.name}
                                   options={clientData}
-                                  onChangeDropdown={(selected) =>
-                                    setClient({
-                                      onChangeGetTask,
-                                      getTask,
-                                      getTaskParam,
-                                      selected,
-                                      dispatch,
-                                      dropdownValue,
-                                      setDropdownValue,
-                                    })}
+                                  onChangeDropdown={(selected) => setClient({ onChangeGetTask, getTask, getTaskParam, selected, dispatch, dropdownValue, setDropdownValue })}
                                   selectedValue={newDropdownValue.client}
                                 />
                               )}
@@ -677,8 +670,7 @@ const Search = ({
                                 show
                                 placeholder={dataHidden.name}
                                 options={statusDataSH || statusData}
-                                onChangeDropdown={(selected) =>
-                                  setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
+                                onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
                                 selectedValue={newDropdownValue.status}
                               />
                             </CCol>
@@ -692,8 +684,7 @@ const Search = ({
                                 show
                                 placeholder={dataHidden.name}
                                 options={orderTypeData}
-                                onChangeDropdown={(selected) =>
-                                  setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
+                                onChangeDropdown={(selected) => setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
                                 selectedValue={newDropdownValue.orderType}
                               />
                             </CCol>
@@ -707,8 +698,7 @@ const Search = ({
                                 show
                                 placeholder={dataHidden.name}
                                 options={taskData}
-                                onChangeDropdown={(selected) =>
-                                  setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
+                                onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
                                 selectedValue={newDropdownValue.task}
                               />
                             </CCol>
@@ -723,7 +713,7 @@ const Search = ({
                                 type="text"
                                 className="form-control input-height"
                                 placeholder={dataHidden.name}
-                                // onChange={(e) => setSearchInput(e.target.value)}
+                                onChange={(e) => setDropdownValue({ ...newDropdownValue, customerOrderRef: e.target.value })}
                                 style={{ height: '100%' }}
                               />
                             </CCol>
@@ -737,7 +727,7 @@ const Search = ({
                                 type="text"
                                 className="form-control input-height"
                                 placeholder={dataHidden.name}
-                                // onChange={(e) => setSearchInput(e.target.value)}
+                                onChange={(e) => setDropdownValue({ ...newDropdownValue, vendorOrderNo: e.target.value })}
                                 style={{ height: '100%' }}
                               />
                             </CCol>

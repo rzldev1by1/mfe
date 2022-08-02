@@ -35,6 +35,9 @@
     "no-return-assign": [
       "off"
     ],
+    "consistent-return": [
+      "off"
+    ],
     "beforeSelfClosing": "off",
     "import/extensions": [
       "error",

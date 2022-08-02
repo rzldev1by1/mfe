@@ -121,7 +121,7 @@ const EditRenameColumn = ({
   );
 
   let isChanged = fields?.filter(fieldsData => fieldsData.Header !== fieldsData.placeholder)
-  isChanged = isChanged?.length !== false
+  isChanged = isChanged?.length ? false : true
   return (
     <div>
       <Modal show={showModal} size="xl" centered>
