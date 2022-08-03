@@ -98,8 +98,8 @@ export const getSummaryData = async ({
     urls.push(`client=${UserClient}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
-    urls.push(`customerOrderRef=${customerOrderRef ? customerOrderRef : 'all'}`);
-    urls.push(`vendorOrderNo=${vendorOrderNo ? vendorOrderNo : 'all'}`);
+    if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
+    if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
     if (typeDate) {
       const typeDateSearch = typeDate.slice(0, 1).toUpperCase() + typeDate.substr(1);
       urls.push(`start${typeDateSearch}=${fromDate || ''}`);
