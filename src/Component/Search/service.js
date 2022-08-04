@@ -104,17 +104,22 @@ export const handleFullFillMarked = ({ dispatch, spDetailTable, clearMarked, set
   setShowFulfillMod(false)
 }
 
-export const showFilter = ({ item, columnFilter, setColumnFilter }) => {
+export const showFilter = ({ item, columnFilter, setColumnFilter, dropdownValue, setDropdownValue }) => {
+  const newDropdownValue = { ...dropdownValue }
   const dateFilter = ['dateReceived', 'dateReleased', 'dateReleased', 'dateCompleted', 'orderDate', 'deliveryDate']
   columnFilter.forEach(data => {
     if (data.accessor === item.accessor) {
       if (dateFilter.includes(data.accessor)) {
-        columnFilter.forEach(dataDate => {
-          if (dateFilter.includes(dataDate.accessor)) {
-            dataDate.hiddenFilter = false
-          }
-        })
-        data.hiddenFilter = true
+        if (data.hiddenFilter) data.hiddenFilter = false
+        else {
+          columnFilter.forEach(dataDate => {
+            if (dateFilter.includes(dataDate.accessor)) dataDate.hiddenFilter = false
+          })
+          data.hiddenFilter = true
+        }
+        newDropdownValue.fromDate = ''
+        newDropdownValue.toDate = ''
+        setDropdownValue(newDropdownValue)
       } else {
         data.hiddenFilter = !item.hiddenFilter
       }
@@ -123,9 +128,11 @@ export const showFilter = ({ item, columnFilter, setColumnFilter }) => {
   setColumnFilter(columnFilter)
 }
 
-export const resetFilter = ({ module, filterHidden, dispatch, setShowModal }) => {
+export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter }) => {
+  columnFilter.forEach(data => { data.hiddenFilter = false })
   filterHidden.forEach(data => { data.hiddenFilter = false })
   localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  setColumnFilter(columnFilter)
   dispatch({ type: 'CHANGE_FILTER', data: true });
   setShowModal(false)
 }

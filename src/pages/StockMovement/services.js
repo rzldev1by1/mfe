@@ -25,7 +25,6 @@ export const schemaColumn = [
     className: 'borderRight',
     fixed: 'left',
     width: 300,
-    // sortable: false,
   },
   {
     Header: 'Column 2',

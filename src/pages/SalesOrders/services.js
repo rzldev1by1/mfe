@@ -530,7 +530,6 @@ export const schemaColumnDetailPO = [
     sortable: true,
     Cell: (row) => {
       const { original } = row
-      console.log(original.completed)
       return <i className={`${original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     },
   },

@@ -15,6 +15,34 @@ const menuAvailable = [
 ];
 const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
 
+const allModule = {
+  StockHolding: {
+    endpointsUrl: endpoints.stockHoldingSummary,
+    paramType: 'GET_SH_SUMMARY',
+    paramPaging: 'PAGING_SH'
+  },
+  purchaseOrder: {
+    endpointsUrl: endpoints.purchaseOrder,
+    paramType: 'GET_PO_SUMMARY',
+    paramPaging: 'PAGING_PO'
+  },
+  salesOrder: {
+    endpointsUrl: endpoints.salesOrder,
+    paramType: 'GET_SO_SUMMARY',
+    paramPaging: 'PAGING_SO',
+  },
+  UserManagement: {
+    endpointsUrl: endpoints.userManagementListUser,
+    paramType: 'GET_UM_SUMMARY',
+    paramPaging: 'PAGING_UM'
+  },
+  SupplierManagement: {
+    endpointsUrl: endpoints.supplierManagement,
+    paramType: 'GET_SP_SUMMARY',
+    paramPaging: 'PAGING_SP'
+  },
+}
+
 export const formatDate = (date) => {
   if (date !== 'Invalid date' || date === undefined || date === null || date === '') {
     return moment(date).format(dateFormate) || false;
@@ -41,39 +69,20 @@ export const getSummaryData = async ({
   vendorOrderNo
 }) => {
   const urls = [];
-  let endpointsUrl = '';
-  let paramType = '';
-  let paramPaging = '';
+  let endpointsUrlData = '';
+  let paramData = '';
+  let paramPagingData = '';
   searchInput = searchInput || '';
 
-  if (module === 'purchaseOrder') {
-    endpointsUrl = endpoints.purchaseOrder;
-    paramType = 'GET_PO_SUMMARY';
-    paramPaging = 'PAGING_PO';
-  }
-  if (module === 'salesOrder') {
-    endpointsUrl = endpoints.salesOrder;
-    paramType = 'GET_SO_SUMMARY';
-    paramPaging = 'PAGING_SO';
-  }
-  if (module === 'StockHolding') {
-    endpointsUrl = endpoints.stockHoldingSummary;
-    paramType = 'GET_SH_SUMMARY';
-    paramPaging = 'PAGING_SH';
-  }
-  if (module === 'UserManagement') {
-    endpointsUrl = endpoints.userManagementListUser;
-    paramType = 'GET_UM_SUMMARY';
-    paramPaging = 'PAGING_UM';
-  }
+  Object.keys(allModule).forEach((allModuleKey) => {
+    if (allModuleKey === module) {
+      paramData = allModule[allModuleKey].paramType
+      paramPagingData = allModule[allModuleKey].paramPaging
+      endpointsUrlData = allModule[allModuleKey].endpointsUrl
+    }
+  });
 
-  if (module === 'SupplierManagement') {
-    endpointsUrl = endpoints.supplierManagement;
-    paramType = 'GET_SP_SUMMARY';
-    paramPaging = 'PAGING_SP';
-  }
   // Url
-
   if (module === 'UserManagement') {
     urls.push(`search=${searchInput || ''}`);
   }
@@ -98,6 +107,7 @@ export const getSummaryData = async ({
     urls.push(`client=${UserClient}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
+    if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
     if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
     if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
     if (typeDate) {
@@ -106,15 +116,13 @@ export const getSummaryData = async ({
       urls.push(`end${typeDateSearch}=${toDate || ''}`);
     }
   }
-  if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
   urls.push(`page=${active || 1}`);
-  if (Export === true) {
-    urls.push('export=true');
-  } else {
-    dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
-  }
+
+  if (Export === true) urls.push('export=true');
+  else dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
-  const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
+
+  const newData = await axios.get(`${endpointsUrlData}?${urls.join('&')}`);
   const Meta = newData?.data?.meta;
   const Data = newData?.data?.data;
 
@@ -169,8 +177,8 @@ export const getSummaryData = async ({
         to: Meta.to,
       };
       const paging = pagination;
-      dispatch({ type: paramType, data: Data });
-      dispatch({ type: paramPaging, data: paging });
+      dispatch({ type: paramData, data: Data });
+      dispatch({ type: paramPagingData, data: paging });
     }
   }
 };

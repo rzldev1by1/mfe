@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
-import moment from 'moment';
 import {
   CCard,
   CCardBody,
@@ -106,8 +105,8 @@ const Search = ({
     typeDate: '',
     customerOrderRef: '',
     vendorOrderNo: '',
-    fromDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
-    toDate: moment().format('YYYY-MM-DD'),
+    fromDate: '',
+    toDate: '',
     firstValue: false
   });
 
@@ -747,7 +746,6 @@ const Search = ({
                                       ref={dateFrom}
                                       arrowStyle
                                       getDate={(e) => setDropdownValue({ ...newDropdownValue, fromDate: e, typeDate: dataHidden.accessor, firstValue: false })}
-                                      defaultValue={new Date(newDropdownValue.fromDate)}
                                       placeHolder="Select Date"
                                       onChange={() => { dateTo.current.openDatePicker(); }}
                                       classNameInput="form-control"
@@ -774,7 +772,6 @@ const Search = ({
                                       onOpen={() => dateTo.current.openDatePicker('from')}
                                       classNameInput="form-control"
                                       getDate={(e) => setDropdownValue({ ...newDropdownValue, toDate: e, typeDate: dataHidden.accessor })}
-                                      defaultValue={new Date(newDropdownValue.toDate)}
                                       placeHolder="Select Date"
                                       fromMonth={defaultDate?.minDate}
                                       toMonth={defaultDate?.maxDate}
@@ -844,7 +841,7 @@ const Search = ({
                   <button
                     type="button"
                     onClick={() => {
-                      showFilter({ item, columnFilter, setColumnFilter });
+                      showFilter({ item, columnFilter, setColumnFilter, dropdownValue, setDropdownValue });
                       setTriggerColumn(!triggerColumn)
                     }}
                     className={`btn-edit-filter pl-2 ver-center-item w-100 ${item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'}`}
@@ -863,7 +860,7 @@ const Search = ({
               <Button
                 variant="primary"
                 style={{ padding: '0rem 1.08rem' }}
-                onClick={() => resetFilter({ module, filterHidden, dispatch, setShowModal })}
+                onClick={() => resetFilter({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter })}
               >
                 RESET FILTER FIELD
               </Button>

@@ -8,7 +8,7 @@ import { setExportData, schemaColumnDetailPO, headerDetailCenter, headerDetailRi
 import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {
-  const {match} = props
+  const { match } = props
   const dispatch = useDispatch();
   const poDetail = useSelector((state) => state.poDetail);
   const poDetailTable = useSelector((state) => state.poDetailTable);

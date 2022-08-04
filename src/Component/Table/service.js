@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React from 'react';
 
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
@@ -107,11 +106,11 @@ export const saveSchemaToLocal = ({
     } else if (i === newIndex) {
       newSchemaOrder[i] = movedColumn;
     } else {
-      newSchemaOrder[i] = oldSchema[i-1];
+      newSchemaOrder[i] = oldSchema[i - 1];
     }
     i += 1;
   }
-  
+
   localStorage.removeItem(key);
   localStorage.setItem(key, JSON.stringify(newSchemaOrder));
 };

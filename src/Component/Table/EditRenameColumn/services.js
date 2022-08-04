@@ -114,20 +114,22 @@ export const headerRename = async ({ UrlHeader, fields, setFields, data }) => {
     const space = fields.map((dataX) => { return dataX.space })
     const align = fields.map((dataX) => { return dataX.align })
 
-    const sortable = fields.map((datas) => {
+    const sortable = fields.map((dataX) => {
       let hiddenSort
+      console.log(dataSum.length)
       if (dataSum) {
-        if (dataSum.length > 1) hiddenSort = datas.sortable
-        else hiddenSort = false
+        if (dataSum.length > 1) hiddenSort = dataX.sortable
+        if (dataSum.length === 1) hiddenSort = false
+        else hiddenSort = dataX.sortable
       } else {
-        hiddenSort = datas.sortable
+        hiddenSort = dataX.sortable
       }
       return hiddenSort;
     });
-    const sortType = fields.map((datas) => {
+    const sortType = fields.map((dataX) => {
       let split;
-      if (datas.sortType) {
-        split = datas.sortType;
+      if (dataX.sortType) {
+        split = dataX.sortType;
       } else {
         split = null;
       }
