@@ -65,12 +65,12 @@ const StockMovement = () => {
   const DateDataList = ({ dateData }) => {
     return (
       <>
-        <th>{dateData?.date_1}</th>
+        <th style={{ width: '20px' }}>{dateData?.date_1}</th>
         <th>{dateData?.sa_plus_1}</th>
         <th>{dateData?.sa_minus_1}</th>
         <th>{dateData?.rec_1}</th>
         <th>{dateData?.send_1}</th>
-        <th>{dateData?.date_2}</th>
+        <th style={{ width: '20px' }}>{dateData?.date_2}</th>
         <th>{dateData?.sa_plus_2}</th>
         <th>{dateData?.sa_minus_2}</th>
         <th>{dateData?.rec_2}</th>
@@ -168,36 +168,47 @@ const StockMovement = () => {
             <th>Product</th>
             <th>Description</th>
             <th>UOM</th>
-            <th>Date</th>
+            <th style={{ width: '20px' }}>Date</th>
             <th>SA+</th>
             <th>SA-</th>
             <th>Rec</th>
             <th>Send</th>
-            <th>Date</th>
-            <th>SA+</th>
-            <th>SA-</th>
-            <th>Rec</th>
-            <th>Send</th>
+            {dataPDF && dataPDF[0] && dataPDF[0].date[0].date_2 === undefined ? (
+              ''
+            ) : (
+              <>
+                <th style={{ width: '20px' }}>Date</th>
+                <th>SA+</th>
+                <th>SA-</th>
+                <th>Rec</th>
+                <th>Send</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
           {dataPDF &&
             dataPDF.map((data) => {
-              const date1 = data.date[0];
-              const date2 = data.date[1];
               return (
                 <>
                   <tr key={data.product}>
-                    <td rowSpan="2">{data.site}</td>
-                    <td rowSpan="2">{data.client}</td>
-                    <td rowSpan="2">{data.product}</td>
-                    <td rowSpan="2">{data.product_name}</td>
-                    <td rowSpan="2">{data.uom}</td>
-                    <DateDataList dateData={date1} />
+                    <td rowSpan={data.rowspan}>{data.site}</td>
+                    <td rowSpan={data.rowspan}>{data.client}</td>
+                    <td rowSpan={data.rowspan}>{data.product}</td>
+                    <td rowSpan={data.rowspan}>{data.product_name}</td>
+                    <td rowSpan={data.rowspan}>{data.uom}</td>
+                    <DateDataList dateData={data.date[0]} />
                   </tr>
-                  <tr>
-                    <DateDataList dateData={date2} />
-                  </tr>
+                  {data.date.map((item, index) => {
+                    return (
+                      item !== [] &&
+                      index !== 0 && (
+                        <tr key={item.date_1}>
+                          <DateDataList dateData={item} />
+                        </tr>
+                      )
+                    );
+                  })}
                 </>
               );
             })}
