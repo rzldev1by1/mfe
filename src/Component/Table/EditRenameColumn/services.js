@@ -116,7 +116,6 @@ export const headerRename = async ({ UrlHeader, fields, setFields, data }) => {
 
     const sortable = fields.map((dataX) => {
       let hiddenSort
-      console.log(dataSum.length)
       if (dataSum) {
         if (dataSum.length > 1) hiddenSort = dataX.sortable
         if (dataSum.length === 1) hiddenSort = false

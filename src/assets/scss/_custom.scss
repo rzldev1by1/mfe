@@ -703,6 +703,8 @@ header {
     }
 
     .rt-tbody {
+      overflow: hidden !important;
+
       .rt-tr-group {
         .rt-tr {
           .rt-td {
