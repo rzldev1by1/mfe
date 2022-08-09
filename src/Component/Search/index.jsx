@@ -70,7 +70,6 @@ const Search = ({
 }) => {
   // params
   const dispatch = useDispatch();
-  const dateFrom = createRef(null);
   const dateTo = createRef(null);
   const darkMode = useSelector((state) => state.darkModeMLS);
   const siteData = useSelector((state) => state.siteData);
@@ -742,8 +741,6 @@ const Search = ({
                                   <div className="colDateText d-flex text-light-gray align-items-center pt-3"> From</div>
                                   <CCol lg={4} sm={10} className="colDate pt-3">
                                     <DatePicker
-                                      style={{ minWidth: '100%' }}
-                                      ref={dateFrom}
                                       arrowStyle
                                       getDate={(e) => setDropdownValue({ ...newDropdownValue, fromDate: e, typeDate: dataHidden.accessor, firstValue: false })}
                                       placeHolder="Select Date"
@@ -764,7 +761,6 @@ const Search = ({
                                   <div className="colDateText d-flex text-light-gray align-items-center pt-3"> To</div>
                                   <CCol lg={4} sm={10} className="colDate pt-3">
                                     <DatePicker
-                                      style={{ minWidth: '100%' }}
                                       ref={dateTo}
                                       arrowStyle
                                       firstDate={newDropdownValue.fromDate ? new Date(newDropdownValue.fromDate) : newDropdownValue.fromDate}
@@ -860,7 +856,7 @@ const Search = ({
               <Button
                 variant="primary"
                 style={{ padding: '0rem 1.08rem' }}
-                onClick={() => resetFilter({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter })}
+                onClick={() => resetFilter({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter, dropdownValue, setDropdownValue })}
               >
                 RESET FILTER FIELD
               </Button>

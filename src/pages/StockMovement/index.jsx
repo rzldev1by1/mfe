@@ -5,7 +5,6 @@ import Breadcrumb from '../../Component/Breadcrumb';
 import TableFixedColumn from '../../Component/TableFixedColumn';
 import { customSchema, setupExcel, setupPdf, demoPDF, filterSummaryDefault } from './services';
 import './style.scss';
-// import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 const StockMovement = () => {
   const module = 'stockMovement';

@@ -41,8 +41,6 @@ export const setTask = ({ selected, dropdownValue, setDropdownValue }) => {
 };
 
 export const setStatus = ({ selected, dropdownValue, setDropdownValue }) => {
-  // if (selected) dispatch({ type: 'STATUS', data: selected });
-  // else dispatch({ type: 'STATUS', data: null });
   const newDropdownValue = { ...dropdownValue };
   if (selected) newDropdownValue.status = selected
   else newDropdownValue.status = null
@@ -128,10 +126,14 @@ export const showFilter = ({ item, columnFilter, setColumnFilter, dropdownValue,
   setColumnFilter(columnFilter)
 }
 
-export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter }) => {
+export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter, dropdownValue, setDropdownValue }) => {
+  const newDropdownValue = { ...dropdownValue }
   columnFilter.forEach(data => { data.hiddenFilter = false })
   filterHidden.forEach(data => { data.hiddenFilter = false })
   localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  newDropdownValue.fromDate = ''
+  newDropdownValue.toDate = ''
+  setDropdownValue(newDropdownValue)
   setColumnFilter(columnFilter)
   dispatch({ type: 'CHANGE_FILTER', data: true });
   setShowModal(false)
