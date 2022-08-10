@@ -39,37 +39,43 @@ const DetailHeader = ({ headerDetailRight, headerDetailCenter, headerDetailLeft,
                   if (data) {
                     switch (accessor) {
                       case 'site':
-                        <CRow className="mx-0 pt-1">
-                          <CCol xs={4} className="text-light-gray">
-                            {id.Header}
-                          </CCol>
-                          <CCol xs={8}>{idAndDetail({ val: data[accessor], detail: siteData })}</CCol>
-                        </CRow>;
+                        (
+                          <CRow className="mx-0 pt-1">
+                            <CCol xs={4} className="text-light-gray">
+                              {id.Header}
+                            </CCol>
+                            <CCol xs={8}>{idAndDetail({ val: data[accessor], detail: siteData })}</CCol>
+                          </CRow>
+                        );
                         break;
                       case 'client':
-                        <CRow className="mx-0 pt-1">
-                          <CCol xs={4} className="text-light-gray">
-                            {id.Header}
-                          </CCol>
-                          <CCol xs={8}>{idAndDetail({ val: data[accessor], detail: clientData })}</CCol>
-                        </CRow>;
+                        (
+                          <CRow className="mx-0 pt-1">
+                            <CCol xs={4} className="text-light-gray">
+                              {id.Header}
+                            </CCol>
+                            <CCol xs={8}>{idAndDetail({ val: data[accessor], detail: clientData })}</CCol>
+                          </CRow>
+                        );
                         break;
                       case 'deliverydescription':
-                        <CRow className="mx-0 pt-1">
-                          <CCol xs={4} className="text-light-gray">
-                            {id.Header}
-                          </CCol>
-                          <CCol xs={8} className="px-0 line-camp">
-                            {data[accessor] ? data[accessor] : '-'}
-                          </CCol>
-                          {data[accessor]?.length > 100 ? (
-                            <div className="link-custom" onClick={() => setModalShow(true)} aria-hidden="true">
-                              Show More
-                            </div>
-                          ) : (
-                            ''
-                          )}
-                        </CRow>;
+                        (
+                          <CRow className="mx-0 pt-1">
+                            <CCol xs={4} className="text-light-gray">
+                              {id.Header}
+                            </CCol>
+                            <CCol xs={8} className="px-0 line-camp">
+                              {data[accessor] ? data[accessor] : '-'}
+                            </CCol>
+                            {data[accessor]?.length > 100 ? (
+                              <div className="link-custom" onClick={() => setModalShow(true)} aria-hidden="true">
+                                Show More
+                              </div>
+                            ) : (
+                              ''
+                            )}
+                          </CRow>
+                        );
                         break;
                       default:
                     }
