@@ -102,7 +102,7 @@ export const handleFullFillMarked = ({ dispatch, spDetailTable, clearMarked, set
   setShowFulfillMod(false)
 }
 
-export const showFilter = ({ item, columnFilter, setColumnFilter, dropdownValue, setDropdownValue }) => {
+export const showFilter = ({ item, columnFilter, setColumnFilter, dropdownValue, setDropdownValue, setValidResetFilter, }) => {
   const newDropdownValue = { ...dropdownValue }
   const dateFilter = ['dateReceived', 'dateReleased', 'dateReleased', 'dateCompleted', 'orderDate', 'deliveryDate']
   columnFilter.forEach(data => {
@@ -123,6 +123,7 @@ export const showFilter = ({ item, columnFilter, setColumnFilter, dropdownValue,
       }
     }
   });
+  setValidResetFilter(false)
   setColumnFilter(columnFilter)
 }
 
