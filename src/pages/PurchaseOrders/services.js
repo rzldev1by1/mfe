@@ -102,7 +102,8 @@ export const schemaColumn = [
     sortable: true,
     width: 130,
     Cell: (row) => {
-      switch (row.original.status) {
+      const { original } = row
+      switch (original.status) {
         case '0: Not Available':
           return <div className="status-unavailable">UNAVAILABLE</div>;
         case '1: Available':

@@ -41,11 +41,9 @@ class Dropdown extends Component {
           style={style}
           tabIndex={tabIndex}
           className={`select_dropdown dropdown_closed ${className} ${!this.state.close && (this.props.usedFor == "SalesOrderCreate") ? " dropDownForOrderLine" : ""}`}
-          onKeyDown={(e) => { if (e.key == "Escape") this.refs.closeDropdown.checked = true }}
           aria-hidden="true"
         >
           <input
-            ref="closeDropdown"
             value=""
             className="select_dropdown_close"
             type="radio"

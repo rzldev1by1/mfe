@@ -202,6 +202,7 @@ class DatePicker extends React.Component {
     }
   }
 
+
   componentDidMount() {
     if (this.props.showDatePicker) {
       this.props.showDatePicker(this.state.showDatePicker)
@@ -296,7 +297,6 @@ class DatePicker extends React.Component {
         <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
           <input
             type="text"
-            ref="dateValue"
             placeholder={this.props.placeHolder ? this.props.placeHolder : dateFormate}
             className={this.props.classNameInput}
             maxLength="10"
@@ -314,7 +314,7 @@ class DatePicker extends React.Component {
           {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format(dateFormate) : placeHolder}</span> */}
 
           {/* <li className="select_date_items"> */}
-          <input className={`select_date_expand ${this.props.arrowStyle ? "select_arrow_expand" : "select_calendar_expand"}`} ref="opener" type="checkbox" name={`select${placeHolder}${no}`} value="" checked={this.state.showDatePicker} id={`select-opener${placeHolder}${no}`} />
+          <input className={`select_date_expand ${this.props.arrowStyle ? "select_arrow_expand" : "select_calendar_expand"}`} type="checkbox" name={`select${placeHolder}${no}`} value="" checked={this.state.showDatePicker} id={`select-opener${placeHolder}${no}`} />
           <label className="select_date_closeLabel" htmlFor={`select-opener${placeHolder}${no}`} onClick={() => this.closeDatePicker()} aria-hidden="true" />
           <ReactResizeDetector
             handleWidth
