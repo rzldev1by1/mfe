@@ -13,6 +13,8 @@ import DropdownAxios from '../../../Component/Dropdown/DropdownAxios';
 import Input from '../../../Component/Input';
 import endpoints from '../../../helpers/endpoints';
 import { setHeaderSummary, showFilter, resetFilter, saveFilterSearch, closeModalFilter } from './services';
+import utils from '../../../helpers/utils';
+
 import './style.scss';
 
 const searchFilter = endpoints.env.REACT_APP_API_URL_SEARCH_FILTER;
@@ -389,7 +391,7 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
           <CContainer className="px-0">
             <CCol className="mx-0 px-0">
               <Button
-                onClick={() => { closeModalFilter({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter }) }}
+                onClick={() => { closeModalFilter({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter, utils }) }}
                 className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}
               >
                 <MdClose color="white" size={30} />

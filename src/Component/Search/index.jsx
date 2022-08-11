@@ -20,6 +20,7 @@ import endpoints from '../../helpers/endpoints';
 import DatePicker from '../../shared/DatePicker';
 import Dropdown from '../Dropdown';
 import { getSummaryData, getDetailData, getDateRange } from '../../apiService';
+import utils from '../../helpers/utils';
 import {
   getSite,
   getClient,
@@ -899,7 +900,7 @@ const Search = ({
           <CContainer className="px-0">
             <CCol className="mx-0 px-0">
               <Button
-                onClick={() => { closeModalFilter({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter }) }}
+                onClick={() => { closeModalFilter({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter, utils }) }}
                 className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}
               >
                 <MdClose color="white" size={30} />
