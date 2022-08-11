@@ -144,3 +144,11 @@ export const saveFilterSearch = ({ module, dispatch, columnFilter }) => {
   localStorage.setItem(`filterHidden_${module}`, JSON.stringify(columnFilter));
   dispatch({ type: 'CHANGE_FILTER', data: true });
 }
+
+export const closeModalFilter = ({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter }) => {
+  const dataDefault = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
+  setColumnFilter(dataDefault);
+  setShowModal(!showModal);
+  setChangeFilter(true);
+  setValidResetFilter(true)
+}

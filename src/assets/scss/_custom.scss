@@ -87,7 +87,7 @@ button:focus {
   z-index: -99 !important;
 }
 
-.card-pag>input.border-red {
+.card-pag > input.border-red {
   border-color: red !important;
 }
 
@@ -131,7 +131,7 @@ input:-webkit-autofill {
 
 .modal-confirmation {
   .modal-lg {
-    max-width: 450px !important
+    max-width: 450px !important;
   }
 }
 
@@ -151,6 +151,16 @@ input:-webkit-autofill {
 .text-light-gray {
   color: #b4b9bb;
 }
+.btn-outline-primary {
+  color: #376bfb !important;
+  border: 1px solid #376bfb !important;
+  background-color: #fff;
+}
+
+.btn-outline-primary:hover {
+  color: #ffffff !important;
+  background-color: #376bfb;
+}
 
 .btn-light-gray {
   color: #757575 !important;
@@ -165,8 +175,8 @@ input:-webkit-autofill {
 
 .btn-disabled {
   color: #fff !important;
-  background-color: #D6D8DA !important;
-  border: 1px solid #D6D8DA !important;
+  background-color: #d6d8da !important;
+  border: 1px solid #d6d8da !important;
 }
 
 .btn-disabled:hover {
@@ -248,7 +258,7 @@ input:-webkit-autofill {
 }
 
 .input-group .nav-link {
-  background-color: #A6BCFC !important;
+  background-color: #a6bcfc !important;
 }
 
 .nav-link.active {
@@ -336,7 +346,6 @@ input.outOfRemaining-input:focus {
 .color-max-qty {
   color: red !important;
 }
-
 
 .login input.form-control {
   padding: 0.375rem 0.75rem;
@@ -433,9 +442,7 @@ header {
   padding-right: 15px !important;
 }
 
-@media (min-height: 1025px),
-(min-width: 1024px) {
-
+@media (min-height: 1025px), (min-width: 1024px) {
   // disable vertical scrolling on desktop
   body,
   .c-wrapper {
@@ -450,7 +457,7 @@ header {
 
 .breadcrumb-item {
   font-size: 150%;
-  color: $secondary  !important;
+  color: $secondary !important;
 }
 
 .breadcrumb-item a {
@@ -462,7 +469,7 @@ header {
   color: $secondary;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
+.breadcrumb-item + .breadcrumb-item::before {
   content: '>' !important;
 }
 
@@ -612,6 +619,25 @@ header {
   border-color: #d5d8da;
 }
 
+.btn-edit-filter {
+  display: inline-block;
+  font-weight: 400;
+  color: #4f5d73;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
 .px-6 {
   padding: 0px 1.9rem !important;
 }
@@ -684,7 +710,7 @@ header {
         .rt-th {
           display: flex;
           align-items: center;
-          -webkit-justify-content: left
+          -webkit-justify-content: left;
         }
 
         .rt-th:first-child {
@@ -693,7 +719,7 @@ header {
         }
 
         .rt-th:last-child {
-          -webkit-justify-content: center
+          -webkit-justify-content: center;
         }
 
         .enable-drag {
@@ -737,7 +763,6 @@ header {
 
 // modal box
 @media (min-width: 1200px) {
-
   .um-create,
   .sales-order-create,
   .purchase-order-create {
@@ -754,7 +779,7 @@ header {
     }
   }
 
-  .row-cols-xl-5>* {
+  .row-cols-xl-5 > * {
     flex: 0 0 100%;
     max-width: 100%;
   }
@@ -901,9 +926,9 @@ input.form-control.input-danger {
   .tooltip-inner {
     max-width: 280px;
     padding: 0.25rem 0.5rem;
-    color: #FFF;
+    color: #fff;
     text-align: left;
-    background-color: #376BFB;
+    background-color: #376bfb;
     border-radius: 0.25rem;
     position: absolute;
     width: 280px;
@@ -917,7 +942,7 @@ input.form-control.input-danger {
   }
 
   .arrow::before {
-    border-top-color: #376BFB !important;
+    border-top-color: #376bfb !important;
     margin-left: -90px;
     margin-top: -3px;
   }
@@ -931,9 +956,9 @@ input.form-control.input-danger {
   .tooltip-inner {
     max-width: 280px;
     padding: 0.25rem 0.5rem;
-    color: #FFF;
+    color: #fff;
     text-align: left;
-    background-color: #376BFB;
+    background-color: #376bfb;
     border-radius: 0.25rem;
     position: absolute;
     width: fit-content;
@@ -946,7 +971,7 @@ input.form-control.input-danger {
   }
 
   .arrow::before {
-    border-bottom-color: #376BFB !important;
+    border-bottom-color: #376bfb !important;
     margin-left: -120px;
     margin-top: -3px;
   }
@@ -969,10 +994,9 @@ input.form-control.input-danger {
 // end tooltip
 
 // styling dropdown user info in breadcrum
-html:not([dir="rtl"]) .dropdown-toggle::after {
+html:not([dir='rtl']) .dropdown-toggle::after {
   margin-left: 1em;
 }
-
 
 // styling dropdown button print labels, fulfill and clear
 .print-lables .dropdown-toggle::after {
@@ -1017,7 +1041,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     color: white !important;
   }
 
-  .select_dropdown_expand:checked+.select_dropdown_closeLabel+.select_dropdown_options {
+  .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options {
     background-color: #281f34 !important;
   }
 
@@ -1036,7 +1060,6 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 
   .DayPicker-Day:hover {
     color: black !important;
-
   }
 
   .text-muted {
@@ -1097,15 +1120,15 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     color: white !important;
   }
 
-  //Export 
+  //Export
   .export-pdf {
     background-color: #635f78 !important;
-    color: #fff
+    color: #fff;
   }
 
   .export-excel {
     background-color: #635f78 !important;
-    color: #fff
+    color: #fff;
   }
 
   //datePicker
@@ -1130,7 +1153,6 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       color: white;
     }
   }
-
 }
 
 .DarkModesEditRename {
@@ -1143,8 +1165,8 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 
   .btn-disabled {
     color: #fff !important;
-    background-color: #D6D8DA !important;
-    border: 1px solid #D6D8DA !important;
+    background-color: #d6d8da !important;
+    border: 1px solid #d6d8da !important;
   }
 
   .btn-disabled:hover {
@@ -1199,7 +1221,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 .link-custom {
   text-decoration: none;
   background-color: transparent;
-  color: #376BFB;
+  color: #376bfb;
 }
 
 .link-custom:hover {

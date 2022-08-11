@@ -44,6 +44,7 @@ import {
   showFilter,
   resetFilter,
   saveFilterSearch,
+  closeModalFilter,
 } from './service';
 import './index.scss';
 
@@ -302,8 +303,7 @@ const Search = ({
                     searchInput,
                     module,
                     user,
-                  }) && dispatch({ type: paramType, data: [] })
-                }
+                  }) && dispatch({ type: paramType, data: [] })}
               >
                 SEARCH
               </button>
@@ -327,8 +327,7 @@ const Search = ({
                             dispatch,
                             dropdownValue,
                             setDropdownValue,
-                          })
-                        }
+                          })}
                         selectedValue={newDropdownValue.site}
                       />
                     )}
@@ -352,8 +351,7 @@ const Search = ({
                             dispatch,
                             dropdownValue,
                             setDropdownValue,
-                          })
-                        }
+                          })}
                         selectedValue={newDropdownValue.client}
                       />
                     )}
@@ -367,8 +365,7 @@ const Search = ({
                       placeholder="Status"
                       options={statusDataSH || statusData}
                       onChangeDropdown={(selected) =>
-                        setStatus({ selected, dispatch, dropdownValue, setDropdownValue })
-                      }
+                        setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
                       selectedValue={newDropdownValue.status}
                     />
                   </div>
@@ -380,9 +377,7 @@ const Search = ({
                       show
                       placeholder="Order Type"
                       options={orderTypeData}
-                      onChangeDropdown={(selected) =>
-                        setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })
-                      }
+                      onChangeDropdown={(selected) => setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
                       selectedValue={newDropdownValue.orderType}
                     />
                   </div>
@@ -419,9 +414,7 @@ const Search = ({
                     show
                     placeholder="Style Desc."
                     options={styleDescData}
-                    onChangeDropdown={(selected) =>
-                      setStyleDesc({ selected, dispatch, dropdownValue, setDropdownValue })
-                    }
+                    onChangeDropdown={(selected) => setStyleDesc({ selected, dispatch, dropdownValue, setDropdownValue })}
                     selectedValue={newDropdownValue.styleDesc}
                   />
                 </CCol>
@@ -445,9 +438,7 @@ const Search = ({
                     show
                     placeholder="Dimensions"
                     options={dimensionsData}
-                    onChangeDropdown={(selected) =>
-                      setDimensions({ selected, dispatch, dropdownValue, setDropdownValue })
-                    }
+                    onChangeDropdown={(selected) => setDimensions({ selected, dispatch, dropdownValue, setDropdownValue })}
                     selectedValue={newDropdownValue.dimensions}
                   />
                 </CCol>
@@ -469,9 +460,7 @@ const Search = ({
                         <CDropdownItem onClick={() => setShowClearMod(true)}>CLEAR ALL</CDropdownItem>
                         <CDropdownDivider />
                         <CDropdownItem
-                          onClick={() =>
-                            handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })
-                          }
+                          onClick={() => handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })}
                         >
                           CLEAR MARKED
                         </CDropdownItem>
@@ -677,9 +666,7 @@ const Search = ({
                                 show
                                 placeholder={dataHidden.name}
                                 options={siteData}
-                                onChangeDropdown={(selected) =>
-                                  setSite({ selected, dispatch, dropdownValue, setDropdownValue })
-                                }
+                                onChangeDropdown={(selected) => setSite({ selected, dispatch, dropdownValue, setDropdownValue })}
                                 selectedValue={newDropdownValue.site}
                               />
                             )}
@@ -714,8 +701,7 @@ const Search = ({
                                     dispatch,
                                     dropdownValue,
                                     setDropdownValue,
-                                  })
-                                }
+                                  })}
                                 selectedValue={newDropdownValue.client}
                               />
                             )}
@@ -734,9 +720,7 @@ const Search = ({
                               show
                               placeholder={dataHidden.name}
                               options={statusDataSH || statusData}
-                              onChangeDropdown={(selected) =>
-                                setStatus({ selected, dispatch, dropdownValue, setDropdownValue })
-                              }
+                              onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
                               selectedValue={newDropdownValue.status}
                             />
                           </CCol>
@@ -754,9 +738,7 @@ const Search = ({
                               show
                               placeholder={dataHidden.name}
                               options={orderTypeData}
-                              onChangeDropdown={(selected) =>
-                                setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })
-                              }
+                              onChangeDropdown={(selected) => setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
                               selectedValue={newDropdownValue.orderType}
                             />
                           </CCol>
@@ -774,9 +756,7 @@ const Search = ({
                               show
                               placeholder={dataHidden.name}
                               options={taskData}
-                              onChangeDropdown={(selected) =>
-                                setTask({ selected, dispatch, dropdownValue, setDropdownValue })
-                              }
+                              onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
                               selectedValue={newDropdownValue.task}
                             />
                           </CCol>
@@ -795,9 +775,7 @@ const Search = ({
                               type="text"
                               className="form-control input-height"
                               placeholder={dataHidden.name}
-                              onChange={(e) =>
-                                setDropdownValue({ ...newDropdownValue, customerOrderRef: e.target.value })
-                              }
+                              onChange={(e) => setDropdownValue({ ...newDropdownValue, customerOrderRef: e.target.value })}
                               style={{ height: '100%' }}
                             />
                           </CCol>
@@ -840,16 +818,11 @@ const Search = ({
                                         fromDate: e,
                                         typeDate: dataHidden.accessor,
                                         firstValue: false,
-                                      })
-                                    }
+                                      })}
                                     placeHolder="Select Date"
-                                    onChange={() => {
-                                      dateTo.current.openDatePicker();
-                                    }}
+                                    onChange={() => { dateTo.current.openDatePicker(); }}
                                     classNameInput="form-control"
-                                    onOpen={(e) => {
-                                      if (e) dateTo.current.openDatePicker();
-                                    }}
+                                    onOpen={(e) => { if (e) dateTo.current.openDatePicker(); }}
                                     fromMonth={defaultDate?.minDate}
                                     toMonth={defaultDate?.maxDate}
                                     messageRequired
@@ -879,8 +852,7 @@ const Search = ({
                                         ...newDropdownValue,
                                         toDate: e,
                                         typeDate: dataHidden.accessor,
-                                      })
-                                    }
+                                      })}
                                     placeHolder="Select Date"
                                     fromMonth={defaultDate?.minDate}
                                     toMonth={defaultDate?.maxDate}
@@ -926,7 +898,10 @@ const Search = ({
         <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
           <CContainer className="px-0">
             <CCol className="mx-0 px-0">
-              <Button onClick={() => { setShowModal(!showModal); setChangeFilter(true) }} className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
+              <Button
+                onClick={() => { closeModalFilter({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter }) }}
+                className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}
+              >
                 <MdClose color="white" size={30} />
               </Button>
               <CCol xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">

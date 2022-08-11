@@ -168,9 +168,8 @@ const EditRenameColumn = ({
                 <div className="input-group">
                   <NavItem className="pl-0 pr-0">
                     <NavLink
-                      className={`nav-link-cust d-flex align-items-center tab-color${
-                        state.activeTab === '1' ? ' tab-rename' : ''
-                      }`}
+                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '1' ? ' tab-rename' : ''
+                        }`}
                       active={state.activeTab === '1'}
                       onClick={() => {
                         activeTabIndex('1');
@@ -187,9 +186,8 @@ const EditRenameColumn = ({
 
                   <NavItem className="pl-2 pr-0">
                     <NavLink
-                      className={`nav-link-cust d-flex align-items-center tab-color${
-                        state.activeTab === '2' ? ' tab-rename' : ''
-                      }`}
+                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '2' ? ' tab-rename' : ''
+                        }`}
                       active={state.activeTab === '2'}
                       onClick={() => {
                         activeTabIndex('2');
@@ -215,17 +213,15 @@ const EditRenameColumn = ({
                           <Col key={item.accessor} className="p-2">
                             <button
                               type="button"
-                              className={`text-left btn btn-block pl-2 ver-center-item ${
-                                !state.editColumn?.includes(item.accessor) ? 'btn-outline-primary' : 'btn-light-gray'
-                              }`}
+                              className={`text-left btn btn-block pl-2 ver-center-item ${!state.editColumn?.includes(item.accessor) ? 'btn-outline-primary' : 'btn-light-gray'
+                                }`}
                               onClick={() =>
                                 showColumn({
                                   header: item.accessor,
                                   length: fields.length,
                                   setState,
                                   state,
-                                })
-                              }
+                                })}
                             >
                               {!state.editColumn?.includes(item.accessor) ? (
                                 <AiOutlineEye size={25} />
@@ -254,11 +250,11 @@ const EditRenameColumn = ({
                           onClick={
                             user.userLevel === 'Admin'
                               ? () => {
-                                  resetConfirmation();
-                                }
+                                resetConfirmation();
+                              }
                               : () => {
-                                  resetColumnName({ user, splitModule });
-                                }
+                                resetColumnName({ user, splitModule });
+                              }
                           }
                           className={!isChanged ? '' : 'btn-disabled'}
                           disabled={isChanged}
@@ -287,8 +283,7 @@ const EditRenameColumn = ({
                               setState,
                               dragStatus,
                               dispatch,
-                            })
-                          }
+                            })}
                           disabled={!dragStatus}
                           className={!dragStatus ? 'btn-disabled' : ''}
                         >
@@ -299,9 +294,7 @@ const EditRenameColumn = ({
                     <Button
                       variant="primary"
                       style={{ padding: '0rem 1.08rem' }}
-                      onClick={() =>
-                        saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch })
-                      }
+                      onClick={() => saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch })}
                     >
                       SAVE
                     </Button>
@@ -330,9 +323,8 @@ const EditRenameColumn = ({
                                 name={item.Header}
                                 sortable={item.sortable}
                                 onChange={(e) => changedColumn({ e, state, setState, fields })}
-                                className={`text-left form-rename ${
-                                  state.sameColumnsIdx?.includes(index.toString()) ? ' input-danger' : ''
-                                }`}
+                                className={`text-left form-rename ${state.sameColumnsIdx?.includes(index.toString()) ? ' input-danger' : ''
+                                  }`}
                               />
                             </OverlayTrigger>
                           </div>
@@ -355,11 +347,11 @@ const EditRenameColumn = ({
                           onClick={
                             user.userLevel === 'Admin'
                               ? () => {
-                                  resetConfirmation();
-                                }
+                                resetConfirmation();
+                              }
                               : () => {
-                                  resetColumnName({ user, splitModule });
-                                }
+                                resetColumnName({ user, splitModule });
+                              }
                           }
                           className={!isChanged ? '' : 'btn-disabled'}
                           disabled={isChanged}
@@ -388,8 +380,7 @@ const EditRenameColumn = ({
                               setState,
                               dragStatus,
                               dispatch,
-                            })
-                          }
+                            })}
                           disabled={!dragStatus}
                           className={!dragStatus ? 'btn-disabled' : ''}
                         >

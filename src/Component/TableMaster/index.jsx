@@ -62,17 +62,16 @@ const TableMaster = ({
         </CCol>
         <CCol className="pr-0">
           {pagination && pagination.total < 1
-            ? ''
-            : exportBtn && (
-                <Export
-                  exportTable={exportTable}
-                  filename={filename}
-                  getExportData={getExportData}
-                  exportApi={exportApi}
-                  schemaColumn={schemaColumn}
-                  exportPdf={exportPdf}
-                />
-              )}
+            ? '' : exportBtn && (
+              <Export
+                exportTable={exportTable}
+                filename={filename}
+                getExportData={getExportData}
+                exportApi={exportApi}
+                schemaColumn={schemaColumn}
+                exportPdf={exportPdf}
+              />
+            )}
         </CCol>
       </CRow>
     </div>

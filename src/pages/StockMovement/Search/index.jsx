@@ -12,7 +12,7 @@ import DatePicker from '../../../shared/DatePicker';
 import DropdownAxios from '../../../Component/Dropdown/DropdownAxios';
 import Input from '../../../Component/Input';
 import endpoints from '../../../helpers/endpoints';
-import { setHeaderSummary, showFilter, resetFilter, saveFilterSearch } from './services';
+import { setHeaderSummary, showFilter, resetFilter, saveFilterSearch, closeModalFilter } from './services';
 import './style.scss';
 
 const searchFilter = endpoints.env.REACT_APP_API_URL_SEARCH_FILTER;
@@ -32,6 +32,8 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
   const [columnFilter, setColumnFilter] = useState(filterHidden);
   const arrayFilterSearch = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
   const [triggerColumn, setTriggerColumn] = useState(false);
+  const [changeFilter, setChangeFilter] = useState(true)
+  const [validResetFilter, setValidResetFilter] = useState(true)
 
   const [dropdownValue, setDropdownValue] = useState({
     siteVal: '',
@@ -71,6 +73,15 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
     }
     setIsSearch(false);
   }, [isSearch]);
+
+  useEffect(() => {
+    columnFilter.forEach(element => {
+      const filterHidden = columnFilter.filter(fil => { return fil.hiddenFilter === element.hiddenFilter && element.hiddenFilter === true })
+      if (filterHidden.length !== 0) {
+        if (element.hiddenFilter) setValidResetFilter(false)
+      }
+    })
+  })
 
   const contentSearch = () => {
     return (
@@ -378,7 +389,7 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
           <CContainer className="px-0">
             <CCol className="mx-0 px-0">
               <Button
-                onClick={() => setShowModal(!showModal)}
+                onClick={() => { closeModalFilter({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter }) }}
                 className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}
               >
                 <MdClose color="white" size={30} />
@@ -408,12 +419,12 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                     <button
                       type="button"
                       onClick={() => {
-                        showFilter({ item, columnFilter, setColumnFilter });
+                        showFilter({ item, columnFilter, setColumnFilter, setValidResetFilter, });
                         setTriggerColumn(!triggerColumn);
+                        setChangeFilter(false)
                       }}
-                      className={`btn-edit-filter pl-2 ver-center-item w-100 ${
-                        item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'
-                      }`}
+                      className={`btn-edit-filter pl-2 ver-center-item w-100 ${item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'
+                        }`}
                     >
                       {item.hiddenFilter ? (
                         <i className="ri-eye-line font-20 mr-2 d-flex align-items-center" />
@@ -428,16 +439,25 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
             <CCol lg={12} className="px-2 justify-content-between d-flex pt-3">
               <Button
                 variant="primary"
+                disabled={validResetFilter}
+                className={validResetFilter ? "btn-disabled" : ""}
                 style={{ padding: '0rem 1.08rem' }}
-                onClick={() => resetFilter({ module, filterHidden, dispatch, setShowModal })}
+                onClick={() => {
+                  setValidResetFilter(true);
+                  resetFilter({ module, filterHidden, dispatch, setShowModal, setColumnFilter, columnFilter });
+                }}
               >
                 RESET FILTER FIELD
               </Button>
               <Button
                 variant="primary"
+                disabled={changeFilter}
+                className={changeFilter ? "btn-disabled" : ""}
                 onClick={() => {
                   saveFilterSearch({ module, dispatch, columnFilter });
                   setShowModal(!showModal);
+                  setValidResetFilter(!validResetFilter);
+                  setChangeFilter(!changeFilter);
                 }}
                 style={{ padding: '0rem 1.08rem' }}
               >
