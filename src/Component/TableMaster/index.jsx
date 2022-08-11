@@ -28,9 +28,8 @@ const TableMaster = ({
   exportBtn,
   editOrderQty,
   editCarton,
-  exportTable
+  exportTable,
 }) => {
-
   return (
     <div>
       <Table
@@ -50,7 +49,7 @@ const TableMaster = ({
         editCarton={editCarton}
       />
       <CRow lg="12" className="mt-3 mb-2 w-100 pagination-custom justify-content-between">
-        <CCol className='pl-0'>
+        <CCol className="pl-0">
           <Pagination
             pagination={pagination}
             module={module}
@@ -61,19 +60,19 @@ const TableMaster = ({
             props={props}
           />
         </CCol>
-        <CCol className='pr-0'>
-          {pagination && pagination.total < 1 ? (
-            ''
-          ) : exportBtn && (
-            <Export
-              exportTable={exportTable}
-              filename={filename}
-              getExportData={getExportData}
-              exportApi={exportApi}
-              schemaColumn={schemaColumn}
-              exportPdf={exportPdf}
-            />
-          )}
+        <CCol className="pr-0">
+          {pagination && pagination.total < 1
+            ? ''
+            : exportBtn && (
+                <Export
+                  exportTable={exportTable}
+                  filename={filename}
+                  getExportData={getExportData}
+                  exportApi={exportApi}
+                  schemaColumn={schemaColumn}
+                  exportPdf={exportPdf}
+                />
+              )}
         </CCol>
       </CRow>
     </div>
