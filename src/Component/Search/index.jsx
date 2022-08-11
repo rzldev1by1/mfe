@@ -13,14 +13,22 @@ import {
   CDropdownMenu,
   CDropdownItem,
   CDropdownDivider,
-  CContainer
+  CContainer,
 } from '@coreui/react';
 import { Button, Modal } from 'react-bootstrap';
 import endpoints from '../../helpers/endpoints';
 import DatePicker from '../../shared/DatePicker';
 import Dropdown from '../Dropdown';
 import { getSummaryData, getDetailData, getDateRange } from '../../apiService';
-import { getSite, getClient, getStatus, getOrderType, getTask, siteCheck, clientCheck } from '../../apiService/dropdown';
+import {
+  getSite,
+  getClient,
+  getStatus,
+  getOrderType,
+  getTask,
+  siteCheck,
+  clientCheck,
+} from '../../apiService/dropdown';
 import {
   setSite,
   setClient,
@@ -108,7 +116,7 @@ const Search = ({
     vendorOrderNo: '',
     fromDate: '',
     toDate: '',
-    firstValue: false
+    firstValue: false,
   });
 
   let paramType = '';
@@ -147,7 +155,7 @@ const Search = ({
         module,
         user,
       });
-      setExportTable(false)
+      setExportTable(false);
     }
   };
   const handleFulfill = () => {
@@ -294,7 +302,8 @@ const Search = ({
                     searchInput,
                     module,
                     user,
-                  }) && dispatch({ type: paramType, data: [] })}
+                  }) && dispatch({ type: paramType, data: [] })
+                }
               >
                 SEARCH
               </button>
@@ -302,7 +311,7 @@ const Search = ({
           ) : (
             <CCol lg={!inputTag ? 12 : 9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2} className='mobile-site px-0'>
+                <CCol sm={4} lg={2} className="mobile-site px-0">
                   <div className={`${filterSite === true ? null : ' d-none'}`}>
                     {user?.site ? (
                       <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
@@ -318,20 +327,17 @@ const Search = ({
                             dispatch,
                             dropdownValue,
                             setDropdownValue,
-                          })}
+                          })
+                        }
                         selectedValue={newDropdownValue.site}
                       />
                     )}
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className='mobile-client px-3'>
+                <CCol sm={4} lg={2} className="mobile-client px-3">
                   <div className={`${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'}`}>
                     {user?.client ? (
-                      <input
-                        value={clientCheck(clientData, user.client)}
-                        className="form-control sh-input"
-                        readOnly
-                      />
+                      <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
                     ) : (
                       <Dropdown
                         show
@@ -346,13 +352,14 @@ const Search = ({
                             dispatch,
                             dropdownValue,
                             setDropdownValue,
-                          })}
+                          })
+                        }
                         selectedValue={newDropdownValue.client}
                       />
                     )}
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className='px-0 mobile-status'>
+                <CCol sm={4} lg={2} className="px-0 mobile-status">
                   <div className={`${filterStatus === true ? null : ' d-none'}`}>
                     <Dropdown
                       className="px-0"
@@ -360,12 +367,13 @@ const Search = ({
                       placeholder="Status"
                       options={statusDataSH || statusData}
                       onChangeDropdown={(selected) =>
-                        setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
+                        setStatus({ selected, dispatch, dropdownValue, setDropdownValue })
+                      }
                       selectedValue={newDropdownValue.status}
                     />
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className='mobile-type'>
+                <CCol sm={4} lg={2} className="mobile-type">
                   <div className={`${filterOrderType === true ? null : ' d-none'}`}>
                     <Dropdown
                       className="px-0"
@@ -373,20 +381,20 @@ const Search = ({
                       placeholder="Order Type"
                       options={orderTypeData}
                       onChangeDropdown={(selected) =>
-                        setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
+                        setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })
+                      }
                       selectedValue={newDropdownValue.orderType}
                     />
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className='mobile-task px-0'>
+                <CCol sm={4} lg={2} className="mobile-task px-0">
                   <div className={`${filterTask === true ? null : ' d-none'}`}>
                     <Dropdown
                       className="px-0"
                       show
                       placeholder="Task"
                       options={taskData}
-                      onChangeDropdown={(selected) =>
-                        setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
+                      onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
                       selectedValue={newDropdownValue.task}
                     />
                   </div>
@@ -397,19 +405,23 @@ const Search = ({
                     show
                     placeholder="Style"
                     options={styleData}
-                    onChangeDropdown={(selected) =>
-                      setStyle({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    onChangeDropdown={(selected) => setStyle({ selected, dispatch, dropdownValue, setDropdownValue })}
                     selectedValue={newDropdownValue.style}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className={`mobile-style-desc pl-0 pr-3 ${filterStyleDesc === true ? null : ' d-none'}`}>
+                <CCol
+                  sm={4}
+                  lg={2}
+                  className={`mobile-style-desc pl-0 pr-3 ${filterStyleDesc === true ? null : ' d-none'}`}
+                >
                   <Dropdown
                     className="px-0"
                     show
                     placeholder="Style Desc."
                     options={styleDescData}
                     onChangeDropdown={(selected) =>
-                      setStyleDesc({ selected, dispatch, dropdownValue, setDropdownValue })}
+                      setStyleDesc({ selected, dispatch, dropdownValue, setDropdownValue })
+                    }
                     selectedValue={newDropdownValue.styleDesc}
                   />
                 </CCol>
@@ -419,19 +431,23 @@ const Search = ({
                     show
                     placeholder="Style Color"
                     options={colorData}
-                    onChangeDropdown={(selected) =>
-                      setColor({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    onChangeDropdown={(selected) => setColor({ selected, dispatch, dropdownValue, setDropdownValue })}
                     selectedValue={newDropdownValue.color}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className={`mobile-dimensions pl-0 pr-3 ${filterDimensions === true ? null : ' d-none'}`}>
+                <CCol
+                  sm={4}
+                  lg={2}
+                  className={`mobile-dimensions pl-0 pr-3 ${filterDimensions === true ? null : ' d-none'}`}
+                >
                   <Dropdown
                     className={`px-0 `}
                     show
                     placeholder="Dimensions"
                     options={dimensionsData}
                     onChangeDropdown={(selected) =>
-                      setDimensions({ selected, dispatch, dropdownValue, setDropdownValue })}
+                      setDimensions({ selected, dispatch, dropdownValue, setDropdownValue })
+                    }
                     selectedValue={newDropdownValue.dimensions}
                   />
                 </CCol>
@@ -441,12 +457,11 @@ const Search = ({
                     show
                     placeholder="Size"
                     options={sizeData}
-                    onChangeDropdown={(selected) =>
-                      setSize({ selected, dispatch, dropdownValue, setDropdownValue })}
+                    onChangeDropdown={(selected) => setSize({ selected, dispatch, dropdownValue, setDropdownValue })}
                     selectedValue={newDropdownValue.size}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-0 d-flex justify-content-end'>
+                <CCol sm={4} lg={2} className="px-0 d-flex justify-content-end">
                   {btnClear ? (
                     <CDropdown className="btn-group btn-clear">
                       <CDropdownToggle color="primary">CLEAR</CDropdownToggle>
@@ -455,7 +470,8 @@ const Search = ({
                         <CDropdownDivider />
                         <CDropdownItem
                           onClick={() =>
-                            handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })}
+                            handleFullFillMarked({ dispatch, spDetailTable, markedRow, clearMarked: true })
+                          }
                         >
                           CLEAR MARKED
                         </CDropdownItem>
@@ -493,7 +509,7 @@ const Search = ({
                           user,
                         });
                         dispatch({ type: paramType, data: [] });
-                        setExportTable(false)
+                        setExportTable(false);
                       }}
                     >
                       SEARCH
@@ -550,8 +566,7 @@ const Search = ({
                     <Button
                       variant="primary"
                       style={{ padding: '0rem 1.08rem' }}
-                      onClick={() =>
-                        handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })}
+                      onClick={() => handleFullFillMarked({ dispatch, spDetailTable, markedRow, setShowFulfillMod })}
                     >
                       DONE
                     </Button>
@@ -562,8 +577,8 @@ const Search = ({
           )}
         </CRow>
       </form>
-    )
-  }
+    );
+  };
 
   const contentSearchFilter = () => {
     return (
@@ -613,12 +628,14 @@ const Search = ({
                   user,
                 });
                 dispatch({ type: paramType, data: [] });
-                setExportTable(false)
+                setExportTable(false);
               }}
             >
               <i className="ri-search-line" />
             </Button>
-            {module === 'UserManagement' ? '' : (
+            {module === 'UserManagement' ? (
+              ''
+            ) : (
               <Button
                 type="button"
                 onClick={() => setShowModal(!showModal)}
@@ -632,173 +649,261 @@ const Search = ({
             <CRow>
               <CCol lg={11}>
                 <CRow className="mx-0">
-                  {arrayFilterSearch?.map(dataHidden => {
-                    const dateFilter = ['dateReceived', 'deliveryDate', 'dateReleased', 'dateReleased', 'dateCompleted', 'orderDate']
+                  {arrayFilterSearch?.map((dataHidden) => {
+                    const dateFilter = [
+                      'dateReceived',
+                      'deliveryDate',
+                      'dateReleased',
+                      'dateReleased',
+                      'dateCompleted',
+                      'orderDate',
+                    ];
                     return (
                       <>
-                        {dataHidden.accessor === 'site' && dataHidden.hiddenFilter === true ?
-                          (
-                            <CCol sm={4} lg={2} className={`mobile-site px-0 mr-3 pt-3 ${filterSite === true ? null : ' d-none'}`}>
-                              {user?.site ? (
-                                <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
-                              ) : (
-                                <Dropdown
-                                  show
-                                  placeholder={dataHidden.name}
-                                  options={siteData}
-                                  onChangeDropdown={(selected) => setSite({ selected, dispatch, dropdownValue, setDropdownValue })}
-                                  selectedValue={newDropdownValue.site}
-                                />
-                              )}
-                            </CCol>
-                          )
-                          : ''}
-
-                        {dataHidden.accessor === 'client' && dataHidden.hiddenFilter === true ?
-                          (
-                            <CCol sm={4} lg={2} className={`mobile-client px-0 mr-3 pt-3 ${filterClient === true ? null : ' d-none'}`}>
-                              {user?.client ? (
-                                <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
-                              ) : (
-                                <Dropdown
-                                  show
-                                  placeholder={dataHidden.name}
-                                  options={clientData}
-                                  onChangeDropdown={(selected) => setClient({ onChangeGetTask, getTask, getTaskParam, selected, dispatch, dropdownValue, setDropdownValue })}
-                                  selectedValue={newDropdownValue.client}
-                                />
-                              )}
-                            </CCol>
-                          )
-                          : ''}
-
-                        {dataHidden.accessor === 'status' && dataHidden.hiddenFilter === true ?
-                          (
-                            <CCol sm={4} lg={2} className={`px-0 mobile-status mr-3 pt-3 ${filterStatus === true ? null : ' d-none'}`}>
-                              <Dropdown
-                                show
-                                placeholder={dataHidden.name}
-                                options={statusDataSH || statusData}
-                                onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
-                                selectedValue={newDropdownValue.status}
-                              />
-                            </CCol>
-                          )
-                          : ''}
-
-                        {dataHidden.accessor === 'orderType' && dataHidden.hiddenFilter === true ?
-                          (
-                            <CCol sm={4} lg={2} className={`mobile-type px-0 mr-3 pt-3 ${filterOrderType === true ? null : ' d-none'}`}>
-                              <Dropdown
-                                show
-                                placeholder={dataHidden.name}
-                                options={orderTypeData}
-                                onChangeDropdown={(selected) => setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
-                                selectedValue={newDropdownValue.orderType}
-                              />
-                            </CCol>
-                          )
-                          : ''}
-
-                        {dataHidden.accessor === 'task' && dataHidden.hiddenFilter === true ?
-                          (
-                            <CCol sm={4} lg={2} className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}>
-                              <Dropdown
-                                show
-                                placeholder={dataHidden.name}
-                                options={taskData}
-                                onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
-                                selectedValue={newDropdownValue.task}
-                              />
-                            </CCol>
-                          )
-                          : ''}
-
-                        {dataHidden.accessor === 'customerpono' && dataHidden.hiddenFilter === true ?
-                          (
-                            <CCol sm={4} lg={2} className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}>
+                        {dataHidden.accessor === 'site' && dataHidden.hiddenFilter === true ? (
+                          <CCol
+                            sm={4}
+                            lg={2}
+                            className={`mobile-site px-0 mr-3 pt-3 ${filterSite === true ? null : ' d-none'}`}
+                          >
+                            {user?.site ? (
                               <input
-                                id="searchInput"
-                                type="text"
-                                className="form-control input-height"
-                                placeholder={dataHidden.name}
-                                onChange={(e) => setDropdownValue({ ...newDropdownValue, customerOrderRef: e.target.value })}
-                                style={{ height: '100%' }}
+                                value={siteCheck(siteData, user.site)}
+                                className="form-control sh-input"
+                                readOnly
                               />
-                            </CCol>
-                          )
-                          : ''}
-                        {dataHidden.accessor === 'vendororderno' && dataHidden.hiddenFilter === true ?
-                          (
-                            <CCol sm={4} lg={2} className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}>
-                              <input
-                                id="searchInput"
-                                type="text"
-                                className="form-control input-height"
+                            ) : (
+                              <Dropdown
+                                show
                                 placeholder={dataHidden.name}
-                                onChange={(e) => setDropdownValue({ ...newDropdownValue, vendorOrderNo: e.target.value })}
-                                style={{ height: '100%' }}
+                                options={siteData}
+                                onChangeDropdown={(selected) =>
+                                  setSite({ selected, dispatch, dropdownValue, setDropdownValue })
+                                }
+                                selectedValue={newDropdownValue.site}
                               />
-                            </CCol>
-                          )
-                          : ''}
+                            )}
+                          </CCol>
+                        ) : (
+                          ''
+                        )}
 
-                        {dateFilter.includes(dataHidden.accessor) && dataHidden.hiddenFilter === true ?
-                          (
-                            <>
-                              <CCol lg={7}>
-                                <div className='d-flex'>
-                                  <div className="colDateText d-flex text-light-gray align-items-center pt-3 pr-3">{dataHidden.name}</div>
-                                  <div className="colDateText d-flex text-light-gray align-items-center pt-3"> From</div>
-                                  <CCol lg={4} sm={10} className="colDate pt-3">
-                                    <DatePicker
-                                      arrowStyle
-                                      getDate={(e) => setDropdownValue({ ...newDropdownValue, fromDate: e, typeDate: dataHidden.accessor, firstValue: false })}
-                                      placeHolder="Select Date"
-                                      onChange={() => { dateTo.current.openDatePicker(); }}
-                                      classNameInput="form-control"
-                                      onOpen={(e) => { if (e) dateTo.current.openDatePicker(); }}
-                                      fromMonth={defaultDate?.minDate}
-                                      toMonth={defaultDate?.maxDate}
-                                      messageRequired
-                                      messageParam={{
-                                        column: 'validDates',
-                                        columnText: 'Date From',
-                                        fieldName: 'fromDate',
-                                        style: 'position-absolute',
-                                      }}
-                                    />
-                                  </CCol>
-                                  <div className="colDateText d-flex text-light-gray align-items-center pt-3"> To</div>
-                                  <CCol lg={4} sm={10} className="colDate pt-3">
-                                    <DatePicker
-                                      ref={dateTo}
-                                      arrowStyle
-                                      firstDate={newDropdownValue.fromDate ? new Date(newDropdownValue.fromDate) : newDropdownValue.fromDate}
-                                      firstValue={newDropdownValue.firstValue}
-                                      onOpen={() => dateTo.current.openDatePicker('from')}
-                                      classNameInput="form-control"
-                                      getDate={(e) => setDropdownValue({ ...newDropdownValue, toDate: e, typeDate: dataHidden.accessor })}
-                                      placeHolder="Select Date"
-                                      fromMonth={defaultDate?.minDate}
-                                      toMonth={defaultDate?.maxDate}
-                                      messageRequired
-                                      messageParam={{
-                                        column: 'validDates',
-                                        columnText: 'Date To',
-                                        fieldName: 'toDate',
-                                        style: 'position-absolute',
-                                        checkDateTo: newDropdownValue.fromDate && newDropdownValue.fromDate > newDropdownValue.toDate
-                                      }}
-                                    />
-                                  </CCol>
+                        {dataHidden.accessor === 'client' && dataHidden.hiddenFilter === true ? (
+                          <CCol
+                            sm={4}
+                            lg={2}
+                            className={`mobile-client px-0 mr-3 pt-3 ${filterClient === true ? null : ' d-none'}`}
+                          >
+                            {user?.client ? (
+                              <input
+                                value={clientCheck(clientData, user.client)}
+                                className="form-control sh-input"
+                                readOnly
+                              />
+                            ) : (
+                              <Dropdown
+                                show
+                                placeholder={dataHidden.name}
+                                options={clientData}
+                                onChangeDropdown={(selected) =>
+                                  setClient({
+                                    onChangeGetTask,
+                                    getTask,
+                                    getTaskParam,
+                                    selected,
+                                    dispatch,
+                                    dropdownValue,
+                                    setDropdownValue,
+                                  })
+                                }
+                                selectedValue={newDropdownValue.client}
+                              />
+                            )}
+                          </CCol>
+                        ) : (
+                          ''
+                        )}
+
+                        {dataHidden.accessor === 'status' && dataHidden.hiddenFilter === true ? (
+                          <CCol
+                            sm={4}
+                            lg={2}
+                            className={`px-0 mobile-status mr-3 pt-3 ${filterStatus === true ? null : ' d-none'}`}
+                          >
+                            <Dropdown
+                              show
+                              placeholder={dataHidden.name}
+                              options={statusDataSH || statusData}
+                              onChangeDropdown={(selected) =>
+                                setStatus({ selected, dispatch, dropdownValue, setDropdownValue })
+                              }
+                              selectedValue={newDropdownValue.status}
+                            />
+                          </CCol>
+                        ) : (
+                          ''
+                        )}
+
+                        {dataHidden.accessor === 'orderType' && dataHidden.hiddenFilter === true ? (
+                          <CCol
+                            sm={4}
+                            lg={2}
+                            className={`mobile-type px-0 mr-3 pt-3 ${filterOrderType === true ? null : ' d-none'}`}
+                          >
+                            <Dropdown
+                              show
+                              placeholder={dataHidden.name}
+                              options={orderTypeData}
+                              onChangeDropdown={(selected) =>
+                                setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })
+                              }
+                              selectedValue={newDropdownValue.orderType}
+                            />
+                          </CCol>
+                        ) : (
+                          ''
+                        )}
+
+                        {dataHidden.accessor === 'task' && dataHidden.hiddenFilter === true ? (
+                          <CCol
+                            sm={4}
+                            lg={2}
+                            className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                          >
+                            <Dropdown
+                              show
+                              placeholder={dataHidden.name}
+                              options={taskData}
+                              onChangeDropdown={(selected) =>
+                                setTask({ selected, dispatch, dropdownValue, setDropdownValue })
+                              }
+                              selectedValue={newDropdownValue.task}
+                            />
+                          </CCol>
+                        ) : (
+                          ''
+                        )}
+
+                        {dataHidden.accessor === 'customerpono' && dataHidden.hiddenFilter === true ? (
+                          <CCol
+                            sm={4}
+                            lg={2}
+                            className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                          >
+                            <input
+                              id="searchInput"
+                              type="text"
+                              className="form-control input-height"
+                              placeholder={dataHidden.name}
+                              onChange={(e) =>
+                                setDropdownValue({ ...newDropdownValue, customerOrderRef: e.target.value })
+                              }
+                              style={{ height: '100%' }}
+                            />
+                          </CCol>
+                        ) : (
+                          ''
+                        )}
+                        {dataHidden.accessor === 'vendororderno' && dataHidden.hiddenFilter === true ? (
+                          <CCol
+                            sm={4}
+                            lg={2}
+                            className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                          >
+                            <input
+                              id="searchInput"
+                              type="text"
+                              className="form-control input-height"
+                              placeholder={dataHidden.name}
+                              onChange={(e) => setDropdownValue({ ...newDropdownValue, vendorOrderNo: e.target.value })}
+                              style={{ height: '100%' }}
+                            />
+                          </CCol>
+                        ) : (
+                          ''
+                        )}
+
+                        {dateFilter.includes(dataHidden.accessor) && dataHidden.hiddenFilter === true ? (
+                          <>
+                            <CCol lg={7}>
+                              <div className="d-flex">
+                                <div className="colDateText d-flex text-light-gray align-items-center pt-3 pr-3">
+                                  {dataHidden.name}
                                 </div>
-                              </CCol>
-                            </>
-                          )
-                          : ''}
+                                <div className="colDateText d-flex text-light-gray align-items-center pt-3"> From</div>
+                                <CCol lg={4} sm={10} className="colDate pt-3">
+                                  <DatePicker
+                                    arrowStyle
+                                    getDate={(e) =>
+                                      setDropdownValue({
+                                        ...newDropdownValue,
+                                        fromDate: e,
+                                        typeDate: dataHidden.accessor,
+                                        firstValue: false,
+                                      })
+                                    }
+                                    placeHolder="Select Date"
+                                    onChange={() => {
+                                      dateTo.current.openDatePicker();
+                                    }}
+                                    classNameInput="form-control"
+                                    onOpen={(e) => {
+                                      if (e) dateTo.current.openDatePicker();
+                                    }}
+                                    fromMonth={defaultDate?.minDate}
+                                    toMonth={defaultDate?.maxDate}
+                                    messageRequired
+                                    messageParam={{
+                                      column: 'validDates',
+                                      columnText: 'Date From',
+                                      fieldName: 'fromDate',
+                                      style: 'position-absolute',
+                                    }}
+                                  />
+                                </CCol>
+                                <div className="colDateText d-flex text-light-gray align-items-center pt-3"> To</div>
+                                <CCol lg={4} sm={10} className="colDate pt-3">
+                                  <DatePicker
+                                    ref={dateTo}
+                                    arrowStyle
+                                    firstDate={
+                                      newDropdownValue.fromDate
+                                        ? new Date(newDropdownValue.fromDate)
+                                        : newDropdownValue.fromDate
+                                    }
+                                    firstValue={newDropdownValue.firstValue}
+                                    onOpen={() => dateTo.current.openDatePicker('from')}
+                                    classNameInput="form-control"
+                                    getDate={(e) =>
+                                      setDropdownValue({
+                                        ...newDropdownValue,
+                                        toDate: e,
+                                        typeDate: dataHidden.accessor,
+                                      })
+                                    }
+                                    placeHolder="Select Date"
+                                    fromMonth={defaultDate?.minDate}
+                                    toMonth={defaultDate?.maxDate}
+                                    messageRequired
+                                    messageParam={{
+                                      column: 'validDates',
+                                      columnText: 'Date To',
+                                      fieldName: 'toDate',
+                                      style: 'position-absolute',
+                                      checkDateTo:
+                                        newDropdownValue.fromDate &&
+                                        newDropdownValue.fromDate > newDropdownValue.toDate,
+                                    }}
+                                  />
+                                </CCol>
+                              </div>
+                            </CCol>
+                          </>
+                        ) : (
+                          ''
+                        )}
                       </>
-                    )
+                    );
                   })}
                 </CRow>
               </CCol>
@@ -807,8 +912,8 @@ const Search = ({
           </CCol>
         </CRow>
       </form>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -834,7 +939,7 @@ const Search = ({
                   <span className="font-20 text-white">Edit Filter</span>
                 </div>
                 <span style={{ marginLeft: '29px' }} className="text-white">
-                  Please select filter(S) to show
+                  Please select filters to show.
                 </span>
               </CCol>
             </CCol>

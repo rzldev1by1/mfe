@@ -25,7 +25,7 @@ const TheSidebar = () => {
     const ret = await axios.post('auth/logout', payload);
     return ret;
   };
-  const userMenu = user.userModules.map((item) => item.menu_id);
+  const userMenu = user.userModule && user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];
 
   let navigation = nav;
@@ -41,15 +41,13 @@ const TheSidebar = () => {
   //   });
   // }
 
-
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter((n) => {
       return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
     });
-  }
-  else {
+  } else {
     navigation = navigation.filter((n) => {
-      return n.to !== "/supplier-management"
+      return n.to !== '/supplier-management';
     });
   }
 
@@ -76,12 +74,12 @@ const TheSidebar = () => {
           const string = location.pathname;
           const isActive = string.includes(n.to);
           const isHover = hover === n.to;
-          let hoverIcon = n.icon
-          if (isHover) hoverIcon = `${n.icon}-hover`
-          else if (isActive) hoverIcon = `${n.icon}-active`
+          let hoverIcon = n.icon;
+          if (isHover) hoverIcon = `${n.icon}-hover`;
+          else if (isActive) hoverIcon = `${n.icon}-active`;
           const icon = `nav/${hoverIcon}.png`;
           return (
-            <Link to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
+            <Link key={n.to} to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
               <li
                 key={n.to}
                 className="c-sidebar-item links"
@@ -104,16 +102,10 @@ const TheSidebar = () => {
                 ? lastChangedUser.name
                 : user.name}
             </div>
-            <div>
-              ID:
-              {' '}
-              {user.userId}
-              {' '}
-            </div>
+            <div>ID: {user.userId} </div>
             <a href="#/" onClick={signOut} className="logOutHover">
               {' '}
-              LOGOUT
-              {' '}
+              LOGOUT{' '}
             </a>
           </div>
         </li>

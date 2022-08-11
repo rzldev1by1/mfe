@@ -124,7 +124,12 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                 }}
                 isLoading={isLoading}
                 onInputChange={(val) => {
-                  getProduct({ client: clientVal?.value || clientCheck(clientData, user.client) || '', val, setIsProduct, setIsLoading });
+                  getProduct({
+                    client: clientVal?.value || clientCheck(clientData, user.client) || '',
+                    val,
+                    setIsProduct,
+                    setIsLoading,
+                  });
                   setIsLoading(true);
                 }}
                 minChar={3}
@@ -145,87 +150,96 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
           </button>
         </CCol>
       </>
-    )
-  }
+    );
+  };
 
   const contentSearchFilter = () => {
     return (
       <>
         <CCol style={{ flexGrow: 1 }} className="pl-0   colOthers">
           <CRow>
-            {arrayFilterSearch?.map(item => {
+            {arrayFilterSearch?.map((item) => {
               return (
                 <>
-                  {item.accessor === 'site' && item.hiddenFilter === true ?
-                    (
-                      <CCol lg={3} sm={4} className="pl-0">
-                        {user?.site ? (
-                          <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
-                        ) : (
-                          <Dropdown
-                            show
-                            placeholder={item.name}
-                            options={siteData}
-                            onChangeDropdown={(selected) => {
-                              const newDropdownValue = dropdownValue;
-                              setDropdownValue({ ...newDropdownValue, siteVal: selected });
-                            }}
-                            selectedValue={siteVal}
-                            className="z-99"
-                          />
-                        )}
-                      </CCol>
-                    )
-                    : ''}
-
-                  {item.accessor === 'client' && item.hiddenFilter === true ?
-                    (
-                      <CCol lg={3} sm={4} className="pl-0">
-                        {user?.client ? (
-                          <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
-                        ) : (
-                          <Dropdown
-                            show
-                            className="z-99"
-                            placeholder={item.name}
-                            options={clientData}
-                            onChangeDropdown={(selected) => {
-                              const newDropdownValue = dropdownValue;
-                              setDropdownValue({ ...newDropdownValue, clientVal: selected, productVal: [] });
-                            }}
-                            selectedValue={clientVal}
-                          />
-                        )}
-                      </CCol>
-                    )
-                    : ''}
-
-                  {item.accessor === 'product' && item.hiddenFilter === true ?
-                    (
-                      <CCol sm="auto" style={{ flexGrow: 1 }} className="pl-0 pr-0">
-                        <DropdownAxios
-                          name="product"
+                  {item.accessor === 'site' && item.hiddenFilter === true ? (
+                    <CCol lg={3} sm={4} className="pl-0">
+                      {user?.site ? (
+                        <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
+                      ) : (
+                        <Dropdown
+                          show
                           placeholder={item.name}
-                          options={isProduct}
-                          selectedValue={productVal}
-                          className="width-100 z-99"
+                          options={siteData}
                           onChangeDropdown={(selected) => {
                             const newDropdownValue = dropdownValue;
-                            setDropdownValue({ ...newDropdownValue, productVal: selected });
+                            setDropdownValue({ ...newDropdownValue, siteVal: selected });
                           }}
-                          isLoading={isLoading}
-                          onInputChange={(val) => {
-                            getProduct({ client: clientVal?.value || clientCheck(clientData, user.client) || '', val, setIsProduct, setIsLoading });
-                            setIsLoading(true);
-                          }}
-                          minChar={3}
-                          style={{ width: '100%' }}
+                          selectedValue={siteVal}
+                          className="z-99"
                         />
-                      </CCol>
-                    )
-                    : ''}
+                      )}
+                    </CCol>
+                  ) : (
+                    ''
+                  )}
+
+                  {item.accessor === 'client' && item.hiddenFilter === true ? (
+                    <CCol lg={3} sm={4} className="pl-0">
+                      {user?.client ? (
+                        <input
+                          value={clientCheck(clientData, user.client)}
+                          className="form-control sh-input"
+                          readOnly
+                        />
+                      ) : (
+                        <Dropdown
+                          show
+                          className="z-99"
+                          placeholder={item.name}
+                          options={clientData}
+                          onChangeDropdown={(selected) => {
+                            const newDropdownValue = dropdownValue;
+                            setDropdownValue({ ...newDropdownValue, clientVal: selected, productVal: [] });
+                          }}
+                          selectedValue={clientVal}
+                        />
+                      )}
+                    </CCol>
+                  ) : (
+                    ''
+                  )}
+
+                  {item.accessor === 'product' && item.hiddenFilter === true ? (
+                    <CCol sm="auto" style={{ flexGrow: 1 }} className="pl-0 pr-0">
+                      <DropdownAxios
+                        name="product"
+                        placeholder={item.name}
+                        options={isProduct}
+                        selectedValue={productVal}
+                        className="width-100 z-99"
+                        onChangeDropdown={(selected) => {
+                          const newDropdownValue = dropdownValue;
+                          setDropdownValue({ ...newDropdownValue, productVal: selected });
+                        }}
+                        isLoading={isLoading}
+                        onInputChange={(val) => {
+                          getProduct({
+                            client: clientVal?.value || clientCheck(clientData, user.client) || '',
+                            val,
+                            setIsProduct,
+                            setIsLoading,
+                          });
+                          setIsLoading(true);
+                        }}
+                        minChar={3}
+                        style={{ width: '100%' }}
+                      />
+                    </CCol>
+                  ) : (
+                    ''
+                  )}
                 </>
-              )
+              );
             })}
           </CRow>
         </CCol>
@@ -248,14 +262,14 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
           </Button>
         </CCol>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <>
       <CCard className="mb-3 StockMovementFilter">
         <CCardBody className="p-3">
-          <form autoComplete='on' onSubmit={() => setIsSearch(true)}>
+          <form autoComplete="on" onSubmit={() => setIsSearch(true)}>
             <CRow className="mx-0">
               <CCol lg={2} sm={12} className="colPeriod pr-3 pl-0">
                 <Dropdown
@@ -285,13 +299,17 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                   arrowStyle
                   getDate={(e) => {
                     const newDropdownValue = dropdownValue;
-                    setDropdownValue({ ...newDropdownValue, fromDate: e, firstValue: false })
+                    setDropdownValue({ ...newDropdownValue, fromDate: e, firstValue: false });
                   }}
                   defaultValue={new Date(fromDate)}
                   placeHolder="Select Date"
-                  onChange={() => { dateTo.current.openDatePicker(); }}
+                  onChange={() => {
+                    dateTo.current.openDatePicker();
+                  }}
                   classNameInput="form-control"
-                  onOpen={(e) => { if (e) dateTo.current.openDatePicker(); }}
+                  onOpen={(e) => {
+                    if (e) dateTo.current.openDatePicker();
+                  }}
                   fromMonth={defaultDate?.minDate}
                   toMonth={defaultDate?.maxDate}
                   messageRequired
@@ -313,7 +331,9 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                   arrowStyle
                   firstDate={fromDate ? new Date(fromDate) : fromDate}
                   firstValue={firstValue}
-                  onOpen={() => { dateTo.current.openDatePicker('from') }}
+                  onOpen={() => {
+                    dateTo.current.openDatePicker('from');
+                  }}
                   classNameInput="form-control"
                   getDate={(e) => {
                     const newDropdownValue = dropdownValue;
@@ -329,7 +349,7 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                     columnText: 'Date To',
                     fieldName: 'toDate',
                     style: 'position-absolute',
-                    checkDateTo: fromDate && fromDate > toDate
+                    checkDateTo: fromDate && fromDate > toDate,
                   }}
                 />
               </CCol>
@@ -357,7 +377,10 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
         <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
           <CContainer className="px-0">
             <CCol className="mx-0 px-0">
-              <Button onClick={() => setShowModal(!showModal)} className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
+              <Button
+                onClick={() => setShowModal(!showModal)}
+                className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}
+              >
                 <MdClose color="white" size={30} />
               </Button>
               <CCol xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
@@ -370,14 +393,14 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                   <span className="font-20 text-white">Edit Filter</span>
                 </div>
                 <span style={{ marginLeft: '29px' }} className="text-white">
-                  Please select filter(S) to show
+                  Please select filters to show.
                 </span>
               </CCol>
             </CCol>
           </CContainer>
         </Modal.Header>
         <Modal.Body className={`${darkMode ? 'DarkModesEditRename ' : ' '} p-3`}>
-          <CRow className='px-2'>
+          <CRow className="px-2">
             {columnFilter &&
               columnFilter.map((item) => {
                 return (
@@ -386,9 +409,11 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                       type="button"
                       onClick={() => {
                         showFilter({ item, columnFilter, setColumnFilter });
-                        setTriggerColumn(!triggerColumn)
+                        setTriggerColumn(!triggerColumn);
                       }}
-                      className={`btn-edit-filter pl-2 ver-center-item w-100 ${item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'}`}
+                      className={`btn-edit-filter pl-2 ver-center-item w-100 ${
+                        item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'
+                      }`}
                     >
                       {item.hiddenFilter ? (
                         <i className="ri-eye-line font-20 mr-2 d-flex align-items-center" />
@@ -410,7 +435,10 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
               </Button>
               <Button
                 variant="primary"
-                onClick={() => { saveFilterSearch({ module, dispatch, columnFilter }); setShowModal(!showModal) }}
+                onClick={() => {
+                  saveFilterSearch({ module, dispatch, columnFilter });
+                  setShowModal(!showModal);
+                }}
                 style={{ padding: '0rem 1.08rem' }}
               >
                 SAVE
