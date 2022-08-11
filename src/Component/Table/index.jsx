@@ -91,9 +91,7 @@ const Table = ({
         minRows="1"
         getTdProps={(state, rowInfo, column, instance) => {
           return {
-            onClick: (e) => {
-              !!onClick && onClick(rowInfo.original, state, column, e, instance);
-            },
+            onClick: (e) => { onClick(rowInfo.original, state, column, e, instance); },
             style: {
               // textAlign: rowInfo?.original[column.id] ? 'left' : 'right',
               height: '3rem',

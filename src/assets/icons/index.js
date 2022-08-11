@@ -125,7 +125,7 @@ import {
 } from '@coreui/icons'
 import { sygnet, logoNegative } from './logos'
 
-const icons = Object.assign({}, {
+const icons = Object.assign('foo', {
   sygnet,
   logoNegative
 }, {

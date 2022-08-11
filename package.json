@@ -39,7 +39,6 @@
     "jspdf": "1.5.3",
     "jspdf-autotable": "3.5.6",
     "moment": "^2.29.3",
-    "node-sass": "4.14.1",
     "numeral": "2.0.6",
     "overrides": {
       "autoprefixer": "10.4.5"
@@ -72,15 +71,17 @@
     "spinkit": "2.0.1"
   },
   "devDependencies": {
+    "eslint": "^8.21.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.0.0",
+    "node-sass": "^4.14.1",
     "prettier": "^2.1.1",
-    "react-scripts": "^5.0.0"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -16,7 +16,7 @@ class Logins extends Component {
         username: true,
         password: true,
       },
-      emailValidation: true,
+      validationEmail: true,
       errorMessage: '',
       isLoad: false,
       forgotPassword: false,
@@ -84,13 +84,13 @@ class Logins extends Component {
       const email = e.target.email.value;
       const payload = { email };
       if (email.length === 0) {
-        this.setState({ emailValidation: false, isLoad: false });
+        this.setState({ validationEmail: false, isLoad: false });
       }
       this.setState({ isLoad: true });
       try {
         const result = await axios.post(`${baseUrl}/auth/forgot-password`, payload);
         if (result.status === 400) {
-          this.setState({ isLoad: false, errorMessage: result.message, emailValidation: false });
+          this.setState({ isLoad: false, errorMessage: result.message, validationEmail: false });
         } else {
           this.hideErrorMessageHandler(errorMessage);
           this.setState({ forgotSuccess: true });
@@ -108,7 +108,7 @@ class Logins extends Component {
       forgotPassword: !forgotPassword,
       errorMessage: '',
       formValidation: { username: true, password: true },
-      emailValidation: true,
+      validationEmail: true,
     });
   };
 
@@ -129,7 +129,7 @@ class Logins extends Component {
   };
 
   hideErrorMessageHandler = (errorMessage) => {
-    this.setState({ isLoad: false, errorMessage, emailValidation: true });
+    this.setState({ isLoad: false, errorMessage, validationEmail: true });
   };
 
   onChangeEmail = (e) => {

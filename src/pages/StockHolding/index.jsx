@@ -112,6 +112,7 @@ const PurchaseOrders = (props) => {
       <div>
         <div>
           <Search
+            titleFilter="Stock Holding Summary"
             module={module}
             filterHidden={filterHiddenData || filterSummaryDefault}
             filterSite

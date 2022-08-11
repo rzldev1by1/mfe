@@ -99,6 +99,8 @@ const Search = ({
   const [showClearMod, setShowClearMod] = useState(false);
   const [showFulfillMod, setShowFulfillMod] = useState(false);
   const [defaultDate, setDefaultDate] = useState(null);
+  const [changeFilter, setChangeFilter] = useState(true)
+  const [validResetFilter, setValidResetFilter] = useState(true)
   const [columnFilter, setColumnFilter] = useState(filterHidden);
   const arrayFilterSearch = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
   const [triggerColumn, setTriggerColumn] = useState(false);
@@ -193,6 +195,15 @@ const Search = ({
     getDateRange({ setDefaultDate });
     getOrderType({ dispatch, company, client, module });
   }, []);
+
+  useEffect(() => {
+    columnFilter.forEach(element => {
+      const filterHidden = columnFilter.filter(fil => { return fil.hiddenFilter === element.hiddenFilter && element.hiddenFilter === true })
+      if (filterHidden.length !== 0) {
+        if (element.hiddenFilter) setValidResetFilter(false)
+      }
+    })
+  })
 
   useEffect(() => {
     setGetTaskParam({ site: newDropdownValue.site, client: newDropdownValue.client });
@@ -915,10 +926,7 @@ const Search = ({
         <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
           <CContainer className="px-0">
             <CCol className="mx-0 px-0">
-              <Button
-                onClick={() => setShowModal(!showModal)}
-                className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}
-              >
+              <Button onClick={() => { setShowModal(!showModal); setChangeFilter(true) }} className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
                 <MdClose color="white" size={30} />
               </Button>
               <CCol xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
@@ -938,55 +946,51 @@ const Search = ({
           </CContainer>
         </Modal.Header>
         <Modal.Body className={`${darkMode ? 'DarkModesEditRename ' : ' '} p-3`}>
-          <CRow className="px-2">
-            {columnFilter &&
-              columnFilter.map((item) => {
-                return (
-                  <CCol lg={3} className="px-2 py-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        showFilter({ item, columnFilter, setColumnFilter, dropdownValue, setDropdownValue });
-                        setTriggerColumn(!triggerColumn);
-                      }}
-                      className={`btn-edit-filter pl-2 ver-center-item w-100 ${
-                        item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'
-                      }`}
-                    >
-                      {item.hiddenFilter ? (
-                        <i className="ri-eye-line font-20 mr-2 d-flex align-items-center" />
-                      ) : (
-                        <i className="ri-eye-off-line font-20 mr-2 d-flex align-items-center" />
-                      )}
-                      <b className="p-0 pl-1">{item.name}</b>
-                    </button>
-                  </CCol>
-                );
-              })}
+          <CRow className='px-2'>
+            {columnFilter && columnFilter.map((item) => {
+              return (
+                <CCol lg={3} className="px-2 py-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      showFilter({ item, columnFilter, setValidResetFilter, setColumnFilter, dropdownValue, setDropdownValue });
+                      setTriggerColumn(!triggerColumn)
+                      setChangeFilter(false)
+                    }}
+                    className={`btn-edit-filter pl-2 ver-center-item w-100 ${item.hiddenFilter ? 'btn-outline-primary' : 'btn-light-gray'}`}
+                  >
+                    {item.hiddenFilter ? (
+                      <i className="ri-eye-line font-20 mr-2 d-flex align-items-center" />
+                    ) : (
+                      <i className="ri-eye-off-line font-20 mr-2 d-flex align-items-center" />
+                    )}
+                    <b className="p-0 pl-1">{item.name}</b>
+                  </button>
+                </CCol>
+              );
+            })}
             <CCol lg={12} className="px-2 justify-content-between d-flex pt-3">
               <Button
                 variant="primary"
+                disabled={validResetFilter}
+                className={validResetFilter ? "btn-disabled" : ""}
                 style={{ padding: '0rem 1.08rem' }}
-                onClick={() =>
-                  resetFilter({
-                    module,
-                    filterHidden,
-                    dispatch,
-                    setShowModal,
-                    columnFilter,
-                    setColumnFilter,
-                    dropdownValue,
-                    setDropdownValue,
-                  })
-                }
+                onClick={() => {
+                  setValidResetFilter(true);
+                  resetFilter({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter, dropdownValue, setDropdownValue });
+                }}
               >
                 RESET FILTER FIELD
               </Button>
               <Button
                 variant="primary"
+                disabled={changeFilter}
+                className={changeFilter ? "btn-disabled" : ""}
                 onClick={() => {
                   saveFilterSearch({ module, dispatch, columnFilter });
                   setShowModal(!showModal);
+                  setValidResetFilter(!validResetFilter);
+                  setChangeFilter(!changeFilter);
                 }}
                 style={{ padding: '0rem 1.08rem' }}
               >

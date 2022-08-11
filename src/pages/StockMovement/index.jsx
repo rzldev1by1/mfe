@@ -84,6 +84,7 @@ const StockMovement = () => {
       <div>
         <div>
           <Search
+            titleFilter="Stock Movement Summary"
             module={module}
             filterHidden={filterHiddenData || filterSummaryDefault}
             setHeader={setHeader}

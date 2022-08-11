@@ -37,15 +37,13 @@ class Dropdown extends Component {
     return (
       <>
         <ul
-          ref={(selectDropdown) => selectDropdownRef = selectDropdown}
+          ref={(selectDropdown) => { selectDropdownRef = selectDropdown }}
           style={style}
           tabIndex={tabIndex}
           className={`select_dropdown dropdown_closed ${className} ${!this.state.close && (this.props.usedFor == "SalesOrderCreate") ? " dropDownForOrderLine" : ""}`}
-          onKeyDown={(e) => { if (e.key == "Escape") this.refs.closeDropdown.checked = true }}
           aria-hidden="true"
         >
           <input
-            ref="closeDropdown"
             value=""
             className="select_dropdown_close"
             type="radio"
@@ -57,7 +55,7 @@ class Dropdown extends Component {
               this.setState({ close: true });
               selectDropdownRef.className = `select_dropdown ${className} dropdown_closed`
             }}
-            defaultChecked={firstChecked ? false : true}
+            defaultChecked={firstChecked !== false}
           />
 
           <span className={`select_dropdown_label select_dropdown_label-placeholder ${usedFor == "Datepicker" ? " select_datepicker_label select_datepicker_label-placeholder" : ""}`}>
@@ -124,7 +122,7 @@ class Dropdown extends Component {
                           if (this.props.isOpen) { this.props.isOpen(false) }
                           selectDropdownRef.className = `select_dropdown ${className} dropdown_closed`
                         }}
-                        defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false}
+                        defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] === true}
                       />
                       <label
                         className={`select_dropdown_label ${usedFor == "Datepicker" ? " select_datepicker_label" : ""}`}
@@ -152,7 +150,7 @@ class Dropdown extends Component {
                         if (this.props.isOpen) { this.props.isOpen(false) }
                         selectDropdownRef.className = `select_dropdown ${className} dropdown_closed`
                       }}
-                      defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false}
+                      defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] === true}
                     />
                     <label
                       className={`select_dropdown_label ${usedFor == "Datepicker" ? " select_datepicker_label" : ""}`}
