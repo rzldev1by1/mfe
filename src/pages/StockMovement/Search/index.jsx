@@ -284,7 +284,7 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
         <CCardBody className="p-3">
           <form autoComplete="on" onSubmit={() => setIsSearch(true)}>
             <CRow className="mx-0">
-              <CCol lg={2} sm={12} className="colPeriod pr-3 pl-0">
+              <CCol lg={2} sm={12} className="pl-0">
                 <Dropdown
                   show
                   placeholder="Display Period"
@@ -302,71 +302,77 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                   className=" z-99"
                 />
               </CCol>
-              <CCol lg={1} sm={11} className="colPeriod d-flex justify-content-center">
-                <div className="colDateText d-flex text-light-gray align-items-center">Date From</div>
+              <CCol lg={2} sm={10} className="pl-0">
+                <CRow>
+                  <CCol lg={3} className="d-flex p-0 align-items-center">
+                    <div className="d-flex text-light-gray align-items-center">Date From</div>
+                  </CCol>
+                  <CCol lg={9}>
+                    <DatePicker
+                      style={{ minWidth: '100%' }}
+                      ref={dateFrom}
+                      arrowStyle
+                      getDate={(e) => {
+                        const newDropdownValue = dropdownValue;
+                        setDropdownValue({ ...newDropdownValue, fromDate: e, firstValue: false });
+                      }}
+                      defaultValue={new Date(fromDate)}
+                      placeHolder="Select Date"
+                      onChange={() => {
+                        dateTo.current.openDatePicker();
+                      }}
+                      classNameInput="form-control"
+                      onOpen={(e) => {
+                        if (e) dateTo.current.openDatePicker();
+                      }}
+                      fromMonth={defaultDate?.minDate}
+                      toMonth={defaultDate?.maxDate}
+                      messageRequired
+                      messageParam={{
+                        column: 'validDates',
+                        columnText: 'Date From',
+                        fieldName: 'fromDate',
+                        style: 'position-absolute',
+                      }}
+                    />
+                  </CCol>
+                </CRow>
               </CCol>
-              <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
-                <DatePicker
-                  style={{ minWidth: '100%' }}
-                  ref={dateFrom}
-                  arrowStyle
-                  getDate={(e) => {
-                    const newDropdownValue = dropdownValue;
-                    setDropdownValue({ ...newDropdownValue, fromDate: e, firstValue: false });
-                  }}
-                  defaultValue={new Date(fromDate)}
-                  placeHolder="Select Date"
-                  onChange={() => {
-                    dateTo.current.openDatePicker();
-                  }}
-                  classNameInput="form-control"
-                  onOpen={(e) => {
-                    if (e) dateTo.current.openDatePicker();
-                  }}
-                  fromMonth={defaultDate?.minDate}
-                  toMonth={defaultDate?.maxDate}
-                  messageRequired
-                  messageParam={{
-                    column: 'validDates',
-                    columnText: 'Date From',
-                    fieldName: 'fromDate',
-                    style: 'position-absolute',
-                  }}
-                />
+              <CCol lg={2} sm={10} className="pl-0">
+                <CRow>
+                  <CCol lg={3} className="d-flex p-0 align-items-center">
+                    <div className="d-flex text-light-gray align-items-center">Date To</div>
+                  </CCol>
+                  <CCol lg={9}>
+                    <DatePicker
+                      style={{ minWidth: '100%' }}
+                      ref={dateTo}
+                      arrowStyle
+                      firstValue={firstValue}
+                      onOpen={() => {
+                        dateTo.current.openDatePicker('from');
+                      }}
+                      classNameInput="form-control"
+                      getDate={(e) => {
+                        const newDropdownValue = dropdownValue;
+                        setDropdownValue({ ...newDropdownValue, toDate: e });
+                      }}
+                      defaultValue={new Date(toDate)}
+                      placeHolder="Select Date"
+                      fromMonth={defaultDate?.minDate}
+                      toMonth={defaultDate?.maxDate}
+                      messageRequired
+                      messageParam={{
+                        column: 'validDates',
+                        columnText: 'Date To',
+                        fieldName: 'toDate',
+                        style: 'position-absolute',
+                        checkDateTo: fromDate && fromDate > toDate,
+                      }}
+                    />
+                  </CCol>
+                </CRow>
               </CCol>
-              <CCol lg={1} sm={11} className="colPeriod d-flex justify-content-center">
-                <div className="colDateText d-flex text-light-gray align-items-center">Date To</div>
-              </CCol>
-              <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
-                <DatePicker
-                  style={{ minWidth: '100%' }}
-                  ref={dateTo}
-                  arrowStyle
-                  firstDate={fromDate ? new Date(fromDate) : fromDate}
-                  firstValue={firstValue}
-                  onOpen={() => {
-                    dateTo.current.openDatePicker('from');
-                  }}
-                  classNameInput="form-control"
-                  getDate={(e) => {
-                    const newDropdownValue = dropdownValue;
-                    setDropdownValue({ ...newDropdownValue, toDate: e });
-                  }}
-                  defaultValue={new Date(toDate)}
-                  placeHolder="Select Date"
-                  fromMonth={defaultDate?.minDate}
-                  toMonth={defaultDate?.maxDate}
-                  messageRequired
-                  messageParam={{
-                    column: 'validDates',
-                    columnText: 'Date To',
-                    fieldName: 'toDate',
-                    style: 'position-absolute',
-                    checkDateTo: fromDate && fromDate > toDate,
-                  }}
-                />
-              </CCol>
-
               {searchFilter === 'true' ? contentSearchFilter() : contentSearch()}
             </CRow>
             <CRow className="mx-0">

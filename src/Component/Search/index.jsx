@@ -840,11 +840,6 @@ const Search = ({
                                   <DatePicker
                                     ref={dateTo}
                                     arrowStyle
-                                    firstDate={
-                                      newDropdownValue.fromDate
-                                        ? new Date(newDropdownValue.fromDate)
-                                        : newDropdownValue.fromDate
-                                    }
                                     firstValue={newDropdownValue.firstValue}
                                     onOpen={() => dateTo.current.openDatePicker('from')}
                                     classNameInput="form-control"
