@@ -66,7 +66,8 @@ export const getSummaryData = async ({
   user,
   typeDate,
   customerOrderRef,
-  vendorOrderNo
+  vendorOrderNo,
+  dataDefault,
 }) => {
   const urls = [];
   let endpointsUrlData = '';
@@ -82,105 +83,108 @@ export const getSummaryData = async ({
     }
   });
 
-  // Url
-  if (module === 'UserManagement') {
-    urls.push(`search=${searchInput || ''}`);
-  }
-  if (module === 'SupplierManagement') {
-    urls.push(`search=${searchInput || ''}`);
-    urls.push(`startDate=${fromDate || ''}`);
-    urls.push(`endDate=${toDate || ''}`);
-  }
-  if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
-    let userSite = '';
-    let UserClient = '';
-    if ((user.userLevel !== 'Admin' && user?.site) || (user.userLevel !== 'ADMIN' && user?.site)) {
-      userSite = user?.site;
-    } else userSite = siteVal || 'all';
+  if (!dataDefault) {
+    // Url
+    if (module === 'UserManagement') {
+      urls.push(`search=${searchInput || ''}`);
+    }
+    if (module === 'SupplierManagement') {
+      urls.push(`search=${searchInput || ''}`);
+      urls.push(`startDate=${fromDate || ''}`);
+      urls.push(`endDate=${toDate || ''}`);
+    }
+    if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
+      let userSite = '';
+      let UserClient = '';
+      if ((user.userLevel !== 'Admin' && user?.site) || (user.userLevel !== 'ADMIN' && user?.site)) {
+        userSite = user?.site;
+      } else userSite = siteVal || 'all';
 
-    if ((user.userLevel !== 'Admin' && user?.client) || (user.userLevel !== 'ADMIN' && user?.client)) {
-      UserClient = user?.client;
-    } else UserClient = clientVal || 'all';
+      if ((user.userLevel !== 'Admin' && user?.client) || (user.userLevel !== 'ADMIN' && user?.client)) {
+        UserClient = user?.client;
+      } else UserClient = clientVal || 'all';
 
-    urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${userSite}`);
-    urls.push(`client=${UserClient}`);
-    urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
-    urls.push(`status=${status ? status.value : 'open'}`);
-    if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
-    if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
-    if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
-    if (typeDate) {
-      const typeDateSearch = typeDate.slice(0, 1).toUpperCase() + typeDate.substr(1);
-      urls.push(`start${typeDateSearch}=${fromDate || ''}`);
-      urls.push(`end${typeDateSearch}=${toDate || ''}`);
+      urls.push(`search=${searchInput?.toUpperCase() || ''}`);
+      urls.push(`site=${userSite}`);
+      urls.push(`client=${UserClient}`);
+      urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
+      urls.push(`status=${status ? status.value : 'open'}`);
+      if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
+      if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
+      if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
+      if (typeDate) {
+        const typeDateSearch = typeDate.slice(0, 1).toUpperCase() + typeDate.substr(1);
+        urls.push(`start${typeDateSearch}=${fromDate || ''}`);
+        urls.push(`end${typeDateSearch}=${toDate || ''}`);
+      }
+    }
+    urls.push(`page=${active || 1}`);
+
+    if (Export === true) urls.push('export=true');
+    else dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
+    dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
+
+    const newData = await axios.get(`${endpointsUrlData}?${urls.join('&')}`);
+    const Meta = newData?.data?.meta;
+    const Data = newData?.data?.data;
+
+    // Table Status
+    const element = document.getElementById('searchInput');
+    if (element) {
+      if (element.value !== searchInput) {
+        return;
+      }
+    }
+
+    if (Data?.length) {
+      dispatch({ type: 'TABLE_STATUS', data: '' });
+    } else if (Data?.length < 1) {
+      dispatch({ type: 'TABLE_STATUS', data: 'noData' });
+    }
+    // End Table Status
+
+    if (Data) {
+      Data.forEach((item, idx) => {
+        item.product = String(item.product);
+        item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
+        item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
+        item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
+        item.pallets = numeral(item.pallets).format('0,0');
+        item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
+        item.weight = numeral(item.weight).format('0,0.000');
+        item.weight_processed = numeral(item.weight_processed).format('0,0.000');
+        item.price = numeral(item.price).format('0,0.00');
+        item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
+        item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
+        item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
+        item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
+        item.no = idx + 1;
+        item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
+        item.total_order = numeral(item.total_order).format('0,0');
+        item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
+        item.site = item.site && item.site !== '' ? item.site : 'All';
+        item.client = item.client && item.client !== '' ? item.client : 'All';
+        item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
+      });
+
+      if (Export === true) {
+        await dispatch({ type: 'EXPORT_DATA', data: Data });
+      } else {
+        const pagination = {
+          active: active || Meta.current_page,
+          show: Meta.per_page,
+          total: Meta.total,
+          last_page: Meta.last_page,
+          from: Meta.from,
+          to: Meta.to,
+        };
+        const paging = pagination;
+        dispatch({ type: paramData, data: Data });
+        dispatch({ type: paramPagingData, data: paging });
+      }
     }
   }
-  urls.push(`page=${active || 1}`);
 
-  if (Export === true) urls.push('export=true');
-  else dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
-  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
-
-  const newData = await axios.get(`${endpointsUrlData}?${urls.join('&')}`);
-  const Meta = newData?.data?.meta;
-  const Data = newData?.data?.data;
-
-  // Table Status
-  const element = document.getElementById('searchInput');
-  if (element) {
-    if (element.value !== searchInput) {
-      return;
-    }
-  }
-
-  if (Data?.length) {
-    dispatch({ type: 'TABLE_STATUS', data: '' });
-  } else if (Data?.length < 1) {
-    dispatch({ type: 'TABLE_STATUS', data: 'noData' });
-  }
-  // End Table Status
-
-  if (Data) {
-    Data.forEach((item, idx) => {
-      item.product = String(item.product);
-      item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
-      item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
-      item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
-      item.pallets = numeral(item.pallets).format('0,0');
-      item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
-      item.weight = numeral(item.weight).format('0,0.000');
-      item.weight_processed = numeral(item.weight_processed).format('0,0.000');
-      item.price = numeral(item.price).format('0,0.00');
-      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
-      item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
-      item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
-      item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
-      item.no = idx + 1;
-      item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
-      item.total_order = numeral(item.total_order).format('0,0');
-      item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
-      item.site = item.site && item.site !== '' ? item.site : 'All';
-      item.client = item.client && item.client !== '' ? item.client : 'All';
-      item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
-    });
-
-    if (Export === true) {
-      await dispatch({ type: 'EXPORT_DATA', data: Data });
-    } else {
-      const pagination = {
-        active: active || Meta.current_page,
-        show: Meta.per_page,
-        total: Meta.total,
-        last_page: Meta.last_page,
-        from: Meta.from,
-        to: Meta.to,
-      };
-      const paging = pagination;
-      dispatch({ type: paramData, data: Data });
-      dispatch({ type: paramPagingData, data: paging });
-    }
-  }
 };
 
 export const getDetailHeader = async ({ dispatch, props, module }) => {
@@ -441,6 +445,7 @@ export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
       console.log(error);
     });
 };
+
 // End Stock Movement
 
 export const restuctureMenuList = (sources) => {

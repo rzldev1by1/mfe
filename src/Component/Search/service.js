@@ -1,50 +1,29 @@
 /* eslint-disable no-param-reassign */
-export const setSite = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setDropdownValue }) => {
-  const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.site = selected
-  else newDropdownValue.site = null
+export const setSite = ({ selected, dispatch, setAllFilter, allFilter, onChangeGetTask, getTask, getTaskParam }) => {
+  if (selected) dispatch({ type: setAllFilter, data: { ...allFilter, site: selected } });
+  else dispatch({ type: setAllFilter, data: { ...allFilter, site: null } });
 
-  if (onChangeGetTask) {
-    getTask({ dispatch, client: getTaskParam?.client, site: selected });
-  }
-  setDropdownValue(newDropdownValue)
+  if (onChangeGetTask) getTask({ dispatch, client: getTaskParam?.client, site: selected });
 };
 
-export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setDropdownValue }) => {
-  const newDropdownValue = { ...dropdownValue };
-  if (selected) {
-    newDropdownValue.client = selected
-  }
+export const setClient = ({ selected, dispatch, onChangeGetTask, setAllFilter, allFilter, getTask, getTaskParam, }) => {
+  if (selected) dispatch({ type: setAllFilter, data: { ...allFilter, client: selected } });
   else {
-    newDropdownValue.client = null
-    newDropdownValue.task = []
+    dispatch({ type: setAllFilter, data: { ...allFilter, client: null } });
+    dispatch({ type: setAllFilter, data: { ...allFilter, task: [] } });
   }
 
-  if (onChangeGetTask) {
-    getTask({ dispatch, client: selected, site: getTaskParam?.site });
-    setDropdownValue(newDropdownValue)
-  }
+  if (onChangeGetTask) getTask({ dispatch, client: selected, site: getTaskParam?.site });
 };
 
-export const setOrderType = ({ selected, dropdownValue, setDropdownValue }) => {
-  const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.orderType = selected
-  else newDropdownValue.orderType = null
-  setDropdownValue(newDropdownValue)
-};
-
-export const setTask = ({ selected, dropdownValue, setDropdownValue }) => {
-  const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.task = selected
-  else newDropdownValue.task = null
-  setDropdownValue(newDropdownValue)
-};
-
-export const setStatus = ({ selected, dropdownValue, setDropdownValue }) => {
-  const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.status = selected
-  else newDropdownValue.status = null
-  setDropdownValue(newDropdownValue)
+export const changeDropdown = ({ selected, dispatch, setAllFilter, allFilter, dropName, dataHidden }) => {
+  if (dataHidden) {
+    const newAllFilter = { ...allFilter }
+    newAllFilter[dropName] = selected
+    newAllFilter.typeDate = dataHidden.accessor
+    dispatch({ type: setAllFilter, data: newAllFilter });
+  } else if (selected) dispatch({ type: setAllFilter, data: { ...allFilter, [dropName]: selected } });
+  else dispatch({ type: setAllFilter, data: { ...allFilter, [dropName]: null } });
 };
 
 export const setStyle = ({ selected, dropdownValue, setDropdownValue }) => {
@@ -156,4 +135,28 @@ export const closeModalFilter = ({ setColumnFilter, module, setShowModal, setCha
   setShowModal(!showModal);
   setChangeFilter(true);
   setValidResetFilter(true)
+}
+
+export const allModule = {
+  StockHolding: {
+    paramType: 'GET_SH_SUMMARY',
+    filterType: 'FILTER_DATA_SH',
+    getFilterType: 'shFilter'
+  },
+  purchaseOrder: {
+    paramType: 'GET_PO_SUMMARY',
+    filterType: 'FILTER_DATA_PO',
+    getFilterType: 'poFilter'
+  },
+  salesOrder: {
+    paramType: 'GET_SO_SUMMARY',
+    filterType: 'FILTER_DATA_SO',
+    getFilterType: 'soFilter'
+  },
+  UserManagement: {
+    paramType: 'GET_UM_SUMMARY',
+  },
+  SupplierManagement: {
+    paramType: 'GET_SP_SUMMARY',
+  },
 }

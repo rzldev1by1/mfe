@@ -46,6 +46,12 @@ const TheSidebar = () => {
       return !adminRoutes.includes(n.to) && userMenu?.includes(n.key);
     });
   }
+  else {
+    navigation = navigation.filter((n) => {
+      return n.to !== '/supplier-management';
+    });
+  }
+
   return (
     <CSidebar
       id="theSidebar"

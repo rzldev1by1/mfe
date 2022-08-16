@@ -33,9 +33,7 @@ import {
 import {
   setSite,
   setClient,
-  setOrderType,
-  setTask,
-  setStatus,
+  changeDropdown,
   setStyle,
   setStyleDesc,
   setColor,
@@ -46,6 +44,7 @@ import {
   resetFilter,
   saveFilterSearch,
   closeModalFilter,
+  allModule,
 } from './service';
 import './index.scss';
 
@@ -78,9 +77,22 @@ const Search = ({
   spDetailTable,
   setExportTable,
 }) => {
+  let paramData
+  let getDataFilter
+  let setAllFilter
+  Object.keys(allModule).forEach((allModuleKey) => {
+    if (allModuleKey === module) {
+      paramData = allModule[allModuleKey].paramType
+      getDataFilter = allModule[allModuleKey].getFilterType
+      setAllFilter = allModule[allModuleKey].filterType
+    }
+  });
+
+
   // params
   const dispatch = useDispatch();
   const dateTo = createRef(null);
+  const allFilter = useSelector((state) => state[getDataFilter]);
   const darkMode = useSelector((state) => state.darkModeMLS);
   const siteData = useSelector((state) => state.siteData);
   const clientData = useSelector((state) => state.clientData);
@@ -106,52 +118,25 @@ const Search = ({
   const [columnFilter, setColumnFilter] = useState(filterHidden);
   const arrayFilterSearch = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
   const [triggerColumn, setTriggerColumn] = useState(false);
-
-  const [dropdownValue, setDropdownValue] = useState({
-    site: '',
-    client: '',
-    status: '',
-    orderType: '',
-    task: '',
-    typeDate: '',
-    customerOrderRef: '',
-    vendorOrderNo: '',
-    fromDate: '',
-    toDate: '',
-    firstValue: false,
-  });
-
-  let paramType = '';
-  if (module === 'StockHolding') {
-    paramType = 'GET_SH_SUMMARY';
-  }
-  if (module === 'purchaseOrder') {
-    paramType = 'GET_PO_SUMMARY';
-  }
-  if (module === 'salesOrder') {
-    paramType = 'GET_SO_SUMMARY';
-  }
-  if (module === 'UserManagement') {
-    paramType = 'GET_UM_SUMMARY';
-  }
+  const [dropdownValue, setDropdownValue] = useState();
 
   const newDropdownValue = { ...dropdownValue };
 
   const search = async (e) => {
     if (e.key === 'Enter') {
-      dispatch({ type: paramType, data: [] });
+      dispatch({ type: paramData, data: [] });
       await getSummaryData({
         e,
-        siteVal: newDropdownValue.site?.value,
-        clientVal: newDropdownValue.client?.value,
-        orderType: newDropdownValue.orderType,
-        task: newDropdownValue.task,
-        status: newDropdownValue.status,
-        typeDate: newDropdownValue.typeDate,
-        fromDate: newDropdownValue.fromDate,
-        toDate: newDropdownValue.toDate,
-        vendorOrderNo: newDropdownValue.vendorOrderNo,
-        customerOrderRef: newDropdownValue.customerOrderRef,
+        siteVal: allFilter.site?.value,
+        clientVal: allFilter.client?.value,
+        orderType: allFilter.orderType,
+        task: allFilter.task,
+        status: allFilter.status,
+        typeDate: allFilter.typeDate,
+        fromDate: allFilter.fromDate,
+        toDate: allFilter.toDate,
+        vendorOrderNo: allFilter.vendorOrderNo,
+        customerOrderRef: allFilter.customerOrderRef,
         searchInput,
         dispatch,
         module,
@@ -242,16 +227,16 @@ const Search = ({
   useEffect(() => {
     if (Export === true) {
       getSummaryData({
-        siteVal: user.site ? user.site : newDropdownValue.site?.value,
-        clientVal: user.client ? user.client : newDropdownValue.client?.value,
-        orderType: newDropdownValue.orderType,
-        task: newDropdownValue.task,
-        status: newDropdownValue.status,
-        typeDate: newDropdownValue.typeDate,
-        fromDate: newDropdownValue.fromDate,
-        toDate: newDropdownValue.toDate,
-        vendorOrderNo: newDropdownValue.vendorOrderNo,
-        customerOrderRef: newDropdownValue.customerOrderRef,
+        siteVal: user.site ? user.site : allFilter.site?.value,
+        clientVal: user.client ? user.client : allFilter.client?.value,
+        orderType: allFilter.orderType,
+        task: allFilter.task,
+        status: allFilter.status,
+        typeDate: allFilter.typeDate,
+        fromDate: allFilter.fromDate,
+        toDate: allFilter.toDate,
+        vendorOrderNo: allFilter.vendorOrderNo,
+        customerOrderRef: allFilter.customerOrderRef,
         dispatch,
         searchInput,
         module,
@@ -295,16 +280,16 @@ const Search = ({
                 className="btn btn-search mobile-search  btn-primary float-right"
                 onClick={() =>
                   getSummaryData({
-                    siteVal: user.site ? user.site : newDropdownValue.site?.value,
-                    clientVal: user.client ? user.client : newDropdownValue.client?.value,
-                    orderType: newDropdownValue.orderType,
-                    task: newDropdownValue.task,
-                    status: newDropdownValue.status,
+                    siteVal: user.site ? user.site : allFilter.site?.value,
+                    clientVal: user.client ? user.client : allFilter.client?.value,
+                    orderType: allFilter.orderType,
+                    task: allFilter.task,
+                    status: allFilter.status,
                     dispatch,
                     searchInput,
                     module,
                     user,
-                  }) && dispatch({ type: paramType, data: [] })}
+                  }) && dispatch({ type: paramData, data: [] })}
               >
                 SEARCH
               </button>
@@ -325,11 +310,11 @@ const Search = ({
                         onChangeDropdown={(selected) =>
                           setSite({
                             selected,
+                            setAllFilter,
+                            allFilter,
                             dispatch,
-                            dropdownValue,
-                            setDropdownValue,
                           })}
-                        selectedValue={newDropdownValue.site}
+                        selectedValue={allFilter?.site}
                       />
                     )}
                   </div>
@@ -349,11 +334,11 @@ const Search = ({
                             getTask,
                             getTaskParam,
                             selected,
-                            dispatch,
-                            dropdownValue,
-                            setDropdownValue,
+                            setAllFilter,
+                            allFilter,
+                            dispatch
                           })}
-                        selectedValue={newDropdownValue.client}
+                        selectedValue={allFilter.client}
                       />
                     )}
                   </div>
@@ -365,9 +350,8 @@ const Search = ({
                       show
                       placeholder="Status"
                       options={statusDataSH || statusData}
-                      onChangeDropdown={(selected) =>
-                        setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.status}
+                      onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'status' })}
+                      selectedValue={allFilter.status}
                     />
                   </div>
                 </CCol>
@@ -378,8 +362,8 @@ const Search = ({
                       show
                       placeholder="Order Type"
                       options={orderTypeData}
-                      onChangeDropdown={(selected) => setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.orderType}
+                      onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'orderType' })}
+                      selectedValue={allFilter.orderType}
                     />
                   </div>
                 </CCol>
@@ -390,8 +374,8 @@ const Search = ({
                       show
                       placeholder="Task"
                       options={taskData}
-                      onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
-                      selectedValue={newDropdownValue.task}
+                      onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'task' })}
+                      selectedValue={allFilter.task}
                     />
                   </div>
                 </CCol>
@@ -402,7 +386,7 @@ const Search = ({
                     placeholder="Style"
                     options={styleData}
                     onChangeDropdown={(selected) => setStyle({ selected, dispatch, dropdownValue, setDropdownValue })}
-                    selectedValue={newDropdownValue.style}
+                    selectedValue={allFilter.style}
                   />
                 </CCol>
                 <CCol
@@ -488,17 +472,17 @@ const Search = ({
                       className="btn btn-search mobile-search btn-primary float-right"
                       onClick={() => {
                         getSummaryData({
-                          siteVal: user.site ? user.site : newDropdownValue.site?.value,
-                          clientVal: user.client ? user.client : newDropdownValue.client?.value,
-                          orderType: newDropdownValue.orderType,
-                          task: newDropdownValue.task,
-                          status: newDropdownValue.status,
+                          siteVal: user.site ? user.site : allFilter.site?.value,
+                          clientVal: user.client ? user.client : allFilter.client?.value,
+                          orderType: allFilter.orderType,
+                          task: allFilter.task,
+                          status: allFilter.status,
                           dispatch,
                           searchInput,
                           module,
                           user,
                         });
-                        dispatch({ type: paramType, data: [] });
+                        dispatch({ type: paramData, data: [] });
                         setExportTable(false);
                       }}
                     >
@@ -602,22 +586,22 @@ const Search = ({
               className="btn-search icon-search-filter mobile-search"
               onClick={() => {
                 getSummaryData({
-                  siteVal: user.site ? user.site : newDropdownValue.site?.value,
-                  clientVal: user.client ? user.client : newDropdownValue.client?.value,
-                  orderType: newDropdownValue.orderType,
-                  task: newDropdownValue.task,
-                  status: newDropdownValue.status,
-                  typeDate: newDropdownValue.typeDate,
-                  fromDate: newDropdownValue.fromDate,
-                  toDate: newDropdownValue.toDate,
-                  vendorOrderNo: newDropdownValue.vendorOrderNo,
-                  customerOrderRef: newDropdownValue.customerOrderRef,
+                  siteVal: user.site ? user.site : allFilter.site?.value,
+                  clientVal: user.client ? user.client : allFilter.client?.value,
+                  orderType: allFilter.orderType,
+                  task: allFilter.task,
+                  status: allFilter.status,
+                  typeDate: allFilter.typeDate,
+                  fromDate: allFilter.fromDate,
+                  toDate: allFilter.toDate,
+                  vendorOrderNo: allFilter.vendorOrderNo,
+                  customerOrderRef: allFilter.customerOrderRef,
                   dispatch,
                   searchInput,
                   module,
                   user,
                 });
-                dispatch({ type: paramType, data: [] });
+                dispatch({ type: paramData, data: [] });
                 setExportTable(false);
               }}
             >
@@ -667,8 +651,8 @@ const Search = ({
                                 show
                                 placeholder={dataHidden.name}
                                 options={siteData}
-                                onChangeDropdown={(selected) => setSite({ selected, dispatch, dropdownValue, setDropdownValue })}
-                                selectedValue={newDropdownValue.site}
+                                onChangeDropdown={(selected) => setSite({ selected, setAllFilter, allFilter, dispatch })}
+                                selectedValue={allFilter?.site}
                               />
                             )}
                           </CCol>
@@ -697,13 +681,13 @@ const Search = ({
                                   setClient({
                                     onChangeGetTask,
                                     getTask,
+                                    setAllFilter,
+                                    allFilter,
                                     getTaskParam,
                                     selected,
-                                    dispatch,
-                                    dropdownValue,
-                                    setDropdownValue,
+                                    dispatch
                                   })}
-                                selectedValue={newDropdownValue.client}
+                                selectedValue={allFilter?.client}
                               />
                             )}
                           </CCol>
@@ -721,8 +705,8 @@ const Search = ({
                               show
                               placeholder={dataHidden.name}
                               options={statusDataSH || statusData}
-                              onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownValue, setDropdownValue })}
-                              selectedValue={newDropdownValue.status}
+                              onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'status' })}
+                              selectedValue={allFilter?.status}
                             />
                           </CCol>
                         ) : (
@@ -739,8 +723,8 @@ const Search = ({
                               show
                               placeholder={dataHidden.name}
                               options={orderTypeData}
-                              onChangeDropdown={(selected) => setOrderType({ selected, dispatch, dropdownValue, setDropdownValue })}
-                              selectedValue={newDropdownValue.orderType}
+                              onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'orderType' })}
+                              selectedValue={allFilter?.orderType}
                             />
                           </CCol>
                         ) : (
@@ -757,8 +741,8 @@ const Search = ({
                               show
                               placeholder={dataHidden.name}
                               options={taskData}
-                              onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setDropdownValue })}
-                              selectedValue={newDropdownValue.task}
+                              onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'task' })}
+                              selectedValue={allFilter?.task}
                             />
                           </CCol>
                         ) : (
@@ -776,7 +760,8 @@ const Search = ({
                               type="text"
                               className="form-control input-height"
                               placeholder={dataHidden.name}
-                              onChange={(e) => setDropdownValue({ ...newDropdownValue, customerOrderRef: e.target.value })}
+                              value={allFilter?.customerOrderRef}
+                              onChange={(e) => { dispatch({ type: setAllFilter, data: { ...allFilter, customerOrderRef: e.target.value } }); }}
                               style={{ height: '100%' }}
                             />
                           </CCol>
@@ -793,8 +778,9 @@ const Search = ({
                               id="searchInput"
                               type="text"
                               className="form-control input-height"
+                              value={allFilter?.vendorOrderNo}
                               placeholder={dataHidden.name}
-                              onChange={(e) => setDropdownValue({ ...newDropdownValue, vendorOrderNo: e.target.value })}
+                              onChange={(e) => { dispatch({ type: setAllFilter, data: { ...allFilter, vendorOrderNo: e.target.value } }); }}
                               style={{ height: '100%' }}
                             />
                           </CCol>
@@ -813,13 +799,7 @@ const Search = ({
                                 <CCol lg={4} sm={10} className="colDate pt-3">
                                   <DatePicker
                                     arrowStyle
-                                    getDate={(e) =>
-                                      setDropdownValue({
-                                        ...newDropdownValue,
-                                        fromDate: e,
-                                        typeDate: dataHidden.accessor,
-                                        firstValue: false,
-                                      })}
+                                    getDate={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dataHidden, dropName: 'fromDate' })}
                                     placeHolder="Select Date"
                                     onChange={() => { dateTo.current.openDatePicker(); }}
                                     classNameInput="form-control"
@@ -840,15 +820,10 @@ const Search = ({
                                   <DatePicker
                                     ref={dateTo}
                                     arrowStyle
-                                    firstValue={newDropdownValue.firstValue}
+                                    // firstValue={newDropdownValue.firstValue}
                                     onOpen={() => dateTo.current.openDatePicker('from')}
                                     classNameInput="form-control"
-                                    getDate={(e) =>
-                                      setDropdownValue({
-                                        ...newDropdownValue,
-                                        toDate: e,
-                                        typeDate: dataHidden.accessor,
-                                      })}
+                                    getDate={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dataHidden, dropName: 'toDate' })}
                                     placeHolder="Select Date"
                                     fromMonth={defaultDate?.minDate}
                                     toMonth={defaultDate?.maxDate}
@@ -859,8 +834,8 @@ const Search = ({
                                       fieldName: 'toDate',
                                       style: 'position-absolute',
                                       checkDateTo:
-                                        newDropdownValue.fromDate &&
-                                        newDropdownValue.fromDate > newDropdownValue.toDate,
+                                        allFilter?.fromDate &&
+                                        allFilter?.fromDate > allFilter?.toDate,
                                     }}
                                   />
                                 </CCol>
