@@ -106,21 +106,22 @@ export const showFilter = ({ item, columnFilter, setColumnFilter, dropdownValue,
   setColumnFilter(columnFilter)
 }
 
-export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter, dropdownValue, setDropdownValue }) => {
-  const newDropdownValue = { ...dropdownValue }
+export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter, setAllFilter, allFilter }) => {
+  const newAllFilter = { ...allFilter }
   columnFilter.forEach(data => { data.hiddenFilter = false })
   filterHidden.forEach(data => { data.hiddenFilter = false })
   localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
-  newDropdownValue.site = ''
-  newDropdownValue.client = ''
-  newDropdownValue.orderType = ''
-  newDropdownValue.status = ''
-  newDropdownValue.fromDate = ''
-  newDropdownValue.toDate = ''
-  setDropdownValue(newDropdownValue)
+  newAllFilter.site = ''
+  newAllFilter.client = ''
+  newAllFilter.orderType = ''
+  newAllFilter.status = ''
+  newAllFilter.task = ''
+  newAllFilter.fromDate = ''
+  newAllFilter.toDate = ''
   setColumnFilter(columnFilter)
   dispatch({ type: 'CHANGE_FILTER', data: true });
   setShowModal(false)
+  dispatch({ type: setAllFilter, data: newAllFilter });
 }
 
 export const saveFilterSearch = ({ module, dispatch, columnFilter }) => {

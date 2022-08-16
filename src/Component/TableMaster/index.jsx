@@ -62,7 +62,8 @@ const TableMaster = ({
         </CCol>
         <CCol className="pr-0">
           {pagination && pagination.total < 1
-            ? '' : exportBtn && (
+            ? '' : exportBtn &&
+            (
               <Export
                 exportTable={exportTable}
                 filename={filename}

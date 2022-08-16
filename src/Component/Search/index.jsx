@@ -193,35 +193,36 @@ const Search = ({
   })
 
   useEffect(() => {
-    setGetTaskParam({ site: newDropdownValue.site, client: newDropdownValue.client });
-  }, [newDropdownValue.site, newDropdownValue.client]);
+    setGetTaskParam({ site: allFilter?.site, client: allFilter?.site });
+  }, [allFilter?.site, allFilter?.client]);
 
   useEffect(() => {
-    const newDropdownValueData = { ...dropdownValue };
+    const newAllFilter = { ...allFilter };
     if (module === 'purchaseOrder' || module === 'salesOrder') {
-      if (newDropdownValueData.status === '') {
-        newDropdownValueData.status = { value: 'open', label: 'All Open' };
-        setDropdownValue(newDropdownValueData);
+      if (newAllFilter.status === '') {
+        newAllFilter.status = { value: 'open', label: 'All Open' };
+        dispatch({ type: setAllFilter, data: newAllFilter });
       }
     }
-  }, [newDropdownValue.status]);
+  }, []);
+
   useEffect(() => {
     dispatch({
       type: 'SEARCH_FILTER',
       data: {
-        siteVal: newDropdownValue.site?.value,
-        clientVal: newDropdownValue.client?.value,
-        orderType: newDropdownValue.orderType,
-        task: newDropdownValue.task,
-        status: newDropdownValue.status,
+        siteVal: allFilter?.site?.value,
+        clientVal: allFilter?.client?.value,
+        orderType: allFilter?.orderType,
+        task: allFilter?.task,
+        status: allFilter?.status,
       },
     });
   }, [
-    newDropdownValue.site?.value,
-    newDropdownValue.client?.value,
-    newDropdownValue.orderType,
-    newDropdownValue.task,
-    newDropdownValue.status,
+    allFilter?.site?.value,
+    allFilter?.client?.value,
+    allFilter?.orderType,
+    allFilter?.task,
+    allFilter?.status,
   ]);
 
   useEffect(() => {
@@ -820,7 +821,7 @@ const Search = ({
                                   <DatePicker
                                     ref={dateTo}
                                     arrowStyle
-                                    // firstValue={newDropdownValue.firstValue}
+                                    firstValue={allFilter?.firstValue}
                                     onOpen={() => dateTo.current.openDatePicker('from')}
                                     classNameInput="form-control"
                                     getDate={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dataHidden, dropName: 'toDate' })}
@@ -923,7 +924,7 @@ const Search = ({
                 style={{ padding: '0rem 1.08rem' }}
                 onClick={() => {
                   setValidResetFilter(true);
-                  resetFilter({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter, dropdownValue, setDropdownValue });
+                  resetFilter({ module, filterHidden, dispatch, setShowModal, columnFilter, setColumnFilter, dropdownValue, setDropdownValue, setAllFilter, allFilter });
                 }}
               >
                 RESET FILTER FIELD
