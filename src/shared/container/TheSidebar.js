@@ -25,7 +25,7 @@ const TheSidebar = () => {
     const ret = await axios.post('auth/logout', payload);
     return ret;
   };
-  const userMenu = user.userModule && user.userModules.map((item) => item.menu_id);
+  const userMenu = user.userModules && user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];
 
   let navigation = nav;
@@ -43,14 +43,9 @@ const TheSidebar = () => {
 
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter((n) => {
-      return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
-    });
-  } else {
-    navigation = navigation.filter((n) => {
-      return n.to !== '/supplier-management';
+      return !adminRoutes.includes(n.to) && userMenu?.includes(n.key);
     });
   }
-
   return (
     <CSidebar
       id="theSidebar"

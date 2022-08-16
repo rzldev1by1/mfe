@@ -168,10 +168,15 @@ export const showFilter = ({ item, columnFilter, setColumnFilter, setValidResetF
   setColumnFilter(columnFilter)
 }
 
-export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, setColumnFilter, columnFilter }) => {
+export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, setColumnFilter, columnFilter, dropdownValue, setDropdownValue }) => {
+  const newDropdownValue = { ...dropdownValue }
   columnFilter.forEach(data => { data.hiddenFilter = false })
   filterHidden.forEach(data => { data.hiddenFilter = false })
   localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  newDropdownValue.siteVal = ''
+  newDropdownValue.clientVal = ''
+  newDropdownValue.productVal = ''
+  setDropdownValue(newDropdownValue)
   setColumnFilter(columnFilter)
   dispatch({ type: 'CHANGE_FILTER', data: true });
   setShowModal(false)

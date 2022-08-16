@@ -452,7 +452,7 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
                 style={{ padding: '0rem 1.08rem' }}
                 onClick={() => {
                   setValidResetFilter(true);
-                  resetFilter({ module, filterHidden, dispatch, setShowModal, setColumnFilter, columnFilter });
+                  resetFilter({ module, filterHidden, dispatch, setShowModal, setColumnFilter, columnFilter, setDropdownValue, dropdownValue });
                 }}
               >
                 RESET FILTER FIELD

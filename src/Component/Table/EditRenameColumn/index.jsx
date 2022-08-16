@@ -132,7 +132,6 @@ const EditRenameColumn = ({
   );
 
   let isChanged = fields?.filter(fieldsData => fieldsData.Header !== fieldsData.placeholder)
-  console.log(isChanged?.length)
   isChanged = isChanged?.length === 0
   return (
     <div>

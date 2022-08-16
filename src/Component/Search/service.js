@@ -132,6 +132,10 @@ export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, colu
   columnFilter.forEach(data => { data.hiddenFilter = false })
   filterHidden.forEach(data => { data.hiddenFilter = false })
   localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  newDropdownValue.site = ''
+  newDropdownValue.client = ''
+  newDropdownValue.orderType = ''
+  newDropdownValue.status = ''
   newDropdownValue.fromDate = ''
   newDropdownValue.toDate = ''
   setDropdownValue(newDropdownValue)
