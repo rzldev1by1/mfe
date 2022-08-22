@@ -103,7 +103,7 @@ const Export = ({
         direction="up"
         style={styleButton}
         disabled={exportTable}
-        className='d-flex float-right align-items-center'
+        className='d-flex float-right align-items-center mr-1'
         isOpen={dropdownOpen}
         toggle={() => {
           setDropdownOpen(!dropdownOpen);
