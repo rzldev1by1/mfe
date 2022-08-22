@@ -112,6 +112,7 @@ export const getSummaryData = async ({
       if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
       if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
       if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
+      console.log(typeDate)
       if (typeDate) {
         const typeDateSearch = typeDate.slice(0, 1).toUpperCase() + typeDate.substr(1);
         urls.push(`start${typeDateSearch}=${fromDate || ''}`);
@@ -192,27 +193,27 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
 
   let endpointsUrl = '';
   let paramType = '';
-  if (module === 'purchaseOrder') {
+  if (module === 'PurchaseOrdersDetail') {
     endpointsUrl = `${endpoints.purchaseOrder}?search=${orderdetail}&client=${client}&site=${site}`;
     paramType = 'GET_PO_DETAIL';
   }
-  if (module === 'salesOrder') {
+  if (module === 'SalesOrdersDetail') {
     endpointsUrl = `${endpoints.salesOrder}?search=${orderno}&client=${client}&site=${site}`;
     paramType = 'GET_SO_DETAIL';
   }
-  if (module === 'stockHolding') {
+  if (module === 'StockHoldingDetail') {
     endpointsUrl = `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-header`;
     paramType = 'GET_SH_DETAIL';
   }
 
   const url = endpointsUrl;
   const { data } = await axios.get(url);
-  if (module === 'salesOrder' || module === 'purchaseOrder') {
+  if (module === 'SalesOrdersDetail' || module === 'PurchaseOrdersDetail') {
     if (data.data) {
       dispatch({ type: paramType, data: data.data[0] });
     }
   }
-  if (module === 'stockHolding') {
+  if (module === 'StockHoldingDetail') {
     if (data.data) {
       dispatch({ type: paramType, data: data.data });
     }
@@ -224,17 +225,17 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   let endpointsUrl = '';
   let paramType = '';
   let paramPaging = '';
-  if (module === 'purchaseOrder') {
+  if (module === 'PurchaseOrdersDetail') {
     endpointsUrl = `${endpoints.purchaseOrder}/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
     paramPaging = 'PAGING_PO_DETAIL';
   }
-  if (module === 'salesOrder') {
+  if (module === 'SalesOrdersDetail') {
     endpointsUrl = `${endpoints.salesOrder}/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
   }
-  if (module === 'stockHolding') {
+  if (module === 'StockHoldingDetail') {
     endpointsUrl = `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-line?page=${active}&export=${export_}`;
     paramType = 'GET_SH_DETAIL_TABLE';
     paramPaging = 'PAGING_SH_DETAIL';

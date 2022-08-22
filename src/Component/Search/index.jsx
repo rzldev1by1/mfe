@@ -127,16 +127,16 @@ const Search = ({
       dispatch({ type: paramData, data: [] });
       await getSummaryData({
         e,
-        siteVal: allFilter.site?.value,
-        clientVal: allFilter.client?.value,
-        orderType: allFilter.orderType,
-        task: allFilter.task,
-        status: allFilter.status,
-        typeDate: allFilter.typeDate,
-        fromDate: allFilter.fromDate,
-        toDate: allFilter.toDate,
-        vendorOrderNo: allFilter.vendorOrderNo,
-        customerOrderRef: allFilter.customerOrderRef,
+        siteVal: allFilter?.site?.value,
+        clientVal: allFilter?.client?.value,
+        orderType: allFilter?.orderType,
+        task: allFilter?.task,
+        status: allFilter?.status,
+        typeDate: allFilter?.typeDate,
+        fromDate: allFilter?.fromDate,
+        toDate: allFilter?.toDate,
+        vendorOrderNo: allFilter?.vendorOrderNo,
+        customerOrderRef: allFilter?.customerOrderRef,
         searchInput,
         dispatch,
         module,
@@ -227,17 +227,36 @@ const Search = ({
 
   useEffect(() => {
     if (Export === true) {
+
+      console.log(user.site)
+
+
+      let valueSite
+      let valueClient
+      // let valueOrderType
+      // let valueTask
+      // let valueStatus
+
+      if (user.site) valueSite = user?.site
+      else if (allFilter?.site) valueSite = allFilter.site.value
+      else valueSite = ''
+
+      if (user.client) valueClient = user?.client
+      else if (allFilter?.client) valueClient = allFilter.client.value
+      else valueClient = ''
+
+
       getSummaryData({
-        siteVal: user.site ? user.site : allFilter.site?.value,
-        clientVal: user.client ? user.client : allFilter.client?.value,
-        orderType: allFilter.orderType,
-        task: allFilter.task,
-        status: allFilter.status,
-        typeDate: allFilter.typeDate,
-        fromDate: allFilter.fromDate,
-        toDate: allFilter.toDate,
-        vendorOrderNo: allFilter.vendorOrderNo,
-        customerOrderRef: allFilter.customerOrderRef,
+        siteVal: valueSite,
+        clientVal: valueClient,
+        orderType: allFilter?.orderType,
+        task: allFilter?.task,
+        status: allFilter?.status,
+        typeDate: allFilter?.typeDate,
+        fromDate: allFilter?.fromDate,
+        toDate: allFilter?.toDate,
+        vendorOrderNo: allFilter?.vendorOrderNo,
+        customerOrderRef: allFilter?.customerOrderRef,
         dispatch,
         searchInput,
         module,
@@ -900,7 +919,7 @@ const Search = ({
                   <button
                     type="button"
                     onClick={() => {
-                      showFilter({ item, columnFilter, setValidResetFilter, setColumnFilter, dropdownValue, setDropdownValue });
+                      showFilter({ item, columnFilter, setValidResetFilter, setColumnFilter, setAllFilter, allFilter });
                       setTriggerColumn(!triggerColumn)
                       setChangeFilter(false)
                     }}

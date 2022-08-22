@@ -19,7 +19,7 @@ const StockHoldingDetail = (props) => {
   const paginationShDetail = useSelector((state) => state.paginationShDetail);
   const paginationShForecast = useSelector((state) => state.paginationShForecast);
   const user = useSelector((state) => state.user);
-  const module = 'stockHolding';
+  const module = 'StockHoldingDetail';
   const [activeTab, setActiveTab] = useState('1');
 
   useEffect(() => {

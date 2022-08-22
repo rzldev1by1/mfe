@@ -17,7 +17,7 @@ const PurchaseOrdersDetail = (props) => {
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
-  const module = 'purchaseOrder';
+  const module = 'PurchaseOrdersDetail';
   // dimension
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 355,
@@ -107,6 +107,7 @@ const PurchaseOrdersDetail = (props) => {
         />
       </div>
       <TableMaster
+        props={props}
         schemaColumn={schemaColumnDetailPO}
         classNamePaging="display-paging"
         classNameTable="table-detail"
