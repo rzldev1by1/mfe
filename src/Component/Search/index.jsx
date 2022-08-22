@@ -919,7 +919,7 @@ const Search = ({
                   <button
                     type="button"
                     onClick={() => {
-                      showFilter({ item, columnFilter, setValidResetFilter, setColumnFilter, setAllFilter, allFilter });
+                      showFilter({ item, columnFilter, setValidResetFilter, setColumnFilter, allFilter });
                       setTriggerColumn(!triggerColumn)
                       setChangeFilter(false)
                     }}

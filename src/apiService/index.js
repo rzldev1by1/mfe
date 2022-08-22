@@ -112,7 +112,7 @@ export const getSummaryData = async ({
       if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
       if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
       if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
-      console.log(typeDate)
+      console.log(typeDate, fromDate, toDate)
       if (typeDate) {
         const typeDateSearch = typeDate.slice(0, 1).toUpperCase() + typeDate.substr(1);
         urls.push(`start${typeDateSearch}=${fromDate || ''}`);
