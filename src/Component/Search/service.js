@@ -1,19 +1,12 @@
-/* eslint-disable no-param-reassign */
-export const setSite = ({ selected, dispatch, setAllFilter, allFilter, onChangeGetTask, getTask, getTaskParam }) => {
-  if (selected) dispatch({ type: setAllFilter, data: { ...allFilter, site: selected } });
-  else dispatch({ type: setAllFilter, data: { ...allFilter, site: null } });
+export const changeValue = ({ selected, dispatch, setAllFilter, allFilter, onChangeGetTask, getTask, getTaskParam, columns }) => {
+  const newFilter = { ...allFilter }
+  if (selected) newFilter[columns] = selected
+  else newFilter[columns] = null
 
-  if (onChangeGetTask) getTask({ dispatch, client: getTaskParam?.client, site: selected });
-};
+  if (columns === 'client') dispatch({ type: setAllFilter, data: { ...allFilter, task: [] } });
 
-export const setClient = ({ selected, dispatch, onChangeGetTask, setAllFilter, allFilter, getTask, getTaskParam, }) => {
-  if (selected) dispatch({ type: setAllFilter, data: { ...allFilter, client: selected } });
-  else {
-    dispatch({ type: setAllFilter, data: { ...allFilter, client: null } });
-    dispatch({ type: setAllFilter, data: { ...allFilter, task: [] } });
-  }
-
-  if (onChangeGetTask) getTask({ dispatch, client: selected, site: getTaskParam?.site });
+  dispatch({ type: setAllFilter, data: newFilter });
+  if (onChangeGetTask) getTask({ dispatch, client: getTaskParam?.client, [columns]: selected });
 };
 
 export const changeDropdown = ({ selected, dispatch, setAllFilter, allFilter, dropName, dataHidden }) => {
@@ -81,7 +74,7 @@ export const handleFullFillMarked = ({ dispatch, spDetailTable, clearMarked, set
   setShowFulfillMod(false)
 }
 
-export const showFilter = ({ item, columnFilter, setColumnFilter, setValidResetFilter, allFilter }) => {
+export const showFilter = ({ item, columnFilter, setColumnFilter, setValidResetFilter }) => {
   const dateFilter = ['dateReceived', 'dateReleased', 'dateReleased', 'dateCompleted', 'orderDate', 'deliveryDate']
   columnFilter.forEach(data => {
     if (data.accessor === item.accessor) {
@@ -93,8 +86,6 @@ export const showFilter = ({ item, columnFilter, setColumnFilter, setValidResetF
           })
           data.hiddenFilter = true
         }
-        allFilter.fromDate = ''
-        allFilter.toDate = ''
       } else {
         data.hiddenFilter = !item.hiddenFilter
       }

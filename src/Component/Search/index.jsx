@@ -31,8 +31,7 @@ import {
   clientCheck,
 } from '../../apiService/dropdown';
 import {
-  setSite,
-  setClient,
+  changeValue,
   changeDropdown,
   setStyle,
   setStyleDesc,
@@ -138,6 +137,7 @@ const Search = ({
         vendorOrderNo: allFilter?.vendorOrderNo,
         customerOrderRef: allFilter?.customerOrderRef,
         searchInput,
+        columnFilter,
         dispatch,
         module,
         user,
@@ -180,7 +180,9 @@ const Search = ({
     getClient({ dispatch });
     getStatus({ dispatch });
     getDateRange({ setDefaultDate });
-    getOrderType({ dispatch, company, client, module });
+    if (client) {
+      getOrderType({ dispatch, company, client, module });
+    }
   }, []);
 
   useEffect(() => {
@@ -193,7 +195,7 @@ const Search = ({
   })
 
   useEffect(() => {
-    setGetTaskParam({ site: allFilter?.site, client: allFilter?.site });
+    setGetTaskParam({ site: allFilter?.site, client: allFilter?.client });
   }, [allFilter?.site, allFilter?.client]);
 
   useEffect(() => {
@@ -227,15 +229,8 @@ const Search = ({
 
   useEffect(() => {
     if (Export === true) {
-
-      console.log(user.site)
-
-
       let valueSite
       let valueClient
-      // let valueOrderType
-      // let valueTask
-      // let valueStatus
 
       if (user.site) valueSite = user?.site
       else if (allFilter?.site) valueSite = allFilter.site.value
@@ -259,6 +254,7 @@ const Search = ({
         customerOrderRef: allFilter?.customerOrderRef,
         dispatch,
         searchInput,
+        columnFilter,
         module,
         Export,
         user,
@@ -307,6 +303,7 @@ const Search = ({
                     status: allFilter.status,
                     dispatch,
                     searchInput,
+                    columnFilter,
                     module,
                     user,
                   }) && dispatch({ type: paramData, data: [] })}
@@ -317,7 +314,7 @@ const Search = ({
           ) : (
             <CCol lg={!inputTag ? 12 : 9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2} className="mobile-site px-0">
+                <CCol sm={4} lg={2} className="px-0">
                   <div className={`${filterSite === true ? null : ' d-none'}`}>
                     {user?.site ? (
                       <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
@@ -328,18 +325,15 @@ const Search = ({
                         placeholder="Site"
                         options={siteData}
                         onChangeDropdown={(selected) =>
-                          setSite({
-                            selected,
-                            setAllFilter,
-                            allFilter,
-                            dispatch,
+                          changeValue({
+                            selected, setAllFilter, allFilter, dispatch, onChangeGetTask, getTask, getTaskParam, columns: 'site',
                           })}
                         selectedValue={allFilter?.site}
                       />
                     )}
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className="mobile-client px-3">
+                <CCol sm={4} lg={2} className="px-3">
                   <div className={`${user?.site ? ' pr-3' : ''} ${filterClient === true ? null : ' d-none'}`}>
                     {user?.client ? (
                       <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
@@ -349,21 +343,15 @@ const Search = ({
                         placeholder="Client"
                         options={clientData}
                         onChangeDropdown={(selected) =>
-                          setClient({
-                            onChangeGetTask,
-                            getTask,
-                            getTaskParam,
-                            selected,
-                            setAllFilter,
-                            allFilter,
-                            dispatch
+                          changeValue({
+                            selected, setAllFilter, allFilter, dispatch, onChangeGetTask, getTask, getTaskParam, columns: 'client',
                           })}
-                        selectedValue={allFilter.client}
+                        selectedValue={allFilter?.client}
                       />
                     )}
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className="px-0 mobile-status">
+                <CCol sm={4} lg={2} className="px-0 ">
                   <div className={`${filterStatus === true ? null : ' d-none'}`}>
                     <Dropdown
                       className="px-0"
@@ -375,7 +363,7 @@ const Search = ({
                     />
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className="mobile-type">
+                <CCol sm={4} lg={2} className="">
                   <div className={`${filterOrderType === true ? null : ' d-none'}`}>
                     <Dropdown
                       className="px-0"
@@ -387,7 +375,7 @@ const Search = ({
                     />
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className="mobile-task px-0">
+                <CCol sm={4} lg={2} className=" px-0">
                   <div className={`${filterTask === true ? null : ' d-none'}`}>
                     <Dropdown
                       className="px-0"
@@ -399,7 +387,7 @@ const Search = ({
                     />
                   </div>
                 </CCol>
-                <CCol sm={4} lg={2} className={`mobile-style pl-0 pr-3 ${filterStyle === true ? null : ' d-none'}`}>
+                <CCol sm={4} lg={2} className={`pl-0 pr-3 ${filterStyle === true ? null : ' d-none'}`}>
                   <Dropdown
                     className="px-0"
                     show
@@ -412,7 +400,7 @@ const Search = ({
                 <CCol
                   sm={4}
                   lg={2}
-                  className={`mobile-style-desc pl-0 pr-3 ${filterStyleDesc === true ? null : ' d-none'}`}
+                  className={`pl-0 pr-3 ${filterStyleDesc === true ? null : ' d-none'}`}
                 >
                   <Dropdown
                     className="px-0"
@@ -423,7 +411,7 @@ const Search = ({
                     selectedValue={newDropdownValue.styleDesc}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className={`mobile-color pl-0 pr-3 ${filterColor === true ? null : ' d-none'}`}>
+                <CCol sm={4} lg={2} className={`pl-0 pr-3 ${filterColor === true ? null : ' d-none'}`}>
                   <Dropdown
                     className="px-0"
                     show
@@ -436,7 +424,7 @@ const Search = ({
                 <CCol
                   sm={4}
                   lg={2}
-                  className={`mobile-dimensions pl-0 pr-3 ${filterDimensions === true ? null : ' d-none'}`}
+                  className={`pl-0 pr-3 ${filterDimensions === true ? null : ' d-none'}`}
                 >
                   <Dropdown
                     className={`px-0 `}
@@ -447,7 +435,7 @@ const Search = ({
                     selectedValue={newDropdownValue.dimensions}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className={`mobile-size px-0 ${filterSize === true ? null : ' d-none'}`}>
+                <CCol sm={4} lg={2} className={`px-0 ${filterSize === true ? null : ' d-none'}`}>
                   <Dropdown
                     className="px-0"
                     show
@@ -497,6 +485,7 @@ const Search = ({
                           orderType: allFilter.orderType,
                           task: allFilter.task,
                           status: allFilter.status,
+                          columnFilter,
                           dispatch,
                           searchInput,
                           module,
@@ -616,6 +605,7 @@ const Search = ({
                   toDate: allFilter.toDate,
                   vendorOrderNo: allFilter.vendorOrderNo,
                   customerOrderRef: allFilter.customerOrderRef,
+                  columnFilter,
                   dispatch,
                   searchInput,
                   module,
@@ -658,7 +648,7 @@ const Search = ({
                           <CCol
                             sm={4}
                             lg={2}
-                            className={`mobile-site px-0 mr-3 pt-3 ${filterSite === true ? null : ' d-none'}`}
+                            className={`px-0 mr-3 pt-3 ${filterSite === true ? null : ' d-none'}`}
                           >
                             {user?.site ? (
                               <input
@@ -671,7 +661,7 @@ const Search = ({
                                 show
                                 placeholder={dataHidden.name}
                                 options={siteData}
-                                onChangeDropdown={(selected) => setSite({ selected, setAllFilter, allFilter, dispatch })}
+                                onChangeDropdown={(selected) => changeValue({ selected, setAllFilter, allFilter, dispatch, onChangeGetTask, getTask, getTaskParam, columns: 'site', })}
                                 selectedValue={allFilter?.site}
                               />
                             )}
@@ -684,7 +674,7 @@ const Search = ({
                           <CCol
                             sm={4}
                             lg={2}
-                            className={`mobile-client px-0 mr-3 pt-3 ${filterClient === true ? null : ' d-none'}`}
+                            className={`px-0 mr-3 pt-3 ${filterClient === true ? null : ' d-none'}`}
                           >
                             {user?.client ? (
                               <input
@@ -698,14 +688,8 @@ const Search = ({
                                 placeholder={dataHidden.name}
                                 options={clientData}
                                 onChangeDropdown={(selected) =>
-                                  setClient({
-                                    onChangeGetTask,
-                                    getTask,
-                                    setAllFilter,
-                                    allFilter,
-                                    getTaskParam,
-                                    selected,
-                                    dispatch
+                                  changeValue({
+                                    selected, setAllFilter, allFilter, dispatch, onChangeGetTask, getTask, getTaskParam, columns: 'client',
                                   })}
                                 selectedValue={allFilter?.client}
                               />
@@ -719,14 +703,14 @@ const Search = ({
                           <CCol
                             sm={4}
                             lg={2}
-                            className={`px-0 mobile-status mr-3 pt-3 ${filterStatus === true ? null : ' d-none'}`}
+                            className={`px-0 mr-3 pt-3 ${filterStatus === true ? null : ' d-none'}`}
                           >
                             <Dropdown
-                              show
-                              placeholder={dataHidden.name}
+                              // show
                               options={statusDataSH || statusData}
-                              onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'status' })}
                               selectedValue={allFilter?.status}
+                              onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'status' })}
+                              placeholder={dataHidden.name}
                             />
                           </CCol>
                         ) : (
@@ -737,7 +721,7 @@ const Search = ({
                           <CCol
                             sm={4}
                             lg={2}
-                            className={`mobile-type px-0 mr-3 pt-3 ${filterOrderType === true ? null : ' d-none'}`}
+                            className={`px-0 mr-3 pt-3 ${filterOrderType === true ? null : ' d-none'}`}
                           >
                             <Dropdown
                               show
@@ -755,7 +739,7 @@ const Search = ({
                           <CCol
                             sm={4}
                             lg={2}
-                            className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                            className={`px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
                           >
                             <Dropdown
                               show
@@ -773,7 +757,7 @@ const Search = ({
                           <CCol
                             sm={4}
                             lg={2}
-                            className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                            className={` px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
                           >
                             <input
                               id="searchInput"
@@ -792,7 +776,7 @@ const Search = ({
                           <CCol
                             sm={4}
                             lg={2}
-                            className={`mobile-task px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                            className={` px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
                           >
                             <input
                               id="searchInput"
@@ -826,6 +810,7 @@ const Search = ({
                                     onOpen={(e) => { if (e) dateTo.current.openDatePicker(); }}
                                     fromMonth={defaultDate?.minDate}
                                     toMonth={defaultDate?.maxDate}
+                                    selectedDates={allFilter?.fromDate}
                                     messageRequired
                                     messageParam={{
                                       column: 'validDates',
@@ -847,6 +832,7 @@ const Search = ({
                                     placeHolder="Select Date"
                                     fromMonth={defaultDate?.minDate}
                                     toMonth={defaultDate?.maxDate}
+                                    selectedDates={allFilter?.toDate}
                                     messageRequired
                                     messageParam={{
                                       column: 'validDates',

@@ -51,7 +51,9 @@ const SalesOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dataDefault: soSummaryData, dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client, user });
+    if (!soSummaryData) {
+      getSummaryData({ dataDefault: soSummaryData, dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client, user });
+    }
   }, []);
 
   if (!columnHidden) {

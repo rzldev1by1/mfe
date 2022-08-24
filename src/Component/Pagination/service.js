@@ -70,7 +70,6 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
 
   if (goto) goto(newPage.goPage);
   else dispatch({ type: paramPagingData || 'PAGING', data: { ...pagination, active: newPage.goPage } });
-
   if (arraySummary.includes(module)) {
     getSummaryData({
       dispatch,
@@ -107,14 +106,14 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
 
 export const onChange = ({ e, page, setPage, setValuePaging }) => {
   const newPage = { ...page };
-  if (setValuePaging) {
-    setValuePaging(e.target.value)
-  }
-  if (e.target.value === '') {
+  const valuePage = e.target.value
+  if (setValuePaging) setValuePaging(valuePage)
+
+  if (valuePage === '') {
     newPage.goPage = '';
     setPage(newPage);
   } else {
-    newPage.goPage = e.target.value;
+    newPage.goPage = parseInt(valuePage.substring(valuePage.length - 1), 10);
     setPage(newPage);
   }
 };

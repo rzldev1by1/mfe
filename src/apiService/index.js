@@ -68,12 +68,24 @@ export const getSummaryData = async ({
   customerOrderRef,
   vendorOrderNo,
   dataDefault,
+  columnFilter
 }) => {
   const urls = [];
   let endpointsUrlData = '';
   let paramData = '';
   let paramPagingData = '';
   searchInput = searchInput || '';
+
+  const dateFilter = [
+    'dateReceived',
+    'deliveryDate',
+    'dateReleased',
+    'dateReleased',
+    'dateCompleted',
+    'orderDate',
+  ];
+
+  console.log(columnFilter, dateFilter)
 
   Object.keys(allModule).forEach((allModuleKey) => {
     if (allModuleKey === module) {
@@ -112,11 +124,14 @@ export const getSummaryData = async ({
       if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
       if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
       if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
-      console.log(typeDate, fromDate, toDate)
       if (typeDate) {
-        const typeDateSearch = typeDate.slice(0, 1).toUpperCase() + typeDate.substr(1);
-        urls.push(`start${typeDateSearch}=${fromDate || ''}`);
-        urls.push(`end${typeDateSearch}=${toDate || ''}`);
+        columnFilter.forEach(data => {
+          if (dateFilter.includes(data.accessor) && data.hiddenFilter === true) {
+            const typeDateSearch = typeDate.slice(0, 1).toUpperCase() + typeDate.substr(1);
+            urls.push(`start${typeDateSearch}=${fromDate || ''}`);
+            urls.push(`end${typeDateSearch}=${toDate || ''}`);
+          }
+        })
       }
     }
     urls.push(`page=${active || 1}`);

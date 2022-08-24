@@ -48,7 +48,9 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, dataDefault: shSummaryData, active: paginationSh?.active, module, user });
+    if (!shSummaryData) {
+      getSummaryData({ dispatch, dataDefault: shSummaryData, active: paginationSh?.active, module, user });
+    }
   }, []);
 
 

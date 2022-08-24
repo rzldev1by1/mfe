@@ -43,7 +43,9 @@ const UserManagement = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationUm?.active, module, user });
+    if (!umSummaryData) {
+      getSummaryData({ dispatch, active: paginationUm?.active, module, user });
+    }
   }, []);
 
   useEffect(() => {

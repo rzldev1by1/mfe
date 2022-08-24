@@ -53,15 +53,17 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({
-      dataDefault: poSummaryData,
-      dispatch,
-      active: paginationPo?.active,
-      module,
-      siteVal: user.site,
-      clientVal: user.client,
-      user,
-    });
+    if (!poSummaryData) {
+      getSummaryData({
+        dataDefault: poSummaryData,
+        dispatch,
+        active: paginationPo?.active,
+        module,
+        siteVal: user.site,
+        clientVal: user.client,
+        user,
+      });
+    }
   }, []);
 
   if (!columnHidden) {
