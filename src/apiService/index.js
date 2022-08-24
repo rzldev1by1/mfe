@@ -85,7 +85,6 @@ export const getSummaryData = async ({
     'orderDate',
   ];
 
-  console.log(columnFilter, dateFilter)
 
   Object.keys(allModule).forEach((allModuleKey) => {
     if (allModuleKey === module) {

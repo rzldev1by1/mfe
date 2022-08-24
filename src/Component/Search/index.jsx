@@ -594,23 +594,33 @@ const Search = ({
               type="button"
               className="btn-search icon-search-filter mobile-search"
               onClick={() => {
+                let valueSite
+                let valueClient
+                if (user.site) valueSite = user?.site
+                else if (allFilter?.site) valueSite = allFilter.site.value
+                else valueSite = ''
+
+                if (user.client) valueClient = user?.client
+                else if (allFilter?.client) valueClient = allFilter.client.value
+                else valueClient = ''
                 getSummaryData({
-                  siteVal: user.site ? user.site : allFilter.site?.value,
-                  clientVal: user.client ? user.client : allFilter.client?.value,
-                  orderType: allFilter.orderType,
-                  task: allFilter.task,
-                  status: allFilter.status,
-                  typeDate: allFilter.typeDate,
-                  fromDate: allFilter.fromDate,
-                  toDate: allFilter.toDate,
-                  vendorOrderNo: allFilter.vendorOrderNo,
-                  customerOrderRef: allFilter.customerOrderRef,
+                  siteVal: valueSite,
+                  clientVal: valueClient,
+                  orderType: allFilter?.orderType,
+                  task: allFilter?.task,
+                  status: allFilter?.status,
+                  typeDate: allFilter?.typeDate,
+                  fromDate: allFilter?.fromDate,
+                  toDate: allFilter?.toDate,
+                  vendorOrderNo: allFilter?.vendorOrderNo,
+                  customerOrderRef: allFilter?.customerOrderRef,
                   columnFilter,
                   dispatch,
                   searchInput,
                   module,
                   user,
                 });
+                console.log('hai')
                 dispatch({ type: paramData, data: [] });
                 setExportTable(false);
               }}
@@ -622,7 +632,7 @@ const Search = ({
             ) : (
               <Button
                 type="button"
-                onClick={() => setShowModal(!showModal)}
+                onClick={() => { setShowModal(!showModal) }}
                 className="btn-search icon-search-filter mobile-search ml-2"
               >
                 <i className="ri-filter-line" />
