@@ -729,7 +729,7 @@ header {
     }
 
     .rt-tbody {
-      overflow-x: none !important;
+      overflow-x: clip !important;
       .rt-tr-group {
         .rt-tr {
           .rt-td {

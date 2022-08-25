@@ -117,7 +117,7 @@ input.form-control {
           .rt-th {
             display: flex;
             align-items: center;
-            -webkit-justify-content: left
+            -webkit-justify-content: left;
           }
 
           .rt-th:first-child {
@@ -139,6 +139,7 @@ input.form-control {
 
       .rt-tbody {
         .rt-tr-group {
+          flex: none !important;
           .rt-tr {
             .rt-td {
               display: flex;
