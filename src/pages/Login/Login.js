@@ -32,14 +32,12 @@ class Logins extends Component {
     if (store.expired && store.user) {
       this.setState({ errorMessage: 'Sorry, you have been automatically logged out due to inactivity' });
     }
-    if (version) {
-      if (!localVersion) {
-        localStorage.setItem('version', version);
+    if (localVersion) {
+      if (version) {
+        if (localVersion === version) console.log(version)
+        else localStorage.clear();
       }
-      if (!localVersion === version) {
-        localStorage.clear();
-      }
-    }
+    } else localStorage.setItem('version', version);
   }
 
   validateForm = async (e) => {
