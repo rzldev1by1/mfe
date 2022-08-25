@@ -43,7 +43,9 @@ const UserManagement = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationUm?.active, module, user });
+    if (!umSummaryData) {
+      getSummaryData({ dispatch, active: paginationUm?.active, module, user });
+    }
   }, []);
 
   useEffect(() => {
@@ -97,7 +99,7 @@ const UserManagement = (props) => {
             </CCol>
           </CRow>
         </CCardBody>
-        <Search module={module} Export={Export} placeholder="Enter User ID or Name" filter onChangeGetTask btnSearch inputTag />
+        <Search module={module} Export={Export} placeholder="Enter User ID or Name" onChangeGetTask btnSearch inputTag />
       </CCard>
       <div className='table-UM'>
         <TableMaster

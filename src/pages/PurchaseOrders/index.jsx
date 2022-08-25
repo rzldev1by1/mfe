@@ -4,7 +4,7 @@ import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import { schemaColumn } from './services';
+import { schemaColumn, filterSummaryDefault } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
 import endpoints from '../../helpers/endpoints';
@@ -21,15 +21,20 @@ const PurchaseOrders = (props) => {
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const paginationPo = useSelector((state) => state.paginationPo);
   const stateChangeHeader = useSelector((state) => state.changeHeader);
+  const stateChangeFilter = useSelector((state) => state.changeFilter);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
+  const [exportTable, setExportTable] = useState(true);
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
   const module = 'purchaseOrder';
+  const filterHiddenData = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
 
   // dimension
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 257,
+    height: window.innerHeight - 390,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
@@ -37,7 +42,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 257,
+        height: window.innerHeight - 390,
         width: window.innerWidth,
       });
     };
@@ -48,22 +53,31 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({
-      dispatch,
-      active: paginationPo?.active,
-      module,
-      siteVal: user.site,
-      clientVal: user.client,
-      user,
-    });
+    if (!poSummaryData) {
+      getSummaryData({
+        dataDefault: poSummaryData,
+        dispatch,
+        active: paginationPo?.active,
+        module,
+        siteVal: user.site,
+        clientVal: user.client,
+        user,
+      });
+    }
   }, []);
 
-  const [columnHidden, setColumnHidden] = useState(null);
-  const [state2, setState2] = useState(null);
   if (!columnHidden) {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
   }
+
+  useEffect(() => {
+    if (stateChangeFilter) {
+      dispatch({ type: 'CHANGE_FILTER', data: false });
+    }
+  }, [stateChangeFilter]);
+
+
   useEffect(() => {
     if (stateChangeHeader) {
       const reqColumnHidden = localStorage.getItem('tableColumns')
@@ -121,6 +135,8 @@ const PurchaseOrders = (props) => {
       <div>
         <div>
           <Search
+            titleFilter="Purchase Order Summary"
+            filterHidden={filterHiddenData || filterSummaryDefault}
             module={module}
             filterSite
             filterClient
@@ -128,15 +144,16 @@ const PurchaseOrders = (props) => {
             filterOrderType
             filterTask
             placeholder="Enter an Order No"
-            filter
             onChangeGetTask
             Export={Export}
             btnSearch
             inputTag
+            setExportTable={setExportTable}
           />
         </div>
         <div>
           <TableMaster
+            exportTable={exportTable}
             onClick={showDetails}
             schemaColumn={schemaColumn}
             data={poSummaryData}

@@ -31,10 +31,10 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, filename, cu
   const startIndexVormula = (activePage - 1) * (total < show ? total : show);
   const endIndexVormula = startIndexVormula + (total < show ? total : show);
   const startIndex = total > 0 && startIndexVormula < 1 ? 1 : startIndexVormula;
-  const endIndex = endIndexVormula > total ? total : endIndexVormula
+  const endIndex = endIndexVormula > total ? total : endIndexVormula;
 
-  const sliceData = activePage === 1 ? startIndex - 1 : startIndex
-  const dataAll = data?.slice(sliceData, endIndex)
+  const sliceData = activePage === 1 ? startIndex - 1 : startIndex;
+  const dataAll = data?.slice(sliceData, endIndex);
   return (
     <div className="fixedColumnTable">
       <ReactTableFixedColumns

@@ -8,6 +8,7 @@ import './Login.css';
 
 const baseUrl = endpoints.env.REACT_APP_API_URL;
 const version = endpoints.env.REACT_APP_VERSION || '';
+const localVersion = localStorage.getItem('version')
 class Logins extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +17,7 @@ class Logins extends Component {
         username: true,
         password: true,
       },
-      emailValidation: true,
+      validationEmail: true,
       errorMessage: '',
       isLoad: false,
       forgotPassword: false,
@@ -28,8 +29,15 @@ class Logins extends Component {
 
   componentDidMount() {
     const { store } = this.props;
-    if (store.expired && store.user)
+    if (store.expired && store.user) {
       this.setState({ errorMessage: 'Sorry, you have been automatically logged out due to inactivity' });
+    }
+    if (localVersion) {
+      if (version) {
+        if (localVersion === version) console.log(version)
+        else localStorage.clear();
+      }
+    } else localStorage.setItem('version', version);
   }
 
   validateForm = async (e) => {
@@ -84,13 +92,13 @@ class Logins extends Component {
       const email = e.target.email.value;
       const payload = { email };
       if (email.length === 0) {
-        this.setState({ emailValidation: false, isLoad: false });
+        this.setState({ validationEmail: false, isLoad: false });
       }
       this.setState({ isLoad: true });
       try {
         const result = await axios.post(`${baseUrl}/auth/forgot-password`, payload);
         if (result.status === 400) {
-          this.setState({ isLoad: false, errorMessage: result.message, emailValidation: false });
+          this.setState({ isLoad: false, errorMessage: result.message, validationEmail: false });
         } else {
           this.hideErrorMessageHandler(errorMessage);
           this.setState({ forgotSuccess: true });
@@ -108,7 +116,7 @@ class Logins extends Component {
       forgotPassword: !forgotPassword,
       errorMessage: '',
       formValidation: { username: true, password: true },
-      emailValidation: true,
+      validationEmail: true,
     });
   };
 
@@ -129,7 +137,7 @@ class Logins extends Component {
   };
 
   hideErrorMessageHandler = (errorMessage) => {
-    this.setState({ isLoad: false, errorMessage, emailValidation: true });
+    this.setState({ isLoad: false, errorMessage, validationEmail: true });
   };
 
   onChangeEmail = (e) => {

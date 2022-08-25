@@ -15,6 +15,34 @@ const menuAvailable = [
 ];
 const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
 
+const allModule = {
+  StockHolding: {
+    endpointsUrl: endpoints.stockHoldingSummary,
+    paramType: 'GET_SH_SUMMARY',
+    paramPaging: 'PAGING_SH'
+  },
+  purchaseOrder: {
+    endpointsUrl: endpoints.purchaseOrder,
+    paramType: 'GET_PO_SUMMARY',
+    paramPaging: 'PAGING_PO'
+  },
+  salesOrder: {
+    endpointsUrl: endpoints.salesOrder,
+    paramType: 'GET_SO_SUMMARY',
+    paramPaging: 'PAGING_SO',
+  },
+  UserManagement: {
+    endpointsUrl: endpoints.userManagementListUser,
+    paramType: 'GET_UM_SUMMARY',
+    paramPaging: 'PAGING_UM'
+  },
+  SupplierManagement: {
+    endpointsUrl: endpoints.supplierManagement,
+    paramType: 'GET_SP_SUMMARY',
+    paramPaging: 'PAGING_SP'
+  },
+}
+
 export const formatDate = (date) => {
   if (date !== 'Invalid date' || date === undefined || date === null || date === '') {
     return moment(date).format(dateFormate) || false;
@@ -36,133 +64,142 @@ export const getSummaryData = async ({
   fromDate,
   toDate,
   user,
+  typeDate,
+  customerOrderRef,
+  vendorOrderNo,
+  dataDefault,
+  columnFilter
 }) => {
   const urls = [];
-  let endpointsUrl = '';
-  let paramType = '';
-  let paramPaging = '';
+  let endpointsUrlData = '';
+  let paramData = '';
+  let paramPagingData = '';
   searchInput = searchInput || '';
 
-  if (module === 'purchaseOrder') {
-    endpointsUrl = endpoints.purchaseOrder;
-    paramType = 'GET_PO_SUMMARY';
-    paramPaging = 'PAGING_PO';
-  }
-  if (module === 'salesOrder') {
-    endpointsUrl = endpoints.salesOrder;
-    paramType = 'GET_SO_SUMMARY';
-    paramPaging = 'PAGING_SO';
-  }
-  if (module === 'StockHolding') {
-    endpointsUrl = endpoints.stockHoldingSummary;
-    paramType = 'GET_SH_SUMMARY';
-    paramPaging = 'PAGING_SH';
-  }
-  if (module === 'UserManagement') {
-    endpointsUrl = endpoints.userManagementListUser;
-    paramType = 'GET_UM_SUMMARY';
-    paramPaging = 'PAGING_UM';
-  }
+  const dateFilter = [
+    'dateReceived',
+    'deliveryDate',
+    'dateReleased',
+    'dateReleased',
+    'dateCompleted',
+    'orderDate',
+  ];
 
-  if (module === 'SupplierManagement') {
-    endpointsUrl = endpoints.supplierManagement;
-    paramType = 'GET_SP_SUMMARY';
-    paramPaging = 'PAGING_SP';
-  }
-  // Url
 
-  if (module === 'UserManagement') {
-    urls.push(`search=${searchInput || ''}`);
-  }
-  if (module === 'SupplierManagement') {
-    urls.push(`search=${searchInput || ''}`);
-    urls.push(`startDate=${fromDate || ''}`);
-    urls.push(`endDate=${toDate || ''}`);
-  }
-  if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
-    let userSite = '';
-    let UserClient = '';
-    if ((user.userLevel !== 'Admin' && user?.site) || (user.userLevel !== 'ADMIN' && user?.site)) {
-      userSite = user?.site;
-    } else userSite = siteVal || 'all';
+  Object.keys(allModule).forEach((allModuleKey) => {
+    if (allModuleKey === module) {
+      paramData = allModule[allModuleKey].paramType
+      paramPagingData = allModule[allModuleKey].paramPaging
+      endpointsUrlData = allModule[allModuleKey].endpointsUrl
+    }
+  });
 
-    if ((user.userLevel !== 'Admin' && user?.client) || (user.userLevel !== 'ADMIN' && user?.client)) {
-      UserClient = user?.client;
-    } else UserClient = clientVal || 'all';
+  if (!dataDefault) {
+    // Url
+    if (module === 'UserManagement') {
+      urls.push(`search=${searchInput || ''}`);
+    }
+    if (module === 'SupplierManagement') {
+      urls.push(`search=${searchInput || ''}`);
+      urls.push(`startDate=${fromDate || ''}`);
+      urls.push(`endDate=${toDate || ''}`);
+    }
+    if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
+      let userSite = '';
+      let UserClient = '';
+      if ((user.userLevel !== 'Admin' && user?.site) || (user.userLevel !== 'ADMIN' && user?.site)) {
+        userSite = user?.site;
+      } else userSite = siteVal || 'all';
 
-    urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${userSite}`);
-    urls.push(`client=${UserClient}`);
-    urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
-    urls.push(`status=${status ? status.value : 'open'}`);
-  }
-  if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
-  urls.push(`page=${active || 1}`);
-  if (Export === true) {
-    urls.push('export=true');
-  } else {
+      if ((user.userLevel !== 'Admin' && user?.client) || (user.userLevel !== 'ADMIN' && user?.client)) {
+        UserClient = user?.client;
+      } else UserClient = clientVal || 'all';
+
+      urls.push(`search=${searchInput?.toUpperCase() || ''}`);
+      urls.push(`site=${userSite}`);
+      urls.push(`client=${UserClient}`);
+      urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
+      urls.push(`status=${status ? status.value : 'open'}`);
+      if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
+      if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
+      if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
+      if (typeDate) {
+        columnFilter.forEach(data => {
+          if (dateFilter.includes(data.accessor) && data.hiddenFilter === true) {
+            const typeDateSearch = typeDate.slice(0, 1).toUpperCase() + typeDate.substr(1);
+            urls.push(`start${typeDateSearch}=${fromDate || ''}`);
+            urls.push(`end${typeDateSearch}=${toDate || ''}`);
+          }
+        })
+      }
+    }
+    urls.push(`page=${active || 1}`);
+
+    if (Export === true) urls.push('export=true');
+    else dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
     dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
-  }
-  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
-  const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
-  const Meta = newData?.data?.meta;
-  const Data = newData?.data?.data;
 
-  // Table Status
-  const element = document.getElementById('searchInput');
-  if (element) {
-    if (element.value !== searchInput) {
-      return;
+    const newData = await axios.get(`${endpointsUrlData}?${urls.join('&')}`);
+    const Meta = newData?.data?.meta;
+    const Data = newData?.data?.data;
+
+    // Table Status
+    const element = document.getElementById('searchInput');
+    if (element) {
+      if (element.value !== searchInput) {
+        return;
+      }
+    }
+
+    if (Data?.length) {
+      dispatch({ type: 'TABLE_STATUS', data: '' });
+    } else if (Data?.length < 1) {
+      dispatch({ type: 'TABLE_STATUS', data: 'noData' });
+    }
+    // End Table Status
+
+    if (Data) {
+      Data.forEach((item, idx) => {
+        item.product = String(item.product);
+        item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
+        item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
+        item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
+        item.pallets = numeral(item.pallets).format('0,0');
+        item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
+        item.weight = numeral(item.weight).format('0,0.000');
+        item.weight_processed = numeral(item.weight_processed).format('0,0.000');
+        item.price = numeral(item.price).format('0,0.00');
+        item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
+        item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
+        item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
+        item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
+        item.no = idx + 1;
+        item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
+        item.total_order = numeral(item.total_order).format('0,0');
+        item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
+        item.site = item.site && item.site !== '' ? item.site : 'All';
+        item.client = item.client && item.client !== '' ? item.client : 'All';
+        item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
+      });
+
+      if (Export === true) {
+        await dispatch({ type: 'EXPORT_DATA', data: Data });
+      } else {
+        const pagination = {
+          active: active || Meta.current_page,
+          show: Meta.per_page,
+          total: Meta.total,
+          last_page: Meta.last_page,
+          from: Meta.from,
+          to: Meta.to,
+        };
+        const paging = pagination;
+        dispatch({ type: paramData, data: Data });
+        dispatch({ type: paramPagingData, data: paging });
+      }
     }
   }
 
-  if (Data?.length) {
-    dispatch({ type: 'TABLE_STATUS', data: '' });
-  } else if (Data?.length < 1) {
-    dispatch({ type: 'TABLE_STATUS', data: 'noData' });
-  }
-  // End Table Status
-
-  if (Data) {
-    Data.forEach((item, idx) => {
-      item.product = String(item.product);
-      item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
-      item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
-      item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
-      item.pallets = numeral(item.pallets).format('0,0');
-      item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
-      item.weight = numeral(item.weight).format('0,0.000');
-      item.weight_processed = numeral(item.weight_processed).format('0,0.000');
-      item.price = numeral(item.price).format('0,0.00');
-      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
-      item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
-      item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
-      item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
-      item.no = idx + 1;
-      item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
-      item.total_order = numeral(item.total_order).format('0,0');
-      item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
-      item.site = item.site && item.site !== '' ? item.site : 'All';
-      item.client = item.client && item.client !== '' ? item.client : 'All';
-      item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
-    });
-
-    if (Export === true) {
-      await dispatch({ type: 'EXPORT_DATA', data: Data });
-    } else {
-      const pagination = {
-        active: active || Meta.current_page,
-        show: Meta.per_page,
-        total: Meta.total,
-        last_page: Meta.last_page,
-        from: Meta.from,
-        to: Meta.to,
-      };
-      const paging = pagination;
-      dispatch({ type: paramType, data: Data });
-      dispatch({ type: paramPaging, data: paging });
-    }
-  }
 };
 
 export const getDetailHeader = async ({ dispatch, props, module }) => {
@@ -170,27 +207,27 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
 
   let endpointsUrl = '';
   let paramType = '';
-  if (module === 'purchaseOrder') {
+  if (module === 'PurchaseOrdersDetail') {
     endpointsUrl = `${endpoints.purchaseOrder}?search=${orderdetail}&client=${client}&site=${site}`;
     paramType = 'GET_PO_DETAIL';
   }
-  if (module === 'salesOrder') {
+  if (module === 'SalesOrdersDetail') {
     endpointsUrl = `${endpoints.salesOrder}?search=${orderno}&client=${client}&site=${site}`;
     paramType = 'GET_SO_DETAIL';
   }
-  if (module === 'stockHolding') {
+  if (module === 'StockHoldingDetail') {
     endpointsUrl = `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-header`;
     paramType = 'GET_SH_DETAIL';
   }
 
   const url = endpointsUrl;
   const { data } = await axios.get(url);
-  if (module === 'salesOrder' || module === 'purchaseOrder') {
+  if (module === 'SalesOrdersDetail' || module === 'PurchaseOrdersDetail') {
     if (data.data) {
       dispatch({ type: paramType, data: data.data[0] });
     }
   }
-  if (module === 'stockHolding') {
+  if (module === 'StockHoldingDetail') {
     if (data.data) {
       dispatch({ type: paramType, data: data.data });
     }
@@ -202,17 +239,17 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   let endpointsUrl = '';
   let paramType = '';
   let paramPaging = '';
-  if (module === 'purchaseOrder') {
+  if (module === 'PurchaseOrdersDetail') {
     endpointsUrl = `${endpoints.purchaseOrder}/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
     paramPaging = 'PAGING_PO_DETAIL';
   }
-  if (module === 'salesOrder') {
+  if (module === 'SalesOrdersDetail') {
     endpointsUrl = `${endpoints.salesOrder}/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
   }
-  if (module === 'stockHolding') {
+  if (module === 'StockHoldingDetail') {
     endpointsUrl = `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-line?page=${active}&export=${export_}`;
     paramType = 'GET_SH_DETAIL_TABLE';
     paramPaging = 'PAGING_SH_DETAIL';
@@ -423,6 +460,7 @@ export const getStockMovement = async ({ dropdownValue, dispatch, user }) => {
       console.log(error);
     });
 };
+
 // End Stock Movement
 
 export const restuctureMenuList = (sources) => {

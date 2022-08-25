@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 // import library
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -79,28 +78,8 @@ const Table = ({
           mode: 'reorder',
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) => {
-            saveSchemaToLocal({
-              setNewSchema,
-              userId,
-              schemaColumn: fields,
-              module,
-              draggedColumn,
-              targetColumn,
-              oldIndex,
-              newIndex,
-              dispatch,
-            });
-            renewColumn({
-              setNewSchema,
-              data,
-              fields,
-              module,
-              userId,
-              editColumnTemp,
-              showModal,
-              columnHidden,
-              dispatch,
-            });
+            saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields, module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch });
+            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, dispatch });
           },
         }}
         columns={newSchema}
@@ -112,10 +91,7 @@ const Table = ({
         minRows="1"
         getTdProps={(state, rowInfo, column, instance) => {
           return {
-            onClick: (e) => {
-              !!onClick && onClick(rowInfo.original, state, column, e, instance);
-            },
-            // eslint-disable-next-line no-restricted-globals
+            onClick: (e) => { onClick(rowInfo.original, state, column, e, instance); },
             style: {
               // textAlign: rowInfo?.original[column.id] ? 'left' : 'right',
               height: '3rem',

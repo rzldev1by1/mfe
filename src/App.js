@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'remixicon/fonts/remixicon.css';
 import './assets/scss/style.scss';
 import axios from 'axios';
 import endpoints from './helpers/endpoints';

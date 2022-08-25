@@ -2,35 +2,35 @@ import { isEmptyObject } from 'jquery';
 
 export default (state, renameField, indexField, fields) => {
   const { sameColumns, sameColumnsIdx, error } = state;
-  let newerror = error;
-  const newsameColumns = sameColumns;
-  let newsameColumnsIdx = sameColumnsIdx;
+  let newError = error;
+  const newSameColumns = sameColumns;
+  let newSameColumnsIdx = sameColumnsIdx;
   const idxField = parseInt(indexField, 10);
   if (fields) {
     fields.forEach((item, idx) => {
       if (idx !== idxField) {
         if (renameField && renameField?.toUpperCase() === item?.Header?.toUpperCase()) {
-          newsameColumns.push(item?.Header?.toUpperCase());
-          newsameColumnsIdx.push(indexField);
+          newSameColumns.push(item?.Header?.toUpperCase());
+          newSameColumnsIdx.push(indexField);
         }
       }
       if (idx === idxField) {
         if (renameField?.toUpperCase() === item?.Header?.toUpperCase()) {
-          newsameColumns.push(item?.Header?.toUpperCase());
-          newsameColumnsIdx.push(indexField);
+          newSameColumns.push(item?.Header?.toUpperCase());
+          newSameColumnsIdx.push(indexField);
         }
       }
-      if (!newsameColumns.includes(renameField?.toUpperCase())) {
-        newsameColumnsIdx = newsameColumnsIdx.filter((value) => value !== idxField);
+      if (!newSameColumns.includes(renameField?.toUpperCase())) {
+        newSameColumnsIdx = newSameColumnsIdx.filter((value) => value !== idxField);
       }
-      if (!isEmptyObject(newsameColumnsIdx)) {
+      if (!isEmptyObject(newSameColumnsIdx)) {
         if (idxField || idxField === 0) {
-          newerror[fields[indexField].Header] = `Columns cannot contain the same name`;
+          newError[fields[indexField].Header] = `Columns cannot contain the same name`;
         }
       } else {
-        newerror = {};
+        newError = {};
       }
     });
   }
-  return { newerror, newsameColumns, newsameColumnsIdx };
+  return { newError, newSameColumns, newSameColumnsIdx };
 };

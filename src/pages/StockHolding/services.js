@@ -420,3 +420,9 @@ export const headerDetailLeft = [
   { accessor: 'expected_out_qty', Header: 'Expected Out Qty' },
   { accessor: 'rotadate_type', Header: 'Rotadate Type' },
 ]
+
+export const filterSummaryDefault = [
+  { name: 'Site', accessor: 'site', hiddenFilter: false },
+  { name: 'Client', accessor: 'client', hiddenFilter: false },
+  { name: 'Status', accessor: 'status', hiddenFilter: false },
+]

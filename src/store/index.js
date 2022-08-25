@@ -50,6 +50,8 @@ const rootReducer = (state = INITIAL_STATE, { type, data, column }) => {
       return { ...state, lastChangedUser: data };
     case 'CHANGE_HEADER':
       return { ...state, changeHeader: data };
+    case 'CHANGE_FILTER':
+      return { ...state, changeFilter: data };
 
     // Pagingation
     case 'PAGING':
@@ -81,6 +83,8 @@ const rootReducer = (state = INITIAL_STATE, { type, data, column }) => {
       return { ...state, shSummaryData: data };
     case 'GET_SH_DETAIL':
       return { ...state, shDetail: data };
+    case 'FILTER_DATA_SH':
+      return { ...state, shFilter: data };
     case 'GET_SH_DETAIL_TABLE':
       return { ...state, shDetailTable: data };
     case 'GET_SH_DETAIL_FORECAST':
@@ -92,8 +96,14 @@ const rootReducer = (state = INITIAL_STATE, { type, data, column }) => {
       return { ...state, poSummaryData: data };
     case 'GET_PO_DETAIL':
       return { ...state, poDetail: data };
+    case 'FILTER_DATA_PO':
+      return { ...state, poFilter: data };
     case 'GET_PO_DETAIL_TABLE':
       return { ...state, poDetailTable: data };
+    case 'PO_RESOURCES':
+      return { ...state, po_resources: data };
+    case 'CREATE_PO_DISPOSITION':
+      return { ...state, po_disposition: data };
     // Purchase Order End
 
     // Sales Order
@@ -101,21 +111,15 @@ const rootReducer = (state = INITIAL_STATE, { type, data, column }) => {
       return { ...state, soSummaryData: data };
     case 'GET_SO_DETAIL':
       return { ...state, soDetail: data };
+    case 'FILTER_DATA_SO':
+      return { ...state, soFilter: data };
     case 'GET_SO_DETAIL_TABLE':
       return { ...state, soDetailTable: data };
-    // Sales Order End
-
-    // CREATE PO
-    case 'PO_RESOURCES':
-      return { ...state, po_resources: data };
-    case 'CREATE_PO_DISPOSITION':
-      return { ...state, po_disposition: data };
-
-    // CREATE SO
     case 'SO_RESOURCES':
       return { ...state, so_resources: data };
     case 'CREATE_SO_DISPOSITION':
       return { ...state, so_disposition: data };
+    // Sales Order End
 
     // CREATE PO/SO
     case 'SET_ORDER_DETAIL':
@@ -162,6 +166,8 @@ const rootReducer = (state = INITIAL_STATE, { type, data, column }) => {
     // Stock Movement
     case 'GET_SM_SUMMARY':
       return { ...state, smSummaryData: data };
+    case 'FILTER_DATA_SM':
+      return { ...state, smFilter: data };
     case 'GET_ACTIVE_PAGE':
       return { ...state, getActivePage: data };
     // Stock Movement End

@@ -10,7 +10,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
   const searchFilter = useSelector((state) => state.searchFilter);
   const user = useSelector((state) => state.user);
   const [page, setPage] = useState({
-    notifPaging: false,
+    noticePaging: false,
     goPage: 1,
   });
   const active = pagination?.active;
@@ -53,10 +53,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
           <div
             className={`page-item paging-previous ${pagination?.active === 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
               }`}
-            onClick={() =>
-              pagination?.active !== 1
-                ? ''
-                : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter, user })}
+            onClick={() => pagination?.active === 1 ? '' : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter, user })}
             aria-hidden="true"
           >
             <BsChevronLeft className="icon-size-paging" />

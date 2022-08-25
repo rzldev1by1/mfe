@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Search from './Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableFixedColumn from '../../Component/TableFixedColumn';
-import { customSchema, setupExcel, setupPdf, demoPDF } from './services';
+import { customSchema, setupExcel, setupPdf, demoPDF, filterSummaryDefault } from './services';
 import './style.scss';
 
 const StockMovement = () => {
@@ -11,18 +11,21 @@ const StockMovement = () => {
   const smData = useSelector((state) => state.smSummaryData);
   const pagination = useSelector((state) => state.pagination);
 
+  const dispatch = useDispatch();
   const [header, setHeader] = useState([]);
   const [dateHeader, setDateHeader] = useState([]);
   const [tableStatus, setTableStatus] = useState('waiting');
   const [headerExcel, setHeaderExcel] = useState([]);
   const [dataExcel, setDataExcel] = useState([]);
   const [firstHeader] = useState(['Site', 'Client', 'Product', 'Description', 'UOM']);
+  const stateChangeFilter = useSelector((state) => state.changeFilter);
   const [rowSpan, setRowSpan] = useState([]);
   const [dataPDF, setDataPDF] = useState([]);
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 272,
     width: window.innerWidth,
   });
+  const filterHiddenData = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
   const { width, height } = dimension;
   useEffect(() => {
     const handleResize = () => {
@@ -36,6 +39,12 @@ const StockMovement = () => {
       window.removeEventListener('resize', handleResize);
     };
   });
+
+  useEffect(() => {
+    if (stateChangeFilter) {
+      dispatch({ type: 'CHANGE_FILTER', data: false });
+    }
+  }, [stateChangeFilter]);
 
   useEffect(() => {
     const dataLength = smData?.length;
@@ -52,12 +61,37 @@ const StockMovement = () => {
     }
   }, [smData]);
 
+  const DateDataList = ({ dateData }) => {
+    return (
+      <>
+        <th style={{ width: '20px' }}>{dateData?.date_1}</th>
+        <th>{dateData?.sa_plus_1}</th>
+        <th>{dateData?.sa_minus_1}</th>
+        <th>{dateData?.rec_1}</th>
+        <th>{dateData?.send_1}</th>
+        <th style={{ width: '20px' }}>{dateData?.date_2}</th>
+        <th>{dateData?.sa_plus_2}</th>
+        <th>{dateData?.sa_minus_2}</th>
+        <th>{dateData?.rec_2}</th>
+        <th>{dateData?.send_2}</th>
+      </>
+    );
+  };
+
   return (
     <div className="stockMovement">
       <Breadcrumb breadcrumb={[{ to: '/purchase-order', label: 'Stock Movement', active: true }]} />
       <div>
         <div>
-          <Search module={module} setHeader={setHeader} setDateHeader={setDateHeader} btnSearch inputTag />
+          <Search
+            titleFilter="Stock Movement Summary"
+            module={module}
+            filterHidden={filterHiddenData || filterSummaryDefault}
+            setHeader={setHeader}
+            setDateHeader={setDateHeader}
+            btnSearch
+            inputTag
+          />
         </div>
         <div>
           <TableFixedColumn
@@ -79,54 +113,45 @@ const StockMovement = () => {
       <table id="excel" className="d-none">
         <thead>
           <tr>
-            {headerExcel.forEach(d => {
-              if (firstHeader.includes(d)) return <th>{d}</th>;
-              return false
+            {headerExcel.map((d) => {
+              if (firstHeader.includes(d)) {
+                return <th>{d}</th>;
+              }
+              return (
+                <th>
+                  <table>
+                    <tr>
+                      <th colSpan="4">{d}</th>
+                    </tr>
+                    <tr>
+                      <th width="25%">SA+</th>
+                      <th width="25%">SA-</th>
+                      <th width="25%">Rec</th>
+                      <th width="25%">Send</th>
+                    </tr>
+                  </table>
+                </th>
+              );
             })}
           </tr>
         </thead>
         <tbody>
           {dataExcel &&
-            dataExcel.map(data => [
+            dataExcel.map((data) => [
               <tr>
-                <td>
-                  ‎
-                  {data.site}
-                </td>
-                <td>
-                  ‎
-                  {data.client}
-                </td>
-                <td>
-                  ‎
-                  {data.product}
-                </td>
-                <td>
-                  ‎
-                  {data.product_name}
-                </td>
-                <td>
-                  ‎
-                  {data.uom}
-                </td>
-                {data.column.map(d => {
+                <td>‎{data.site}</td>
+                <td>‎{data.client}</td>
+                <td>‎{data.product}</td>
+                <td>‎{data.product_name}</td>
+                <td>‎{data.uom}</td>
+                {data.column.map((d) => {
                   return (
                     <td>
                       <table>
-                        <td style={{ textAlign: 'right' }}>
-                          {d.sa_plus}
-                        </td>
-                        <td style={{ textAlign: 'right' }}>
-                          {
-                            d.sa_min
-                          }
-                        </td>
-                        <td style={{ textAlign: 'right' }}>
-                          {d.rec}
-                        </td>
-                        <td style={{ textAlign: 'right' }}>
-                          {d.send}
-                        </td>
+                        <td style={{ textAlign: 'right' }}>{d.sa_plus}</td>
+                        <td style={{ textAlign: 'right' }}>{d.sa_min}</td>
+                        <td style={{ textAlign: 'right' }}>{d.rec}</td>
+                        <td style={{ textAlign: 'right' }}>{d.send}</td>
                       </table>
                     </td>
                   );
@@ -143,45 +168,49 @@ const StockMovement = () => {
             <th>Product</th>
             <th>Description</th>
             <th>UOM</th>
-            <th>Date</th>
+            <th style={{ width: '20px' }}>Date</th>
             <th>SA+</th>
             <th>SA-</th>
             <th>Rec</th>
             <th>Send</th>
-            <th>Date</th>
-            <th>SA+</th>
-            <th>SA-</th>
-            <th>Rec</th>
-            <th>Send</th>
+            {dataPDF && dataPDF[0] && dataPDF[0].date[0].date_2 === undefined ? (
+              ''
+            ) : (
+              <>
+                <th style={{ width: '20px' }}>Date</th>
+                <th>SA+</th>
+                <th>SA-</th>
+                <th>Rec</th>
+                <th>Send</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
           {dataPDF &&
-            dataPDF.map(data => {
-              return data.date.map((d, idx) => {
-                if (idx < 1) {
-                  return (
-                    <tr>
-                      <td rowSpan={data.rowspan}>{data.site}</td>
-                      <td rowSpan={data.rowspan}>{data.client}</td>
-                      <td rowSpan={data.rowspan}>{data.product}</td>
-                      <td rowSpan={data.rowspan}>{data.product_name}</td>
-                      <td rowSpan={data.rowspan}>{data.uom}</td>
-                      <td>{d.date_1}</td>
-                      <td>{d.sa_plus_1}</td>
-                      <td>{d.sa_minus_1}</td>
-                      <td>{d.rec_1}</td>
-                      <td>{d.send_1}</td>
-                      <td>{d.date_2}</td>
-                      <td>{d.sa_plus_2}</td>
-                      <td>{d.sa_minus_2}</td>
-                      <td>{d.rec_2}</td>
-                      <td>{d.send_2}</td>
-                    </tr>
-                  );
-                }
-                return false
-              });
+            dataPDF.map((data) => {
+              return (
+                <>
+                  <tr key={data.product}>
+                    <td rowSpan={data.rowspan}>{data.site}</td>
+                    <td rowSpan={data.rowspan}>{data.client}</td>
+                    <td rowSpan={data.rowspan}>{data.product}</td>
+                    <td rowSpan={data.rowspan}>{data.product_name}</td>
+                    <td rowSpan={data.rowspan}>{data.uom}</td>
+                    <DateDataList dateData={data.date[0]} />
+                  </tr>
+                  {data.date.map((item, index) => {
+                    return (
+                      item !== [] &&
+                      index !== 0 && (
+                        <tr key={item.date_1}>
+                          <DateDataList dateData={item} />
+                        </tr>
+                      )
+                    );
+                  })}
+                </>
+              );
             })}
         </tbody>
       </table>

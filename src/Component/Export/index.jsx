@@ -17,6 +17,7 @@ const Export = ({
   secondTable = false,
   customExportXls,
   customExportPdf,
+  exportTable,
 }) => {
   const dispatch = useDispatch();
   const exportData = useSelector((state) => state.exportData);
@@ -33,6 +34,7 @@ const Export = ({
   if (exportStatus === 'wait') {
     styleButton = { pointerEvents: 'none' };
   }
+
 
   useEffect(() => {
     if (!runExport) {
@@ -100,13 +102,14 @@ const Export = ({
       <ButtonDropdown
         direction="up"
         style={styleButton}
-        className=" d-flex float-right align-items-center"
+        disabled={exportTable}
+        className='d-flex float-right align-items-center mr-1'
         isOpen={dropdownOpen}
         toggle={() => {
           setDropdownOpen(!dropdownOpen);
         }}
       >
-        <DropdownToggle color="primary" className="Dropdown-toggel align-items-center">
+        <DropdownToggle className={`Dropdown-toggel align-items-center  ${exportTable ? 'disableExport' : ''}`}>
           <div style={{ fontSize: '0.875rem', letterSpacing: '1px' }}>
             {exportStatus === 'ready' ? (
               'EXPORT'
@@ -116,9 +119,8 @@ const Export = ({
           </div>
         </DropdownToggle>
         <DropdownMenu
-          className={`no-shadow ${
-            exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
-          }`}
+          className={`no-shadow ${exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
+            }`}
         >
           {!exportPdf ? (
             ''
@@ -133,8 +135,7 @@ const Export = ({
           ) : (
             <div>
               <DropdownItem
-                className={`export-excel so-export px-1 d-flex justify-content-center
-                ${exportPdf === false && 'radius-top-export'}`}
+                className={`export-excel so-export px-1 d-flex justify-content-center ${exportPdf === false && 'radius-top-export'}`}
                 onClick={() => setRunExport('XLS')}
               >
                 <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
@@ -174,19 +175,19 @@ const Export = ({
             ) : (
               exportData?.map((data, i) => (
                 <tr key={data?.[i]?.no}>
-                  {schemaColumn.map((column, columnIdx) => {
+                  {schemaColumn.map((column) => {
                     const dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
                     if (columnHiddenCharacter.includes(column.accessor)) {
-                      return <td key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
+                      return <td>{dataReturn}</td>;
                     }
                     if (columnRightCharacter.includes(column.accessor)) {
                       return (
-                        <td style={{ textAlign: 'right' }} key={schemaColumn?.[columnIdx]?.accessor}>
+                        <td style={{ textAlign: 'right' }}>
                           {dataReturn}
                         </td>
                       );
                     }
-                    return <td key={schemaColumn?.[columnIdx]?.accessor}>{dataReturn}</td>;
+                    return <td>{dataReturn}</td>;
                   })}
                 </tr>
               ))

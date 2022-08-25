@@ -85,7 +85,6 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setDateHeader }) =>
   period = period.value;
 
   while (startDate <= endDate) {
-
     let newDate = startDate.format('DD MMMM YYYY');
     const dateAccessor = startDate.format('YYYY_MM_DD');
 
@@ -160,3 +159,39 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setDateHeader }) =>
   setHeader(tmpHeader);
   setDateHeader(tmpDateHeader);
 };
+
+export const showFilter = ({ item, columnFilter, setColumnFilter, setValidResetFilter }) => {
+  columnFilter.forEach(data => {
+    if (data.accessor === item.accessor) data.hiddenFilter = !item.hiddenFilter
+  });
+  setValidResetFilter(false)
+  setColumnFilter(columnFilter)
+}
+
+export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, setColumnFilter, columnFilter, dropdownValue, setDropdownValue }) => {
+  const newDropdownValue = { ...dropdownValue }
+  columnFilter.forEach(data => { data.hiddenFilter = false })
+  filterHidden.forEach(data => { data.hiddenFilter = false })
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  newDropdownValue.siteVal = ''
+  newDropdownValue.clientVal = ''
+  newDropdownValue.productVal = ''
+  setDropdownValue(newDropdownValue)
+  setColumnFilter(columnFilter)
+  dispatch({ type: 'CHANGE_FILTER', data: true });
+  setShowModal(false)
+}
+
+export const saveFilterSearch = ({ module, dispatch, columnFilter }) => {
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(columnFilter));
+  dispatch({ type: 'CHANGE_FILTER', data: true });
+}
+
+export const closeModalFilter = ({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter, utils }) => {
+  const dataDefault = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
+  if (dataDefault) setColumnFilter(dataDefault);
+  else setColumnFilter(utils[`${module}FilterSearch`]);
+  setShowModal(!showModal);
+  setChangeFilter(true);
+  setValidResetFilter(true)
+}

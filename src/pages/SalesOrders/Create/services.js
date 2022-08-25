@@ -135,52 +135,46 @@ export const changeOrderDetailSiteAndClient = ({ valClient, valSite, setOrderDet
   setOrderDetails(od);
 };
 
-export const changeClient = async ({
-  value,
-  orderDetails,
-  setOrderDetails,
-  setCustomerDetails,
-  setOrderLines
-}) => {
+export const changeClient = async ({ value, orderDetails, setOrderDetails, setCustomerDetails, setOrderLines }) => {
   const od = { ...orderDetails };
   const resetOrderLines = [
     {
-      batch: "",
-      disposition: "",
-      packId: "",
-      product: "",
-      qty: "",
-      ref3: "",
-      ref4: "",
-      rotaDate: "",
-      uom: "",
-      productDesc: "",
+      batch: '',
+      disposition: '',
+      packId: '',
+      product: '',
+      qty: '',
+      ref3: '',
+      ref4: '',
+      rotaDate: '',
+      uom: '',
+      productDesc: '',
       validation: false,
       validation_product: false,
       validation_qty: false,
       validation_uom: false,
-      weight: ""
-    }
+      weight: '',
+    },
   ];
 
   const resetCustomerDetails = {
-    address1: "",
-    address2: "",
-    address3: "",
-    address4: "",
-    address5: "",
-    country: "",
-    customer: "",
-    postcode: "",
-    state: "",
-    suburb: "",
+    address1: '',
+    address2: '',
+    address3: '',
+    address4: '',
+    address5: '',
+    country: '',
+    customer: '',
+    postcode: '',
+    state: '',
+    suburb: '',
     validation_address1: true,
     validation_customer: true,
     validation_postcode: true,
-    validation_state: true
-  }
+    validation_state: true,
+  };
 
-  setOrderLines(resetOrderLines)
+  setOrderLines(resetOrderLines);
   setCustomerDetails(resetCustomerDetails);
 
   od.client = value;
@@ -191,18 +185,18 @@ export const changeClient = async ({
 export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails }) => {
   const cd = { ...customerDetails };
   cd[column] = value;
-  cd[`validation_${column}`] = value ? true : false;
+  cd[`validation_${column}`] = value === true;
   if (!value) {
-    cd.address1 = ""
-    cd.address2 = ""
-    cd.address3 = ""
-    cd.address4 = ""
-    cd.address5 = ""
-    cd.country = ""
-    cd.customer = null
-    cd.postcode = ""
-    cd.state = ""
-    cd.suburb = ""
+    cd.address1 = '';
+    cd.address2 = '';
+    cd.address3 = '';
+    cd.address4 = '';
+    cd.address5 = '';
+    cd.country = '';
+    cd.customer = null;
+    cd.postcode = '';
+    cd.state = '';
+    cd.suburb = '';
   }
   setCustomerDetails(cd);
 };
@@ -241,7 +235,7 @@ export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, setOr
 export const changeOrderLines = ({ val, column, index, orderLines, setOrderLines }) => {
   const newOrderLines = [...orderLines];
   newOrderLines[index][column] = val;
-  newOrderLines[index][`validation_${column}`] = !!val
+  newOrderLines[index][`validation_${column}`] = !!val;
   setOrderLines(newOrderLines);
 };
 
@@ -291,7 +285,7 @@ export const productHandler = async ({ val, index, orderLines, setIsUom, setOrde
   const stringUOM = val?.uom;
   if (stringUOM) {
     const uomDataArr = stringUOM.split(',');
-    const uomData = uomDataArr.map(c => ({ value: c, label: c }));
+    const uomData = uomDataArr.map((c) => ({ value: c, label: c }));
     setIsUom(uomData);
   } else {
     setIsUom([]);
@@ -311,7 +305,7 @@ export const decimalFormatter = (name, value) => {
         .filter((d) => (d !== ',' ? d : null))
         .map((d, i) => {
           if (i > 10 && !newVal.includes('.')) return null;
-          return d
+          return d;
         })
         .join('');
     const dot = newVal.indexOf('.');
@@ -363,7 +357,7 @@ export const decimalFormatter = (name, value) => {
     }
     return numeral(newVal).format('0,0');
   }
-  if (name === 'qty') return newVal ? numeral(newVal).format('0,0') : newVal
+  if (name === 'qty') return newVal ? numeral(newVal).format('0,0') : newVal;
   return value;
 };
 
@@ -379,17 +373,17 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
   const customerValidation = ['validation_address1', 'validation_postcode', 'validation_state'];
   const orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
-  orderDetailsValidation.forEach(key => {
+  orderDetailsValidation.forEach((key) => {
     if (orderDetails[key] !== true) statusValidate = false;
   });
 
-  customerValidation.forEach(key => {
+  customerValidation.forEach((key) => {
     if (customerDetails[key] !== true) statusValidate = false;
   });
 
-  orderLines.forEach(data => {
+  orderLines.forEach((data) => {
     data.validation = true;
-    orderDetaillinessValidation.forEach(key => {
+    orderDetaillinessValidation.forEach((key) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
@@ -407,9 +401,9 @@ export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   let statusValidate = true;
   const orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
-  orderLines.forEach(data => {
+  orderLines.forEach((data) => {
     data.validation = true;
-    orderDetaillinessValidation.forEach(key => {
+    orderDetaillinessValidation.forEach((key) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
@@ -451,7 +445,7 @@ export const submit = async ({
   };
 
   const newOrderLines = [];
-  orderLines.forEach(item => {
+  orderLines.forEach((item) => {
     const tmp = {
       productVal: item?.product?.value || '',
       qty: item?.qty || '',
@@ -508,7 +502,7 @@ export const getCustomerDetail = async ({ client, customer, setCustomerDetails }
     validation_customer: !!customer,
     validation_address1: !!identity?.address_1,
     validation_postcode: !!identity?.postcode,
-    validation_state: !!identity?.state
+    validation_state: !!identity?.state,
   };
   setCustomerDetails(customerDetails);
 };

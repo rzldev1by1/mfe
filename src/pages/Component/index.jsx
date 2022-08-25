@@ -13,7 +13,7 @@ import { category, simpleSchema, simpleData } from './service'
 
 const Component = () => {
   const [page, setPage] = useState({
-    notifPaging: false,
+    noticePaging: false,
     pagination: { active: 1, show: 10, total: 0, lastPage: 1, from: 0, to: 0 },
     PagingPage: 1,
     paginationData: {}

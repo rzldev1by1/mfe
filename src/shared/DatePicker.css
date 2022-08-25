@@ -111,9 +111,9 @@
 
 .select_arrow_expand::after {
   content: '\003E';
-  position: absolute;
-  top: 63%;
-  right: 0.2em;
+  display: block;
+  margin-top: 28px;
+  margin-left: -13px;
   -webkit-transform: translate(-50%, -50%) rotate(90deg) scaleY(1.5);
   transform: translate(-50%, -50%) rotate(90deg) scaleY(1.5);
   font-weight: bold;
@@ -126,8 +126,8 @@
 }
 
 .select_arrow_expand:checked::after {
-  -webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.5);
-  transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.5);
+  -webkit-transform: translate(-50%, -79%) rotate(90deg) scaleX(-1) scaleY(1.5);
+  transform: translate(-50%, -79%) rotate(90deg) scaleX(-1) scaleY(1.5);
   opacity: 1;
 }
 

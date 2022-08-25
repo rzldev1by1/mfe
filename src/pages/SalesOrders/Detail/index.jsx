@@ -16,7 +16,7 @@ const SalesOrdersDetail = (props) => {
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
-  const module = 'salesOrder';
+  const module = 'SalesOrdersDetail';
 
   // dimension
   const [dimension, setDimension] = useState({
@@ -113,6 +113,7 @@ const SalesOrdersDetail = (props) => {
         />
       </div>
       <TableMaster
+        props={props}
         schemaColumn={schemaColumnDetailPO}
         classNamePaging="display-paging"
         classNameTable="table-detail "

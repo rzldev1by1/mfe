@@ -19,7 +19,7 @@ const StockHoldingDetail = (props) => {
   const paginationShDetail = useSelector((state) => state.paginationShDetail);
   const paginationShForecast = useSelector((state) => state.paginationShForecast);
   const user = useSelector((state) => state.user);
-  const module = 'stockHolding';
+  const module = 'StockHoldingDetail';
   const [activeTab, setActiveTab] = useState('1');
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const StockHoldingDetail = (props) => {
                   style={{ marginLeft: '0px' }}
                 >
                   <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${tabDetailsCss}`}>
-                    <span className="newIcon-stock_details tabTitleText" />
+                    <span className="newIcon-stock_details tabTitleText w-auto" />
                     {activeTab === '1'}
                     Stock Details
                   </div>
@@ -82,7 +82,7 @@ const StockHoldingDetail = (props) => {
                     onClick={() => setActiveTab('2')}
                   >
                     <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${tabForeCastCss}`}>
-                      <span className="newIcon-stock_balance tabTitleText" />
+                      <span className="newIcon-stock_balance tabTitleText w-auto" />
                       {activeTab === '2'}
                       Stock Balance Forecast
                     </div>

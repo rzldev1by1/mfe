@@ -5,10 +5,9 @@ import DetailHeader from '../../../Component/DetailHeader';
 import Breadcrumb from '../../../Component/Breadcrumb';
 import { getDetailData, getDetailHeader } from '../../../apiService';
 import { setExportData, schemaColumnDetailPO, headerDetailCenter, headerDetailRight, headerDetailLeft } from './services';
-import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {
-  const {match} = props
+  const { match } = props
   const dispatch = useDispatch();
   const poDetail = useSelector((state) => state.poDetail);
   const poDetailTable = useSelector((state) => state.poDetailTable);
@@ -17,7 +16,7 @@ const PurchaseOrdersDetail = (props) => {
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
-  const module = 'purchaseOrder';
+  const module = 'PurchaseOrdersDetail';
   // dimension
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 355,
@@ -107,6 +106,7 @@ const PurchaseOrdersDetail = (props) => {
         />
       </div>
       <TableMaster
+        props={props}
         schemaColumn={schemaColumnDetailPO}
         classNamePaging="display-paging"
         classNameTable="table-detail"
@@ -127,6 +127,7 @@ const PurchaseOrdersDetail = (props) => {
         isDisplay={false}
         splitModule="purchase-order/detail"
         exportBtn
+        editColumn={false}
       />
     </div>
   );
