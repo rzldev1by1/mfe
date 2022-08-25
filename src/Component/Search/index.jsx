@@ -142,7 +142,9 @@ const Search = ({
         module,
         user,
       });
-      setExportTable(false);
+      if (setExportTable) {
+        setExportTable(false);
+      }
     }
   };
   const handleFulfill = () => {
@@ -620,7 +622,6 @@ const Search = ({
                   module,
                   user,
                 });
-                console.log('hai')
                 dispatch({ type: paramData, data: [] });
                 setExportTable(false);
               }}
