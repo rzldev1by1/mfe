@@ -5,7 +5,6 @@ import DetailHeader from '../../../Component/DetailHeader';
 import Breadcrumb from '../../../Component/Breadcrumb';
 import { getDetailData, getDetailHeader } from '../../../apiService';
 import { setExportData, schemaColumnDetailPO, headerDetailCenter, headerDetailRight, headerDetailLeft } from './services';
-import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {
   const { match } = props
@@ -128,6 +127,7 @@ const PurchaseOrdersDetail = (props) => {
         isDisplay={false}
         splitModule="purchase-order/detail"
         exportBtn
+        editColumn={false}
       />
     </div>
   );

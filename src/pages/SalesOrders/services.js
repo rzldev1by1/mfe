@@ -559,7 +559,7 @@ export const schemaColumnDetailPO = [
     accessor: 'batch',
     placeholder: 'Batch',
     Header: 'Batch',
-    width: 350,
+    width: 100,
     sortable: true,
     headerStyle: { textAlign: 'left' },
     Cell: (props) => {
@@ -571,7 +571,7 @@ export const schemaColumnDetailPO = [
     accessor: 'rotadate',
     placeholder: 'Rotadate',
     Header: 'Rotadate',
-    width: 350,
+    width: 100,
     sortable: true,
     headerStyle: { textAlign: 'left' },
     Cell: (props) => {

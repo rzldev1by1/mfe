@@ -8,6 +8,7 @@ import TableMaster from '../../Component/TableMaster'
 import { schemaColumn, filterSummaryDefault } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
+import './style.scss'
 
 const SalesOrders = (props) => {
   const { history } = props

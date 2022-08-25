@@ -8,6 +8,7 @@ import './Login.css';
 
 const baseUrl = endpoints.env.REACT_APP_API_URL;
 const version = endpoints.env.REACT_APP_VERSION || '';
+const localVersion = localStorage.getItem('version')
 class Logins extends Component {
   constructor(props) {
     super(props);
@@ -28,8 +29,17 @@ class Logins extends Component {
 
   componentDidMount() {
     const { store } = this.props;
-    if (store.expired && store.user)
+    if (store.expired && store.user) {
       this.setState({ errorMessage: 'Sorry, you have been automatically logged out due to inactivity' });
+    }
+    if (version) {
+      if (!localVersion) {
+        localStorage.setItem('version', version);
+      }
+      if (!localVersion === version) {
+        localStorage.clear();
+      }
+    }
   }
 
   validateForm = async (e) => {

@@ -729,7 +729,7 @@ header {
     }
 
     .rt-tbody {
-      // overflow-x: hidden !important;
+      overflow-x: none !important;
       .rt-tr-group {
         .rt-tr {
           .rt-td {
@@ -745,6 +745,46 @@ header {
       }
     }
   }
+}
+
+.so-detail {
+  .ReactTable {
+    .rt-table {
+      .rt-thead {
+        .rt-tr {
+          .rt-th:last-child {
+            display: none;
+          }
+        }
+      }
+      .rt-tbody {
+        .rt-tr-group {
+          .rt-tr {
+            .rt-td:first-child {
+              padding-right: 1.8rem !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.table-detail {
+  .rt-thead {
+    .rt-tr {
+      .rt-th:last-child {
+        display: none;
+      }
+    }
+  }
+  .rt-tbody .rt-tr-group:hover {
+    background-color: #fff !important;
+    cursor: default !important;
+  }
+}
+.display-paging {
+  display: none !important;
 }
 
 //search filter
