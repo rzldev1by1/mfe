@@ -42,6 +42,9 @@
         }
       }
       .rt-thead {
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
         flex: none !important;
         border-bottom: 0px solid #e0e2e4;
         .rt-tr {
@@ -53,7 +56,6 @@
         }
       }
       .rt-tbody {
-        overflow-x: none !important;
         .rt-tr-group {
           border-bottom: 0px;
           .rt-td {
@@ -438,12 +440,6 @@
   box-shadow: none !important;
 }
 
-.stockMovement .rt-thead {
-  padding: 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-}
-
 .stockMovement .rt-th {
   min-height: 100%;
   height: 46px;
@@ -468,10 +464,6 @@
   border-right: 1px solid #d5d8da !important;
 }
 
-/* .stockMovement .borderBottom {
-  border-bottom: 0.5px solid #d5d8da !important;
-} */
-
 .stockMovement .noBorderBottom {
   border-bottom: 0px !important;
 }
@@ -488,15 +480,6 @@
 .stockMovement .dateHeader {
   padding-top: 10px !important;
 }
-
-.stockMovement .rt-thead.-headerGroups {
-  border-bottom: 0px !important;
-}
-
-.stockMovement .rt-tr > .noPaddingTop {
-  padding-top: 0px !important;
-}
-
 .blueColor {
   color: #3366ff !important;
 }

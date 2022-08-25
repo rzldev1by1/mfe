@@ -73,7 +73,9 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
         setHeaderSummary({ dropdownValue, setHeader, setDateHeader });
       }
     }
-    setIsSearch(false);
+    if (fromDate && toDate && period) {
+      setIsSearch(true);
+    }
   }, [isSearch]);
 
   useEffect(() => {
@@ -85,6 +87,7 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
     })
   })
 
+  console.log(fromDate, toDate, period)
   const contentSearch = () => {
     return (
       <>
@@ -156,7 +159,9 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
             type="button"
             className="btn btn-search btn-primary float-right"
             onClick={() => {
-              setIsSearch(true);
+              if (fromDate && toDate && period) {
+                setIsSearch(true);
+              }
             }}
           >
             SEARCH
@@ -261,7 +266,9 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
             type="button"
             className="btn-search icon-search-filter mobile-search"
             onClick={() => {
-              setIsSearch(true);
+              if (fromDate && toDate && period) {
+                setIsSearch(true);
+              }
             }}
           >
             <i className="ri-search-line" />
@@ -282,7 +289,14 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
     <>
       <CCard className="mb-3 StockMovementFilter">
         <CCardBody className="p-3">
-          <form autoComplete="on" onSubmit={() => setIsSearch(true)}>
+          <form
+            autoComplete="on"
+            onSubmit={() => {
+              if (fromDate && toDate && period) {
+                setIsSearch(true);
+              }
+            }}
+          >
             <CRow className="mx-0">
               <CCol lg={2} sm={12} className="pl-0">
                 <Dropdown
