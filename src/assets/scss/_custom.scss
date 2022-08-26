@@ -771,13 +771,6 @@ header {
 }
 
 .table-detail {
-  .rt-thead {
-    .rt-tr {
-      .rt-th:last-child {
-        display: none;
-      }
-    }
-  }
   .rt-tbody .rt-tr-group:hover {
     background-color: #fff !important;
     cursor: default !important;

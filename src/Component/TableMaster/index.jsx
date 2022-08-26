@@ -48,7 +48,7 @@ const TableMaster = ({
         editOrderQty={editOrderQty}
         editCarton={editCarton}
       />
-      <CRow lg="12" className="mt-3 mb-2 w-100 pagination-custom justify-content-between align-items-end">
+      <CRow lg="12" className="mb-3 w-100 pagination-custom justify-content-between align-items-end">
         <CCol className="pl-0">
           <Pagination
             pagination={pagination}

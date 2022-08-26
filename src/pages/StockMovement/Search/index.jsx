@@ -29,7 +29,6 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
 
   const [isProduct, setIsProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSearch, setIsSearch] = useState(true);
   const [defaultDate, setDefaultDate] = useState(null);
   const [columnFilter, setColumnFilter] = useState(filterHidden);
   const arrayFilterSearch = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
@@ -65,18 +64,13 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
   }, []);
 
   useEffect(() => {
-    if (isSearch === true) {
-      if (period && dateFrom && dateTo) {
-        dispatch({ type: 'GET_ACTIVE_PAGE', data: 1 });
-        dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
-        getStockMovement({ dropdownValue, dispatch, user });
-        setHeaderSummary({ dropdownValue, setHeader, setDateHeader });
-      }
+    if (period && dateFrom && dateTo) {
+      dispatch({ type: 'GET_ACTIVE_PAGE', data: 1 });
+      dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
+      getStockMovement({ dropdownValue, dispatch, user });
+      setHeaderSummary({ dropdownValue, setHeader, setDateHeader });
     }
-    if (fromDate && toDate && period) {
-      setIsSearch(true);
-    }
-  }, [isSearch]);
+  }, []);
 
   useEffect(() => {
     columnFilter.forEach(element => {
@@ -87,7 +81,6 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
     })
   })
 
-  console.log(fromDate, toDate, period)
   const contentSearch = () => {
     return (
       <>
@@ -159,8 +152,11 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
             type="button"
             className="btn btn-search btn-primary float-right"
             onClick={() => {
-              if (fromDate && toDate && period) {
-                setIsSearch(true);
+              if (period && dateFrom && dateTo) {
+                dispatch({ type: 'GET_ACTIVE_PAGE', data: 1 });
+                dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
+                getStockMovement({ dropdownValue, dispatch, user });
+                setHeaderSummary({ dropdownValue, setHeader, setDateHeader });
               }
             }}
           >
@@ -266,8 +262,11 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
             type="button"
             className="btn-search icon-search-filter mobile-search"
             onClick={() => {
-              if (fromDate && toDate && period) {
-                setIsSearch(true);
+              if (period && dateFrom && dateTo) {
+                dispatch({ type: 'GET_ACTIVE_PAGE', data: 1 });
+                dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
+                getStockMovement({ dropdownValue, dispatch, user });
+                setHeaderSummary({ dropdownValue, setHeader, setDateHeader });
               }
             }}
           >
@@ -292,8 +291,11 @@ const Search = ({ setHeader, setDateHeader, filterHidden = [], titleFilter, modu
           <form
             autoComplete="on"
             onSubmit={() => {
-              if (fromDate && toDate && period) {
-                setIsSearch(true);
+              if (period && dateFrom && dateTo) {
+                dispatch({ type: 'GET_ACTIVE_PAGE', data: 1 });
+                dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
+                getStockMovement({ dropdownValue, dispatch, user });
+                setHeaderSummary({ dropdownValue, setHeader, setDateHeader });
               }
             }}
           >

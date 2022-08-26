@@ -5,16 +5,6 @@ import moment from 'moment';
 import endpoints from '../../helpers/endpoints';
 import logoExport from '../../assets/img/logo_export2.png';
 
-export const simpleData = [
-  { col1: 'data1', col2: 'data1', col3: 'data', col4: 'data' },
-  { col1: 'data2', col2: 'data2', col3: 'data', col4: 'data' },
-  { col1: 'data3', col2: 'data3', col3: 'data', col4: 'data' },
-  { col1: 'data4', col2: 'data4', col3: 'data', col4: 'data' },
-  { col1: 'data5', col2: 'data5', col3: 'data', col4: 'data' },
-  { col1: 'data6', col2: 'data6', col3: 'data', col4: 'data' },
-  { col1: 'data7', col2: 'data7', col3: 'data', col4: 'data' },
-];
-
 export const schemaColumn = [
   {
     Header: 'Column 1',
@@ -240,99 +230,6 @@ export const setupExcel = ({ data, dateHeader, header, setDataExcel, setHeaderEx
   });
   setDataExcel(dataExcel);
 };
-
-export const headerPdf = [
-  {
-    Header: 'Site',
-    accessor: 'site',
-    style: { textAlign: 'left', paddingLeft: '15px' },
-    width: 70,
-  },
-  {
-    Header: 'Client',
-    accessor: 'client',
-    style: { textAlign: 'left' },
-    width: 90,
-  },
-  {
-    Header: 'Product',
-    accessor: 'product',
-    style: { textAlign: 'left' },
-    width: 180,
-  },
-  {
-    Header: 'Description',
-    accessor: 'product_name',
-    style: { textAlign: 'left' },
-    width: 200,
-  },
-  {
-    Header: 'UOM',
-    accessor: 'uom',
-    style: { textAlign: 'left' },
-    width: 70,
-  },
-  {
-    Header: 'Date',
-    accessor: 'date_1',
-    style: { textAlign: 'left' },
-    width: 100,
-  },
-  {
-    Header: 'SA+',
-    accessor: 'sa_plus_1',
-    style: { textAlign: 'left' },
-    width: 60,
-  },
-  {
-    Header: 'SA-',
-    accessor: 'sa_minus_1',
-    style: { textAlign: 'left' },
-    width: 60,
-  },
-  {
-    Header: 'Rec',
-    accessor: 'rec_1',
-    style: { textAlign: 'left' },
-    width: 60,
-  },
-  {
-    Header: 'Send',
-    accessor: 'send_1',
-    style: { textAlign: 'left' },
-    width: 60,
-  },
-  {
-    Header: 'Date',
-    accessor: 'date_2',
-    style: { textAlign: 'left' },
-    width: 100,
-  },
-  {
-    Header: 'SA+',
-    accessor: 'sa_plus_2',
-    style: { textAlign: 'left' },
-    width: 60,
-  },
-  {
-    Header: 'SA-',
-    accessor: 'sa_minus_2',
-    style: { textAlign: 'left' },
-    width: 60,
-  },
-  {
-    Header: 'Rec',
-    accessor: 'rec_2',
-    style: { textAlign: 'left' },
-    width: 60,
-  },
-  {
-    Header: 'Send',
-    accessor: 'send_2',
-    style: { textAlign: 'left' },
-    width: 60,
-  },
-];
 
 export const demoPDF = ({ filename, rowSpan }) => {
   const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;

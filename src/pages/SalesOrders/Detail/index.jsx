@@ -134,6 +134,7 @@ const SalesOrdersDetail = (props) => {
         isDisplay={false}
         splitModule="sales-order/detail"
         exportBtn
+        editColumn="false"
       />
     </div>
   );
