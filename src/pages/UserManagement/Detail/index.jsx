@@ -6,9 +6,10 @@ import Breadcrumb from '../../../Component/Breadcrumb';
 import Site from '../Site';
 import Client from '../Client';
 import { getAccountInfo, onChangeEmail, onChangeName, saveClick } from '../../../apiService';
-import { disabledCharacterName, onClickSuspendUser, gotoUM, onClickResetPassword, buttonValidation } from './service';
+import { disabledCharacterName, onClickSuspendUser, gotoUM, onClickResetPassword, buttonValidation, onClickOpenModal } from './service';
 import loading from '../../../assets/icons/loading/LOADING-MLS.gif';
 import ResetModal from '../../../Component/Modal/PopUpResetUm';
+import PopUpUpgrade from '../../../Component/Modal/PopUpUpgrade';
 import './index.scss';
 import ModuleAccess from '../ModuleAccess';
 
@@ -30,7 +31,9 @@ const UserManagementDetail = (props) => {
     isLoadComplete: false,
     isSaveProgressing: false,
 
+    changeStatusUser: false,
     popUpReset: false,
+    popUpgradeUser: false,
     statusReset: true,
     isLoadReset: false,
     isResetSuccess: false,
@@ -55,7 +58,7 @@ const UserManagementDetail = (props) => {
 
   useEffect(() => {
     getAccountInfo({ userId, state, setState, dispatch, loadSite, loadClient, moduleAccess, });
-  }, []);
+  }, [state.changeStatusUser]);
 
   useEffect(() => {
     const newInitialData = {
@@ -74,7 +77,7 @@ const UserManagementDetail = (props) => {
   }, [state]);
 
   const btnCss = newState.accountInfo.passwordChange === '' ? 'btn-outline-active' : 'btn-outline-notActive'
-  
+
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
@@ -90,9 +93,16 @@ const UserManagementDetail = (props) => {
             <div className="account-detail">
               <div className="row mb-3">
                 <div className="col-12">
-                  <h3 className="mb-0 d-flex">
+                  <h3 className="mb-0 d-flex align-items-center">
                     <i className="fa newIcon-profile pr-3" aria-hidden="true" />
                     <span className="text-primary">{newState.accountInfo.user}</span>
+                    <button
+                      type="button"
+                      className={`btn mx-4 ${newState.adminClass} btn-outline-upgrade`}
+                      onClick={() => onClickOpenModal({ state, setState })}
+                    >
+                      UPGRADE AS ADMIN
+                    </button>
                   </h3>
                 </div>
               </div>
@@ -302,6 +312,12 @@ const UserManagementDetail = (props) => {
         show={newState.popUpReset}
         isLoad={newState.isLoadReset}
         isResetSuccess={newState.isResetSuccess}
+        state={state}
+        setState={setState}
+        props={props}
+      />
+      <PopUpUpgrade
+        show={newState.popUpgradeUser}
         state={state}
         setState={setState}
         props={props}

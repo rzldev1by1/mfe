@@ -24,6 +24,12 @@ export const onClickResetPassword = ({ state, setState }) => {
   setState(newState);
 };
 
+export const onClickOpenModal = ({ state, setState }) => {
+  const newState = { ...state };
+  newState.popUpgradeUser = true;
+  setState(newState);
+};
+
 export const onChangeEmail = async ({ e, state, setState }) => {
   const newState = { ...state };
   let isValid = true;
