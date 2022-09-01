@@ -296,7 +296,7 @@ export const demoPDF = ({ filename, rowSpan }) => {
 
       let rightAlign = [6, 7, 8, 9, 11, 12, 13, 14];
       if (rightAlign.includes(dataKey)) {
-        data.cell.styles.halign = 'right';
+        data.cell.styles.halign = 'center';
       }
 
       if (index <= rowSpan) {
