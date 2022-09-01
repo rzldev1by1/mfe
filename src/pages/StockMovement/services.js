@@ -275,6 +275,17 @@ export const demoPDF = ({ filename, rowSpan }) => {
       textColor: [255, 255, 255],
       rowHeight: 22,
     },
+    columnStyles: {
+      1: {
+        columnWidth: 40,
+      },
+      2: {
+        columnWidth: 80,
+      },
+      3: {
+        columnWidth: 180,
+      },
+    },
     willDrawCell: (data) => {
       const section = data?.row?.section;
       const index = data?.row?.index;
