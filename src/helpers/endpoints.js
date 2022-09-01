@@ -47,6 +47,7 @@ export default {
   userManagementUpdate: `/${version}/users/`,
   userManagementresetpassword: `/${version}/users/`,
   userManagementCheckMailValidation: `/${version}/users/check-email`,
+  userManagementUpgradeUser: `/${version}/users/upgrade-role`,
   // User Management End --------------------------------------------------------
 
   // Supplier Management ----------------------------------------------------

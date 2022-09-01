@@ -66,15 +66,15 @@ $spinkit-spinner-color: $body-color;
   .card {
     background-color: #281f34 !important;
   }
-  .tab-pane{
+  .tab-pane {
     background-color: #47444a !important;
   }
 
   //table
   .Table .rt-tbody .rt-tr-group:hover {
-      background-color: #504164  !important ;
+    background-color: #504164 !important ;
   }
-  .table-detail .rt-tbody .rt-tr-group:hover{
+  .table-detail .rt-tbody .rt-tr-group:hover {
     background-color: #504164 !important;
   }
   .rt-table {
@@ -94,18 +94,18 @@ $spinkit-spinner-color: $body-color;
   .rt-tr-group:hover {
     background-color: #74717d !important;
   }
-  .ReactTable .rt-noData{
+  .ReactTable .rt-noData {
     background-color: transparent !important;
   }
 
   //Table StockMovement
-  .stockMovement .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th{
+  .stockMovement .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th {
     background-color: #281f34 !important;
   }
-  .stockMovement .ReactTable .rt-table .rt-thead .rt-tr .rt-th{
+  .stockMovement .ReactTable .rt-table .rt-thead .rt-tr .rt-th {
     background-color: #281f34 !important;
   }
-  .stockMovement .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-tr .rt-td{
+  .stockMovement .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-tr .rt-td {
     background-color: #281f34 !important;
   }
 
@@ -153,13 +153,13 @@ $spinkit-spinner-color: $body-color;
     background-color: #74717d !important;
   }
   //dropdown readonly
-  .css-12ivlxl-control{
+  .css-12ivlxl-control {
     background-color: #635f78 !important;
     border: 1px solid white;
   }
   //dropdown danger
-  .input-danger .css-5y2tk-control{
-    border-color: #e55353 !important; 
+  .input-danger .css-5y2tk-control {
+    border-color: #e55353 !important;
   }
 
   .bg-white {
@@ -174,74 +174,84 @@ $spinkit-spinner-color: $body-color;
     color: white !important;
   }
 
-  //Export 
-  .export-pdf{
+  //Export
+  .export-pdf {
     background-color: #635f78 !important;
-    color: #fff
+    color: #fff;
   }
-  .export-excel{
+  .export-excel {
     background-color: #635f78 !important;
-    color: #fff
+    color: #fff;
   }
 
   //datePicker
 
-.select_date_options {
-  background-color: #281f34 !important;
-  
-  .DayPicker-Weekday abbr[title='Monday'],
-  .DayPicker-Weekday abbr[title='Tuesday'],
-  .DayPicker-Weekday abbr[title='Wednesday'],
-  .DayPicker-Weekday abbr[title='Thursday'],
-  .DayPicker-Weekday abbr[title='Friday'],
-  .DayPicker-Weekday abbr[title='Saturday'],
-  .DayPicker-Weekday abbr[title='Sunday']
-  {
+  .select_date_options {
+    background-color: #281f34 !important;
+
+    .DayPicker-Weekday abbr[title='Monday'],
+    .DayPicker-Weekday abbr[title='Tuesday'],
+    .DayPicker-Weekday abbr[title='Wednesday'],
+    .DayPicker-Weekday abbr[title='Thursday'],
+    .DayPicker-Weekday abbr[title='Friday'],
+    .DayPicker-Weekday abbr[title='Saturday'],
+    .DayPicker-Weekday abbr[title='Sunday'] {
+      color: white !important;
+    }
+  }
+}
+
+// modal
+.customDarkMode.modal {
+  .bg-primary {
+    background-color: #1c1c1c !important;
+  }
+  .text-primary {
     color: white !important;
   }
-
-}
-
-}
-
-
-  // modal 
-  .customDarkMode.modal{ 
-    .bg-primary{
-      background-color: #1c1c1c !important;
-    }
-    .text-primary {
-      color: white !important;
-    }
-    label{
-      color: white !important;
-    }
-    .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
-      background-color: #281f34 !important;
-    }
-    .select_dropdown_label{
-      background-color: #281f34 !important;
-    }
-    .select_dropdown{
-      background-color: #281f34 !important;
-    }
-    .btn.btn-secondary{
-      background-color: #281f34 !important;
-      color: white !important;
-    }
-    .DayPicker-Day:hover{
-      color: black  !important;
-      
-    }
-    .text-muted{
-      color: white !important;
-    }
-    .modalCreateSuccess, .modalCreateLoss{ 
-      background-color: #281f34;
-      color: white;
-    }
+  label {
+    color: white !important;
   }
+  .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options {
+    background-color: #281f34 !important;
+  }
+  .select_dropdown_label {
+    background-color: #281f34 !important;
+  }
+  .select_dropdown {
+    background-color: #281f34 !important;
+  }
+  .btn.btn-secondary {
+    background-color: #281f34 !important;
+    color: white !important;
+  }
+  .DayPicker-Day:hover {
+    color: black !important;
+  }
+  .text-muted {
+    color: white !important;
+  }
+  .modalCreateSuccess,
+  .modalCreateLoss {
+    background-color: #281f34;
+    color: white;
+  }
+}
 
 .c-app.customDarkMode {
   background-color: #47444a !important;
+}
+
+.btn-outline-upgrade {
+  width: fit-content;
+  font-weight: 700;
+  border: 1.5px solid #3366ff;
+  border-radius: 5px;
+  color: #3366ff;
+
+  &:hover {
+    color: #fff;
+    border: 1.5px solid #fff;
+    background-color: #3366ff;
+  }
 }
