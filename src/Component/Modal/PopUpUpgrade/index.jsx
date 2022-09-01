@@ -25,7 +25,7 @@ const PopUpUpgrade = ({
               <i className="ri-user-settings-fill" />
               <label>
                 <h4>UPGRADE ROLE</h4>
-                <span>{`Do You want to change < ${state.accountInfo.user} > role as admin ?`}</span>
+                <span>{`Do you want to change  ${state.accountInfo.user}  role as Admin?`}</span>
               </label>
             </div>
 
