@@ -19,7 +19,7 @@ export const renewColumn = async ({
   editColumn,
   showModal,
   columnHidden,
-  dispatch
+  dispatch,
 }) => {
   const key = `tables__${module}__${userId}`;
   let schema = [];
@@ -30,7 +30,7 @@ export const renewColumn = async ({
   await fields.forEach(async (d, idx) => {
     if (oldSchema) {
       idx = schemaOrder.indexOf(d.accessor);
-      defaultSchema.push(d.accessor)
+      defaultSchema.push(d.accessor);
     }
     tmpOldSchema[idx] = d;
     if (data) {
@@ -38,7 +38,8 @@ export const renewColumn = async ({
     }
   });
 
-  if (schemaOrder?.toString() !== defaultSchema?.toString() && schemaOrder && defaultSchema) dispatch({ type: 'DRAG_STATUS', data: true });
+  if (schemaOrder?.toString() !== defaultSchema?.toString() && schemaOrder && defaultSchema)
+    dispatch({ type: 'DRAG_STATUS', data: true });
   else dispatch({ type: 'DRAG_STATUS', data: false });
 
   if (columnHidden !== null && columnHidden !== undefined) {
@@ -52,7 +53,12 @@ export const renewColumn = async ({
     schema = tmpOldSchema;
   }
 
-  if (editColumn !== 'false' && module !== 'SupplierManagementDetail') {
+  if (
+    editColumn !== 'false' &&
+    module !== 'SupplierManagementDetail' &&
+    module !== 'StockHoldingDetail' &&
+    module !== 'StockHoldingForecast'
+  ) {
     const editBtn = (
       <div className="edit-column" onClick={() => showModal(true)} aria-hidden="true">
         <i className="newIcon-edit_column" />
@@ -77,13 +83,7 @@ export const setDraggableColumn = ({ fields }) => {
   return listHeader;
 };
 
-export const saveSchemaToLocal = ({
-  userId,
-  schemaColumn,
-  oldIndex,
-  newIndex,
-  module,
-}) => {
+export const saveSchemaToLocal = ({ userId, schemaColumn, oldIndex, newIndex, module }) => {
   const key = `tables__${module}__${userId}`;
   const newSchemaOrder = [];
   let oldSchema = localStorage.getItem(key) || null;
