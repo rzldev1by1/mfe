@@ -64,16 +64,16 @@ const StockMovement = () => {
   const DateDataList = ({ dateData }) => {
     return (
       <>
-        <th style={{ width: '20px' }}>{dateData?.date_1}</th>
-        <th>{dateData?.sa_plus_1}</th>
-        <th>{dateData?.sa_minus_1}</th>
-        <th>{dateData?.rec_1}</th>
-        <th>{dateData?.send_1}</th>
-        <th style={{ width: '20px' }}>{dateData?.date_2}</th>
-        <th>{dateData?.sa_plus_2}</th>
-        <th>{dateData?.sa_minus_2}</th>
-        <th>{dateData?.rec_2}</th>
-        <th>{dateData?.send_2}</th>
+        <td>{dateData?.date_1}</td>
+        <td>{dateData?.sa_plus_1}</td>
+        <td>{dateData?.sa_minus_1}</td>
+        <td>{dateData?.rec_1}</td>
+        <td>{dateData?.send_1}</td>
+        <td>{dateData?.date_2}</td>
+        <td>{dateData?.sa_plus_2}</td>
+        <td>{dateData?.sa_minus_2}</td>
+        <td>{dateData?.rec_2}</td>
+        <td>{dateData?.send_2}</td>
       </>
     );
   };
@@ -168,7 +168,7 @@ const StockMovement = () => {
             <th>Product</th>
             <th>Description</th>
             <th>UOM</th>
-            <th style={{ width: '20px' }}>Date</th>
+            <th>Date</th>
             <th>SA+</th>
             <th>SA-</th>
             <th>Rec</th>
@@ -177,7 +177,7 @@ const StockMovement = () => {
               ''
             ) : (
               <>
-                <th style={{ width: '20px' }}>Date</th>
+                <th>Date</th>
                 <th>SA+</th>
                 <th>SA-</th>
                 <th>Rec</th>
