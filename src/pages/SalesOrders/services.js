@@ -416,7 +416,7 @@ export const schemaColumn = [
   },
 ];
 
-export const schemaColumnDetailPO = [
+export const schemaColumnDetailSO = [
   {
     accessor: 'line',
     placeholder: 'Line No',

@@ -4,7 +4,7 @@ import Breadcrumb from '../../../Component/Breadcrumb';
 import DetailHeader from '../../../Component/DetailHeader';
 import TableMaster from '../../../Component/TableMaster';
 import { getDetailData, getDetailHeader } from '../../../apiService';
-import { setExportData, schemaColumnDetailPO, headerDetailCenter, headerDetailRight, headerDetailLeft } from '../services'
+import { setExportData, schemaColumnDetailSO, headerDetailCenter, headerDetailRight, headerDetailLeft } from '../services'
 
 const SalesOrdersDetail = (props) => {
   const { match } = props
@@ -95,6 +95,8 @@ const SalesOrdersDetail = (props) => {
     }
   }, [Export]);
 
+  console.log(schemaColumnDetailSO)
+
   return (
     <div className="so-detail">
       <Breadcrumb
@@ -114,7 +116,7 @@ const SalesOrdersDetail = (props) => {
       </div>
       <TableMaster
         props={props}
-        schemaColumn={schemaColumnDetailPO}
+        schemaColumn={schemaColumnDetailSO}
         classNamePaging="display-paging"
         classNameTable="table-detail "
         data={soDetailTable}
