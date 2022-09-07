@@ -1,5 +1,4 @@
 import React, { useEffect, useState, createRef } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
@@ -655,213 +654,221 @@ const Search = ({
                     ];
                     return (
                       <>
-                        {dataHidden.accessor === 'site' && dataHidden.hiddenFilter === true ? (
-                          <CCol
-                            sm={4}
-                            lg={2}
-                            className={`px-0 mr-3 pt-3 ${filterSite === true ? null : ' d-none'}`}
-                          >
-                            {user?.site ? (
-                              <input
-                                value={siteCheck(siteData, user.site)}
-                                className="form-control sh-input"
-                                readOnly
-                              />
-                            ) : (
-                              <Dropdown
-                                show
-                                placeholder={dataHidden.name}
-                                options={siteData}
-                                onChangeDropdown={(selected) => changeValue({ selected, setAllFilter, allFilter, dispatch, onChangeGetTask, getTask, getTaskParam, columns: 'site', })}
-                                selectedValue={allFilter?.site}
-                              />
-                            )}
-                          </CCol>
-                        ) : (
-                          ''
-                        )}
-
-                        {dataHidden.accessor === 'client' && dataHidden.hiddenFilter === true ? (
-                          <CCol
-                            sm={4}
-                            lg={2}
-                            className={`px-0 mr-3 pt-3 ${filterClient === true ? null : ' d-none'}`}
-                          >
-                            {user?.client ? (
-                              <input
-                                value={clientCheck(clientData, user.client)}
-                                className="form-control sh-input"
-                                readOnly
-                              />
-                            ) : (
-                              <Dropdown
-                                show
-                                placeholder={dataHidden.name}
-                                options={clientData}
-                                onChangeDropdown={(selected) =>
-                                  changeValue({
-                                    selected, setAllFilter, allFilter, dispatch, onChangeGetTask, getTask, getTaskParam, columns: 'client',
-                                  })}
-                                selectedValue={allFilter?.client}
-                              />
-                            )}
-                          </CCol>
-                        ) : (
-                          ''
-                        )}
-
-                        {dataHidden.accessor === 'status' && dataHidden.hiddenFilter === true ? (
-                          <CCol
-                            sm={4}
-                            lg={2}
-                            className={`px-0 mr-3 pt-3 ${filterStatus === true ? null : ' d-none'}`}
-                          >
-                            <Dropdown
-                              // show
-                              options={statusDataSH || statusData}
-                              selectedValue={allFilter?.status}
-                              onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'status' })}
-                              placeholder={dataHidden.name}
-                            />
-                          </CCol>
-                        ) : (
-                          ''
-                        )}
-
-                        {dataHidden.accessor === 'orderType' && dataHidden.hiddenFilter === true ? (
-                          <CCol
-                            sm={4}
-                            lg={2}
-                            className={`px-0 mr-3 pt-3 ${filterOrderType === true ? null : ' d-none'}`}
-                          >
-                            <Dropdown
-                              show
-                              placeholder={dataHidden.name}
-                              options={orderTypeData}
-                              onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'orderType' })}
-                              selectedValue={allFilter?.orderType}
-                            />
-                          </CCol>
-                        ) : (
-                          ''
-                        )}
-
-                        {dataHidden.accessor === 'task' && dataHidden.hiddenFilter === true ? (
-                          <CCol
-                            sm={4}
-                            lg={2}
-                            className={`px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
-                          >
-                            <Dropdown
-                              show
-                              placeholder={dataHidden.name}
-                              options={taskData}
-                              onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'task' })}
-                              selectedValue={allFilter?.task}
-                            />
-                          </CCol>
-                        ) : (
-                          ''
-                        )}
-
-                        {dataHidden.accessor === 'customerpono' && dataHidden.hiddenFilter === true ? (
-                          <CCol
-                            sm={4}
-                            lg={2}
-                            className={` px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
-                          >
-                            <input
-                              id="searchInput"
-                              type="text"
-                              className="form-control input-height"
-                              placeholder={dataHidden.name}
-                              value={allFilter?.customerOrderRef}
-                              onChange={(e) => { dispatch({ type: setAllFilter, data: { ...allFilter, customerOrderRef: e.target.value } }); }}
-                              style={{ height: '100%' }}
-                            />
-                          </CCol>
-                        ) : (
-                          ''
-                        )}
-                        {dataHidden.accessor === 'vendororderno' && dataHidden.hiddenFilter === true ? (
-                          <CCol
-                            sm={4}
-                            lg={2}
-                            className={` px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
-                          >
-                            <input
-                              id="searchInput"
-                              type="text"
-                              className="form-control input-height"
-                              value={allFilter?.vendorOrderNo}
-                              placeholder={dataHidden.name}
-                              onChange={(e) => { dispatch({ type: setAllFilter, data: { ...allFilter, vendorOrderNo: e.target.value } }); }}
-                              style={{ height: '100%' }}
-                            />
-                          </CCol>
-                        ) : (
-                          ''
-                        )}
-
-                        {dateFilter.includes(dataHidden.accessor) && dataHidden.hiddenFilter === true ? (
-                          <>
-                            <CCol lg={7}>
-                              <div className="d-flex">
-                                <div className="colDateText d-flex text-light-gray align-items-center pt-3 pr-3">
-                                  {dataHidden.name}
-                                </div>
-                                <div className="colDateText d-flex text-light-gray align-items-center pt-3"> From</div>
-                                <CCol lg={4} sm={10} className="colDate pt-3">
-                                  <DatePicker
-                                    arrowStyle
-                                    getDate={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dataHidden, dropName: 'fromDate' })}
-                                    placeHolder="Select Date"
-                                    onChange={() => { dateTo.current.openDatePicker(); }}
-                                    classNameInput="form-control"
-                                    onOpen={(e) => { if (e) dateTo.current.openDatePicker(); }}
-                                    fromMonth={defaultDate?.minDate}
-                                    toMonth={defaultDate?.maxDate}
-                                    selectedDates={allFilter?.fromDate}
-                                    messageRequired
-                                    messageParam={{
-                                      column: 'validDates',
-                                      columnText: 'Date From',
-                                      fieldName: 'fromDate',
-                                      style: 'position-absolute',
-                                    }}
-                                  />
-                                </CCol>
-                                <div className="colDateText d-flex text-light-gray align-items-center pt-3"> To</div>
-                                <CCol lg={4} sm={10} className="colDate pt-3">
-                                  <DatePicker
-                                    ref={dateTo}
-                                    arrowStyle
-                                    firstValue={allFilter?.firstValue}
-                                    onOpen={() => dateTo.current.openDatePicker('from')}
-                                    classNameInput="form-control"
-                                    getDate={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dataHidden, dropName: 'toDate' })}
-                                    placeHolder="Select Date"
-                                    fromMonth={defaultDate?.minDate}
-                                    toMonth={defaultDate?.maxDate}
-                                    selectedDates={allFilter?.toDate}
-                                    messageRequired
-                                    messageParam={{
-                                      column: 'validDates',
-                                      columnText: 'Date To',
-                                      fieldName: 'toDate',
-                                      style: 'position-absolute',
-                                      checkDateTo:
-                                        allFilter?.fromDate &&
-                                        allFilter?.fromDate > allFilter?.toDate,
-                                    }}
-                                  />
-                                </CCol>
-                              </div>
+                        {
+                          dataHidden.accessor === 'site' && dataHidden.hiddenFilter === true &&
+                          (
+                            <CCol
+                              sm={4}
+                              lg={2}
+                              className={`px-0 mr-3 pt-3 ${filterSite === true ? null : ' d-none'}`}
+                            >
+                              {user?.site ? (
+                                <input
+                                  value={siteCheck(siteData, user.site)}
+                                  className="form-control sh-input"
+                                  readOnly
+                                />
+                              ) : (
+                                <Dropdown
+                                  show
+                                  placeholder={dataHidden.name}
+                                  options={siteData}
+                                  onChangeDropdown={(selected) => changeValue({ selected, setAllFilter, allFilter, dispatch, onChangeGetTask, getTask, getTaskParam, columns: 'site', })}
+                                  selectedValue={allFilter?.site}
+                                />
+                              )}
                             </CCol>
-                          </>
-                        ) : (
-                          ''
-                        )}
+                          )
+                        }
+
+                        {
+                          dataHidden.accessor === 'client' && dataHidden.hiddenFilter === true &&
+                          (
+                            <CCol
+                              sm={4}
+                              lg={2}
+                              className={`px-0 mr-3 pt-3 ${filterClient === true ? null : ' d-none'}`}
+                            >
+                              {user?.client ? (
+                                <input
+                                  value={clientCheck(clientData, user.client)}
+                                  className="form-control sh-input"
+                                  readOnly
+                                />
+                              ) : (
+                                <Dropdown
+                                  show
+                                  placeholder={dataHidden.name}
+                                  options={clientData}
+                                  onChangeDropdown={(selected) =>
+                                    changeValue({
+                                      selected, setAllFilter, allFilter, dispatch, onChangeGetTask, getTask, getTaskParam, columns: 'client',
+                                    })}
+                                  selectedValue={allFilter?.client}
+                                />
+                              )}
+                            </CCol>
+                          )
+                        }
+
+                        {
+                          dataHidden.accessor === 'status' && dataHidden.hiddenFilter === true &&
+                          (
+                            <CCol
+                              sm={4}
+                              lg={2}
+                              className={`px-0 mr-3 pt-3 ${filterStatus === true ? null : ' d-none'}`}
+                            >
+                              <Dropdown
+                                // show
+                                options={statusDataSH || statusData}
+                                selectedValue={allFilter?.status}
+                                onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'status' })}
+                                placeholder={dataHidden.name}
+                              />
+                            </CCol>
+                          )
+                        }
+
+                        {
+                          dataHidden.accessor === 'orderType' && dataHidden.hiddenFilter === true &&
+                          (
+                            <CCol
+                              sm={4}
+                              lg={2}
+                              className={`px-0 mr-3 pt-3 ${filterOrderType === true ? null : ' d-none'}`}
+                            >
+                              <Dropdown
+                                show
+                                placeholder={dataHidden.name}
+                                options={orderTypeData}
+                                onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'orderType' })}
+                                selectedValue={allFilter?.orderType}
+                              />
+                            </CCol>
+                          )
+                        }
+
+                        {
+                          dataHidden.accessor === 'task' && dataHidden.hiddenFilter === true &&
+                          (
+                            <CCol
+                              sm={4}
+                              lg={2}
+                              className={`px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                            >
+                              <Dropdown
+                                show
+                                placeholder={dataHidden.name}
+                                options={taskData}
+                                onChangeDropdown={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dropName: 'task' })}
+                                selectedValue={allFilter?.task}
+                              />
+                            </CCol>
+                          )
+                        }
+
+                        {
+                          dataHidden.accessor === 'customerpono' && dataHidden.hiddenFilter === true &&
+                          (
+                            <CCol
+                              sm={4}
+                              lg={2}
+                              className={` px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                            >
+                              <input
+                                id="searchInput"
+                                type="text"
+                                className="form-control input-height"
+                                placeholder={dataHidden.name}
+                                value={allFilter?.customerOrderRef}
+                                onChange={(e) => { dispatch({ type: setAllFilter, data: { ...allFilter, customerOrderRef: e.target.value } }); }}
+                                style={{ height: '100%' }}
+                              />
+                            </CCol>
+                          )
+                        }
+                        {
+                          dataHidden.accessor === 'vendororderno' && dataHidden.hiddenFilter === true &&
+                          (
+                            <CCol
+                              sm={4}
+                              lg={2}
+                              className={` px-0 mr-3 pt-3 ${filterTask === true ? null : ' d-none'}`}
+                            >
+                              <input
+                                id="searchInput"
+                                type="text"
+                                className="form-control input-height"
+                                value={allFilter?.vendorOrderNo}
+                                placeholder={dataHidden.name}
+                                onChange={(e) => { dispatch({ type: setAllFilter, data: { ...allFilter, vendorOrderNo: e.target.value } }); }}
+                                style={{ height: '100%' }}
+                              />
+                            </CCol>
+                          )
+                        }
+
+                        {
+                          dateFilter.includes(dataHidden.accessor) && dataHidden.hiddenFilter === true &&
+                          (
+                            <>
+                              <CCol lg={7}>
+                                <div className="d-flex">
+                                  <div className="colDateText d-flex text-light-gray align-items-center pt-3 pr-3">
+                                    {dataHidden.name}
+                                  </div>
+                                  <div className="colDateText d-flex text-light-gray align-items-center pt-3"> From</div>
+                                  <CCol lg={4} sm={10} className="colDate pt-3">
+                                    <DatePicker
+                                      arrowStyle
+                                      getDate={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dataHidden, dropName: 'fromDate' })}
+                                      placeHolder="Select Date"
+                                      onChange={() => { dateTo.current.openDatePicker(); }}
+                                      classNameInput="form-control"
+                                      onOpen={(e) => { if (e) dateTo.current.openDatePicker(); }}
+                                      fromMonth={defaultDate?.minDate}
+                                      toMonth={defaultDate?.maxDate}
+                                      selectedDates={allFilter?.fromDate}
+                                      messageRequired
+                                      messageParam={{
+                                        column: 'validDates',
+                                        columnText: 'Date From',
+                                        fieldName: 'fromDate',
+                                        style: 'position-absolute',
+                                      }}
+                                    />
+                                  </CCol>
+                                  <div className="colDateText d-flex text-light-gray align-items-center pt-3"> To</div>
+                                  <CCol lg={4} sm={10} className="colDate pt-3">
+                                    <DatePicker
+                                      ref={dateTo}
+                                      arrowStyle
+                                      firstValue={allFilter?.firstValue}
+                                      onOpen={() => dateTo.current.openDatePicker('from')}
+                                      classNameInput="form-control"
+                                      getDate={(selected) => changeDropdown({ selected, dispatch, setAllFilter, allFilter, dataHidden, dropName: 'toDate' })}
+                                      placeHolder="Select Date"
+                                      fromMonth={defaultDate?.minDate}
+                                      toMonth={defaultDate?.maxDate}
+                                      selectedDates={allFilter?.toDate}
+                                      messageRequired
+                                      messageParam={{
+                                        column: 'validDates',
+                                        columnText: 'Date To',
+                                        fieldName: 'toDate',
+                                        style: 'position-absolute',
+                                        checkDateTo:
+                                          allFilter?.fromDate &&
+                                          allFilter?.fromDate > allFilter?.toDate,
+                                      }}
+                                    />
+                                  </CCol>
+                                </div>
+                              </CCol>
+                            </>
+                          )
+                        }
                       </>
                     );
                   })}
@@ -965,15 +972,6 @@ const Search = ({
       </Modal>
     </>
   );
-};
-
-Search.propTypes = {
-  placeholder: PropTypes.string.isRequired,
-  filterSite: PropTypes.bool.isRequired,
-  filterClient: PropTypes.bool.isRequired,
-  filterStatus: PropTypes.bool.isRequired,
-  filterOrderType: PropTypes.bool.isRequired,
-  filterTask: PropTypes.bool.isRequired,
 };
 
 export default Search;

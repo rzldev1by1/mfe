@@ -332,7 +332,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Pack ID',
     Header: 'Pack ID',
     sortable: true,
-    width: 70,
+    width: 90,
     headerStyle: { textAlign: 'left' },
     sortType: 'float',
     Cell: (props) => {

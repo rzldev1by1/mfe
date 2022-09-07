@@ -107,13 +107,14 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
 export const onChange = ({ e, page, setPage, setValuePaging }) => {
   const newPage = { ...page };
   const valuePage = e.target.value
-  if (setValuePaging) setValuePaging(valuePage)
+
+  if (setValuePaging) setValuePaging(+valuePage)
 
   if (valuePage === '') {
     newPage.goPage = '';
     setPage(newPage);
   } else {
-    newPage.goPage = parseInt(valuePage.substring(valuePage.length - 1), 10);
+    newPage.goPage = +valuePage
     setPage(newPage);
   }
 };

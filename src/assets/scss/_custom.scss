@@ -753,7 +753,7 @@ header {
       .rt-thead {
         .rt-tr {
           .rt-th:last-child {
-            display: none;
+            justify-content: start;
           }
         }
       }

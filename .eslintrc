@@ -1,7 +1,8 @@
 {
-  "parser": "@babel/eslint-parser",
   "parserOptions": {
+    "parser": "@babel/eslint-parser",
     "sourceType": "module",
+    "requireConfigFile": false, 
     "allowImportExportEverywhere": false,
     "codeFrame": false
   },
