@@ -186,7 +186,7 @@ const EditRenameColumn = ({
 
                   <NavItem className="pl-2 pr-0">
                     <NavLink
-                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '2' ? ' tab-rename' : ''
+                      className={`nav-link-cuts d-flex align-items-center tab-color${state.activeTab === '2' ? ' tab-rename' : ''
                         }`}
                       active={state.activeTab === '2'}
                       onClick={() => {
@@ -390,7 +390,7 @@ const EditRenameColumn = ({
                     </Col>
                     {fields &&
                       fields.map((item) => {
-                        return <Required id={item.Header} error={state.error} />;
+                        return <Required key={item.Header} id={item.Header} error={state.error} />;
                       })}
                     <Button
                       variant="primary"
