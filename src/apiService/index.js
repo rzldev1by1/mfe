@@ -284,7 +284,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.completed = m.completed == 'Y' ? 'Yes' : 'x';
       m.released = m.released == 'Y' ? 'Yes' : 'x';
-      m.pallet = m.pallet.toString()
+      m.pallet = m.pallet?.toString()
 
       // Supplier Management
       m.carton_qty = numeral(m.carton_qty).format('0,0'); // carton_qty
