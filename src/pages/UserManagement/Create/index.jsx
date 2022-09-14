@@ -155,7 +155,7 @@ const Create = ({ show, setShow }) => {
   }
 
   return (
-    <div>
+    <>
       <Modal show={show} size="xl" className="purchase-order-create">
         <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'}  p-0 rounded-top rounded-bottom`}>
           <Row className="px-9 mx-0">
@@ -220,7 +220,7 @@ const Create = ({ show, setShow }) => {
         </Modal.Body>
       </Modal>
       {ActiveMassage}
-    </div>
+    </>
   );
 };
 

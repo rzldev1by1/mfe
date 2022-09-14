@@ -117,35 +117,38 @@ const Search = ({
   const arrayFilterSearch = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
   const [triggerColumn, setTriggerColumn] = useState(false);
   const [dropdownValue, setDropdownValue] = useState();
-
   const newDropdownValue = { ...dropdownValue };
 
-  const search = async (e) => {
-    if (e.key === 'Enter') {
-      dispatch({ type: paramData, data: [] });
-      await getSummaryData({
-        e,
-        siteVal: allFilter?.site?.value,
-        clientVal: allFilter?.client?.value,
-        orderType: allFilter?.orderType,
-        task: allFilter?.task,
-        status: allFilter?.status,
-        typeDate: allFilter?.typeDate,
-        fromDate: allFilter?.fromDate,
-        toDate: allFilter?.toDate,
-        vendorOrderNo: allFilter?.vendorOrderNo,
-        customerOrderRef: allFilter?.customerOrderRef,
-        searchInput,
-        columnFilter,
-        dispatch,
-        module,
-        user,
-      });
-      if (setExportTable) {
-        setExportTable(false);
-      }
-    }
+  const handleSubmit = e => {
+    e.preventDefault();
+    let valueSite = ''
+    let valueClient = ''
+    if (user.site) valueSite = user?.site
+    else if (allFilter?.site) valueSite = allFilter.site.value
+
+    if (user.client) valueClient = user?.client
+    else if (allFilter?.client) valueClient = allFilter.client.value
+    getSummaryData({
+      siteVal: valueSite,
+      clientVal: valueClient,
+      orderType: allFilter?.orderType,
+      task: allFilter?.task,
+      status: allFilter?.status,
+      typeDate: allFilter?.typeDate,
+      fromDate: allFilter?.fromDate,
+      toDate: allFilter?.toDate,
+      vendorOrderNo: allFilter?.vendorOrderNo,
+      customerOrderRef: allFilter?.customerOrderRef,
+      columnFilter,
+      dispatch,
+      searchInput,
+      module,
+      user,
+    });
+    dispatch({ type: paramData, data: [] });
+    setExportTable(false);
   };
+
   const handleFulfill = () => {
     getDetailData({ dispatch, props, active: paginationSoDetail?.active, module, fulfill: true });
   };
@@ -241,7 +244,6 @@ const Search = ({
       else if (allFilter?.client) valueClient = allFilter.client.value
       else valueClient = ''
 
-
       getSummaryData({
         siteVal: valueSite,
         clientVal: valueClient,
@@ -265,7 +267,7 @@ const Search = ({
 
   const contentSearch = () => {
     return (
-      <form>
+      <form onSubmit={handleSubmit}>
         <CRow className="mx-0">
           {inputTag ? (
             <CCol lg={module === 'UserManagement' ? 11 : 3} className="pl-0 mobile-input">
@@ -280,8 +282,8 @@ const Search = ({
                   type="text"
                   className="form-control border-left-0 input-height"
                   placeholder={placeholder}
+                  value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  onKeyPress={(e) => search(e)}
                   style={{ height: '100%' }}
                 />
               </div>
@@ -293,21 +295,8 @@ const Search = ({
           {module === 'UserManagement' ? (
             <CCol lg={1} className="pr-0">
               <button
-                type="button"
+                type="submit"
                 className="btn btn-search mobile-search  btn-primary float-right"
-                onClick={() =>
-                  getSummaryData({
-                    siteVal: user.site ? user.site : allFilter.site?.value,
-                    clientVal: user.client ? user.client : allFilter.client?.value,
-                    orderType: allFilter.orderType,
-                    task: allFilter.task,
-                    status: allFilter.status,
-                    dispatch,
-                    searchInput,
-                    columnFilter,
-                    module,
-                    user,
-                  }) && dispatch({ type: paramData, data: [] })}
               >
                 SEARCH
               </button>
@@ -477,24 +466,8 @@ const Search = ({
                   )}
                   {btnSearch ? (
                     <button
-                      type="button"
+                      type="submit"
                       className="btn btn-search mobile-search btn-primary float-right"
-                      onClick={() => {
-                        getSummaryData({
-                          siteVal: user.site ? user.site : allFilter.site?.value,
-                          clientVal: user.client ? user.client : allFilter.client?.value,
-                          orderType: allFilter.orderType,
-                          task: allFilter.task,
-                          status: allFilter.status,
-                          columnFilter,
-                          dispatch,
-                          searchInput,
-                          module,
-                          user,
-                        });
-                        dispatch({ type: paramData, data: [] });
-                        setExportTable(false);
-                      }}
                     >
                       SEARCH
                     </button>
@@ -566,7 +539,7 @@ const Search = ({
 
   const contentSearchFilter = () => {
     return (
-      <form>
+      <form onSubmit={handleSubmit}>
         <CRow className="mx-0">
           {inputTag ? (
             <CCol lg={11} className="px-0 mobile-input">
@@ -580,9 +553,9 @@ const Search = ({
                   id="searchInput"
                   type="text"
                   className="form-control border-left-0 ml-0 input-height"
+                  value={searchInput}
                   placeholder={placeholder}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  onKeyPress={(e) => search(e)}
                   style={{ height: '100%' }}
                 />
               </div>
@@ -592,38 +565,8 @@ const Search = ({
           )}
           <CCol lg={1} className="d-flex justify-content-lg-end pr-0">
             <Button
-              type="button"
+              type="submit"
               className="btn-search icon-search-filter mobile-search"
-              onClick={() => {
-                let valueSite
-                let valueClient
-                if (user.site) valueSite = user?.site
-                else if (allFilter?.site) valueSite = allFilter.site.value
-                else valueSite = ''
-
-                if (user.client) valueClient = user?.client
-                else if (allFilter?.client) valueClient = allFilter.client.value
-                else valueClient = ''
-                getSummaryData({
-                  siteVal: valueSite,
-                  clientVal: valueClient,
-                  orderType: allFilter?.orderType,
-                  task: allFilter?.task,
-                  status: allFilter?.status,
-                  typeDate: allFilter?.typeDate,
-                  fromDate: allFilter?.fromDate,
-                  toDate: allFilter?.toDate,
-                  vendorOrderNo: allFilter?.vendorOrderNo,
-                  customerOrderRef: allFilter?.customerOrderRef,
-                  columnFilter,
-                  dispatch,
-                  searchInput,
-                  module,
-                  user,
-                });
-                dispatch({ type: paramData, data: [] });
-                setExportTable(false);
-              }}
             >
               <i className="ri-search-line" />
             </Button>
