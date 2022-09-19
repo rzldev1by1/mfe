@@ -73,7 +73,6 @@ const Search = ({
   paginationSoDetail,
   props,
   spDetailTable,
-  setExportTable,
 }) => {
   let paramData
   let getDataFilter
@@ -146,7 +145,6 @@ const Search = ({
       user,
     });
     dispatch({ type: paramData, data: [] });
-    setExportTable(false);
   };
 
   const handleFulfill = () => {
