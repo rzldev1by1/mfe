@@ -26,7 +26,6 @@ const PurchaseOrders = (props) => {
   const exportData = useSelector((state) => state.exportData);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
-  const [exportTable, setExportTable] = useState(true);
   const [columnHidden, setColumnHidden] = useState(null);
   const [state2, setState2] = useState(null);
   const module = 'purchaseOrder';
@@ -148,12 +147,10 @@ const PurchaseOrders = (props) => {
             Export={Export}
             btnSearch
             inputTag
-            setExportTable={setExportTable}
           />
         </div>
         <div>
           <TableMaster
-            exportTable={exportTable}
             onClick={showDetails}
             schemaColumn={schemaColumn}
             data={poSummaryData}

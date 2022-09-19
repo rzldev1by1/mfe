@@ -28,7 +28,6 @@ const TableMaster = ({
   exportBtn,
   editOrderQty,
   editCarton,
-  exportTable,
 }) => {
   return (
     <div>
@@ -65,7 +64,6 @@ const TableMaster = ({
             ? '' : exportBtn &&
             (
               <Export
-                exportTable={exportTable}
                 filename={filename}
                 getExportData={getExportData}
                 exportApi={exportApi}
