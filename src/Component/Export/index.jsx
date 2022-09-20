@@ -17,7 +17,6 @@ const Export = ({
   secondTable = false,
   customExportXls,
   customExportPdf,
-  exportTable,
 }) => {
   const dispatch = useDispatch();
   const exportData = useSelector((state) => state.exportData);
@@ -102,14 +101,13 @@ const Export = ({
       <ButtonDropdown
         direction="up"
         style={styleButton}
-        disabled={exportTable}
         className='d-flex float-right align-items-center mr-1'
         isOpen={dropdownOpen}
         toggle={() => {
           setDropdownOpen(!dropdownOpen);
         }}
       >
-        <DropdownToggle className={`Dropdown-toggel align-items-center  ${exportTable ? 'disableExport' : ''}`}>
+        <DropdownToggle className="Dropdown-toggel align-items-center">
           <div style={{ fontSize: '0.875rem', letterSpacing: '1px' }}>
             {exportStatus === 'ready' ? (
               'EXPORT'

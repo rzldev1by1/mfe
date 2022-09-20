@@ -120,6 +120,7 @@ export const getSummaryData = async ({
       urls.push(`client=${UserClient}`);
       urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
       urls.push(`status=${status ? status.value : 'open'}`);
+      urls.push(`page=${active || 1}`);
       if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
       if (customerOrderRef) urls.push(`customerOrderRef=${customerOrderRef}`);
       if (vendorOrderNo) urls.push(`vendorOrderNo=${vendorOrderNo}`);
@@ -133,7 +134,6 @@ export const getSummaryData = async ({
         })
       }
     }
-    urls.push(`page=${active || 1}`);
 
     if (Export === true) urls.push('export=true');
     else dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
@@ -284,6 +284,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.completed = m.completed == 'Y' ? 'Yes' : 'x';
       m.released = m.released == 'Y' ? 'Yes' : 'x';
+      m.pallet = m.pallet?.toString()
 
       // Supplier Management
       m.carton_qty = numeral(m.carton_qty).format('0,0'); // carton_qty

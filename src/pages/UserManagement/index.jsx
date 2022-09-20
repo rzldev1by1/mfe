@@ -26,14 +26,12 @@ const UserManagement = (props) => {
 
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 335,
-    width: window.innerWidth,
   });
-  const { width, height } = dimension;
+  const { height } = dimension;
   useEffect(() => {
     const handleResize = () => {
       setDimension({
         height: window.innerHeight - 335,
-        width: window.innerWidth,
       });
     };
     window.addEventListener('resize', handleResize);
@@ -57,6 +55,7 @@ const UserManagement = (props) => {
       setExport(false);
     }
   }, [Export]);
+
 
   return (
     <div className="userManagement">
@@ -104,7 +103,7 @@ const UserManagement = (props) => {
           onClick={showDetails}
           schemaColumn={schemaColumn}
           data={umSummaryData}
-          style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
+          style={{ minHeight: height, maxHeight: height }}
           module={module}
           noDataText
           pagination={paginationUm}
