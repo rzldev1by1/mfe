@@ -871,6 +871,11 @@ header {
   justify-content: flex-end !important;
 }
 
+.align-center {
+  display: flex !important;
+  justify-content: center !important;
+}
+
 .input-danger {
   border-color: #e55353 !important;
 }
