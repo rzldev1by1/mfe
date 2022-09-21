@@ -27,17 +27,17 @@ input.form-control {
 .btn-outline-active {
   width: 115px !important;
   height: 40px !important;
-  border: 1.5px solid #3366ff;
+  border: 1.5px solid #3366ff !important;
   border-radius: 5px;
-  color: #3366ff;
+  color: #3366ff !important;
   white-space: nowrap;
 }
 
 .btn-outline-notActive {
   width: 115px !important;
   height: 40px !important;
-  color: #d5d8da;
-  border: 1.5px solid #d5d8da;
+  color: #d5d8da !important;
+  border: 1.5px solid #d5d8da !important;
   border-radius: 5px;
   white-space: nowrap;
 }
@@ -49,27 +49,28 @@ input.form-control {
 .btn-outline-All-notActive {
   width: 115px !important;
   height: 40px !important;
-  background-color: #d5d8da;
-  color: #ffffff;
-  border: 1.5px solid #d5d8da;
+  background-color: #d5d8da !important;
+  color: #ffffff !important;
+  border: 1.5px solid #ffffff !important;
   border-radius: 5px;
 }
 
 .btn-outline-All-active {
   width: 115px !important;
   height: 40px !important;
-  border: 1.5px solid #3366ff;
+  border: 1.5px solid #3366ff !important;
   border-radius: 5px;
-  background-color: #3366ff;
-  color: #ffffff;
+  background-color: #3366ff !important;
+  color: #ffffff !important;
 }
 
 .btn-outline-All-notActive:hover {
+  background-color: #637176;
   color: #ffffff !important;
 }
 
 .btn-outline-All-active:hover {
-  color: #3366ff !important;
+  color: #3366ff;
 }
 
 .btn-outline-active:hover {
@@ -77,7 +78,8 @@ input.form-control {
 }
 
 .btn-outline-notActive:hover {
-  color: #d5d8da !important;
+  color: #637176;
+  background-color: #d5d8da !important;
 }
 
 .default-box-height {
