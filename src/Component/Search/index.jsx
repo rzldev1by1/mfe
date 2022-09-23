@@ -551,7 +551,7 @@ const Search = ({
                   id="searchInput"
                   type="text"
                   className="form-control border-left-0 ml-0 input-height"
-                  value={searchInput ? searchInput : ''}
+                  value={searchInput || ''}
                   placeholder={placeholder}
                   onChange={(e) => setSearchInput(e.target.value)}
                   style={{ height: '100%' }}
