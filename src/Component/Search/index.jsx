@@ -551,7 +551,7 @@ const Search = ({
                   id="searchInput"
                   type="text"
                   className="form-control border-left-0 ml-0 input-height"
-                  value={searchInput}
+                  value={searchInput ? searchInput : ''}
                   placeholder={placeholder}
                   onChange={(e) => setSearchInput(e.target.value)}
                   style={{ height: '100%' }}
@@ -860,7 +860,7 @@ const Search = ({
           <CRow className='px-2'>
             {columnFilter && columnFilter.map((item) => {
               return (
-                <CCol lg={3} className="px-2 py-2">
+                <CCol lg={3} key={`column-filter${item.name}`} className="px-2 py-2">
                   <button
                     type="button"
                     onClick={() => {

@@ -160,7 +160,7 @@ const Export = ({
             <tr>
               {schemaColumn?.map((data) => {
                 return (
-                  <th key={data.header} id={data.accessor}>
+                  <th key={`schemaColumn-${data.Header}`} id={data.accessor}>
                     {data.Header}
                   </th>
                 );
