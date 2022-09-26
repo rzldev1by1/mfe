@@ -321,7 +321,6 @@ const EditRenameColumn = ({
                                 autoComplete="off"
                                 placeholder={item.placeholder}
                                 name={item.Header}
-                                sortable={item.sortable}
                                 onChange={(e) => changedColumn({ e, state, setState, fields })}
                                 className={`text-left form-rename ${state.sameColumnsIdx?.includes(index.toString()) ? ' input-danger' : ''
                                   }`}
