@@ -1,4 +1,4 @@
-const version = process.env.REACT_APP_API_URL_VERSION;
+const version = process.env.REACT_APP_API_URL_VERSION; /* comment this line when build docker [DOCKER BUILD] */
 export default {
   // Dropdown Start --------------------------------------------------------
   getSite: `/${version}/settings/sites`,
@@ -6,7 +6,7 @@ export default {
   getIsisTask: `/${version}/settings/tasks`,
   getProduct: `/${version}/products/typeahead`,
   getUom: '/dropdown/getuom',
-  getDisposition: `/${version}/settings/dispositions`,
+  getDisposition: `${version}/settings/dispositions`,
 
   getOrderNo: '/dropdown/getorderno',
   getSupplier: `/${version}/settings/suppliers`,
@@ -47,15 +47,13 @@ export default {
   userManagementUpdate: `/${version}/users/`,
   userManagementresetpassword: `/${version}/users/`,
   userManagementCheckMailValidation: `/${version}/users/check-email`,
+  userManagementUpgradeUser: `/${version}/users/upgrade-role`,
   // User Management End --------------------------------------------------------
 
   // Supplier Management ----------------------------------------------------
   supplierManagement: `${version}/supplier-management`,
   // Supplier Management End ----------------------------------------------------
 
-  //DarkMode
-  drakMode: `/${version}/settings/dark-mode`,
-  //DarkMode End
   stockDateRange: `/${version}/stocks/movement/date-range`,
   stockAgeProfile: '/stockageprofile',
 
@@ -64,5 +62,8 @@ export default {
   resetPassword: '/auth/forgot-password',
 
   orderCheck: '/orderCheck',
-  env: process.env
+  drakMode: `/${version}/settings/dark-mode`,
+
+  env: process.env /* comment this line when build docker [DOCKER BUILD] */
+  // env: window._env_ /* uncomment this line when build docker [DOCKER BUILD]] */
 };

@@ -1,32 +1,82 @@
-// .stockMovement {
-//   .rt-tbody {
-//     display: flow-root;
-//   }
-//   .rt-thead {
-//     flex: none !important;
-//   }
-//   .z-99 {
-//     z-index: 99;
-//   }
-// }
-
 .stockMovement {
+  .dateFromLabel-col {
+    text-align: right;
+  }
+
   .text-center {
     justify-content: center;
   }
-  .ReactTable .rt-table .rt-thead .rt-tr .rt-th {
-    display: block;
-  }
-  .ReactTable .rt-table .rt-tr .rt-td {
-    display: block !important;
+
+  .ReactTable {
+    border: none !important;
+    .rt-tr-group {
+      flex: none !important;
+    }
+    .rt-table {
+      .-headerGroups {
+        .rt-tr {
+          .rt-th {
+            text-align: center !important;
+            padding-bottom: 0px !important;
+            height: 30px;
+          }
+          .rt-th:focus {
+            color: #b4b9bb !important;
+            border: 0px solid !important;
+            outline: none;
+          }
+        }
+      }
+      .-headerGroups:focus {
+        color: #b4b9bb !important;
+      }
+      .-header {
+        .rt-tr {
+          border-bottom: 0px solid #e0e2e4;
+          .rt-th {
+            border-bottom: 2px solid #e0e2e4;
+          }
+          .rt-th:focus {
+            outline: none;
+          }
+        }
+      }
+      .rt-thead {
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        flex: none !important;
+        border-bottom: 0px solid #e0e2e4;
+        .rt-tr {
+          flex: none !important;
+          background-color: white !important;
+          .rt-th {
+            display: block !important;
+          }
+        }
+      }
+      .rt-tbody {
+        .rt-tr-group {
+          border-bottom: 0px;
+          .rt-td {
+            border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+          }
+        }
+        .rt-tr-group:last-child {
+          border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
   }
 
   .dropdown-single {
     left: -40px !important;
   }
+
   .row {
     margin-right: 0px !important;
     margin-left: 0px !important;
+
     div {
       .card-group {
         .card:last-child {
@@ -39,6 +89,7 @@
       }
     }
   }
+
   .css-1wa3eu0-placeholder {
     color: #b4b9bb !important;
   }
@@ -59,13 +110,16 @@
                   border: none !important;
                 }
               }
+
               @media (min-width: 576px) and (max-width: 991px) {
                 padding-right: 0px !important;
               }
+
               @media (max-width: 575px) {
                 padding-right: 0px !important;
               }
             }
+
             @media (min-width: 576px) and (max-width: 991px) {
               .dateFromLabel-col,
               .dateToLabel-col {
@@ -75,6 +129,7 @@
                 text-align: right !important;
               }
             }
+
             @media (max-width: 575px) {
               .dateFromLabel-col,
               .dateToLabel-col {
@@ -85,34 +140,42 @@
             }
           }
         }
+
         .sm-second-col {
           .row {
             .site-col {
               .css-2b097c-container {
                 border: none !important;
               }
+
               @media (min-width: 992px) and (max-width: 1787px) {
                 padding-left: 0px !important;
               }
+
               @media (min-width: 576px) and (max-width: 991px) {
                 padding-left: 0px !important;
               }
+
               @media (max-width: 575px) {
                 padding: 0px !important;
               }
             }
+
             .client-col {
               .css-2b097c-container {
                 border: none !important;
               }
+
               @media (max-width: 575px) {
                 padding: 1rem 0rem !important;
               }
             }
+
             .product-col {
               .css-2b097c-container {
                 border: none !important;
               }
+
               @media (min-width: 576px) and (max-width: 991px) {
                 flex: 0 0 33% !important;
                 padding-right: 0px !important;
@@ -123,6 +186,7 @@
                 padding-right: 0px !important;
               }
             }
+
             .searchButton-col {
               .btn {
                 width: 105px;
@@ -133,12 +197,14 @@
                   width: 100% !important;
                 }
               }
+
               @media (min-width: 576px) and (max-width: 991px) {
                 padding-left: 0px !important;
                 padding-top: 1rem !important;
                 flex: 0 0 100% !important;
                 max-width: 100% !important;
               }
+
               @media (max-width: 575px) {
                 padding-left: 0px !important;
                 padding-top: 1rem !important;
@@ -147,41 +213,50 @@
               }
             }
           }
+
           @media (max-width: 1400px) {
             padding-top: 1rem !important;
           }
+
           @media (min-width: 992px) and (max-width: 1787px) {
             flex: 0 0 100% !important;
             max-width: 100% !important;
             padding-top: 1rem !important;
           }
+
           @media (min-width: 576px) and (max-width: 991px) {
             flex: 0 0 100% !important;
             max-width: 100% !important;
             padding-top: 1rem !important;
           }
+
           @media (max-width: 575px) {
             flex: 0 0 100% !important;
             max-width: 100% !important;
             padding-top: 1rem !important;
           }
         }
+
         div {
           .input-group {
             .form-control {
               max-height: 50px !important;
               height: 50px !important;
             }
+
             max-height: 50px !important;
             height: 50px !important;
           }
+
           .l-r-0 {
             .px-0 {
               .css-2b097c-container {
                 border: none !important;
+
                 .css-yk16xz-control {
                   max-height: 50px !important;
                   height: 50px !important;
+
                   .css-g1d714-ValueContainer {
                     padding-left: 0.8rem !important;
                   }
@@ -192,12 +267,15 @@
                 }
               }
             }
+
             .pl-3 {
               .css-2b097c-container {
                 border: none !important;
+
                 .css-yk16xz-control {
                   max-height: 50px !important;
                   height: 50px !important;
+
                   .css-g1d714-ValueContainer {
                     padding-left: 0.8rem !important;
                   }
@@ -207,19 +285,23 @@
           }
         }
       }
+
       @media (max-width: 1400px) {
         flex-direction: column !important;
       }
+
       @media (min-width: 992px) and (max-width: 1787px) {
         .main-con {
           flex-direction: column !important;
         }
       }
+
       @media (min-width: 576px) and (max-width: 991px) {
         .main-con {
           flex-direction: column !important;
         }
       }
+
       @media (max-width: 575px) {
         .main-con {
           flex-direction: column !important;
@@ -227,30 +309,12 @@
       }
     }
   }
-
-  .ReactTable {
-    border: none !important;
-    .rt-table {
-      .-headerGroups {
-        .rt-tr {
-          .rt-th {
-            text-align: center !important;
-          }
-        }
-      }
-    }
-  }
-}
-
-.stockMovement {
-  .dateFromLabel-col {
-    text-align: right;
-  }
 }
 
 .btn-light {
   background-color: #fff !important;
 }
+
 .pagination-block {
   border-radius: 5px;
   background-color: #fff;
@@ -265,12 +329,6 @@
 .bold {
   font-weight: bold;
 }
-
-// .edit-column {
-//   text-align: center;
-//   cursor: pointer;
-//   margin-top: -2px !important;
-// }
 
 .paging {
   background-color: white;
@@ -299,6 +357,7 @@
   border-radius: 5px;
   justify-content: center;
 }
+
 .go-page span {
   align-self: center;
 }
@@ -320,6 +379,7 @@
   display: flex;
   align-self: center;
 }
+
 .btn-go {
   margin: 0px 3px 0px 5px;
   box-shadow: none !important;
@@ -338,6 +398,7 @@
     padding-right: 0px;
     padding-left: 0px;
   }
+
   .col-button {
     display: grid;
     flex-direction: row;
@@ -351,9 +412,11 @@
   .col-go-page {
     padding-left: 0px;
   }
+
   .col-text-entries {
     justify-content: center;
   }
+
   .col-button {
     display: grid;
     flex-direction: row;
@@ -364,27 +427,26 @@
 .stockMovement .rt-table {
   border: none;
   background-color: white;
+  border-radius: 4px;
   border-radius: 0.25rem;
 }
 
 .stockMovement .rt-tbody .rt-tr:hover {
   background-color: #eee;
 }
+
 .-sort-asc,
 .-sort-desc {
   box-shadow: none !important;
 }
 
-.stockMovement .rt-thead {
-  padding: 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-}
 .stockMovement .rt-th {
+  min-height: 100%;
   height: 46px;
   border-right: none !important;
   padding: 10px 10px !important;
 }
+
 .stockMovement .rt-th svg {
   margin-top: -3px;
 }
@@ -392,22 +454,15 @@
 .stockMovement .rt-td:first-child {
   padding-left: 10px !important;
 }
+
 .stockMovement .rt-td {
   padding: 10px 10px !important;
   border-right: none !important;
 }
 
-.stockMovement .ReactTable .rt-tbody .rt-tr-group:last-child {
-  border-bottom: solid 1px rgba(0, 0, 0, 0.05);
-}
-
 .stockMovement .borderRight {
   border-right: 1px solid #d5d8da !important;
 }
-
-/* .stockMovement .borderBottom {
-  border-bottom: 0.5px solid #d5d8da !important;
-} */
 
 .stockMovement .noBorderBottom {
   border-bottom: 0px !important;
@@ -422,75 +477,9 @@
   white-space: break-spaces !important;
 }
 
-.stockMovement .ReactTable .rt-thead {
-  flex: none !important;
-}
-
-.stockMovement .ReactTable .rt-tr {
-  flex: none !important;
-}
-
-.stockMovement .ReactTable .rt-thead {
-  border-bottom: 0px solid #e0e2e4;
-}
-
-.stockMovement .ReactTable .rt-tr-group {
-  flex: none !important;
-}
-
 .stockMovement .dateHeader {
   padding-top: 10px !important;
 }
-
-.stockMovement .rt-th {
-  min-height: 100%;
-}
-
-.stockMovement .rt-thead.-headerGroups {
-  border-bottom: 0px !important;
-}
-
-.stockMovement .rt-tr > .noPaddingTop {
-  padding-top: 0px !important;
-}
-
-.stockMovement .ReactTable .rt-thead.-header > .rt-tr > .rt-th:focus {
-  outline: none;
-}
-
-.stockMovement .ReactTable .rt-thead.-headerGroups:focus {
-  color: #b4b9bb !important;
-}
-
-.stockMovement .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th:focus {
-  color: #b4b9bb !important;
-  border: 0px solid !important;
-  outline: none;
-}
-
-.stockMovement .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th {
-  padding-bottom: 0px !important;
-  height: 30px;
-}
-
 .blueColor {
   color: #3366ff !important;
-}
-
-.stockMovement .ReactTable .rt-tbody .rt-tr-group {
-  border-bottom: 0px;
-}
-.stockMovement .ReactTable .rt-tbody .rt-tr-group .rt-td {
-  border-bottom: solid 1px rgba(0, 0, 0, 0.05);
-}
-.stockMovement .ReactTable .rt-tr {
-  background-color: white !important;
-}
-
-.stockMovement .ReactTable .-header .rt-tr {
-  border-bottom: 0px solid #e0e2e4;
-}
-
-.stockMovement .ReactTable .-header .rt-tr .rt-th {
-  border-bottom: 2px solid #e0e2e4;
 }

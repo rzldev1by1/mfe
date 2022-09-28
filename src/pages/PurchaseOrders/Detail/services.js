@@ -1,18 +1,4 @@
 import React from 'react';
-// https://github.com/tannerlinsley/react-table/issues/94
-
-// const getColumnWidth = (data, accessor, headerText) => {
-//   if (typeof accessor === 'string' || accessor instanceof String) {
-//     accessor = d => d[accessor]; // eslint-disable-line no-param-reassign
-//   }
-//   const maxWidth = 600;
-//   const magicSpacing = 10;
-//   const cellLength = Math.max(
-//     ...data.map(row => (`${accessor(row)}` || '').length),
-//     headerText.length,
-//   );
-//   return Math.min(maxWidth, cellLength * magicSpacing);
-// };
 
 export const schemaColumnDetailPO = [
   {
@@ -102,22 +88,20 @@ export const schemaColumnDetailPO = [
     Header: 'Completed',
     width: 100,
     sortable: true,
-    Cell: (row) => (
-      <span
-        className={`${row.original.completed === 'Yes' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`}
-      />
-    ),
+    Cell: (row) => {
+      const { original } = row
+      return <i className={`${original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    },
   },
   {
     accessor: 'released',
     placeholder: 'Released',
     Header: 'Released',
     width: 100,
-    Cell: (row) => (
-      <span
-        className={`${row.original.released === 'Yes' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`}
-      />
-    ),
+    Cell: (row) => {
+      const { original } = row
+      return <i className={`${original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    },
   },
   {
     accessor: 'batch',
@@ -161,10 +145,6 @@ export const schemaColumnDetailPO = [
   },
 ];
 
-export const setExportData = async ({ dispatch, data }) => {
-  await dispatch({ type: 'EXPORT_DATA', data });
-};
-
 export const headerDetailRight = [
   { accessor: 'site', Header: 'Site' },
   { accessor: 'client', Header: 'Client' },
@@ -172,40 +152,22 @@ export const headerDetailRight = [
   { accessor: 'order_type', Header: 'Order Type' },
   { accessor: 'isis_task', Header: 'Task' },
   { accessor: 'status', Header: 'Status' },
-];
+]
 
 export const headerDetailCenter = [
   { accessor: 'supplier_no', Header: 'Supplier No' },
   { accessor: 'supplier_name', Header: 'Supplier Name' },
   { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   { accessor: 'vendor_ord_ref', Header: 'Vendor Order Ref' },
-];
+]
 
 export const headerDetailLeft = [
   { accessor: 'delivery_date', Header: 'Order Date' },
   { accessor: 'date_received', Header: 'Date Received' },
   { accessor: 'date_released', Header: 'Date Released' },
   { accessor: 'date_completed', Header: 'Date Completed' },
-];
+]
 
-export const siteCheck = ({ val, site }) => {
-  let ret = null;
-  site.map((data) => {
-    if (data?.value !== val) {
-      return 0;
-    }
-    ret = data.label;
-  });
-  return ret;
-};
-
-export const clientCheck = ({ val, client }) => {
-  let ret = null;
-  client.map((data) => {
-    if (data?.value !== val) {
-      return 0;
-    }
-    ret = data.label;
-  });
-  return ret;
+export const setExportData = async ({ dispatch, data }) => {
+  await dispatch({ type: 'EXPORT_DATA', data });
 };

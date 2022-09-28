@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-export const renewColumn = ({ header, icon }) => {
+import React from 'react';
+export const renewColumn = ({ header }) => {
   let listHeader = [];
   header &&
-    header.map((h, index) => {
+    header.map(h => {
       let withIcon = h.Header;
       h.Header = withIcon;
       listHeader = [...listHeader, h];

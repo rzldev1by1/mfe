@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, ModalBody } from 'reactstrap'
-import { useSelector } from 'react-redux';
-import logo from 'assets/img/Internet-Problem-Red.png'
+import logo from '../../../assets/img/Internet-Problem-Red.png'
 import { ProgressBar } from '../service';
 import "./index.scss";
-
 
 const PopUpLoss = ({
   modal,
@@ -12,30 +10,22 @@ const PopUpLoss = ({
   module,
   submitReturn,
 }) => {
-  let message = submitReturn?.message;
+  const message = submitReturn?.message;
   const [statusMessage, setStatusMessage] = useState('');
   const [title, setTitle] = useState('');
 
   useEffect(() => {
-    if (message == 'No Internet Connection') {
+    if (message === 'No Internet Connection') {
       setStatusMessage('Check your Internet Connection');
       setTitle('SORRY');
-    } else if (module == 'UM' && message === 'User created') {
+    } else if (module === 'UM' && message === 'User created') {
       setStatusMessage(
-        'You have created a new ' +
-        submitReturn.role +
-        ' User for ' +
-        submitReturn.name +
-        '. The ' +
-        submitReturn.role +
-        ' User ' +
-        submitReturn.name +
-        ' will receive an email shortly with their user ID and password to access the portal',
+        `You have created a new ${submitReturn.role} User for ${submitReturn.name}. The ${submitReturn.role} User ${submitReturn.name} will receive an email shortly with their user ID and password to access the portal'`,
       );
       setTitle('Thank You');
     } else {
       setStatusMessage(
-        'The ' + (module == 'UM' ? 'user' : 'order') + ' that you tried to create could not be saved to the system.',
+        `The ${module === 'UM' ? 'user' : 'order'} that you tried to create could not be saved to the system.`,
       );
       setTitle('Sorry');
     }
@@ -44,8 +34,6 @@ const PopUpLoss = ({
   setTimeout(() => {
     ProgressBar({ setModal })
   }, 1000);
-  const darkMode = useSelector((state) => state.darkModeMLS);
-  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       isOpen={modal}
@@ -54,13 +42,14 @@ const PopUpLoss = ({
       contentClassName="modal-content-paging modalCreateLoss"
       closeOnBackdrop={false}
     >
-      <ModalBody className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
+      <ModalBody>
         <div
           className="text-right px-0"
           style={{ fontSize: '14px' }}
           onClick={() => { setModal(false); }}
+          aria-hidden="true"
         >
-          <span className="icon-group_4696 pointer" />
+          <i className="iconU-close pointer" />
         </div>
         <div className="d-flex d-inline-flex align-items-center">
           <img src={logo} alt="logo" style={{ width: "25%", height: "25%" }} />
@@ -72,7 +61,8 @@ const PopUpLoss = ({
         <button
           type="button"
           onClick={() => { setModal(false); }}
-          className="btn btn-search mobile-search btn-primary float-right">
+          className="btn btn-search mobile-search btn-primary float-right"
+        >
           DONE
         </button>
       </ModalBody>

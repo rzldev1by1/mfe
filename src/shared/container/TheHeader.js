@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import endpoints from '../../helpers/endpoints';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {
@@ -11,20 +10,18 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CToggler,
 } from '@coreui/react';
+import endpoints from '../../helpers/endpoints';
 import { DarkModeChange } from '../../apiService';
-import LogoDarkMode from 'assets/img/logo-white.png';
-import Logo from 'assets/img/logo_export.png';
+import LogoDarkMode from '../../assets/img/logo-white.png';
+import Logo from '../../assets/img/logo_export.png';
 
-const TheHeader = (props) => {
+const TheHeader = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const darkMode = useSelector((state) => state.darkModeMLS);
-  // const [changeMode, setChangeMode] = useState(null);
-  // const [valueMode, setValueMode] = useState(null);
 
-  const signOut = async (e) => {
+  const signOut = async () => {
     dispatch({ type: 'LOGOUT' });
     const payload = { last_access: new Date().toLocaleString() };
     const ret = await axios.post('auth/logout', payload);
@@ -77,32 +74,15 @@ const TheHeader = (props) => {
                   <div>{user?.name} </div>
                 </div>
               </Link>
-              {/* <CDropdownItem className="menu-item-profil p-0">
-                <div className="menu-item-profil d-flex p-2">
-                  <span className="icon-group_8 icon-drop-menu" />
-                  <div className="d-flex pr-2 align-items-md-center">Company License
-                    <div style={{ marginLeft: "45%" }} >Free</div>
-                  </div>
-                </div>
-              </CDropdownItem>
-              <CDropdownItem className="menu-item-profil p-0">
-                <div className="menu-item-profil d-flex p-2">
-                  <span className="icon-bell icon-drop-menu" />
-                  <div className="d-flex align-items-md-center" style={{ paddingRight: "17rem" }}>Notification
-                    <div style={{ marginLeft: "104%" }}> 445</div>
-                  </div>
-                </div>
-              </CDropdownItem> */}
               <div className="m-info">
                 <p className="my-0 py-2" style={{ paddingLeft: '2%' }}>
                   <div className=" d-flex align-items-md-center">
                     <span className="icon-group_4799 icon-drop-menu" />
                     DarkMode
                     <div style={{ marginLeft: '40%' }}>
-                      {/* <button onClick={() => DarkModeChange({ changeMode, setChangeMode })}>tes</button> */}
                       <CSwitch
-                        shape={'pill'}
-                        color={'secondary'}
+                        shape="pill"
+                        color="secondary"
                         variant="outline"
                         defaultChecked
                         className="switch-profil"
@@ -112,14 +92,6 @@ const TheHeader = (props) => {
                   </div>
                 </p>
               </div>
-              {/* <CDropdownItem className="menu-item-profil p-0">
-                <div className="menu-item-profil d-flex p-2">
-                  <span className="icon-group_9 icon-drop-menu" />
-                  <div className="d-flex pr-2 align-items-md-center">Language
-                    <div style={{ marginLeft: "57%" }}> English US </div>
-                  </div>
-                </div>
-              </CDropdownItem> */}
               <CDropdownItem onClick={() => signOut()} className="menu-item-profil p-0">
                 <div className="menu-item-profil d-flex p-2">
                   <span className="icon-log-out icon-drop-menu" />

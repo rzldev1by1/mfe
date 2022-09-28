@@ -1,59 +1,66 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Modal, ModalBody } from 'reactstrap'
-import logo from 'assets/img/Complete-Create-Green.png'
-import { ProgressBar } from '../service'
-import "./index.scss";
+import { Modal, ModalBody } from 'reactstrap';
+import logo from '../../../assets/img/Complete-Create-Green.png';
+import { ProgressBar } from '../service';
+import './index.scss';
 
-const PopUpCreateSucces = ({
-  modal,
-  setModal,
-  module,
-  submitReturn,
-  exit
-}) => {
+const PopUpCreateSucces = ({ modal, setModal, module, submitReturn, exit }) => {
   setTimeout(() => {
-    ProgressBar({ setModal, exit, status: 'sukses' })
+    ProgressBar({ setModal, exit, status: 'sukses' });
   }, 1000);
-  const darkMode = useSelector((state) => state.darkModeMLS);
-  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       isOpen={modal}
       centered
-      onOpened={() => modal ? setTimeout(() => { setModal(false); exit(); }, 36000) : {}}
+      onOpened={() =>
+        modal
+          ? setTimeout(() => {
+              setModal(false);
+              exit();
+            }, 36000)
+          : {}}
       contentClassName="modal-content-paging modalCreateSuccess"
       closeOnBackdrop={false}
     >
-      <ModalBody className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
+      <ModalBody>
         <div
           className="text-right px-0"
           style={{ fontSize: '14px' }}
-          onClick={() => { setModal(false); exit(); }}
+          onClick={() => {
+            setModal(false);
+            exit();
+          }}
+          aria-hidden="true"
         >
           <i className="iconU-close pointer" />
         </div>
         <div className="d-flex d-inline-flexc align-items-center">
-          <img src={logo} alt="logo" style={{ width: "30%", height: "30%" }} />
+          <img src={logo} alt="logo" style={{ width: '30%', height: '30%' }} />
           <div className="pl-3">
-            <div className="font">
-              Success
-            </div>
+            <div className="font">Success</div>
             <div className="text-muted-soft">
-              The {module}{` `}{submitReturn?.orderNo} {` `}
+              The 
+              {module}
+              {` `}
+              {submitReturn?.orderNo} 
+              {` `}
               has successfully submitted for processing.
             </div>
           </div>
         </div>
         <button
           type="button"
-          onClick={() => { setModal(false); exit(); }}
-          className="btn btn-primary float-right">
+          onClick={() => {
+            setModal(false);
+            exit();
+          }}
+          className="btn btn-search mobile-search btn-primary float-right"
+        >
           DONE
         </button>
       </ModalBody>
     </Modal>
   );
-}
+};
 
 export default PopUpCreateSucces;

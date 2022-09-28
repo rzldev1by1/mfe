@@ -2,13 +2,13 @@ import { resetPassword } from '../../../apiService';
 
 export const closeModalPopupReset = async ({ state, setState }) => {
   let i = 0;
-  if (i == 0) {
+  let id;
+  if (i === 0) {
     i = 1;
-    let element = await document.getElementById('progressBar');
+    const element = document.getElementById('progressBar');
     if (element) {
       let width = 1;
-      let id = setInterval(frame, 130);
-      function frame() {
+      const frame = () => {
         if (width >= 120) {
           clearInterval(id);
           i = 0;
@@ -16,10 +16,11 @@ export const closeModalPopupReset = async ({ state, setState }) => {
           newState.popUpReset = false;
           setState(newState);
         } else {
-          width++;
-          element.style.width = width + "%";
+          width += 1;
+          element.style.width = `${width}%`;
         }
       }
+      id = setInterval(frame, 130);
     }
   }
 };

@@ -17,7 +17,7 @@
   outline: none !important;
 }
 .rename-columns {
-  height: 53px !important;
+  height: 40px !important;
   color: rgb(88, 87, 87);
   width: max-content;
   margin-left: 74%;
@@ -33,11 +33,30 @@
   font-size: 14px !important;
   font-weight: 500;
 }
+
+.tab-rename {
+  color: #5e44e5 !important;
+  background-color: white !important;
+  padding-left: 24px;
+  padding-right: 27px;
+  padding-bottom: 5px;
+  border-radius: 7px;
+}
+
+.tab-color {
+  color: rgb(88, 87, 87);
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 5px;
+  border-radius: 0.3rem;
+  transition: width 2s;
+}
+
 .rename-columns .input-group,
 .rename-columns .input-group .nav-item,
 .rename-columns .input-group .nav-item .tab-rename,
-.rename-columns .input-group .nav-item .tab-renameNonActive {
-  height: 46px !important;
+.rename-columns .input-group .nav-item .tab-color {
+  height: 30px !important;
 }
 .rename-columns .input-group {
   height: 30px !important;
@@ -79,23 +98,23 @@
   color: #376bfb !important;
 }
 
-.bgn-header{
-  background-color: #376BFB;
+.bgn-header {
+  background-color: #376bfb;
 }
-.text-color{
-  color: #376BFB;
+.text-color {
+  color: #376bfb;
 }
 
 //DarkMode
-.drakClose{
-  border: solid 5px  #261E42 ;
-  background-color: #261E42 !important;
+.drakClose {
+  border: solid 5px #261e42;
+  background-color: #261e42 !important;
   color: #fff !important;
 }
-.drakClose:hover{
-  border: solid 5px  #261E42 !important;
-  outline: solid 5px #261E42 !important;
-  background-color: #261E42 !important;
+.drakClose:hover {
+  border: solid 5px #261e42 !important;
+  outline: solid 5px #261e42 !important;
+  background-color: #261e42 !important;
   color: #fff !important;
 }
 

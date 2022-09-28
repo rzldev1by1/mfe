@@ -1,6 +1,6 @@
 import axios from 'axios';
 import validations from './validations';
-import endpoints from 'helpers/endpoints';
+import endpoints from '../../../helpers/endpoints';
 
 export const showColumn = ({ header, length, setState, state }) => {
   const max = length - Object.keys(state.editColumn).length > 1;
@@ -71,18 +71,19 @@ export const changedColumn = ({ e, state, setState, fields, defaults, id, name }
     value = join.join(' ');
   }
 
-  const { newerror, newsameColumns, newsameColumnsIdx } = validations(state, value, ids, fields);
+  const { newError, newSameColumns, newSameColumnsIdx } = validations(state, value, ids, fields);
   const { changedColumns } = state;
-  newVal.error = newerror;
-  newVal.sameColumns = newsameColumns;
-  newVal.sameColumnsIdx = newsameColumnsIdx;
+  newVal.error = newError;
+  newVal.sameColumns = newSameColumns;
+  newVal.sameColumnsIdx = newSameColumnsIdx;
   setState(newVal);
-  if (Object.keys(newerror).length !== 0) {
+
+  if (Object.keys(newError).length !== 0) {
     return null;
   }
 
   if (value.length > 0) {
-    changedColumns.map((item, idx) => {
+    changedColumns.forEach((item, idx) => {
       if (item.headerData) {
         if (item.headerData === names) {
           changedColumns.splice(idx, 1);
@@ -99,57 +100,34 @@ export const changedColumn = ({ e, state, setState, fields, defaults, id, name }
   }
 };
 
-export const headerRename = async ({ UrlHeader, state, setState, fields, setFields, data }) => {
-  const newVal = { ...state };
-  let dataSum = data
+export const headerRename = async ({ UrlHeader, fields, setFields, data }) => {
+  const dataSum = data
   if (UrlHeader) {
     const url = UrlHeader();
     const { data } = await axios.get(url);
-    const newfields = [];
-    const accessor = fields.map((datas) => {
-      const split = datas.accessor;
-      return split;
-    });
-    const style = fields.map((datas) => {
-      const split = datas.style;
-      return split;
-    });
-    const Cell = fields.map((datas) => {
-      const split = datas.Cell;
-      return split;
-    });
-    const placeholder = fields.map((datas) => {
-      const split = datas.placeholder;
-      return split;
-    });
-    const width = fields.map((datas) => {
-      const split = datas.width;
-      return split;
-    });
-    const space = fields.map((datas) => {
-      const split = datas.space;
-      return split;
-    });
-    const align = fields.map((datas) => {
-      const split = datas.align;
-      return split;
-    });
+    const newFields = [];
+    const accessor = fields.map((dataX) => { return dataX.accessor });
+    const style = fields.map((dataX) => { return dataX.style });
+    const Cell = fields.map((dataX) => { return dataX.Cell });
+    const placeholder = fields.map((dataX) => { return dataX.placeholder })
+    const width = fields.map((dataX) => { return dataX.width })
+    const space = fields.map((dataX) => { return dataX.space })
+    const align = fields.map((dataX) => { return dataX.align })
 
-    const sortable = fields.map((datas) => {
+    const sortable = fields.map((dataX) => {
       let hiddenSort
       if (dataSum) {
         if (dataSum.length > 1) hiddenSort = true
-        else hiddenSort = false
+        if (dataSum.length === 1 && dataSum.length < 2) hiddenSort = false
       } else {
-        hiddenSort = datas.sortable
+        hiddenSort = dataX.sortable
       }
       return hiddenSort;
     });
-
-    const sortType = fields.map((datas) => {
+    const sortType = fields.map((dataX) => {
       let split;
-      if (datas.sortType) {
-        split = datas.sortType;
+      if (dataX.sortType) {
+        split = dataX.sortType;
       } else {
         split = null;
       }
@@ -158,8 +136,8 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
 
     const headerData = Object.keys(data[0]);
     accessor.forEach((accessorNew, idx) => {
-      const lowerCase = accessorNew?.toLowerCase();
-      if (lowerCase?.includes(' ')) {
+      const lowerCase = accessorNew.toLowerCase();
+      if (lowerCase.includes(' ')) {
         const split = lowerCase.split(' ');
         const result = split.join('_');
         accessor[idx] = result;
@@ -178,7 +156,7 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
         width: null,
         space: null,
         style: null,
-        sortable: null,
+        sortable: false,
         align: null,
       };
       headerTable.Header = dataHeader;
@@ -189,18 +167,15 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       headerTable.width = width[idx];
       headerTable.space = space[idx];
       headerTable.align = align[idx];
-      headerTable.sortable = sortable[idx];
       headerTable.style = style[idx];
+      headerTable.sortable = sortable[idx];
       if (sortType[idx]) {
         headerTable.sortType = sortType[idx];
       }
-      newfields.push(headerTable);
+      newFields.push(headerTable);
     });
     if (data.length) {
-      // newVal.products = data.data[0]
-      // newVal.fields = newfields
-      setFields(newfields);
-      // setState(newVal);
+      setFields(newFields);
     }
   }
 };
@@ -212,7 +187,7 @@ const renameSubmits = async ({ state, UrlAll, fields, setFields }) => {
   const changedFieldHeader = [];
   const newState = { ...state };
 
-  changedField.map((item) => {
+  changedField.forEach((item) => {
     changedFieldHeaderData.push(item.headerData);
     changedFieldHeader.push(item.header);
   });
@@ -228,27 +203,28 @@ const renameSubmits = async ({ state, UrlAll, fields, setFields }) => {
 
   setFields(ni);
 
-  let payload = {};
-  ni.map((obj) => {
+  const payload = {};
+  ni.forEach((obj) => {
     payload[obj.headerData.replaceAll(' ', '_').toLowerCase()] = obj.Header;
   });
   newState.columnsPayload = payload;
   const baseUrl = endpoints.env.REACT_APP_API_URL;
   try {
     const urlAll = await axios.post(baseUrl + UrlAll(), payload);
+    console.log(urlAll)
   } catch (error) {
     console.log(error);
   }
 };
 
 export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setFields }) => {
-  const { newerror, newsameColumns, newsameColumnsIdx } = validations(state, fields);
+  const { newError, newSameColumns, newSameColumnsIdx } = validations(state, fields);
   const newState = { ...state };
 
-  if (Object.keys(newerror).length) {
-    newState.error = newerror;
-    newState.sameColumns = newsameColumns;
-    newState.sameColumnsIdx = newsameColumnsIdx;
+  if (Object.keys(newError).length) {
+    newState.error = newError;
+    newState.sameColumns = newSameColumns;
+    newState.sameColumnsIdx = newSameColumnsIdx;
     setState(newState);
   } else {
     renameSubmits({ state, setState, UrlAll, fields, setFields });
@@ -262,6 +238,7 @@ export const resetColumnName = async ({ user, splitModule }) => {
   const baseUrl = endpoints.env.REACT_APP_API_URL;
   const version = endpoints.env.REACT_APP_API_URL_VERSION;
   const { data, status } = await axios.post(`${baseUrl}/${version}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
+  console.log(data, status)
   window.location.reload()
 }
 

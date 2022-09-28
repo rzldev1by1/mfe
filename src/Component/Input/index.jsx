@@ -1,10 +1,9 @@
 import React from 'react';
-import RequiredMessage from 'Component/RequiredMessage';
+import RequiredMessage from '../RequiredMessage';
 
 const Input = ({
   id,
   title,
-  showTitle = false,
   autoComplete = 'off',
   onChange,
   placeholder,
@@ -22,7 +21,7 @@ const Input = ({
 }) => {
   return (
     <div>
-      {!title ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
+      {!title ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
       <input
         id={id}
         name={name}

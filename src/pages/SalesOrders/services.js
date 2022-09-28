@@ -1,4 +1,5 @@
 import React from 'react';
+
 export const schemaColumn = [
   {
     Header: 'Site',
@@ -27,7 +28,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -38,7 +42,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -49,7 +56,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 100,
   },
   {
@@ -60,7 +70,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 125,
   },
   {
@@ -71,7 +84,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -84,7 +100,8 @@ export const schemaColumn = [
     sortable: true,
     width: 130,
     Cell: (row) => {
-      switch (row.original.status) {
+      const { original } = row
+      switch (original.status) {
         case '0: Not Available':
           return <div className="status-unavailable">UNAVAILABLE</div>;
         case '1: Available':
@@ -100,6 +117,7 @@ export const schemaColumn = [
         default:
           break;
       }
+      return false
     },
   },
   {
@@ -110,7 +128,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -121,7 +142,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -132,7 +156,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -143,7 +170,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 150,
   },
   {
@@ -154,7 +184,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 150,
   },
   {
@@ -165,7 +198,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 150,
   },
   {
@@ -176,7 +212,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -187,7 +226,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -198,7 +240,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -209,7 +254,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -220,7 +268,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -231,7 +282,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -242,7 +296,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 200,
   },
   {
@@ -253,7 +310,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 100,
   },
   {
@@ -264,7 +324,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 150,
   },
   {
@@ -275,7 +338,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 100,
   },
   {
@@ -286,7 +352,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 140,
   },
   {
@@ -297,7 +366,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -308,7 +380,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 140,
   },
   {
@@ -319,7 +394,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 150,
   },
   {
@@ -330,8 +408,276 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value == null ? '-' : props.value}
-    </span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 150,
   },
 ];
+
+export const schemaColumnDetailSO = [
+  {
+    accessor: 'line',
+    placeholder: 'Line No',
+    Header: 'Line No',
+    width: 100,
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+  {
+    accessor: 'product',
+    placeholder: 'Product',
+    Header: 'Product',
+    width: 180,
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+  {
+    accessor: 'product_description',
+    placeholder: 'Description',
+    Header: 'Description',
+    width: 150,
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+  {
+    accessor: 'qty',
+    placeholder: 'Qty',
+    Header: 'Qty',
+    width: 60,
+    style: { justifyContent: 'flex-end', display: 'flex' },
+    className: 'align-right',
+    sortType: 'float',
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+    textAlign: "right"
+  },
+  {
+    accessor: 'uom',
+    placeholder: 'UOM',
+    Header: 'UOM',
+    width: 80,
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+    headerStyle: { textAlign: 'right' },
+  },
+  {
+    accessor: 'qty_processed',
+    placeholder: 'Qty Processed',
+    Header: 'Qty Processed',
+    style: { justifyContent: 'flex-end', display: 'flex' },
+    className: 'align-right',
+    width: 130,
+    sortable: true,
+    sortType: 'float',
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+    textAlign: "right"
+  },
+  {
+    accessor: 'weight',
+    placeholder: 'Wght',
+    Header: 'Wght',
+    width: 100,
+    style: { justifyContent: 'flex-end', display: 'flex' },
+    className: 'align-right',
+    sortType: 'float',
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+    textAlign: "right"
+  },
+  {
+    accessor: 'weight_processed',
+    placeholder: 'Wght Processed',
+    Header: 'Wght Processed',
+    width: 140,
+    style: { justifyContent: 'flex-end', display: 'flex' },
+    className: 'align-right',
+    sortType: 'float',
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+    textAlign: "right"
+  },
+  {
+    accessor: 'completed',
+    placeholder: 'Completed',
+    Header: 'Completed',
+    width: 100,
+    sortable: true,
+    Cell: (row) => {
+      const { original } = row
+      return <i className={`${original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    },
+  },
+  {
+    accessor: 'oos',
+    placeholder: 'OOS',
+    Header: 'OOS',
+    width: 100,
+    sortable: true,
+    Cell: (row) => {
+      const { original } = row
+      return <i className={`${original.oos === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    },
+  },
+  {
+    accessor: 'released',
+    placeholder: 'Released',
+    Header: 'Released',
+    width: 100,
+    sortable: true,
+    Cell: (row) => {
+      const { original } = row
+      return <i className={`${original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    },
+  },
+  {
+    accessor: 'batch',
+    placeholder: 'Batch',
+    Header: 'Batch',
+    width: 100,
+    sortable: true,
+    headerStyle: { textAlign: 'left' },
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+  {
+    accessor: 'rotadate',
+    placeholder: 'Rotadate',
+    Header: 'Rotadate',
+    width: 100,
+    sortable: true,
+    headerStyle: { textAlign: 'left' },
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+  {
+    accessor: 'ref3',
+    placeholder: 'Ref3',
+    Header: 'Ref3',
+    width: 350,
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+  {
+    accessor: 'ref4',
+    placeholder: 'Ref4',
+    Header: 'Ref4',
+    width: 350,
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+  {
+    accessor: 'disposition',
+    placeholder: 'Disposition',
+    Header: 'Disposition',
+    width: 200,
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+  {
+    accessor: 'pack_id',
+    placeholder: 'Pack ID',
+    Header: 'Pack ID',
+    width: 200,
+    sortable: true,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
+  },
+];
+
+export const headerDetailRight = [
+  { accessor: 'site', Header: 'Site' },
+  { accessor: 'client', Header: 'Client' },
+  { accessor: 'orderno', Header: 'Order No' },
+  { accessor: 'ordertype', Header: 'Order Type' },
+  { accessor: 'isistask', Header: 'Task' },
+  { accessor: 'customer', Header: 'Customer No' },
+  { accessor: 'customername', Header: 'Customer Name' },
+  { accessor: 'customerpono', Header: 'Customer Order Ref' },
+  { accessor: 'vendororderno', Header: 'Vendor Order Ref' },
+  { accessor: 'deliverydescription', Header: 'Delivery Instructions' }
+]
+
+export const headerDetailCenter = [
+  { accessor: 'address1', Header: 'Address 1' },
+  { accessor: 'address2', Header: 'Address 2' },
+  { accessor: 'address3', Header: 'Address 3' },
+  { accessor: 'address4', Header: 'Address 4' },
+  { accessor: 'address5', Header: 'Address 5' },
+  { accessor: 'ship_to_name', Header: 'Ship To Name' },
+  { accessor: 'suburb', Header: 'Suburb' },
+  { accessor: 'postcode', Header: 'Postcode' },
+  { accessor: 'state', Header: 'State' },
+  { accessor: 'country', Header: 'Country' }
+]
+
+export const headerDetailLeft = [
+  { accessor: 'status', Header: 'Status' },
+  { accessor: 'deliverydate', Header: 'Delivery Date' },
+  { accessor: 'datereceived', Header: 'Date Received' },
+  { accessor: 'datereleased', Header: 'Date Released' },
+  { accessor: 'datecompleted', Header: 'Date Completed' },
+  { accessor: 'loadnumber', Header: 'Load Number' },
+  { accessor: 'loadoutstart', Header: 'Loadout Start' },
+  { accessor: 'loadoutfinish', Header: 'Loadout Finish' },
+  { accessor: 'consignmentno', Header: 'Consignment No' },
+  { accessor: 'freightcharge', Header: 'Freight Charge' },
+]
+export const filterSummaryDefault = [
+  { name: 'Site', accessor: 'site', hiddenFilter: false },
+  { name: 'Client', accessor: 'client', hiddenFilter: false },
+  { name: 'Status', accessor: 'status', hiddenFilter: false },
+  { name: 'Order Type', accessor: 'orderType', hiddenFilter: false },
+  { name: 'Task', accessor: 'task', hiddenFilter: false },
+  { name: 'Customer Order Ref', accessor: 'customerpono', hiddenFilter: false },
+  { name: 'Vendor Order Ref', accessor: 'vendororderno', hiddenFilter: false },
+  { name: 'Delivery Date', accessor: 'deliveryDate', hiddenFilter: false },
+  { name: 'Date Received', accessor: 'dateReceived', hiddenFilter: false },
+  { name: 'Date Released', accessor: 'dateReleased', hiddenFilter: false },
+  { name: 'Date Completed', accessor: 'dateCompleted', hiddenFilter: false },
+]
+
+export const setExportData = async ({ dispatch, data }) => {
+  await dispatch({ type: 'EXPORT_DATA', data });
+};
+

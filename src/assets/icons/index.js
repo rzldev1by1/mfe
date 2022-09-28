@@ -1,7 +1,3 @@
-import { sygnet } from './sygnet'
-// import { logo } from './logo'
-import { logoNegative } from './logo-negative'
-
 import {
   cibSkype,
   cibFacebook,
@@ -26,17 +22,13 @@ import {
   cibStripe,
   cibPaypal,
   cibGooglePay,
-  cibCcAmex
-} from '@coreui/icons'
-import {
+  cibCcAmex,
   cifUs,
   cifBr,
   cifIn,
   cifFr,
   cifEs,
-  cifPl
-} from '@coreui/icons'
-import {
+  cifPl,
   cilAlignCenter,
   cilAlignLeft,
   cilAlignRight,
@@ -132,9 +124,11 @@ import {
   cilWarning
 } from '@coreui/icons'
 
-export const icons = Object.assign({}, {
+import { sygnet } from './sygnet'
+import { logoNegative } from './logo-negative'
+
+export const icons = Object.assign('foo', {
   sygnet,
-  // logo,
   logoNegative
 }, {
   cilAlignCenter,
@@ -263,3 +257,4 @@ export const icons = Object.assign({}, {
   cibGooglePay,
   cibCcAmex
 })
+

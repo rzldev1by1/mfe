@@ -1,11 +1,3 @@
-:root {
-  --widhtTable: {
-    .Table .rt-thead .rt-tr .rt-th {
-      min-width: min-content;
-    }
-  }
-}
-
 .Table {
   .rt-table {
     border: none;
@@ -32,26 +24,34 @@
     }
   }
 
+  .rt-thead .rt-tr .rt-th {
+    min-width: min-content;
+  }
+
+  .rt-body .rt-tr-group .rt-tr .rt-td {
+    width: var(--widhtTable);
+  }
+
   .-header .rt-tr {
     border-bottom: 2px solid #e0e2e4 !important;
   }
 
   //clickable column header
   .rt-th.-cursor-pointer .rt-resizable-header-content .draggable-header:after {
-    content: url('../../assets/img/field-idle.png');
+    content: url('../../../public/field-idle.png');
     padding-left: 10px;
     width: 42px;
     height: 42px;
   }
 
   .rt-th.-cursor-pointer.-sort-asc .rt-resizable-header-content .draggable-header:after {
-    content: url('../../assets/img/field-top.png');
+    content: url('../../../public/field-top.png');
     padding-left: 10px;
     // content: "  ▲";
   }
 
   .rt-th.-cursor-pointer.-sort-desc .rt-resizable-header-content .draggable-header:after {
-    content: url('../../assets/img/field-bot.png');
+    content: url('../../../public/field-bot.png');
     padding-left: 10px;
     // content: "  ▼";
   }
@@ -61,17 +61,10 @@
   .rt-tbody {
     display: flow-root;
     overflow-x: hidden;
-    .rt-tr-group {
-      .rt-tr {
-        .rt-td {
-          width: var(--widhtTable);
-        }
-      }
-    }
-    .rt-tr-group:hover {
-      background-color: #eee;
-      cursor: pointer !important;
-    }
+  }
+  .rt-tbody .rt-tr-group:hover {
+    background-color: #eee;
+    cursor: pointer !important;
   }
   .rt-td {
     border-right: none !important;
@@ -89,7 +82,7 @@
   .rt-table {
     border: none;
     background-color: white;
-    border-radius: 0.25rem;
+    border-radius: 4px;
   }
 
   .rt-thead {
@@ -113,20 +106,21 @@
 
   //clickable column header
   .rt-th.-cursor-pointer .rt-resizable-header-content .draggable-header:after {
-    content: url('../../assets/img/field-idle.png');
+    // content: url('/field-idle.png');
     padding-left: 10px;
     width: 42px;
     height: 42px;
   }
 
   .rt-th.-cursor-pointer.-sort-asc .rt-resizable-header-content .draggable-header:after {
-    content: url('../../assets/img/field-top.png');
+    // content: url('/field-top.png');
     padding-left: 10px;
+    background-color: aqua;
     // content: "  ▲";
   }
 
   .rt-th.-cursor-pointer.-sort-desc .rt-resizable-header-content .draggable-header:after {
-    content: url('../../assets/img/field-bot.png');
+    // content: url('/field-bot.png');
     padding-left: 10px;
     // content: "  ▼";
   }
@@ -163,8 +157,6 @@
     background: #f6f7f9;
     right: 0;
     justify-content: center;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
   }
   .edit-column img:last-child {
     display: none;

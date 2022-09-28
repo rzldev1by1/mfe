@@ -1,11 +1,9 @@
 import React from 'react';
 import { Row, Col, Modal } from 'react-bootstrap';
-import loadBtn from '../../../assets/icons/loading/LOADING-MLS.gif';
-import reset_done from '../../../assets/img/reset_done.png';
-import { closeModalPopupReset, closeModalResetUM, confirmResetPassword } from './service';
-import { useSelector } from 'react-redux';
-// import { ProgressBar } from '../service'
 import { CButton } from '@coreui/react';
+import { closeModalPopupReset, closeModalResetUM, confirmResetPassword } from './service';
+// import loadBtn from '../../../assets/icons/loading/LOADING-MLS.gif';
+// import resetDone from '../../../assets/img/reset_done.png';
 import './style.scss';
 
 const Reset = ({
@@ -19,8 +17,6 @@ const Reset = ({
   setTimeout(() => {
     closeModalPopupReset({ state, setState })
   }, 1000);
-  const darkMode = useSelector((state) => state.darkModeMLS);
-  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       show={show}
@@ -29,18 +25,18 @@ const Reset = ({
       className="sales-order-create content-modal"
       backdrop="static"
     >
-      <Modal.Body className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
+      <Modal.Body>
         <Row>
           <Col className="bg-white">
-            <div className=" close-reset  pointer" onClick={() => { closeModalResetUM({ state, setState }) }}>
-              <span className="icon-group_4696 " />
+            <div className="pt-2 close-reset pr-3" onClick={() => closeModalResetUM({ state, setState })} aria-hidden="true">
+              <i className="iconU-close pointer" />
             </div>
           </Col>
         </Row>
         <Row className="px-3">
           <Col className="bg-white px-0">
             <div className="content-reset">
-              <img src={reset_done} width="130" height="130" />
+              {/* <img src={resetDone} width="130" height="130" alt="" /> */}
 
               {isResetSuccess ? (
                 <div className="ver-center-item pl-2">
@@ -59,23 +55,24 @@ const Reset = ({
                   <label style={{ fontSize: '19px' }}>
                     <span style={{ color: '#637176' }}>Are you sure</span>
                     <br />
-                    <span style={{ color: '#B4B9BB' }}>to reset this user's password?</span>
+                    <span style={{ color: '#B4B9BB' }}>to reset this user&apos;s password?</span>
                   </label>
                 </div>
               )}
             </div>
 
             <div className="content-buttom pt-1">
-              {isLoad ? (
+              {isLoad && (
                 <CButton type="submit" className=" btn btn-primary float-right">
-                  <img src={loadBtn} className="mt-n4" width="35" height="35" />
-                </CButton >
-              ) : isResetSuccess ? (
+                  {/* <img src={loadBtn} className="mt-n4" width="35" height="35" alt="" /> */}
+                </CButton>
+              )}
+              {!isLoad && isResetSuccess ? (
                 <CButton onClick={() => { closeModalResetUM({ state, setState }) }} className="btn btn-primary float-right">
                   DONE
                 </CButton>
               ) : (
-                <CButton onClick={(e) => { confirmResetPassword({ state, setState, props }); }} className="btn btn-primary float-right">
+                <CButton onClick={() => { confirmResetPassword({ state, setState, props }); }} className="btn btn-primary float-right">
                   RESET
                 </CButton>
               )}
