@@ -827,16 +827,16 @@ const Search = ({
     <>
       <CCard className="mb-3" style={{ borderRadius: '0.25rem' }}>
         <CCardBody className="p-3" style={{ borderRadius: '0.25rem' }}>
-          {searchFilter === 'true' ? contentSearchFilter() : contentSearch()}
+          {searchFilter === 'true' ? contentSearchFilter() : contentSearch()}          
         </CCardBody>
       </CCard>
       <Modal show={showModal} size="xl" centered>
-        <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
+        <Modal.Header className={`${ darkMode?.[0].dark_mode === '1' ? 'customDarkModes' : 'bg-primary'}`}>
           <CContainer className="px-0">
             <CCol className="mx-0 px-0">
               <Button
                 onClick={() => { closeModalFilter({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter, utils }) }}
-                className={`${darkMode ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}
+                className={`${darkMode?.[0].dark_mode === '1' ? 'darkClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}
               >
                 <MdClose color="white" size={30} />
               </Button>
@@ -856,7 +856,7 @@ const Search = ({
             </CCol>
           </CContainer>
         </Modal.Header>
-        <Modal.Body className={`${darkMode ? 'DarkModesEditRename ' : ' '} p-3`}>
+        <Modal.Body className={`${darkMode?.[0].dark_mode === '1' ? 'DarkModesEditRename ' : ' '} p-3`}>
           <CRow className='px-2'>
             {columnFilter && columnFilter.map((item) => {
               return (
