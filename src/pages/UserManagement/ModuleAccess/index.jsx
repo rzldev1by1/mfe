@@ -11,7 +11,7 @@ const ModuleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
   const heightFirst = window.innerHeight - 680;
   const heightDetail = window.innerHeight - 510;
 
-  // const filterModuleAccess = moduleAccess.filter((val) => val.menu_name !== 'Manage Supplier Users');
+  const filterModuleAccess = moduleAccess.filter((val) => val.menu_name !== 'Manage Supplier Users');
   return (
     <div>
       <div className='flex-column line-border mr-2 my-3'>
@@ -40,8 +40,8 @@ const ModuleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
             : { height: heightFirst, minHeight: heightFirst }
         }
       >
-        {moduleAccess && moduleAccess.length
-          ? moduleAccess.map((item, index) => {
+        {filterModuleAccess && filterModuleAccess.length
+          ? filterModuleAccess.map((item, index) => {
             return (
               <div className="flex-column mb-1" key={item.menu_id}>
                 <div className="d-flex">

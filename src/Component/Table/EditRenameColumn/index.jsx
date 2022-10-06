@@ -165,11 +165,11 @@ const EditRenameColumn = ({
         <Modal.Body className={`${dataMode == "1" ? 'DarkModesEditRename ' : ' '} modal-radiusB p-3`}>
           <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-2' : ''}`}>
             <Row className="align-items-center rename-columns mx-0 text-align-left px-1">
-              <Nav tabs className="px-1">
+              <Nav tabs className="px-0">
                 <div className="input-group">
                   <NavItem className="pl-0 pr-0">
                     <NavLink
-                      className={`nav-link-cuts d-flex align-items-center tab-color ${state.activeTab === '1' ? ' tab-rename' : ''
+                      className={`${state.activeTab === '1' ? ' tab-rename' : 'tab-rename-nonActive'
                         }`}
                       active={state.activeTab === '1'}
                       onClick={() => {
@@ -187,7 +187,7 @@ const EditRenameColumn = ({
 
                   <NavItem className="pl-2 pr-0">
                     <NavLink
-                      className={`nav-link-cuts d-flex align-items-center tab-color${state.activeTab === '2' ? ' tab-rename' : ''
+                      className={`${state.activeTab === '2' ? ' tab-rename' : 'tab-rename-nonActive'
                         }`}
                       active={state.activeTab === '2'}
                       onClick={() => {
@@ -298,7 +298,7 @@ const EditRenameColumn = ({
                     {fields &&
                       fields.map((item, index) => {
                         return (
-                          <div key={item.accessor} className="p-2">
+                          <div key={item.accessor} className="w-100 p-2">
                             <OverlayTrigger
                               placement="bottom"
                               delay={{ show: 250, hide: 3000 }}

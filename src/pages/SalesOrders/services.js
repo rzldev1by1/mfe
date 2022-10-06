@@ -530,7 +530,7 @@ export const schemaColumnDetailSO = [
     sortable: true,
     Cell: (row) => {
       const { original } = row
-      return <i className={`${original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      return <i className={`${original.completed === 'Yes' ? 'ri-check-line text-success font-20' : 'ri-close-line text-danger font-20'}`} />
     },
   },
   {
@@ -541,7 +541,7 @@ export const schemaColumnDetailSO = [
     sortable: true,
     Cell: (row) => {
       const { original } = row
-      return <i className={`${original.oos === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      return <i className={`${original.oos === 'Yes' ? 'ri-check-line text-success font-20' : 'ri-close-line text-danger font-20'}`} />
     },
   },
   {
@@ -552,7 +552,7 @@ export const schemaColumnDetailSO = [
     sortable: true,
     Cell: (row) => {
       const { original } = row
-      return <i className={`${original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      return <i className={`${original.released === 'Yes' ? 'ri-check-line text-success font-20' : 'ri-close-line text-danger font-20'}`} />
     },
   },
   {

@@ -13,11 +13,12 @@ const InputNumber = ({
   onChange,
   isReadOnly,
   isDecimal,
+  parentDivClassName,
   messageRequired,
   messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
 }) => {
   return (
-    <div>
+    <div className={parentDivClassName}>
       <NumberFormat
         thousandSeparator
         name={name}

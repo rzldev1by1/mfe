@@ -19,7 +19,6 @@ const TheSidebar = () => {
   const [hover, setHover] = useState(null);
   const userMenu = user.userModules && user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];
-  // const superAdmin = ['MLS12345', 'angae'];
 
   let navigation = nav;
 

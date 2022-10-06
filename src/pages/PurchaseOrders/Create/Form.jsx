@@ -109,7 +109,7 @@ const Form = ({
     }
   }, [orderLineSelectOpen]);
   const messageShowOrderType = isValidation && !orderDetails?.orderType?.value;
-  const styleAddLine = isReadonly ? `btn-light-two` : `btn-light-ones`;
+  const styleAddLine = isReadonly ? `btn-light-none` : `btn-light-blue`;
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>

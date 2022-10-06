@@ -78,8 +78,8 @@ const Table = ({
           mode: 'reorder',
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) => {
-            saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields, module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch });
-            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, dispatch });
+            saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields, module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch, editColumn });
+            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, dispatch, editColumn });
           },
         }}
         columns={newSchema}
