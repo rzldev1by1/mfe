@@ -22,7 +22,7 @@ const StockMovement = () => {
   const [rowSpan, setRowSpan] = useState([]);
   const [dataPDF, setDataPDF] = useState([]);
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 272,
+    height: window.innerHeight - 330,
     width: window.innerWidth,
   });
   const filterHiddenData = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
@@ -30,7 +30,7 @@ const StockMovement = () => {
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 272,
+        height: window.innerHeight - 330,
         width: window.innerWidth,
       });
     };
