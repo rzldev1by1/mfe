@@ -56,6 +56,10 @@ input.form-control {
   border: 1.5px solid #3366ff;
   border-radius: 5px;
   color: #3366ff;
+  &:hover {
+    color: #fff !important;
+    background-color: #3366ff !important;
+  }
 }
 
 .btn-outline-notActive {
@@ -64,6 +68,10 @@ input.form-control {
   color: #d5d8da;
   border: 1.5px solid #d5d8da;
   border-radius: 5px;
+  &:hover {
+    color: #fff !important;
+    background-color: #d5d8da !important;
+  }
 }
 
 .text-title-detail {
@@ -77,6 +85,11 @@ input.form-control {
   color: #ffffff;
   border: 1.5px solid #d5d8da;
   border-radius: 5px;
+  &:hover {
+    color: #fff !important;
+    background-color: #3366ff !important;
+    border: 1.5px solid #3366ff !important;
+  }
 }
 
 .btn-outline-All-active {
@@ -86,22 +99,11 @@ input.form-control {
   border-radius: 5px;
   background-color: #3366ff;
   color: #ffffff;
-}
-
-.btn-outline-All-notActive:hover {
-  color: #ffffff !important;
-}
-
-.btn-outline-All-active:hover {
-  color: #ffffff !important;
-}
-
-.btn-outline-active:hover {
-  color: #3366ff !important;
-}
-
-.btn-outline-notActive:hover {
-  color: #d5d8da !important;
+  &:hover {
+    color: #3366ff !important;
+    background-color: #fff !important;
+    border: 1.5px solid #3366ff !important;
+  }
 }
 
 .table-UM {

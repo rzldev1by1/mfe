@@ -134,7 +134,7 @@ const Create = ({ show, setShow }) => {
                     <div className="v-rename" />
                     <div className="pl-2 pt-1">
                       <span className="font-20 text-white">Create Order</span>
-                      <span className="text-white d-flex"> Enter Order and line details to create a new purchase order.</span>
+                      <span className="text-white d-flex"> Enter Order and line details to create a new Sales Order.</span>
                     </div>
                   </div>
                   <Nav tabs className="px-8 m-0">

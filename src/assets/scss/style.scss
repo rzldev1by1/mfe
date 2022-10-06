@@ -43,14 +43,14 @@ $spinkit-spinner-color: $body-color;
 //custom DarkMode
 .customDarkMode {
   ::-webkit-scrollbar-thumb {
-    background-color: #4E4C5B;
+    background-color: #4e4c5b;
   }
-  
+
   .scroll-x-y::-webkit-scrollbar-thumb {
-    background-color: #4E4C5B;
+    background-color: #4e4c5b;
   }
   .c-sidebar {
-    background-color: #1F192D;
+    background-color: #1f192d;
   }
   .darkLayer {
     background-color: rgba(38, 30, 66, 0.8);
@@ -61,47 +61,47 @@ $spinkit-spinner-color: $body-color;
     height: 100%;
   }
   .c-header {
-    background-color: #1F192D !important;
-    .drop-menu-profil{
-      background-color: #1F192D !important;
+    background-color: #1f192d !important;
+    .drop-menu-profil {
+      background-color: #1f192d !important;
     }
     .switch-profil .c-switch-input:checked + .c-switch-slider {
-      background-color: #1F192D !important;
+      background-color: #1f192d !important;
     }
-    .c-switch-slider{
-      background-color: #1F192D !important;
+    .c-switch-slider {
+      background-color: #1f192d !important;
     }
-    .text-header{
-      color:#fff;
+    .text-header {
+      color: #fff;
     }
-    .btn{
-      color:#fff;
+    .btn {
+      color: #fff;
     }
-    .drop-menu-profil{
+    .drop-menu-profil {
       margin: 3% !important;
       margin-left: 19% !important;
       width: 106% !important;
       font-size: 116% !important;
       background-color: #2d1b46;
-      color:#fff;
+      color: #fff;
     }
-    .menu-item-profil{
-      color:#fff;
+    .menu-item-profil {
+      color: #fff;
     }
-    .menu-item-profil:hover{
-      color:#2d1b46;
+    .menu-item-profil:hover {
+      color: #2d1b46;
     }
-    .menu-item-profil:active{
-      color:#FFF;
-      background-color:#2d1b46 ;
+    .menu-item-profil:active {
+      color: #fff;
+      background-color: #2d1b46;
     }
     .switch-profil .c-switch-input:checked + .c-switch-slider {
       background-color: #2d1b46 !important;
     }
-    .c-switch-slider{
+    .c-switch-slider {
       background-color: #2d1b46 !important;
     }
-    .header-mls-text{
+    .header-mls-text {
       padding-left: 1.5% !important;
       align-items: center;
       font-size: 136%;
@@ -110,62 +110,63 @@ $spinkit-spinner-color: $body-color;
   }
   a {
     color: red;
-}
-  .text-header-title{
-    color: #3E4E67;
   }
-  .text-header-val{
-    color: #FFFF;
+  .text-header-title {
+    color: #3e4e67;
   }
-  .faqSide{
-    color:#5242A5;
+  .text-header-val {
+    color: #ffff;
+  }
+  .faqSide {
+    color: #5242a5;
   }
 
-  .input-group, input.form-control, .input-group-text {
+  .input-group,
+  input.form-control,
+  .input-group-text {
     height: 50px !important;
-    border-color: #5242A5 !important;
-    padding-right: 0px;
+    border-color: #5242a5 !important;
   }
   .tab-rename {
-    color: #1F192D !important;
+    color: #1f192d !important;
   }
   .bg-nonTabActive {
-    background-color: #2E245B !important;
+    background-color: #2e245b !important;
     border-top-left-radius: 0.25rem !important;
     border-top-right-radius: 0.25rem !important;
-    color :#000000 !important;
-  
+    color: #000000 !important;
+
     .nav-link {
-      background-color: #2E245B !important;
-      color :#000000 !important;
+      background-color: #2e245b !important;
+      color: #000000 !important;
     }
   }
   .bg-tabNonActive {
-    background-color: #5E44E8 !important;
-    border-top-left-radius: 0.25rem !important;
-    border-top-right-radius: 0.25rem !important;
-  
+    background-color: #5e44e8;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+
     .nav-link {
-      background-color: #5E44E8 !important;
-      color :#34276B !important;
+      background-color: #5e44e8;
+      color: #34276b;
     }
   }
   .bg-tabActive {
-    background-color: #000000 !important;
-    border-top-left-radius: 0.25rem !important;
-    border-top-right-radius: 0.25rem !important;
-    color :#FFF !important;
-  
+    background-color: #000000;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    color: #fff;
+
     .nav-link {
-      background-color: #000000 !important;
-      color :#9795A4 !important;
+      background-color: #000000;
+      color: #9795a4;
     }
   }
-  .input-group{
+  .input-group {
     .nav-link {
-      background-color: #3D3A4B !important;
+      background-color: #3d3a4b !important;
     }
-  } 
+  }
 
   //breadcrump
   .breadcrumb-item {
@@ -174,24 +175,24 @@ $spinkit-spinner-color: $body-color;
 
   //card
   .card {
-    background-color: #1F192D !important;
+    background-color: #1f192d !important;
   }
-  .tab-pane{
-    background-color: #261E42 !important;
+  .tab-pane {
+    background-color: #261e42 !important;
   }
   //table
   .Table .rt-tbody .rt-tr-group:hover {
-      background-color: #504164  !important ;
+    background-color: #504164 !important ;
   }
-  .table-detail .rt-tbody .rt-tr-group:hover{
+  .table-detail .rt-tbody .rt-tr-group:hover {
     background-color: #504164 !important;
   }
   .rt-table {
-    background-color: #1F192D !important;
+    background-color: #1f192d !important;
     color: white !important;
   }
   .show-edit-icon .rt-th:last-child {
-    background: #1F192D !important;
+    background: #1f192d !important;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
   }
@@ -205,22 +206,22 @@ $spinkit-spinner-color: $body-color;
   .rt-tr-group:hover {
     background-color: #74717d !important;
   }
-  .ReactTable .rt-noData{
+  .ReactTable .rt-noData {
     background-color: transparent !important;
   }
 
   //Table StockMovement
-  .stockMovement .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th{
-    background-color: #1F192D !important;
+  .stockMovement .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th {
+    background-color: #1f192d !important;
   }
-  .stockMovement .ReactTable .rt-table .rt-thead .rt-tr .rt-th{
-    background-color: #1F192D !important;
+  .stockMovement .ReactTable .rt-table .rt-thead .rt-tr .rt-th {
+    background-color: #1f192d !important;
   }
-  .stockMovement .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-tr .rt-td{
-    background-color: #1F192D !important;
+  .stockMovement .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-tr .rt-td {
+    background-color: #1f192d !important;
   }
   .stockMovement .ReactTable .rt-tr {
-    background-color: #1F192D !important;
+    background-color: #1f192d !important;
   }
 
   //button
@@ -235,16 +236,16 @@ $spinkit-spinner-color: $body-color;
   }
   //form
   .form-control {
-    background-color: #1F192D !important;
-    border-color: #5242A5 !important;
+    background-color: #1f192d !important;
+    border-color: #5242a5 !important;
     color: white;
   }
 
   //form-dropdown
   .css-5y2tk-control,
   .css-1to7m39-control {
-    background-color: #1F192D !important;
-    border-color: #5242A5 !important;
+    background-color: #1f192d !important;
+    border-color: #5242a5 !important;
     color: white !important;
   }
   .css-1uccc91-singleValue,
@@ -258,8 +259,8 @@ $spinkit-spinner-color: $body-color;
   }
   .css-26l3qy-menu {
     //dropdown option background
-    background-color: #1F192D !important;
-    border: 1px solid #5242A5 !important;
+    background-color: #1f192d !important;
+    border: 1px solid #5242a5 !important;
     color: white;
   }
   .css-ihtdzf-option,
@@ -267,210 +268,203 @@ $spinkit-spinner-color: $body-color;
     background-color: #74717d !important;
   }
   //dropdown readonly
-  .css-12ivlxl-control{
-    background-color: #1F192D !important;
-    border: 1px solid #5242A5;
+  .css-12ivlxl-control {
+    background-color: #1f192d !important;
+    border: 1px solid #5242a5;
   }
   //dropdown danger
-  .input-danger .css-5y2tk-control{
-    border-color: #e55353 !important; 
+  .input-danger .css-5y2tk-control {
+    border-color: #e55353 !important;
   }
 
   .bg-white {
-    background-color: #1F192D !important;
+    background-color: #1f192d !important;
   }
 
   //pagination
   .page-item,
   .bg-paging-search,
   .number-pag.rounded.input-paging {
-    background-color: #1F192D !important;
+    background-color: #1f192d !important;
     color: white !important;
   }
 
-  //Export 
-  .export-pdf{
-    background-color: #1F192D !important;
-    color: #fff
+  //Export
+  .export-pdf {
+    background-color: #1f192d !important;
+    color: #fff;
   }
-  .export-excel{
-    background-color: #1F192D !important;
-    color: #fff
+  .export-excel {
+    background-color: #1f192d !important;
+    color: #fff;
   }
 
   //datePicker
 
   .select_date_options {
-    background-color: #1F192D !important;
-    
+    background-color: #1f192d !important;
+
     .DayPicker-Weekday abbr[title='Monday'],
     .DayPicker-Weekday abbr[title='Tuesday'],
     .DayPicker-Weekday abbr[title='Wednesday'],
     .DayPicker-Weekday abbr[title='Thursday'],
     .DayPicker-Weekday abbr[title='Friday'],
     .DayPicker-Weekday abbr[title='Saturday'],
-    .DayPicker-Weekday abbr[title='Sunday']
-    {
+    .DayPicker-Weekday abbr[title='Sunday'] {
       color: white !important;
     }
-
   }
-  .line-paging{
-    background-color: #1F192D !important;
+  .line-paging {
+    background-color: #1f192d !important;
     border-radius: 0.25rem;
-    color: rgb(255, 255, 255)
+    color: rgb(255, 255, 255);
   }
 
-  .btn-outline-primary{
-    color: #FFF !important;
+  .btn-outline-primary {
+    color: #fff !important;
   }
-
 }
 
-
-  // modal 
-  .customDarkMode.modal{ 
-    //form
-    .form-control {
-      background-color: #000000 !important;
-      color: #5242A5;
-    }
-    .form-control::placeholder{
-      color: #5242A5 !important;
-    }
-    .bg-primary{
-      background-color: #261E42 !important;
-    }
-    .text-primary {
-      color: white !important;
-    }
-    label{
-      color: white !important;
-    }
-    .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
-      background-color: #1F192D !important;
-    }
-    .select_dropdown_label{
-      background-color: #1F192D !important;
-    }
-    .select_dropdown{
-      background-color: #1F192D !important;
-    }
-    .btn.btn-secondary{
-      background-color: #1F192D !important;
-      color: white !important;
-    }
-    .DayPicker-Day:hover{
-      color: black  !important;
-      
-    }
-    .text-muted{
-      color: white !important;
-    }
-    .modalCreateSuccess, .modal-color{ 
-      background-color: #1F192D;
-      color: white;
-    }
-    .btn-outline-primary{
-      color: #FFF !important;
-    }
-    .bg-nonTabActive {
-      background-color: #2E245B !important;
-      border-top-left-radius: 0.25rem !important;
-      border-top-right-radius: 0.25rem !important;
-      color :#000000 !important;
-      .nav-link {
-        background-color: #2E245B !important;
-        color :#000000 !important;
-      }
-    }
-    .bg-tabNonActive {
-      background-color: #5E44E8 !important;
-      border-top-left-radius: 0.25rem !important;
-      border-top-right-radius: 0.25rem !important;
-    
-      .nav-link {
-        background-color: #5E44E8 !important;
-        color :#34276B !important;
-      }
-    }
-    .bg-tabActive {
-      background-color: #000000 !important;
-      border-top-left-radius: 0.25rem !important;
-      border-top-right-radius: 0.25rem !important;
-      color :#FFF !important;
-    
-      .nav-link {
-        background-color: #000000 !important;
-        color :#FFF !important;
-      }
-    }
-     //form-axios
-     .css-yr94r1-menu{
-      background-color: #1F192D !important;
-      color: #fff !important;
-    }
-    ::placeholder {
-      color: #5242A5 !important;
-    }
-
-    //form-dropdown
-      .css-5y2tk-control,
-      .css-1to7m39-control {
-        background-color: #000000 !important;
-        border-color: #5242A5 !important;
-        color: #5242A5 !important;
-      }
-      .css-1uccc91-singleValue,
-      .css-b8ldur-Input,
-      .css-tlfecz-indicatorContainer,
-      .css-1duue3-indicatorContainer,
-      .css-g9vg27-indicatorContainer,
-      .css-1rdz61g-indicatorContainer,
-      .css-1gtu0rj-indicatorContainer {
-        color: white !important;
-      }
-      .css-26l3qy-menu {
-        //dropdown option background
-        background-color: #000000 !important;
-        border: 1px solid #5242A5 !important;
-        color: #5242A5;
-      }
-      .css-ihtdzf-option,
-      .css-1dhet8w-option:hover {
-        background-color: #554d6e !important;
-        color: #ffffff;
-      }
-      //dropdown readonly
-      .css-12ivlxl-control{
-        background-color: #000000 !important;
-        border: 1px solid #5242A5;
-      }
-      //dropdown danger
-      .input-danger .css-5y2tk-control{
-        border-color: #e55353 !important; 
-      }
-
-      //datePicker
-
-        .select_date_options {
-          background-color: #000000 !important;
-          
-          .DayPicker-Weekday abbr[title='Monday'],
-          .DayPicker-Weekday abbr[title='Tuesday'],
-          .DayPicker-Weekday abbr[title='Wednesday'],
-          .DayPicker-Weekday abbr[title='Thursday'],
-          .DayPicker-Weekday abbr[title='Friday'],
-          .DayPicker-Weekday abbr[title='Saturday'],
-          .DayPicker-Weekday abbr[title='Sunday']
-          {
-            color: #5242A5 !important;
-          }
-
-      
+// modal
+.customDarkMode.modal {
+  //form
+  .form-control {
+    background-color: #000000 !important;
+    color: #5242a5;
+  }
+  .form-control::placeholder {
+    color: #5242a5 !important;
+  }
+  .bg-primary {
+    background-color: #261e42 !important;
+  }
+  .text-primary {
+    color: white !important;
+  }
+  label {
+    color: white !important;
+  }
+  .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options {
+    background-color: #1f192d !important;
+  }
+  .select_dropdown_label {
+    background-color: #1f192d !important;
+  }
+  .select_dropdown {
+    background-color: #1f192d !important;
+  }
+  .btn.btn-secondary {
+    background-color: #1f192d !important;
+    color: white !important;
+  }
+  .DayPicker-Day:hover {
+    color: black !important;
+  }
+  .text-muted {
+    color: white !important;
+  }
+  .modalCreateSuccess,
+  .modal-color {
+    background-color: #1f192d;
+    color: white;
+  }
+  .btn-outline-primary {
+    color: #fff !important;
+  }
+  .bg-nonTabActive {
+    background-color: #2e245b !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+    color: #000000 !important;
+    .nav-link {
+      background-color: #2e245b !important;
+      color: #000000 !important;
     }
   }
+  .bg-tabNonActive {
+    background-color: #5e44e8 !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+
+    .nav-link {
+      background-color: #5e44e8 !important;
+      color: #34276b !important;
+    }
+  }
+  .bg-tabActive {
+    background-color: #000000 !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+    color: #fff !important;
+
+    .nav-link {
+      background-color: #000000 !important;
+      color: #fff !important;
+    }
+  }
+  //form-axios
+  .css-yr94r1-menu {
+    background-color: #1f192d !important;
+    color: #fff !important;
+  }
+  ::placeholder {
+    color: #5242a5 !important;
+  }
+
+  //form-dropdown
+  .css-5y2tk-control,
+  .css-1to7m39-control {
+    background-color: #000000 !important;
+    border-color: #5242a5 !important;
+    color: #5242a5 !important;
+  }
+  .css-1uccc91-singleValue,
+  .css-b8ldur-Input,
+  .css-tlfecz-indicatorContainer,
+  .css-1duue3-indicatorContainer,
+  .css-g9vg27-indicatorContainer,
+  .css-1rdz61g-indicatorContainer,
+  .css-1gtu0rj-indicatorContainer {
+    color: white !important;
+  }
+  .css-26l3qy-menu {
+    //dropdown option background
+    background-color: #000000 !important;
+    border: 1px solid #5242a5 !important;
+    color: #5242a5;
+  }
+  .css-ihtdzf-option,
+  .css-1dhet8w-option:hover {
+    background-color: #554d6e !important;
+    color: #ffffff;
+  }
+  //dropdown readonly
+  .css-12ivlxl-control {
+    background-color: #000000 !important;
+    border: 1px solid #5242a5;
+  }
+  //dropdown danger
+  .input-danger .css-5y2tk-control {
+    border-color: #e55353 !important;
+  }
+
+  //datePicker
+
+  .select_date_options {
+    background-color: #000000 !important;
+
+    .DayPicker-Weekday abbr[title='Monday'],
+    .DayPicker-Weekday abbr[title='Tuesday'],
+    .DayPicker-Weekday abbr[title='Wednesday'],
+    .DayPicker-Weekday abbr[title='Thursday'],
+    .DayPicker-Weekday abbr[title='Friday'],
+    .DayPicker-Weekday abbr[title='Saturday'],
+    .DayPicker-Weekday abbr[title='Sunday'] {
+      color: #5242a5 !important;
+    }
+  }
+}
 
 .c-app.customDarkMode {
-  background-color: #261E42 !important;
+  background-color: #261e42 !important;
 }

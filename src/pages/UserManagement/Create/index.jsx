@@ -161,7 +161,7 @@ const Create = ({ show, setShow }) => {
         <Modal.Body className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'}  p-0 rounded-top rounded-bottom`}>
           <Row className="px-9 mx-0">
             <Col xs={10} className="px-0">
-              <i className="iconU-createModal font-20" />
+              <i className="ri-draft-line font-20" />
               <span className="font-20 pl-2">Create Users</span>
               <br />
               <span className="ml-7">Enter user details to create a New User</span>
@@ -181,7 +181,7 @@ const Create = ({ show, setShow }) => {
             <NavItem className="mr-1">
               <NavLink
                 style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '20px' }}
-                className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : null}`}
+                className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : ' bg-nonTabActive'}`}
                 onClick={() => setActiveTab('details')}
               >
                 <span className="newIcon-create_edit" />
@@ -190,7 +190,7 @@ const Create = ({ show, setShow }) => {
             </NavItem>
             <NavItem>
               <NavLink
-                className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : null}`}
+                className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : ' bg-nonTabActive'}`}
                 style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '22px' }}
                 onClick={() => {
                   if (state.validate) {

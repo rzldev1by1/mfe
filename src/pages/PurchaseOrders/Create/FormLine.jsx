@@ -255,7 +255,7 @@ const FormLine = ({
           className="btn btn-light-gray btn-block"
           onClick={() => deleteOrderLines({ orderLines, setOrderLines, index })}
         >
-          <i className="iconU-delete" />
+          <i className="ri-delete-bin-5-line font-20" />
         </button>
       </td>
     </tr>

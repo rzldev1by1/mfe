@@ -34,15 +34,6 @@
   font-weight: 500;
 }
 
-.tab-rename {
-  color: #5e44e5 !important;
-  background-color: white !important;
-  padding-left: 24px;
-  padding-right: 27px;
-  padding-bottom: 5px;
-  border-radius: 7px;
-}
-
 .tab-color {
   color: rgb(88, 87, 87);
   padding-left: 24px;
@@ -50,6 +41,24 @@
   padding-bottom: 5px;
   border-radius: 0.3rem;
   transition: width 2s;
+}
+
+.tab-rename {
+  background-color: #fff;
+  color: #376bfb;
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  border-radius: 3px;
+}
+
+.tab-rename-nonActive {
+  background-color: #a7bdfc;
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  border-radius: 3px;
 }
 
 .rename-columns .input-group,
@@ -62,6 +71,7 @@
   height: 30px !important;
 }
 .btn-outline-primary {
+  border: 1px solid #376bfb !important;
   color: #376bfb !important;
 }
 .no-hover:hover {

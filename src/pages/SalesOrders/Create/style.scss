@@ -32,13 +32,12 @@
 // darkMode Modal
 .customDarkModes {
   //form
-    .form-control {
-    background-color: #1F192D !important;
+  .form-control {
+    background-color: #1f192d !important;
     border-color: white !important;
     color: white;
   }
 }
-
 
 .sales-order-detail {
   .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
@@ -61,4 +60,9 @@
   }
 }
 
-
+.uomFormLine {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-top: -37px;
+  justify-content: space-evenly;
+}

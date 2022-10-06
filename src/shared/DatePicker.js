@@ -17,6 +17,7 @@ function Navbar({
   onPreviousClick,
   onNextClick,
   className,
+  top
   // localeUtils,
 }) {
   const styleLeft = {
@@ -25,7 +26,7 @@ function Navbar({
     backgroundColor: "#E9ECED",
     borderColor: "#E9ECED",
     boxShadow: "none",
-    margin: "0px 6px"
+    margin: top ? "-27px 6px" : "0px 6px"
 
 
   };
@@ -35,21 +36,21 @@ function Navbar({
     backgroundColor: "#E9ECED",
     borderColor: "#E9ECED",
     boxShadow: "none",
-    margin: "0px 6px"
+    margin: top ? "-27px 6px" : "0px 6px"
   };
   return (
-    <div className={className} style={{ marginTop: "14px", marginLeft: "19px", marginRight: "19px", position: "relative" }}>
+    <div className={className} style={{ marginTop: top ? "31px" : "14px", marginLeft: "19px", marginRight: "19px", position: "relative" }}>
       <Button color="secondary" style={styleLeft} onClick={() => onPreviousClick()}>
-        <i className="iconU-leftArrow" style={{ fontSize: "10px" }} />
+        <i className="ri-arrow-left-s-line" style={{ fontSize: "16px" }} />
       </Button>
       <Button color="secondary" style={styleRight} onClick={() => onNextClick()}>
-        <i className="iconU-rightArrow" style={{ fontSize: "10px" }} />
+        <i className="ri-arrow-right-s-line" style={{ fontSize: "16px" }} />
       </Button>
     </div>
   );
 }
 
-function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMonth }) {
+function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMonth, top }) {
   const months = localeUtils.getMonths();
 
   const years = [];
@@ -81,7 +82,7 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
   })
 
   return (
-    <form className="DayPicker-Caption" style={{ marginTop: "-16px", padding: "0 1.57em" }}>
+    <form className="DayPicker-Caption" style={{ marginTop: top ? "-294px" : "-16px", padding: "0 1.57em" }}>
       <Dropdown
         placeHolder="Month"
         optionList={months.toString()}
@@ -304,30 +305,21 @@ class DatePicker extends React.Component {
             onChange={(e) => {
               this.dateValueProcess(e);
             }}
-            // onChange={(e) => { this.dateValueProcess(e); if(this.props.onChange) {this.props.onChange()} }}
             onFocus={() => { this.openDatePicker(); if (this.props.onOpen) { this.props.onOpen() } }}
             onKeyUp={(e) => dateValueFormat(e)}
             onKeyDown={(e) => disabledAlpha(e)}
             style={this.props.formStyle}
           />
-          {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
-          {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format(dateFormate) : placeHolder}</span> */}
 
-          {/* <li className="select_date_items"> */}
           <input className={`select_date_expand ${this.props.arrowStyle ? "select_arrow_expand" : "select_calendar_expand"}`} type="checkbox" name={`select${placeHolder}${no}`} value="" checked={this.state.showDatePicker} id={`select-opener${placeHolder}${no}`} />
           <label className="select_date_closeLabel" htmlFor={`select-opener${placeHolder}${no}`} onClick={() => this.closeDatePicker()} aria-hidden="true" />
           <ReactResizeDetector
             handleWidth
             handleHeight
             refreshRate={2000}
-          // bounds={true}
-          // onResize={contentRect => {
-          // this.setState({ top: contentRect.bounds.height, left: contentRect.bounds.width })
-          // }}
           >
             {({ width, height }) => (
               <div
-                // onHeightReady={height => this.setState({ top: "-"+(height)+"px" })} 
                 className={`select_date_options ${this.props.field === "smallField " ? "smallField " : ""} ${this.props.top && this.props.fixedTop || this.props.fixedTop ? "fixed-top-position" : ""}`}
                 style={(((this.props.top && !this.props.fixedTop)) ? { marginTop: `-${height}px`, marginLeft: `-${width + 6}px` } : null) || (((this.props.right && !this.props.fixedTop)) ? { marginTop: "-50px", marginLeft: `${width + 24}px` } : null)}
               >
@@ -351,19 +343,18 @@ class DatePicker extends React.Component {
                       date={date}
                       localeUtils={localeUtils}
                       onChange={this.handleYearMonthChange}
+                      top={this.props.top}
                       current={this.state.month}
                       fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : new Date(new Date().getFullYear() - 5, 0)}
                       toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date().getFullYear() + 5, 11)}
 
                     />
                   )}
-                  navbarElement={<Navbar />}
+                  navbarElement={<Navbar top={this.props.top} />}
                 />
               </div>
             )}
           </ReactResizeDetector>
-          {/* <label className="select_date_expandLabel" htmlFor={"select-opener" + placeHolder + no}></label> */}
-          {/* </li> */}
         </ul>
         {!this.props.messageRequired ? null : (
           <RequiredMessage
