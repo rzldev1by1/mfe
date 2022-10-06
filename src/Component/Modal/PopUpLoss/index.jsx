@@ -1,10 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Modal, ModalBody } from 'reactstrap'
-import logo from 'assets/img/Internet-Problem-Red.png'
+import logo from '../../../assets/img/Internet-Problem-Red.png'
 import { ProgressBar } from '../service';
 import "./index.scss";
-
 
 const PopUpLoss = ({
   modal,
@@ -14,8 +12,6 @@ const PopUpLoss = ({
   setTimeout(() => {
     ProgressBar({ setModal, back, })
   }, 1000);
-  const darkMode = useSelector((state) => state.darkModeMLS);
-  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       isOpen={modal}
@@ -24,13 +20,14 @@ const PopUpLoss = ({
       contentClassName="modal-content-paging modalCreateLoss"
       closeOnBackdrop={false}
     >
-      <ModalBody className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
+      <ModalBody>
         <div
           className="text-right px-0"
           style={{ fontSize: '14px' }}
           onClick={() => { setModal(false); back(); }}
+          aria-hidden="true"
         >
-          <span className="icon-group_4696 pointer" />
+          <i className="iconU-close pointer" />
         </div>
         <div className="d-flex d-inline-flex align-items-center">
           <img src={logo} alt="logo" style={{ width: "25%", height: "25%" }} />
@@ -47,7 +44,8 @@ const PopUpLoss = ({
         <button
           type="button"
           onClick={() => { setModal(false); back(); }}
-          className="btn btn-search mobile-search btn-primary float-right">
+          className="btn btn-search mobile-search btn-primary float-right"
+        >
           DONE
         </button>
       </ModalBody>

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 import React, { Suspense } from 'react';
 import {
   // Redirect,
@@ -11,7 +12,7 @@ import routes from '../../routes';
 
 const loading = (
   <div className="pt-3 text-center">
-    <div className="sk-spinner sk-spinner-pulse"></div>
+    <div className="sk-spinner sk-spinner-pulse" />
   </div>
 );
 
@@ -21,11 +22,12 @@ const TheContent = () => {
       <CContainer fluid className="px-3">
         <Suspense fallback={loading}>
           <Switch>
-            {routes.map((route, idx) => {
+            {routes.map(route => {
+              console.log(route)
               return (
                 route.component && (
                   <Route
-                    key={idx}
+                    key={route.name}
                     path={route.path}
                     exact={route.exact}
                     name={route.name}

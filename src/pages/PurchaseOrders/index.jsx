@@ -1,19 +1,18 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import { schemaColumn } from './services';
+import { schemaColumn, filterSummaryDefault } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
-import endpoints from 'helpers/endpoints';
-import './index.scss';
+import endpoints from '../../helpers/endpoints';
 
 const PurchaseOrders = (props) => {
+  const { history } = props;
   const showDetails = (item) => {
-    props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
+    history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
   };
 
   const createBtn = endpoints.env.REACT_APP_API_URL_CREATE;
@@ -22,15 +21,19 @@ const PurchaseOrders = (props) => {
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const paginationPo = useSelector((state) => state.paginationPo);
   const stateChangeHeader = useSelector((state) => state.changeHeader);
+  const stateChangeFilter = useSelector((state) => state.changeFilter);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
   const module = 'purchaseOrder';
+  const filterHiddenData = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
 
   // dimension
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 330,
+    height: window.innerHeight - 465,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
@@ -38,7 +41,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 330,
+        height: window.innerHeight - 465,
         width: window.innerWidth,
       });
     };
@@ -49,20 +52,37 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationPo?.active, module, siteVal: user.site, clientVal: user.client, user });
+    if (!poSummaryData) {
+      getSummaryData({
+        dataDefault: poSummaryData,
+        dispatch,
+        active: paginationPo?.active,
+        module,
+        siteVal: user.site,
+        clientVal: user.client,
+        user,
+      });
+    }
   }, []);
 
-  const [columnHidden, setColumnHidden] = useState(null);
-  const [state2, setState2] = useState(null);
   if (!columnHidden) {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
   }
 
   useEffect(() => {
+    if (stateChangeFilter) {
+      dispatch({ type: 'CHANGE_FILTER', data: false });
+    }
+  }, [stateChangeFilter]);
+
+
+  useEffect(() => {
     if (stateChangeHeader) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
-      let x = columnHidden?.map((data, idx) => {
+      const reqColumnHidden = localStorage.getItem('tableColumns')
+        ? JSON.parse(localStorage.getItem('tableColumns'))
+        : [];
+      reqColumnHidden?.forEach((data) => {
         if (data.title === 'Purchase Order Summary') {
           setColumnHidden(data.columns);
         }
@@ -73,9 +93,11 @@ const PurchaseOrders = (props) => {
 
   useEffect(() => {
     if (state2) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      const reqColumnHidden = localStorage.getItem('tableColumns')
+        ? JSON.parse(localStorage.getItem('tableColumns'))
+        : [];
       let tmp = null;
-      let x = columnHidden?.map((data, idx) => {
+      reqColumnHidden?.forEach((data) => {
         if (data.title === 'Purchase Order Summary') {
           tmp = data.columns;
         }
@@ -93,15 +115,18 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      // getSummaryData({ dispatch, active: paginationPo?.active, Export, module });
     }
   }, [Export]);
+
   return (
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
         button={(
-          <CButton onClick={() => setShowModal(true)} className={`btn btn-primary btn-create float-right ${createBtn === 'true' ? '' : 'd-none'}`}>
+          <CButton
+            onClick={() => setShowModal(true)}
+            className={`btn btn-primary btn-create float-right ${createBtn === 'true' ? '' : 'd-none'}`}
+          >
             CREATE PURCHASE ORDER
           </CButton>
         )}
@@ -109,6 +134,8 @@ const PurchaseOrders = (props) => {
       <div>
         <div>
           <Search
+            titleFilter="Purchase Order Summary"
+            filterHidden={filterHiddenData || filterSummaryDefault}
             module={module}
             filterSite
             filterClient
@@ -116,7 +143,6 @@ const PurchaseOrders = (props) => {
             filterOrderType
             filterTask
             placeholder="Enter an Order No"
-            filter
             onChangeGetTask
             Export={Export}
             btnSearch

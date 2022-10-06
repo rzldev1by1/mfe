@@ -1,6 +1,6 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
-import RequiredMessage from 'Component/RequiredMessage';
+import RequiredMessage from '../RequiredMessage';
 
 const InputNumber = ({
   name,
@@ -13,11 +13,12 @@ const InputNumber = ({
   onChange,
   isReadOnly,
   isDecimal,
+  parentDivClassName,
   messageRequired,
   messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
 }) => {
   return (
-    <div>
+    <div className={parentDivClassName}>
       <NumberFormat
         thousandSeparator
         name={name}

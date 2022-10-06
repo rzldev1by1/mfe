@@ -1,8 +1,5 @@
-import axios from 'axios';
-import endpoints from 'helpers/endpoints';
-import numeral from 'numeral';
-import { checkOrderNo, submitPurchaseOrder } from 'apiService';
-import { getUOM } from 'apiService/dropdown';
+/* eslint-disable no-param-reassign */
+import { checkOrderNo, submitPurchaseOrder } from '../../../apiService';
 
 export const cleanOrderDetails = {
   site: null,
@@ -39,30 +36,31 @@ export const cleanOrderLines = {
 };
 
 export const validation = async ({ orderDetails, orderLines, setActiveTab, setOrderLines }) => {
-  //initial
+  // initial
   let statusValidate = true;
-  let orderDetailsValidation = [
+  const orderDetailsValidation = [
     'validation_site',
     'validation_orderType',
     'validation_client',
     'validation_orderNo',
     'validation_orderDate',
   ];
-  let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
+  const orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
-  //validasi order details
-  orderDetailsValidation.forEach((key, keyIndex) => {
+  // validasi order details
+  orderDetailsValidation.forEach((key) => {
     if (orderDetails[key] !== true) statusValidate = false;
   });
 
-  //validasi orderLines
-  orderLines.map((data, index) => {
+  // validasi orderLines
+  orderLines.map((data) => {
     data.validation = true;
-    orderDetaillinessValidation.forEach((key, keyIndex) => {
+    orderDetaillinessValidation.forEach((key) => {
       if (data[key] !== true) statusValidate = false;
     });
+    return false;
   });
-  let newOrderLines = [...orderLines];
+  const newOrderLines = [...orderLines];
   setOrderLines(newOrderLines);
 
   if (orderLines.length < 1) {
@@ -77,20 +75,20 @@ export const validation = async ({ orderDetails, orderLines, setActiveTab, setOr
 };
 
 export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
-  //initial
+  // initial
   let statusValidate = true;
-  let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
+  const orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
-  //validasi orderLines
-  orderLines.map((data, index) => {
+  // validasi orderLines
+  orderLines.forEach((data) => {
     data.validation = true;
-    orderDetaillinessValidation.forEach((key, keyIndex) => {
+    orderDetaillinessValidation.forEach((key) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
 
-  //set
-  let newOrderLines = [...orderLines];
+  // set
+  const newOrderLines = [...orderLines];
   setOrderLines(newOrderLines);
   return statusValidate;
 };
@@ -141,56 +139,52 @@ export const resetCreate = (dispatch) => {
 };
 
 export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetails }) => {
-  let od = { ...orderDetails };
+  const od = { ...orderDetails };
   od[column] = value;
-  od['validation_' + column] = value ? true : false;
+  od[`validation_${column}`] = !!value;
   setOrderDetails(od);
 };
 
-export const changeOrderDetailSiteAndClient = ({ valClient, valSite,  setOrderDetails, orderDetails }) => {
-  let od = { ...orderDetails };
+export const changeOrderDetailSiteAndClient = ({ valClient, valSite, setOrderDetails, orderDetails }) => {
+  const od = { ...orderDetails };
 
-  if(valClient){
-    od['client'] = valClient;
-    od['validation_' + 'client'] = valClient ? true : false;
-  }
+  // client
+  od.client = valClient;
+  od.validation_client = !!valClient;
 
-  if(valSite){
-    od['site'] = valSite;
-    od['validation_' + 'site'] = valSite ? true : false;
-  }
+  // site
+  od.site = valSite;
+  od.validation_site = !!valSite;
+
   setOrderDetails(od);
 };
 
-export const changeClient = async ({ value, orderDetails, setOrderDetails, setSupplier, setOrderLines }) => {
-  let od = { ...orderDetails };
-  // if(value || !value){
-    const resetOrderLines = [
-      {
-        batch: "",
-        disposition: "",
-        packId: "",
-        product: "",
-        qty: "",
-        ref3: "",
-        ref4: "",
-        rotaDate: "",
-        uom: "",
-        productDesc: "",
-        validation: false,
-        validation_product: false,
-        validation_qty: false,
-        validation_uom: false,
-        weight: ""
-      }
-    ];
+export const changeClient = async ({ value, orderDetails, setOrderDetails, setOrderLines }) => {
+  const od = { ...orderDetails };
+  const resetOrderLines = [
+    {
+      batch: "",
+      disposition: "",
+      packId: "",
+      product: "",
+      qty: "",
+      ref3: "",
+      ref4: "",
+      rotaDate: "",
+      uom: "",
+      productDesc: "",
+      validation: false,
+      validation_product: false,
+      validation_qty: false,
+      validation_uom: false,
+      weight: ""
+    }
+  ];
 
-    setOrderLines(resetOrderLines)
-  // }
-
-  od['client'] = value;
-  od['validation_client'] = value ? true : false;
-  od['supplier'] = null;
+  setOrderLines(resetOrderLines)
+  od.client = value;
+  od.validation_client = !!value;
+  od.supplier = null;
   setOrderDetails(od);
 };
 
@@ -209,9 +203,9 @@ export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, setOr
 
   setCheckingOrderNo({ status: false, message: 'verifying...' });
   setOrderDetails({ ...orderDetails, validation_orderNo: false });
-  let ret = await checkOrderNo({ client, orderNo, module: 'purchase-orders' });
+  const ret = await checkOrderNo({ client, orderNo, module: 'purchase-orders' });
 
-  let val = document.getElementById('orderNo').value;
+  const val = document.getElementById('orderNo').value;
   if (val !== orderNo) {
     return;
   }
@@ -226,28 +220,28 @@ export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, setOr
 };
 
 export const changeOrderLines = ({ val, column, index, orderLines, setOrderLines }) => {
-  //set data
-  let newOrderLines = [...orderLines];
+  // set data
+  const newOrderLines = [...orderLines];
   newOrderLines[index][column] = val;
-  newOrderLines[index]['validation_' + column] = val ? true : false;
+  newOrderLines[index][`validation_${column}`] = !!val;
   setOrderLines(newOrderLines);
 };
 
 export const productHandler = async ({ val, index, orderLines, setIsUom, setOrderLines }) => {
-  //set data
-  let newOrderLines = [...orderLines];
-  newOrderLines[index]['product'] = val;
-  newOrderLines[index]['validation_product'] = val ? true : false;
-  newOrderLines[index]['productDesc'] = val?.orginLabel || '';
-  newOrderLines[index]['uom'] = '';
-  newOrderLines[index]['validation_uom'] = false;
+  // set data
+  const newOrderLines = [...orderLines];
+  newOrderLines[index].product = val;
+  newOrderLines[index].validation_product = !!val;
+  newOrderLines[index].productDesc = val?.orginLabel || '';
+  newOrderLines[index].uom = '';
+  newOrderLines[index].validation_uom = false;
   setOrderLines(newOrderLines);
 
-  //get uom
+  // get uom
   const stringUOM = val?.uom;
   if (stringUOM) {
     const uomDataArr = stringUOM.split(',');
-    const uomData = uomDataArr.map((c, i) => ({ value: c, label: c }));
+    const uomData = uomDataArr.map((c) => ({ value: c, label: c }));
     setIsUom(uomData);
   } else {
     setIsUom([]);
@@ -255,15 +249,15 @@ export const productHandler = async ({ val, index, orderLines, setIsUom, setOrde
 };
 
 export const addOrderLines = ({ orderLines, setOrderLines }) => {
-  let newCleanOrderLines = Object.assign({}, JSON.parse(JSON.stringify(cleanOrderLines)));
-  let newOrderLines = [...orderLines];
+  const newCleanOrderLines = Object.assign(JSON.parse(JSON.stringify(cleanOrderLines)));
+  const newOrderLines = [...orderLines];
 
   newOrderLines.push(newCleanOrderLines);
   setOrderLines(newOrderLines);
 };
 
 export const deleteOrderLines = ({ orderLines, setOrderLines, index }) => {
-  let newOrderLines = [...orderLines];
+  const newOrderLines = [...orderLines];
   newOrderLines.splice(index, 1);
   setOrderLines(newOrderLines);
 };
@@ -278,86 +272,8 @@ export const removeLine = ({ i, line, setLine }) => {
   }
 };
 
-export const lineChange = (i, e, line, setLine) => {
-  const newOrderLine = { ...line };
-  const { name, value } = e.target;
-
-  let formatted = value;
-  formatted = this.decimalFormatter(name, value);
-
-  const tes = [...newOrderLine.orderLine];
-  tes[i][name] = formatted;
-
-  newOrderLine.orderLine = tes;
-  setLine(newOrderLine);
-};
-
 export const numberCheck = (e) => {
-  if (!/^[0-9]+$/.test(e.key)) e.preventDefault();
-};
-
-const decimalFormatter = (name, value) => {
-  let newVal = value;
-  if (name === 'weight') {
-    if (newVal.length > 11)
-      newVal = newVal
-        .split('')
-        .filter((d) => (d !== ',' ? d : null))
-        .map((d, i) => {
-          if (i > 10 && !newVal.includes('.')) {
-            return null;
-          } else return d;
-        })
-        .join('');
-    const dot = newVal.indexOf('.');
-
-    if (dot === -1 && newVal.length === 11) {
-      newVal = newVal
-        .slice(0, dot)
-        .split('')
-        .filter((d) => d !== ',')
-        .join('');
-    }
-    if (dot !== -1 && newVal.length) {
-      let number;
-      let decimal = newVal
-        .slice(dot + 1, dot + 4)
-        .split('')
-        .filter((d) => d !== '.' && d !== ',')
-        .join('');
-      let integer = newVal
-        .slice(0, dot)
-        .split('')
-        .filter((d) => d !== ',')
-        .join('');
-      if (integer.length <= 6) {
-        if (integer.length >= 4) {
-          let idxSepr1 = integer.slice(0, integer.length - 3);
-          let idxSepr2 = integer.slice(integer.length - 3);
-          number = `${idxSepr1},${idxSepr2}.${decimal}`;
-        } else number = `${integer}.${decimal}`;
-      }
-      if (integer.length > 6 && integer.length <= 9) {
-        let idxSepr1 = integer.slice(0, integer.length - 6);
-        let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3);
-        let idxSepr3 = integer.slice(integer.length - 3);
-        number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`;
-      }
-      if (integer.length > 9 && integer.length <= 8) {
-        let idxSepr1 = integer.slice(0, integer.length - 9);
-        let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6);
-        let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3);
-        let idxSepr4 = integer.slice(integer.length - 3);
-        number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`;
-      }
-
-      number = number?.split('');
-      if (number && number[0] === ',') delete number[0];
-      number = number?.join('');
-      return number;
-    } else return numeral(newVal).format('0,0');
-  } else if (name == 'qty') return newVal ? numeral(newVal).format('0,0') : newVal;
-  return value;
+  if (!/D+$/.test(e.key)) e.preventDefault();
 };
 
 export const submit = async ({
@@ -368,7 +284,7 @@ export const submit = async ({
   setActiveTab,
   setIsSubmitStatus,
 }) => {
-  let newOrderDetails = {
+  const newOrderDetails = {
     site: orderDetails?.site?.value || '',
     client: orderDetails?.client?.value || '',
     orderNo: orderDetails?.orderNo || '',
@@ -379,9 +295,9 @@ export const submit = async ({
     vendorOrderRef: orderDetails?.vendorOrderRef || '',
     web_user: user.webUser,
   };
-  let newOrderLines = [];
-  orderLinesData.map((item, index) => {
-    let tmp = {
+  const newOrderLines = [];
+  orderLinesData.forEach((item) => {
+    const tmp = {
       product: item?.product?.value || '',
       qty: item?.qty || '',
       uom: item?.uom?.value || '',
@@ -397,10 +313,10 @@ export const submit = async ({
 
   const ret = await submitPurchaseOrder({ orderDetail: newOrderDetails, lineDetails: newOrderLines });
 
-  //check return
-  let status = ret?.data?.status;
-  let message = ret?.data?.message;
-  let submitReturn = { status: status, message: message, orderNo: orderDetails?.orderNo };
+  // check return
+  const status = ret?.data?.status;
+  const message = ret?.data?.message;
+  const submitReturn = { status, message, orderNo: orderDetails?.orderNo };
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');
@@ -411,6 +327,6 @@ export const formatDate = (dateStr) => {
     return null;
   }
 
-  let dArr = dateStr.split('-');
-  return dArr[2] + '/' + dArr[1] + '/' + dArr[0];
+  const dArr = dateStr.split('-');
+  return `${dArr[2]}/${dArr[1]}/${dArr[0]}`;
 };

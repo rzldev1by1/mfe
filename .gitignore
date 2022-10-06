@@ -34,3 +34,6 @@ yarn-error.log*
 
 # release
 /coreui-pro-react-admin-template*.zip
+
+# sonarqube
+/.scannerwork

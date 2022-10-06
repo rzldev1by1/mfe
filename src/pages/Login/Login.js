@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Logo from 'assets/img/login-logo.png';
+import Logo from '../../assets/img/login-logo.png';
 import loading from '../../assets/icons/loading/LOADING-MLS.gif';
-import endpoints from 'helpers/endpoints';
+import endpoints from '../../helpers/endpoints';
 import './Login.css';
 
 const baseUrl = endpoints.env.REACT_APP_API_URL;
 const version = endpoints.env.REACT_APP_VERSION || '';
+const localVersion = localStorage.getItem('version')
 class Logins extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +17,7 @@ class Logins extends Component {
         username: true,
         password: true,
       },
-      emailValidation: true,
+      validationEmail: true,
       errorMessage: '',
       isLoad: false,
       forgotPassword: false,
@@ -27,30 +28,38 @@ class Logins extends Component {
   }
 
   componentDidMount() {
-    const { expired, user } = this.props.store;
-    if (expired && user)
+    const { store } = this.props;
+    if (store.expired && store.user) {
       this.setState({ errorMessage: 'Sorry, you have been automatically logged out due to inactivity' });
+    }
+    if (localVersion) {
+      if (version) {
+        if (localVersion === version) console.log(version)
+        else localStorage.clear();
+      }
+    } else localStorage.setItem('version', version);
   }
 
   validateForm = async (e) => {
     e.preventDefault();
     let errorMessage = '';
-    if (!this.state.forgotPassword) {
+    const { forgotPassword } = this.state
+    const { dispatch, history } = this.props
+    if (!forgotPassword) {
       this.setState({ isLoad: true });
       const username = e.target.username.value;
       const password = e.target.password.value;
       if (username && password) {
-        const payload = { userid: username, password: password };
-        // const result = await helpers.authenticationHandler(payload)
+        const payload = { userid: username, password };
         try {
-          const { data } = await axios.post(baseUrl + '/auth/login', payload);
+          const { data } = await axios.post(`${baseUrl}/auth/login`, payload);
           if (data) {
             this.setState({ errorMessage: null });
 
-            let dataUser = { ...data?.user };
+            const dataUser = { ...data?.user };
             dataUser.token = data.access_token;
-            this.props.dispatch({ type: 'LOGIN', data: dataUser });
-            this.props.history.push('/');
+            dispatch({ type: 'LOGIN', data: dataUser });
+            history.push('/');
           }
         } catch (error) {
           errorMessage = 'Failed to process your request';
@@ -62,9 +71,9 @@ class Logins extends Component {
         }
         this.setState({ isLoad: false, errorMessage, formValidation: { username: true, password: true } });
       } else {
-        let formValidation = {
-          username: username.length ? true : false,
-          password: password.length ? true : false,
+        const formValidation = {
+          username: !!username.length,
+          password: !!password.length,
         };
         if (!password) {
           errorMessage = 'Password is required';
@@ -79,17 +88,17 @@ class Logins extends Component {
       }
     }
 
-    if (this.state.forgotPassword) {
+    if (forgotPassword) {
       const email = e.target.email.value;
-      const payload = { email: email };
+      const payload = { email };
       if (email.length === 0) {
-        this.setState({ emailValidation: false, isLoad: false });
+        this.setState({ validationEmail: false, isLoad: false });
       }
       this.setState({ isLoad: true });
       try {
-        const result = await axios.post(baseUrl + '/auth/forgot-password', payload);
+        const result = await axios.post(`${baseUrl}/auth/forgot-password`, payload);
         if (result.status === 400) {
-          this.setState({ isLoad: false, errorMessage: result.message, emailValidation: false });
+          this.setState({ isLoad: false, errorMessage: result.message, validationEmail: false });
         } else {
           this.hideErrorMessageHandler(errorMessage);
           this.setState({ forgotSuccess: true });
@@ -102,11 +111,12 @@ class Logins extends Component {
   };
 
   changeFormHanlder = () => {
+    const { forgotPassword } = this.state
     this.setState({
-      forgotPassword: !this.state.forgotPassword,
+      forgotPassword: !forgotPassword,
       errorMessage: '',
       formValidation: { username: true, password: true },
-      emailValidation: true,
+      validationEmail: true,
     });
   };
 
@@ -123,11 +133,11 @@ class Logins extends Component {
   };
 
   redirectPageHandler = () => {
-    window.location.replace(window.location.origin);
+    this.window.location.replace(window.location.origin);
   };
 
   hideErrorMessageHandler = (errorMessage) => {
-    this.setState({ isLoad: false, errorMessage, emailValidation: true });
+    this.setState({ isLoad: false, errorMessage, validationEmail: true });
   };
 
   onChangeEmail = (e) => {
@@ -135,16 +145,15 @@ class Logins extends Component {
   };
 
   loginForm(errorMessage, formValidation) {
+    const { forgotPassword, isLoad } = this.state
     return (
       <form
-        className={'mt-3 ' + (this.state.forgotPassword ? 'form-hidden' : 'form-show')}
+        className={`mt-3 ${forgotPassword ? 'form-hidden' : 'form-show'}`}
         onSubmit={this.validateForm}
       >
         <input
           autoComplete="off"
-          className={'form-control  inputLogin ' +
-            (errorMessage === '' ? '' : ' border-red') +
-            (errorMessage === 'Password is required' ? 'none' : '') /*"is-invalid"*/}
+          className={`form-control inputLogin ${errorMessage === '' ? '' : 'border-red'} ${errorMessage === 'Password is required' ? 'none' : ''}`}
           style={formValidation.username ? {} : { borderColor: '#f44336 !important' }}
           type="text"
           name="username"
@@ -153,28 +162,27 @@ class Logins extends Component {
         <br />
         <input
           autoComplete="off"
-          className={'form-control inputLogin ' +
-            (errorMessage === '' ? '' : ' border-red') +
-            (errorMessage === 'Username is required' ? 'none' : '') /*"is-invalid"*/}
+          className={`form-control inputLogin ${errorMessage === '' ? '' : ' border-red'} ${errorMessage === 'Username is required' ? 'none' : ''}`}
           type="password"
           name="password"
           placeholder="Enter your password here"
         />
-        <div className={'error ' + (errorMessage ? ' alertFadeIn' : '')}>
+        <div className={`error ${errorMessage ? 'alertFadeIn' : ''}`}>
           {errorMessage && (
             <div>
-              <span className="iconU-i" /> {errorMessage}
+              <span className="iconU-i" />
+              {errorMessage}
             </div>
           )}
         </div>
         <div className="row">
           <div className="pl-3 pr-0" style={{ width: '30%' }}>
             <button type="submit" className="btn btn-primary btn-login col-12" onClick={() => this.setState({ errorMessage: '' })}>
-              {this.state.isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'LOGIN'}
+              {isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'LOGIN'}
             </button>
           </div>
           <div className="col-7 mt-3">
-            <span className="form-login-change" onClick={() => this.changeFormHanlder()}>
+            <span className="form-login-change" onClick={() => this.changeFormHanlder()} aria-hidden="true">
               FORGOT PASSWORD
             </span>
           </div>
@@ -183,25 +191,26 @@ class Logins extends Component {
     );
   }
 
-  forgotPasswordForm(errorMessage, formValidation) {
+  forgotPasswordForm(errorMessage) {
+    const { forgotPassword, forgotSuccess, emailValue, isLoad } = this.state
     return (
       <form
-        className={'mt-3 ' + (this.state.forgotPassword ? 'form-show' : 'form-hidden')}
+        className={`mt-3 ${forgotPassword ? 'form-show' : 'form-hidden'}`}
         onSubmit={this.validateForm}
       >
-        {this.state.forgotSuccess ? (
+        {forgotSuccess ? (
           <div className="col-10" style={{ marginTop: '17px' }}>
             <div className="forgotPassMsg" style={{ color: '#4775ff' }}>
               Password recovery link has been sent to your email address
             </div>
-            <div className="forgotPassMsg">{this.state.emailValue}</div>
+            <div className="forgotPassMsg">{emailValue}</div>
           </div>
         ) : (
           <div>
             <input
               autoComplete="off"
               onChange={this.onChangeEmail}
-              className={'form-control  inputLogin ' + (errorMessage === '' ? '' : 'border-red') /*"is-invalid"*/}
+              className={`form-control inputLogin ${errorMessage === '' ? '' : 'border-red'}`}
               type="text"
               name="email"
               placeholder="Enter your email address here"
@@ -209,34 +218,35 @@ class Logins extends Component {
             <span className="email-message">Enter your email address to find your account</span>
           </div>
         )}
-        <div className={'error pl-2 ml-1' + (errorMessage ? ' alertFadeIn' : '')}>
+        <div className={`error pl-2 ml-1 ${errorMessage ? 'alertFadeIn' : ''}`}>
           {errorMessage && (
             <div>
-              <span className="iconU-i" /> {errorMessage}
+              <span className="iconU-i" />
+              {errorMessage}
             </div>
           )}
         </div>
         <div className="row forgot-row">
-          {this.state.forgotSuccess ? (
+          {forgotSuccess ? (
             <div className="pr-0 pl-3 white-space" style={{ width: '30%' }}>
               <button
                 onClick={() => this.exitPolicyHandler()}
                 type="button"
                 className="btn btn-primary btn-login col-12"
               >
-                {this.state.isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'BACK'}
+                {isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'BACK'}
               </button>
             </div>
           ) : (
             <div className="pr-0 pl-3 white-space" style={{ width: '30%' }}>
               <button type="submit" className="btn btn-primary btn-login col-12">
-                {this.state.isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'SEND'}
+                {isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'SEND'}
               </button>
             </div>
           )}
-          {this.state.forgotSuccess ? null : (
+          {forgotSuccess ? null : (
             <div className="col-sm-8 mt-3">
-              <span className="form-login-change" onClick={() => this.changeFormHanlder()}>
+              <span className="form-login-change" onClick={() => this.changeFormHanlder()} aria-hidden="true">
                 LOGIN PAGE
               </span>
             </div>
@@ -247,11 +257,13 @@ class Logins extends Component {
   }
 
   termAndCondition() {
+    const { isLoad } = this.state
     return (
       <div className="privacy-and-term mb-3">
         <div className="policy-title policyContent">Terms and Conditions</div>
         <div className="form-control text-area-policy policyContent">
-          Your privacy on microlistics.com <br />
+          Your privacy on microlistics.com
+          <br />
           <br />
           This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic
           resource and business tool to help you create your future. We want you to feel secure when visiting our site
@@ -267,8 +279,7 @@ class Logins extends Component {
           (the Policy).
           <br />
           <br />
-          Should you have any questions in relation to the Policy or its application, please
-          contact: privacyofficer@wisetechglobal.com
+          Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com
           <br />
           <br />
           Introduction
@@ -352,7 +363,7 @@ class Logins extends Component {
           may also notify us at any time that you do not wish to receive marketing or promotional material by advising
           the WTG Privacy Officer at the contact details set out below under “Your rights.” Cookie usage Cookies are
           small files which are stored on a user’s computer. They are designed to hold a modest amount of data specific
-          to a particular client and website.  They can be accessed either by the web server or the client computer. We
+          to a particular client and website. They can be accessed either by the web server or the client computer. We
           use cookies to understand and save your preferences for future visits and compile aggregate data about site
           traffic and site interaction so that we can offer better site experiences and tools in the future. We may
           contract third-party service providers to assist us in better understanding our site visitors. These service
@@ -363,7 +374,7 @@ class Logins extends Component {
           including Google, use first-party cookies (such as the Google Analytics cookie) and third-party cookies (such
           as the DoubleClick cookie) together to inform, optimize, and serve ads based on visitors’ past visits to our
           website. To opt out of a third-party vendor’s use of cookies visit the Network Advertising
-          Initiative’s consumer opt-out page. All About Cookies has instructions for how to manage your cookie settings.
+          Initiative’s consumer opt-out page. All About Cookies has instructions for how to manage your cookie settings.
           When we disclose your personal information For the purposes set out above (under “How do we use your personal
           information”) we may disclose your personal information to organizations or persons outside Microlistics, to
           the extent this is legally permissible in your jurisdiction. If we need to disclose your personal information
@@ -392,7 +403,7 @@ class Logins extends Component {
           being portable and accessible upon request; and object to the processing of your personal data. If you wish to
           exercise any of the above rights or if you have any questions about this privacy policy, any concerns or a
           complaint regarding the treatment of your privacy, or a possible breach of your privacy, please use the
-          contact link on our website or contact our Privacy Officer at: Email: privacyofficer@wisetechglobal.com Post:
+          contact link on our website or contact our Privacy Officer at: Email: privacyofficer@wisetechglobal.com Post:
           Unit 3a, 72 O’Riordan Street, Alexandria NSW 2015 Australia. If you do make a complaint or allege a breach,
           WTG will investigate your complaint and use reasonable endeavours to respond to you in writing within 28 days
           of receiving the written complaint. If we fail to respond to your complaint within 28 days of receiving it in
@@ -406,13 +417,13 @@ class Logins extends Component {
           notify you by posting an updated version of the policy on our website. If at any point we decide to use
           personal information in a manner materially different from that stated at the time it was collected, we will
           notify users by email or via a prominent notice on our website and, where necessary, we will seek the prior
-          consent of our users. To learn more about our data collection policy please click here.
+          consent of our users. To learn more about our data collection policy please click here.
         </div>
 
         <div className="row mt-3">
           <div className="pl-3 pr-0" style={{ width: '30%' }}>
             <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-              {this.state.isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'BACK'}
+              {isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'BACK'}
             </button>
           </div>
         </div>
@@ -421,6 +432,7 @@ class Logins extends Component {
   }
 
   privacyAndPolicy() {
+    const { isLoad } = this.state
     return (
       <div className="privacy-and-term mb-3">
         {/* <div className='policy-title inputLogin'>PRIVACY AND POLICY</div> */}
@@ -448,7 +460,8 @@ class Logins extends Component {
                 </div> */}
         <div className="policy-title policyContent">Privacy Policy</div>
         <div className="form-control text-area-policy policyContent">
-          Your privacy on microlistics.com <br />
+          Your privacy on microlistics.com
+          <br />
           <br />
           This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic
           resource and business tool to help you create your future. We want you to feel secure when visiting our site
@@ -464,7 +477,7 @@ class Logins extends Component {
           (the Policy).
           <br />
           Should you have any questions in relation to the Policy or its application, please
-          contact: privacyofficer@wisetechglobal.com
+          contact: privacyofficer@wisetechglobal.com
           <br />
           <br />
           Introduction
@@ -551,7 +564,7 @@ class Logins extends Component {
           may also notify us at any time that you do not wish to receive marketing or promotional material by advising
           the WTG Privacy Officer at the contact details set out below under “Your rights.” Cookie usage Cookies are
           small files which are stored on a user’s computer. They are designed to hold a modest amount of data specific
-          to a particular client and website.  They can be accessed either by the web server or the client computer. We
+          to a particular client and website. They can be accessed either by the web server or the client computer. We
           use cookies to understand and save your preferences for future visits and compile aggregate data about site
           traffic and site interaction so that we can offer better site experiences and tools in the future. We may
           contract third-party service providers to assist us in better understanding our site visitors. These service
@@ -562,7 +575,7 @@ class Logins extends Component {
           including Google, use first-party cookies (such as the Google Analytics cookie) and third-party cookies (such
           as the DoubleClick cookie) together to inform, optimize, and serve ads based on visitors’ past visits to our
           website. To opt out of a third-party vendor’s use of cookies visit the Network Advertising
-          Initiative’s consumer opt-out page. All About Cookies has instructions for how to manage your cookie settings.
+          Initiative’s consumer opt-out page. All About Cookies has instructions for how to manage your cookie settings.
           When we disclose your personal information For the purposes set out above (under “How do we use your personal
           information”) we may disclose your personal information to organizations or persons outside Microlistics, to
           the extent this is legally permissible in your jurisdiction. If we need to disclose your personal information
@@ -591,7 +604,7 @@ class Logins extends Component {
           being portable and accessible upon request; and object to the processing of your personal data. If you wish to
           exercise any of the above rights or if you have any questions about this privacy policy, any concerns or a
           complaint regarding the treatment of your privacy, or a possible breach of your privacy, please use the
-          contact link on our website or contact our Privacy Officer at: Email: privacyofficer@wisetechglobal.com Post:
+          contact link on our website or contact our Privacy Officer at: Email: privacyofficer@wisetechglobal.com Post:
           Unit 3a, 72 O’Riordan Street, Alexandria NSW 2015 Australia. If you do make a complaint or allege a breach,
           WTG will investigate your complaint and use reasonable endeavours to respond to you in writing within 28 days
           of receiving the written complaint. If we fail to respond to your complaint within 28 days of receiving it in
@@ -605,19 +618,20 @@ class Logins extends Component {
           notify you by posting an updated version of the policy on our website. If at any point we decide to use
           personal information in a manner materially different from that stated at the time it was collected, we will
           notify users by email or via a prominent notice on our website and, where necessary, we will seek the prior
-          consent of our users. To learn more about our data collection policy please click here.
+          consent of our users. To learn more about our data collection policy please click here.
         </div>
 
         <div className="row mt-3">
           <div className="pl-3 pr-0" style={{ width: '30%' }}>
             <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-              {this.state.isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'BACK'}
+              {isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'BACK'}
             </button>
           </div>
         </div>
       </div>
     );
   }
+
   render() {
     const { errorMessage, formValidation, forgotPassword, policy } = this.state;
     let formComponent = this.loginForm(errorMessage, formValidation);
@@ -646,7 +660,11 @@ class Logins extends Component {
           </div>
           <div className="offset-md-1 mt-5">
             <a className="text-white " target="blank" href="https://www.microlistics.com.au/">
-              © Microlistics {new Date().getFullYear()} - part of the WiseTech Global Group
+              © Microlistics
+              {' '}
+              {new Date().getFullYear()}
+              {' '}
+              - part of the WiseTech Global Group
             </a>
           </div>
           <div className="offset-md-1 mb-4">

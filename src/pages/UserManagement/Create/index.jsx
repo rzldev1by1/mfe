@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Modal, Container } from 'react-bootstrap';
 import { TabContent, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
-import Form from './Form';
-import { renewState, submit, validateButton } from './services.js';
-import loading from 'assets/icons/loading/LOADING-MLS.gif';
-import PopUpCreateSuccesUM from 'Component/Modal/PopUpCreateSuccesUM';
-import PopUpLossUM from 'Component/Modal/PopUpLossUM';
 import './style.scss';
+import loading from '../../../assets/icons/loading/LOADING-MLS.gif';
+import PopUpCreateSuccesUM from '../../../Component/Modal/PopUpCreateSuccesUM';
+import PopUpLossUM from '../../../Component/Modal/PopUpLossUM';
+import Form from './Form';
+import { renewState, submit, validateButton } from './services';
 
 const Create = ({ show, setShow }) => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const orderLinesData = useSelector((state) => state.orderLinesData);
   const clientData = useSelector((state) => state.clientData);
   const siteData = useSelector((state) => state.siteData);
   const moduleAccess = useSelector((state) => state.moduleAccess);
@@ -23,7 +21,6 @@ const Create = ({ show, setShow }) => {
   const [isValidation, setIsValidation] = useState(false);
   const [isSubmitStatus, setIsSubmitStatus] = useState(null);
   const [isSubmitReturn, setIsSubmitReturn] = useState(null);
-  const [createDetails, setCreateDetails] = useState(null);
   const [modal, setModal] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [state, setState] = useState({
@@ -72,19 +69,107 @@ const Create = ({ show, setShow }) => {
     renewState({ setState, state, siteData, clientData, moduleAccess });
   }, []);
   const dataMode = darkMode?.map(d => { return d.dark_mode })
+
+
+  const ButtonDetail = () => {
+    return (
+      <Row className="mt-3 pt-3">
+        <Col lg={2} />
+        <Col lg={8} />
+        <Col lg={2} className="text-right">
+          <button
+            type='button'
+            className='btn btn-primary'
+            onClick={() => {
+              setIsValidation(true);
+              if (state.validate) {
+                setActiveTab('review');
+              }
+            }}
+          >
+            NEXT
+          </button>
+        </Col>
+      </Row>
+    )
+  }
+
+  const ButtonReview = () => {
+    return (
+      <Row className="mt-3 pt-3">
+        <Col lg={2}>
+          <button type='button' className="btn btn-primary" onClick={() => setActiveTab('details')}>
+            BACK
+          </button>
+        </Col>
+        <Col lg={8}>
+          {isSubmitStatus === 'success' ? (
+            <div className="text-center text-secondary mt-2">
+              {' '}
+              <span className="text-success">Success,</span>
+              order has been successfully submitted for
+              processing
+            </div>
+          ) : null}
+        </Col>
+        <Col lg={2} className="text-right">
+          <button
+            type='button'
+            className="btn btn-primary"
+            onClick={() => {
+              setIsSubmitStatus('loading');
+              submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, isAdmin, user, data: state, setShow });
+            }}
+          >
+            {isSubmitStatus === 'loading' ? (
+              <div className="m-iconLoad">
+                <img src={loading} alt="" width="45" height="45" />
+              </div>
+            ) : (
+              'SUBMIT'
+            )}
+          </button>
+        </Col>
+      </Row>
+    )
+  }
+
+  const ActiveMassage = () => {
+    if (activeTab === 'message') {
+      if (isSubmitReturn?.status === 201 || isSubmitReturn?.message === 'User created') {
+        <PopUpCreateSuccesUM
+          modal={modal}
+          setModal={setModal}
+          module="User Management"
+          submitReturn={isSubmitReturn}
+        />
+      } else {
+        <PopUpLossUM
+          modal={modal}
+          setModal={setModal}
+          module="User Management"
+          submitReturn={isSubmitReturn}
+        />
+      }
+
+    }
+  }
+
   return (
-    <div>
+    <>
       <Modal show={show} size="xl" className="purchase-order-create">
         <Modal.Body className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'}  p-0 rounded-top rounded-bottom`}>
           <Row className="px-9 mx-0">
             <Col xs={10} className="px-0">
-              <i className="icon-icon_awesome_edit font-20"></i>
-              <span className="font-20 pl-2">Create Users</span> <br />
+              <i className="ri-draft-line font-20" />
+              <span className="font-20 pl-2">Create Users</span>
+              <br />
               <span className="ml-7">Enter user details to create a New User</span>
             </Col>
             <Col xs={2} className="text-right px-0">
-              <span
+              <i
                 className="icon-group_4696 pointer"
+                aria-hidden="true"
                 onClick={() => {
                   setShow(false);
                   setIsReset(0);
@@ -96,7 +181,7 @@ const Create = ({ show, setShow }) => {
             <NavItem className="mr-1">
               <NavLink
                 style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '20px' }}
-                className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : null}`}
+                className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : ' bg-nonTabActive'}`}
                 onClick={() => setActiveTab('details')}
               >
                 <span className="newIcon-create_edit" />
@@ -105,7 +190,7 @@ const Create = ({ show, setShow }) => {
             </NavItem>
             <NavItem>
               <NavLink
-                className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : null}`}
+                className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : ' bg-nonTabActive'}`}
                 style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '22px' }}
                 onClick={() => {
                   if (state.validate) {
@@ -119,7 +204,7 @@ const Create = ({ show, setShow }) => {
             </NavItem>
           </Nav>
           <div>
-            <TabContent >
+            <TabContent>
               <Container className="px-9 pt-4 pb-9">
                 <Form
                   isAdmin={isAdmin}
@@ -131,82 +216,15 @@ const Create = ({ show, setShow }) => {
                 />
 
                 {/* Button */}
-                {activeTab == 'details' ? (
-                  <Row className="mt-3 pt-3">
-                    <Col lg={2}></Col>
-                    <Col lg={8}></Col>
-                    <Col lg={2} className="text-right">
-                      <button
-                        className={'btn btn-primary'}
-                        onClick={() => {
-                          setIsValidation(true);
-                          if (state.validate) {
-                            setActiveTab('review');
-                          }
-                        }}
-                      >
-                        {'NEXT'}
-                      </button>
-                    </Col>
-                  </Row>
-                ) : activeTab == 'review' ? (
-                  <Row className="mt-3 pt-3">
-                    <Col lg={2}>
-                      <button className="btn btn-primary" onClick={() => setActiveTab('details')}>
-                        {'BACK'}
-                      </button>
-                    </Col>
-                    <Col lg={8}>
-                      {isSubmitStatus === 'success' ? (
-                        <div className="text-center text-secondary mt-2">
-                          {' '}
-                          <span className="text-success">Success,</span> order has been successfully submitted for
-                          processing{' '}
-                        </div>
-                      ) : null}
-                    </Col>
-                    <Col lg={2} className="text-right">
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => {
-                          setIsSubmitStatus('loading');
-                          submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, isAdmin, user, data: state, setShow });
-                        }}
-                      >
-                        {isSubmitStatus === 'loading' ? (
-                          <div className="m-iconLoad">
-                            <img src={loading} width="45" height="45" />
-                          </div>
-                        ) : (
-                          'SUBMIT'
-                        )}
-                      </button>
-                    </Col>
-                  </Row>
-                ) : null}
+                {activeTab === 'details' ? ButtonDetail() : null}
+                {activeTab === 'review' ? ButtonReview() : null}
               </Container>
             </TabContent>
           </div>
         </Modal.Body>
       </Modal>
-      {activeTab == 'message' ?
-        isSubmitReturn?.status == 201 ||
-          isSubmitReturn?.message === 'User created' ? (
-          <PopUpCreateSuccesUM
-            modal={modal}
-            setModal={setModal}
-            module="User Management"
-            submitReturn={isSubmitReturn}
-          />
-        ) : (
-          <PopUpLossUM
-            modal={modal}
-            setModal={setModal}
-            module="User Management"
-            submitReturn={isSubmitReturn}
-          />
-        ) : null}
-    </div>
+      {ActiveMassage}
+    </>
   );
 };
 

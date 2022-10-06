@@ -1,6 +1,6 @@
 import React from 'react';
-import endpoints from 'helpers/endpoints';
 
+// PO index
 export const schemaColumn = [
   {
     Header: 'Site',
@@ -30,7 +30,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -41,7 +44,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -52,7 +58,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 100,
   },
   {
@@ -63,7 +72,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -74,7 +86,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 200,
   },
   {
@@ -87,7 +102,8 @@ export const schemaColumn = [
     sortable: true,
     width: 130,
     Cell: (row) => {
-      switch (row.original.status) {
+      const { original } = row
+      switch (original.status) {
         case '0: Not Available':
           return <div className="status-unavailable">UNAVAILABLE</div>;
         case '1: Available':
@@ -103,6 +119,7 @@ export const schemaColumn = [
         default:
           break;
       }
+      return false
     },
   },
   {
@@ -113,7 +130,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -124,7 +144,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -135,7 +158,10 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 130,
   },
   {
@@ -146,7 +172,22 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => {
+      const { value } = props
+      return <span>{!value ? '-' : value}</span>
+    },
     width: 150,
   },
 ];
+
+export const filterSummaryDefault = [
+  { name: 'Site', accessor: 'site', hiddenFilter: false },
+  { name: 'Client', accessor: 'client', hiddenFilter: false },
+  { name: 'Status', accessor: 'status', hiddenFilter: false },
+  { name: 'Order Type', accessor: 'orderType', hiddenFilter: false },
+  { name: 'Task', accessor: 'task', hiddenFilter: false },
+  { name: 'Order Date', accessor: 'deliveryDate', hiddenFilter: false },
+  { name: 'Date Received', accessor: 'dateReceived', hiddenFilter: false },
+  { name: 'Date Released', accessor: 'dateReleased', hiddenFilter: false },
+  { name: 'Date Completed', accessor: 'dateCompleted', hiddenFilter: false },
+]

@@ -8,8 +8,7 @@ import {
 } from '@coreui/react';
 import nav from './_nav';
 import './TheSidebar.css';
-import Logo from 'assets/img/logo-white.png';
-
+import Logo from '../../assets/img/logo-white.png';
 
 const TheSidebar = () => {
   const dispatch = useDispatch();
@@ -18,9 +17,8 @@ const TheSidebar = () => {
   const user = useSelector((state) => state.user);
 
   const [hover, setHover] = useState(null);
-  let userMenu = user.userModules.map((item) => item.menu_id);
+  const userMenu = user.userModules && user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];
-  const superAdmin = ['MLS12345', 'angae'];
 
   let navigation = nav;
 
@@ -35,15 +33,13 @@ const TheSidebar = () => {
   //   });
   // }
 
-
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter((n) => {
       return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
     });
-  }
-  else {
+  } else {
     navigation = navigation.filter((n) => {
-      return n.to !== "/supplier-management"
+      return n.to !== '/supplier-management';
     });
   }
 
@@ -51,7 +47,7 @@ const TheSidebar = () => {
     <CSidebar
       id="theSidebar"
       show={show}
-      style={{ zIndex: "1" }}
+      style={{ zIndex: '1' }}
       className="h-100"
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
     >
@@ -61,18 +57,21 @@ const TheSidebar = () => {
             <img src={Logo} height="35" alt="logo" />
           </Link>
         </li>
-        <li></li>
+        <li />
       </ul>
       <CSidebarNav className="sidebar-nav-menu">
-        {navigation.map((n, i) => {
-          let string = location.pathname;
+        {navigation.map((n) => {
+          const string = location.pathname;
           const isActive = string.includes(n.to);
           const isHover = hover === n.to;
-          let icon = `nav/${isHover ? n.icon + '-hover' : isActive ? n.icon + '-active' : n.icon}.png`;
+          let hoverIcon = n.icon;
+          if (isHover) hoverIcon = `${n.icon}-hover`;
+          else if (isActive) hoverIcon = `${n.icon}-active`;
+          const icon = `nav/${hoverIcon}.png`;
           return (
-            <Link to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
+            <Link key={n.to} to={n.to} className={isActive} style={{ textDecoration: 'none' }}>
               <li
-                key={i}
+                key={n.to}
                 className="c-sidebar-item links"
                 onMouseEnter={() => setHover(n.to)}
                 onMouseLeave={() => setHover(null)}

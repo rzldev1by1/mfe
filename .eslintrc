@@ -1,20 +1,29 @@
 {
-  "parser": "babel-eslint",
   "parserOptions": {
+    "parser": "@babel/eslint-parser",
     "sourceType": "module",
+    "requireConfigFile": false, 
     "allowImportExportEverywhere": false,
     "codeFrame": false
   },
-  "extends": ["airbnb", "prettier"],
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
   "env": {
     "browser": true,
     "jest": true
   },
   "rules": {
-    "prefer-promise-reject-errors": ["off"],
-    "react/jsx-filename-extension": ["off"],
-    "react/prop-types": ["warn"],
-    "no-return-assign": ["off"],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -24,6 +33,28 @@
         "ts": "never",
         "tsx": "never"
       }
-   ]
-  }
+    ],
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "no-console": "off",
+    "consistent-return": "off",
+    "max-classes-per-file": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "no-param-reassign": 0,
+    "no-restricted-syntax": "off",
+    "react/no-unused-state": "off",
+    "prefer-destructuring": "off",
+    "func-names": "off",
+    "react/jsx-no-bind": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "import/prefer-default-export": "off",
+    "eqeqeq": "off",
+    "react/no-did-update-set-state": "off",
+    "no-shadow": "off"
+  },
+  "ignorePatterns": [
+    "build/*"
+  ]
 }

@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
-import ModuleAccess from '../ModuleAccess';
+import { CCol, CRow } from '@coreui/react';
+import { FormFeedback } from 'reactstrap';
+
 import Site from '../Site';
 import Client from '../Client';
-import { FormFeedback } from 'reactstrap';
-import { validateButton, changeDetails, generateUserID, disabledCharacterName } from './services.js';
+import { changeDetails, disabledCharacterName } from './services';
 
 import './style.scss';
+import ModuleAccess from '../ModuleAccess';
 
 const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin }) => {
   const [isReadOnly, setIsReadOnly] = useState(null);
-  const [isButtonState, setIsButtonState] = useState(false);
   const [webGroupClass, setIsWebGroupClass] = useState({
     newUser: 'webgroup-active',
     admin: 'webgroup-notactive',
   });
+
   useEffect(() => {
-    if (activeTab == 'review') {
-      setIsReadOnly(true);
-    } else {
-      setIsReadOnly(false);
-    }
+    if (activeTab === 'review') setIsReadOnly(true);
+    else setIsReadOnly(false);
   }, [activeTab]);
 
   useEffect(() => {
-    //set class for webGroup
-    let WebGroupClass = {};
+    const WebGroupClass = {};
     if (activeTab !== 'review') {
       WebGroupClass.newUser = isAdmin ? ' webgroup-notactive' : ' webgroup-active';
       WebGroupClass.admin = isAdmin ? ' webgroup-active' : ' webgroup-notactive';
@@ -38,38 +34,38 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
   }, [activeTab, isAdmin]);
 
   if (!state) {
-    return;
+    return null;
   }
 
   return (
     <div>
       {/* Start Order Details */}
-      <Row>
-        <Col lg="1" className="pr-0">
+      <CRow>
+        <CCol lg="1" className="pr-0">
           <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
-        </Col>
-        <Col lg="10">
-          <Row className="mx-0">
-            <Col lg="4" md="4" sm="12" className="pl-0 toggle-um"> 
-              <label className="webgroup">
-                <span onClick={(e) => { setIsAdmin(false)}} className={`flex-fill pointer toggleWidth ${webGroupClass.newUser}`}>REGULAR USER</span>
-                <span onClick={(e) => { setIsAdmin(true)}}  className={`flex-fill pointer toggleWidth px-3 ${webGroupClass.admin}`}>ADMIN USER</span>
-              </label>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+        </CCol>
+        <CCol lg="10">
+          <CRow className="mx-0">
+            <CCol lg="4" md="4" sm="12" className="pl-0 toggle-um">
+              <span className="webgroup">
+                <span onClick={() => setIsAdmin(false)} onKeyDown={() => setIsAdmin(false)} className={`flex-fill pointer toggleWidth ${webGroupClass.newUser}`} role="button" tabIndex={0}>REGULAR USER</span>
+                <span onClick={() => setIsAdmin(true)} onKeyDown={() => setIsAdmin(true)} className={`flex-fill pointer toggleWidth px-3 ${webGroupClass.admin}`} role="button" tabIndex={0}>ADMIN USER</span>
+              </span>
+            </CCol>
+          </CRow>
+        </CCol>
+      </CRow>
 
       <div>
         <div className="row">
           <div className="col-sm-4">
-            <label className="text-title-detail">User ID</label>
+            <div className="text-title-detail">User ID</div>
           </div>
           <div className="col-sm-4">
-            <label className="text-title-detail required">Email</label>
+            <div className="text-title-detail required">Email</div>
           </div>
           <div className="col-sm-4">
-            <label className="text-title-detail required">Name</label>
+            <div className="text-title-detail required">Name</div>
           </div>
         </div>
 
@@ -82,38 +78,31 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
             <input
               type="email"
               name="email"
-              autocomplete='off'
+              autoComplete='off'
               placeholder="Email"
               readOnly={isReadOnly}
-              className={`form-control ${(isValidation && !state.email) || state.validation.email['isValid'] === false
-                ? state.validation.email['invalidClass'] + ' input-danger '
+              className={`form-control ${(isValidation && !state.email) || state.validation.email.isValid === false ?
+                `${state.validation.email.invalidClass} input-danger `
                 : ''
                 } ${isReadOnly ? 'readonly' : null}`}
-              onChange={async (e) => {
-                await changeDetails({ isAdmin, setState, state, column: 'email', e });
-              }}
-              onBlur={async (e) => {
-                await changeDetails({ isAdmin, setState, state, column: 'email', e });
-              }}
+              onChange={(e) => changeDetails({ isAdmin, setState, state, column: 'email', e })}
+              onBlur={(e) => changeDetails({ isAdmin, setState, state, column: 'email', e })}
             />
-            <FormFeedback className="invalid-error-padding">{`${state.validation.email['message']}`}</FormFeedback>
+            <FormFeedback className="invalid-error-padding">{state.validation.email.message}</FormFeedback>
           </div>
           <div className="col-sm-4  ">
             <input
               name="name"
               type="text"
-              autocomplete='off'
+              autoComplete='off'
               placeholder="Name"
               readOnly={isReadOnly}
-              className={`form-control ${isValidation && !state.name ? state.validation.name['invalidClass'] + ' input-danger ' : ''
-                } ${isReadOnly ? 'readonly' : null} `}
+              className={`form-control ${isValidation && !state.name ? `${state.validation.email.invalidClass} input-danger ` : ''} ${isReadOnly ? 'readonly' : null} `}
               maxLength="60"
-              onChange={(e) => {
-                changeDetails({ isAdmin, setState, state, column: 'name', e });
-              }}
+              onChange={(e) => changeDetails({ isAdmin, setState, state, column: 'name', e })}
               onKeyDown={(e) => disabledCharacterName(e)}
             />
-            <FormFeedback className="invalid-error-padding">{`${state.validation.name['message']}`}</FormFeedback>
+            <FormFeedback className="invalid-error-padding">{state.validation.name.message}</FormFeedback>
           </div>
         </div>
       </div>
@@ -122,7 +111,7 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
         <div className="row">
           <div className="col-12">
             <h3 className="mb-0">
-              <label className="text-primary font-20 ">System</label>
+              <div className="text-primary font-20">System</div>
             </h3>
           </div>
         </div>
@@ -158,32 +147,29 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
         {/* Validasi */}
         <div className="row">
           <div className="col-4 d-flex">
-          <div className='d-none' style={{color:'transparent'}}>transparent</div>
+            <div className='d-none' style={{ color: 'transparent' }}>transparent</div>
             <input
               type="checkbox"
               name="moduleAccess"
-              className={`d-none ${isValidation && !state.validation.modules['isValid'] ? state.validation.modules['invalidClass'] : ''
-                }`}
+              className={`d-none ${isValidation && !state.validation.modules.isValid ? state.validation.modules.invalidClass : ''}`}
             />
-            <FormFeedback>{`${state.validation.modules['message']}`}</FormFeedback>
+            <FormFeedback>{state.validation.modules.message}</FormFeedback>
           </div>
           <div className="col-4 pl-0">
             <input
               type="checkbox"
               name="sites"
-              className={`d-none ${isValidation && !state.validation.sites['isValid'] ? state.validation.sites['invalidClass'] : ''
-                }`}
+              className={`d-none ${isValidation && !state.validation.sites.isValid ? state.validation.sites.invalidClass : ''}`}
             />
-            <FormFeedback>{`${state.validation.sites['message']}`}</FormFeedback>
+            <FormFeedback>{state.validation.sites.message}</FormFeedback>
           </div>
           <div className="col-4 um-client-scrollbar">
             <input
               type="checkbox"
               name="clients"
-              className={`d-none ${isValidation && !state.validation.clients['isValid'] ? state.validation.clients['invalidClass'] : ''
-                }`}
+              className={`d-none ${isValidation && !state.validation.clients.isValid ? state.validation.clients.invalidClass : ''}`}
             />
-            <FormFeedback>{`${state.validation.clients['message']}`}</FormFeedback>
+            <FormFeedback>{state.validation.clients.message}</FormFeedback>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ const RequiredMessage = ({ isValidation, data, column, columnText, customMessage
   const value = data?.value;
   let message = null;
   if (!value) {
-    message = `${columnText  } must be entered`;
+    message = `${columnText} must be entered`;
   }
 
   if (column === 'qty') {

@@ -10,22 +10,26 @@
   background-color: #376bfb;
   color: white;
 }
+
 .Dropdown-menu {
-    margin-top: -101px !important;
-    background-color: transparent;
-    margin-left: -59px;
-    padding-top: 8px;
-    transform: translate3d(20px, -1px, 0px);
+  margin-top: -101px !important;
+  background-color: transparent;
+  margin-left: -59px;
+  padding-top: 8px;
+  transform: translate3d(20px, -1px, 0px);
 }
+
 .Excel-bottom {
   border: solid 0px;
   color: rgb(90, 74, 74);
   background-color: transparent;
   padding-left: 0px;
 }
+
 .export-ml {
-  margin-left: 48px;
+  margin-left: -88px;
 }
+
 .export-pdf {
   border: solid 1px #d8d9da;
   border-top-left-radius: 0.3rem;
@@ -45,6 +49,7 @@
   padding-bottom: 10px;
   background-color: #fff;
 }
+
 .export-pdf:focus,
 .export-excel:focus,
 .export-excel .Excel-bottom:focus {
@@ -52,6 +57,7 @@
   outline: #f8f2f2 !important;
   color: #4f5d73 !important;
 }
+
 .dropdown-menu.dropdown-single {
   padding: 0 !important;
   margin-top: -56px !important;
@@ -59,7 +65,8 @@
   margin-left: -37px;
   margin-bottom: 5px !important;
 }
-.radius-top-export{
+
+.radius-top-export {
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
@@ -68,24 +75,29 @@
   color: #fff;
   background-color: #124ffa;
 }
-.only-pdf{
-  left: -0.7rem !important
+
+.only-pdf {
+  left: -0.7rem !important;
 }
-.icon-group_4672{
+
+.exp-PDF {
   font-size: 1.75rem;
 }
-.icon-group_4671{
+
+.exp-XLS {
   font-size: 1.75rem;
 }
+
 .export-excel:hover {
-  color: #05E0BD;
+  color: #05e0bd;
 }
+
 .export-pdf:hover {
-  color: #F94548;
+  color: #f94548;
 }
-.btn-export {
-  height: 40px !important;
-  padding-left: 20px;
-  padding-right: 20px;
-  color: #fff;
+
+.disableExport {
+  color: #fff !important;
+  background-color: #d6d8da !important;
+  border: 1px solid #d6d8da !important;
 }

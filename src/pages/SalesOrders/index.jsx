@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
+import endpoints from '../../helpers/endpoints';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
-import TableMaster from '../../Component/TableMaster';
-import { schemaColumn } from './services';
+import TableMaster from '../../Component/TableMaster'
+import { schemaColumn, filterSummaryDefault } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
-import endpoints from 'helpers/endpoints';
-import './index.scss';
+import './index.scss'
 
 const SalesOrders = (props) => {
+  const { history } = props
   const showDetails = (item) => {
-    props.history.push(`/sales-order/${item.client}/${item.site}/${item.orderno}`);
+    history.push(`/sales-order/${item.client}/${item.site}/${item.orderno}`);
   };
 
   const createBtn = endpoints.env.REACT_APP_API_URL_CREATE;
@@ -21,21 +22,25 @@ const SalesOrders = (props) => {
   const soSummaryData = useSelector((state) => state.soSummaryData);
   const paginationSo = useSelector((state) => state.paginationSo);
   const stateChangeHeader = useSelector((state) => state.changeHeader);
+  const stateChangeFilter = useSelector((state) => state.changeFilter);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
   const module = 'salesOrder';
+  const filterHiddenData = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
 
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 330,
+    height: window.innerHeight - 465,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 330,
+        height: window.innerHeight - 465,
         width: window.innerWidth,
       });
     };
@@ -46,42 +51,49 @@ const SalesOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client, user });
+    if (!soSummaryData) {
+      getSummaryData({ dataDefault: soSummaryData, dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client, user });
+    }
   }, []);
 
-  const [columnHidden, setColumnHidden] = useState(null);
-  const [state2, setState2] = useState(null);
   if (!columnHidden) {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
   }
 
   useEffect(() => {
+    if (stateChangeFilter) {
+      dispatch({ type: 'CHANGE_FILTER', data: false });
+    }
+  }, [stateChangeFilter]);
+
+  useEffect(() => {
     if (stateChangeHeader) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Sales Order Summary') {
-          setColumnHidden(data.columns);
-        }
-      });
+      const reqColumHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      if (reqColumHidden) {
+        reqColumHidden.forEach(data => {
+          if (data.title === 'Sales Order Summary') {
+            setColumnHidden(data.columns);
+          }
+        });
+      }
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
   }, [stateChangeHeader]);
 
   useEffect(() => {
     if (state2) {
-      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      const reqColumHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let tmp = null;
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Sales Order Summary') {
-          tmp = data.columns;
-        }
-      });
-      if (tmp) {
-        setColumnHidden(tmp);
-      } else {
-        setColumnHidden([]);
+      if (reqColumHidden) {
+        reqColumHidden.forEach(data => {
+          if (data.title === 'Sales Order Summary') {
+            tmp = data.columns;
+          }
+        });
       }
+      if (tmp) setColumnHidden(tmp);
+      else setColumnHidden([]);
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -90,7 +102,6 @@ const SalesOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      // getSummaryData({ dispatch, active: paginationSo?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -106,14 +117,15 @@ const SalesOrders = (props) => {
       <div>
         <div>
           <Search
+            titleFilter="Sales Order Summary"
             module={module}
+            filterHidden={filterHiddenData || filterSummaryDefault}
             filterSite
             filterClient
             filterStatus
             filterOrderType
             filterTask
             placeholder="Enter an Order No"
-            filter
             onChangeGetTask
             Export={Export}
             btnSearch
@@ -142,7 +154,7 @@ const SalesOrders = (props) => {
               setExport(true);
             }}
             splitModule="sales-order"
-            exportPdf={false}
+            exportPdf="false"
             exportBtn
           />
         </div>

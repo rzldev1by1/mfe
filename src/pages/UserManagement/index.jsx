@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../../Component/Breadcrumb';
@@ -11,8 +11,9 @@ import Create from './Create';
 import './index.scss';
 
 const UserManagement = (props) => {
+  const { history } = props
   const showDetails = (item) => {
-    props.history.push(`/users-management/${item.web_user}/detail`);
+    history.push(`/users-management/${item.web_user}/detail`);
   };
 
   const dispatch = useDispatch();
@@ -24,15 +25,13 @@ const UserManagement = (props) => {
   const module = 'UserManagement';
 
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 410,
-    width: window.innerWidth,
+    height: window.innerHeight - 435,
   });
-  const { width, height } = dimension;
+  const { height } = dimension;
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 410,
-        width: window.innerWidth,
+        height: window.innerHeight - 435,
       });
     };
     window.addEventListener('resize', handleResize);
@@ -54,19 +53,19 @@ const UserManagement = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      // getSummaryData({ dispatch, active: paginationUm?.active, Export, module });
     }
   }, [Export]);
+
 
   return (
     <div className="userManagement">
       <Breadcrumb
         breadcrumb={[{ to: '/sales-order', label: 'User Management', active: true }]}
-        button={
+        button={(
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE USER
           </CButton>
-        }
+        )}
       />
       <CCard className="bg-transparent mb-0">
         <CCardBody className="p-3 border-user-info">
@@ -91,33 +90,37 @@ const UserManagement = (props) => {
             </CCol>
             <CCol lg={1} className="col-3 user-login-info-header">
               <div className="user-login-info-header"> Client</div>
-              <div className="user-login-info-value"> {user.client ? user.client : 'All'}</div>
+              <div className="user-login-info-value">
+                {user.client ? user.client : 'All'}
+              </div>
             </CCol>
           </CRow>
         </CCardBody>
-        <Search module={module} Export={Export} placeholder="Enter User ID or Name" filter onChangeGetTask btnSearch inputTag />
+        <Search module={module} Export={Export} placeholder="Enter User ID or Name" onChangeGetTask btnSearch inputTag />
       </CCard>
-      <TableMaster
-        onClick={showDetails}
-        schemaColumn={schemaColumn}
-        data={umSummaryData}
-        style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
-        module={module}
-        noDataText
-        pagination={paginationUm}
-        goto={(e) => {
-          dispatch({ type: 'PAGING_UM', data: { ...paginationUm, active: e } });
-        }}
-        exportData=""
-        user={user}
-        title="User Management Summary"
-        filename="Microlistics_UserManagement."
-        font="9"
-        getExportData={async () => {
-          setExport(true);
-        }}
-        editColumn="false"
-      />
+      <div className='table-UM'>
+        <TableMaster
+          onClick={showDetails}
+          schemaColumn={schemaColumn}
+          data={umSummaryData}
+          style={{ minHeight: height, maxHeight: height }}
+          module={module}
+          noDataText
+          pagination={paginationUm}
+          goto={(e) => {
+            dispatch({ type: 'PAGING_UM', data: { ...paginationUm, active: e } });
+          }}
+          exportData=""
+          user={user}
+          title="User Management Summary"
+          filename="Microlistics_UserManagement."
+          font="9"
+          getExportData={async () => {
+            setExport(true);
+          }}
+          editColumn="false"
+        />
+      </div>
       <Create show={showModal} setShow={setShowModal} />
     </div>
   );

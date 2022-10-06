@@ -63,38 +63,37 @@ const getHeaders = () => {
 };
 
 export const getDefaultDate = ({ setDefaultDate }) => {
-  let minDate = '2021-01-01';
-  let maxDate = '2021-01-31';
+  const minDate = '2021-01-01';
+  const maxDate = '2021-01-31';
   setDefaultDate({ minDate, maxDate });
 };
 
 export const setValues = ({ dropdownValue, setDropdownValue, column, selected }) => {
-  let newDropdownValue = dropdownValue;
+  const newDropdownValue = dropdownValue;
   newDropdownValue[column] = selected;
   setDropdownValue(newDropdownValue);
 };
 
-export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) => {
-  let { fromDate, toDate, period } = dropdownValue;
-  let tmp_header = null;
-  let tmp_date_header = [];
-  let x = getHeaders();
-  tmp_header = x;
-  let startDate = moment(fromDate);
-  let endDate = moment(toDate);
+export const setHeaderSummary = ({ dropdownValue, setHeader, setDateHeader }) => {
+  const { fromDate, toDate } = dropdownValue;
+  let { period } = dropdownValue;
+  let tmpHeader = null;
+  const tmpDateHeader = [];
+  tmpHeader = getHeaders();
+  const startDate = moment(fromDate);
+  const endDate = moment(toDate);
   period = period.value;
 
   while (startDate <= endDate) {
-    
     let newDate = startDate.format('DD MMMM YYYY');
-    let dateAccessor = startDate.format('YYYY_MM_DD');
+    const dateAccessor = startDate.format('YYYY_MM_DD');
 
     if (period === 'day') {
       startDate.add('days', 1);
     } else if (period === 'week') {
-      let dates2 = moment(newDate).add('days', 6).format('DD MMMM YYYY');
-      let dates1 = moment(newDate).format('DD MMMM YYYY');
-      newDate = dates1 + ' - ' + dates2;
+      const dates2 = moment(newDate).add('days', 6).format('DD MMMM YYYY');
+      const dates1 = moment(newDate).format('DD MMMM YYYY');
+      newDate = `${dates1}-${dates2}`;
       startDate.add('days', 7);
     } else if (period === 'month') {
       newDate = startDate.format('MMMM YYYY');
@@ -103,26 +102,23 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
 
     let datePdf = null;
     if (period === 'week') {
-      let newDate2 = startDate.format('DD MMMM YYYY');
-      let dates2 = moment(newDate2).add('days', 6).format('DD MMM YYYY');
-      let dates1 = moment(newDate2).format('DD MMM YYYY');
-      datePdf = dates1 + ' - ' + dates2;
+      const newDate2 = startDate.format('DD MMMM YYYY');
+      const dates2 = moment(newDate2).add('days', 6).format('DD MMM YYYY');
+      const dates1 = moment(newDate2).format('DD MMM YYYY');
+      datePdf = `${dates1}-${dates2}`;
     } else {
       datePdf = newDate;
     }
 
-    tmp_date_header.push({ dateAccessor, dateText: newDate, datePdf });
-
-    //set header
-    let date = startDate;
-    let tmp_header_date = {
+    tmpDateHeader.push({ dateAccessor, dateText: newDate, datePdf });
+    const tmpHeaderDate = {
       Header: newDate,
       headerStyle: { backgroundColor: 'white' },
       headerClassName: 'borderRight text-center noBorderBottom ',
       columns: [
         {
           Header: 'SA+',
-          accessor: 'sa_plus_' + dateAccessor,
+          accessor: `sa_plus_${dateAccessor}`,
           className: 'text-right',
           headerClassName: 'borderBottom blueColor text-center ',
           Cell: '-',
@@ -131,7 +127,7 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
         },
         {
           Header: 'SA-',
-          accessor: 'sa_minus_' + dateAccessor,
+          accessor: `sa_minus_${dateAccessor}`,
           className: 'text-right',
           headerClassName: 'borderBottom blueColor text-center',
           Cell: '-',
@@ -140,7 +136,7 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
         },
         {
           Header: 'Rec',
-          accessor: 'rec_' + dateAccessor,
+          accessor: `rec_${dateAccessor}`,
           Cell: '-',
           className: 'text-right',
           headerClassName: 'borderBottom blueColor text-center',
@@ -149,7 +145,7 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
         },
         {
           Header: 'Send',
-          accessor: 'send_' + dateAccessor,
+          accessor: `send_${dateAccessor}`,
           className: 'borderRight text-right',
           headerClassName: 'borderRight borderBottom blueColor text-center',
           Cell: '-',
@@ -158,8 +154,44 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
         },
       ],
     };
-    tmp_header.push(tmp_header_date);
+    tmpHeader.push(tmpHeaderDate);
   }
-  setHeader(tmp_header);
-  setdateHeader(tmp_date_header);
+  setHeader(tmpHeader);
+  setDateHeader(tmpDateHeader);
 };
+
+export const showFilter = ({ item, columnFilter, setColumnFilter, setValidResetFilter }) => {
+  columnFilter.forEach(data => {
+    if (data.accessor === item.accessor) data.hiddenFilter = !item.hiddenFilter
+  });
+  setValidResetFilter(false)
+  setColumnFilter(columnFilter)
+}
+
+export const resetFilter = ({ module, filterHidden, dispatch, setShowModal, setColumnFilter, columnFilter, dropdownValue, setDropdownValue }) => {
+  const newDropdownValue = { ...dropdownValue }
+  columnFilter.forEach(data => { data.hiddenFilter = false })
+  filterHidden.forEach(data => { data.hiddenFilter = false })
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(filterHidden));
+  newDropdownValue.siteVal = ''
+  newDropdownValue.clientVal = ''
+  newDropdownValue.productVal = ''
+  setDropdownValue(newDropdownValue)
+  setColumnFilter(columnFilter)
+  dispatch({ type: 'CHANGE_FILTER', data: true });
+  setShowModal(false)
+}
+
+export const saveFilterSearch = ({ module, dispatch, columnFilter }) => {
+  localStorage.setItem(`filterHidden_${module}`, JSON.stringify(columnFilter));
+  dispatch({ type: 'CHANGE_FILTER', data: true });
+}
+
+export const closeModalFilter = ({ setColumnFilter, module, setShowModal, setChangeFilter, showModal, setValidResetFilter, utils }) => {
+  const dataDefault = JSON.parse(localStorage.getItem(`filterHidden_${module}`));
+  if (dataDefault) setColumnFilter(dataDefault);
+  else setColumnFilter(utils[`${module}FilterSearch`]);
+  setShowModal(!showModal);
+  setChangeFilter(true);
+  setValidResetFilter(true)
+}

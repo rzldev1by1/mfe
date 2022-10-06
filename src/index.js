@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable import/no-named-as-default-member */
 import 'react-app-polyfill/ie9'; // For IE 9-11 support
 import 'react-app-polyfill/stable';
 import './polyfill';
@@ -10,13 +12,14 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { rootReducer } from './store';
+import { icons } from './assets/icons';
+import rootReducer from './store';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { icons } from 'assets/icons';
+
 React.icons = icons;
 
-const persistedReducer = persistReducer({ key: 'root', storage, whitelist: ['user', 'siteData', 'clientData', 'moduleAccess', 'loadClient','loadSite', 'dragStatus'] }, rootReducer);
+const persistedReducer = persistReducer({ key: 'root', storage, whitelist: ['user', 'siteData', 'clientData', 'moduleAccess', 'loadClient', 'loadSite', 'dragStatus'] }, rootReducer);
 const middleware = composeWithDevTools(applyMiddleware(thunk));
 const store = createStore(persistedReducer, middleware);
 const persistor = persistStore(store);
