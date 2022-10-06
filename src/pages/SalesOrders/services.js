@@ -617,6 +617,7 @@ export const schemaColumnDetailSO = [
     placeholder: 'Pack ID',
     Header: 'Pack ID',
     width: 200,
+    headerStyle: { textAlign: 'left' },
     sortable: true,
     Cell: (props) => {
       const { value } = props
