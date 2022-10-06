@@ -17,7 +17,7 @@ const TheSidebar = () => {
   const user = useSelector((state) => state.user);
 
   const [hover, setHover] = useState(null);
-  const userMenu = user.userModules?.map((item) => item.menu_id);
+  const userMenu = user.userModules && user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];
 
   let navigation = nav;
