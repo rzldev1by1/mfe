@@ -154,7 +154,7 @@ const SalesOrders = (props) => {
               setExport(true);
             }}
             splitModule="sales-order"
-            exportPdf={false}
+            exportPdf="false"
             exportBtn
           />
         </div>
