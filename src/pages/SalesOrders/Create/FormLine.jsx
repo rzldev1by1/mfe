@@ -52,7 +52,7 @@ const FormLine = ({
             messageCustom: isInvalidProduct ? 'Product is unavailable' : ''
           }}
           selectedValue={data.product}
-          parentDivClassName={`d-flex ${isValidation && !data?.validation_product ? 'input-danger' : ''}`}
+          parentDivClassName={isValidation && !data?.validation_product ? 'input-danger' : ''}
         />
       </td>
       <td className="px-1">
@@ -66,7 +66,6 @@ const FormLine = ({
       </td>
       <td className="px-1">
         <InputNumber
-          parentDivClassName="d-flex"
           placeholder='Qty'
           name="qty"
           autoComplete="off"
@@ -136,7 +135,7 @@ const FormLine = ({
             messageShow: !isInvalidProduct ? isValidation : false,
             value: data?.uom,
           }}
-          parentDivClassName={`uomFormLine ${isValidation && !data?.validation_uom ? 'input-danger' : ''}`}
+          parentDivClassName={isValidation && !data?.validation_uom ? 'input-danger' : ''}
         />
       </td>
       <td className="px-1">

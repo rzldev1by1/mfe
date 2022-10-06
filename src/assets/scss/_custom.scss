@@ -791,7 +791,6 @@ header {
 // REACTABLE
 .ReactTable {
   border: 0px !important;
-
   .rt-table {
     margin-top: 0px !important;
 
@@ -802,16 +801,13 @@ header {
           align-items: center;
           -webkit-justify-content: left;
         }
-
         .rt-th:first-child {
           padding-left: 1.15rem !important;
           text-align: left !important;
         }
-
         .rt-th:last-child {
           -webkit-justify-content: center;
         }
-
         .enable-drag {
           padding: 0px !important;
         }
@@ -830,29 +826,6 @@ header {
 
           .rt-td:first-child {
             padding-left: 1.2rem !important;
-          }
-        }
-      }
-    }
-  }
-}
-
-.so-detail {
-  .ReactTable {
-    .rt-table {
-      .rt-thead {
-        .rt-tr {
-          .rt-th:last-child {
-            justify-content: start;
-          }
-        }
-      }
-      .rt-tbody {
-        .rt-tr-group {
-          .rt-tr {
-            .rt-td:first-child {
-              padding-right: 1.8rem !important;
-            }
           }
         }
       }
