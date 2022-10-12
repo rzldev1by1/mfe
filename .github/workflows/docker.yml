@@ -23,8 +23,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build docker image $IMAGE_VERSION & latest
-        run: docker build -t $IMAGE_TAG -t rzldevdoc/microlistics-fe-uat:latest -f Dockerfile.uat .
+        run: docker build -t $IMAGE_TAG -t rzldevdoc/microlistics-fe:uat-latest -f Dockerfile.uat .
       - name: Push docker image $IMAGE_VERSION
         run: docker push $IMAGE_TAG
       - name: Push docker image latest
-        run: docker push rzldevdoc/microlistics-fe-uat:latest
+        run: docker push rzldevdoc/microlistics-fe:uat-latest
