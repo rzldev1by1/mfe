@@ -21,8 +21,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Checkout
         uses: actions/checkout@v2
-      # - name: Test & Lint MFE
-      #   run:
       - name: Build docker image
         run: docker build -t rzldevdoc/microlistics-fe-dev:$IMAGE_VERSION -f Dockerfile.dev .
       - name: Push docker image
@@ -55,8 +53,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Checkout
         uses: actions/checkout@v2
-      # - name: Test & Lint MFE
-      #   run:
       - name: Build docker image
         run: docker build -t rzldevdoc/microlistics-fe-uat:$IMAGE_VERSION -f Dockerfile.uat .
       - name: Push docker image
@@ -89,8 +85,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Checkout
         uses: actions/checkout@v2
-      # - name: Test & Lint MFE
-      #   run:
       - name: Build docker image
         run: docker build -t rzldevdoc/microlistics-fe-prod:$IMAGE_VERSION -f Dockerfile.prod .
       - name: Push docker image
