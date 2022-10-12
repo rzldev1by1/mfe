@@ -1,0 +1,30 @@
+---
+name: Prod Action
+on:
+  push:
+    branches:
+      - feature/preparing-release-v1
+  pull_request:
+    branches:
+      - feature/preparing-release-v1
+env:
+  IMAGE_VERSION: 1.0
+  IMAGE_TAG: rzldevdoc/microlistics-fe:prod-1.0
+jobs:
+  push-to-docker:
+    name: Push to Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Docker Hub
+        run: docker/login-action@v2
+        with: 
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build docker image $IMAGE_VERSION & latest
+        run: docker build -t $IMAGE_TAG -t rzldevdoc/microlistics-fe:prod-latest -f Dockerfile.prod .
+      - name: Push docker image $IMAGE_VERSION
+        run: docker push $IMAGE_TAG
+      - name: Push docker image latest
+        run: docker push rzldevdoc/microlistics-fe:prod-latest
