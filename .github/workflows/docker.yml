@@ -9,6 +9,7 @@ on:
       - refactor-v1.3
 env:
   IMAGE_VERSION: 1.0
+  IMAGE_TAG: rzldevdoc/microlistics-fe-uat:1.0
 jobs:
   push-to-docker:
     name: Push to Docker
@@ -21,11 +22,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build docker image $IMAGE_VERSION
-        run: docker build -t rzldevdoc/microlistics-fe-uat:${{ IMAGE_VERSION }} -f Dockerfile.uat .
+      - name: Build docker image $IMAGE_VERSION & latest
+        run: docker build -t $IMAGE_TAG -t rzldevdoc/microlistics-fe-uat:latest -f Dockerfile.uat .
       - name: Push docker image $IMAGE_VERSION
-        run: docker push rzldevdoc/microlistics-fe-uat:${{ IMAGE_VERSION }}
-      - name: Build docker image latest
-        run: docker build -t rzldevdoc/microlistics-fe-uat:latest -f Dockerfile.uat .
+        run: docker push $IMAGE_TAG
       - name: Push docker image latest
         run: docker push rzldevdoc/microlistics-fe-uat:latest
