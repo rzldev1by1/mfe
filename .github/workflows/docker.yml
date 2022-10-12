@@ -21,10 +21,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build docker image
-        run: docker build -t rzldevdoc/microlistics-fe-uat:$IMAGE_VERSION -f Dockerfile.uat .
-      - name: Push docker image
-        run: docker push rzldevdoc/microlistics-fe-uat:$IMAGE_VERSION
+      - name: Build docker image $IMAGE_VERSION
+        run: docker build -t rzldevdoc/microlistics-fe-uat:${{ IMAGE_VERSION }} -f Dockerfile.uat .
+      - name: Push docker image $IMAGE_VERSION
+        run: docker push rzldevdoc/microlistics-fe-uat:${{ IMAGE_VERSION }}
       - name: Build docker image latest
         run: docker build -t rzldevdoc/microlistics-fe-uat:latest -f Dockerfile.uat .
       - name: Push docker image latest
