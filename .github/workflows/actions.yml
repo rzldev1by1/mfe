@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - dev/latest
+env:
+  IMAGE_VERSION: 1.0
 jobs:
   prepare-to-deploy:
     name: Prepare to Deploy
@@ -22,9 +24,9 @@ jobs:
       # - name: Test & Lint MFE
       #   run:
       - name: Build docker image
-        run: docker build -t rzldevdoc/microlistics-fe-dev:1.0 -f Dockerfile.dev .
+        run: docker build -t rzldevdoc/microlistics-fe-dev:$IMAGE_VERSION -f Dockerfile.dev .
       - name: Push docker image
-        run: docker push rzldevdoc/microlistics-fe-dev:1.0
+        run: docker push rzldevdoc/microlistics-fe-dev:$IMAGE_VERSION
       - name: Build docker image latest
         run: docker build -t rzldevdoc/microlistics-fe-dev:latest -f Dockerfile.dev .
       - name: Push docker image latest
@@ -39,6 +41,8 @@ on:
   pull_request:
     branches:
       - refactor-v1.3
+env:
+  IMAGE_VERSION: 1.0
 jobs:
   push-to-docker:
     name: Push to Docker
@@ -54,9 +58,9 @@ jobs:
       # - name: Test & Lint MFE
       #   run:
       - name: Build docker image
-        run: docker build -t rzldevdoc/microlistics-fe-uat:1.0 -f Dockerfile.uat .
+        run: docker build -t rzldevdoc/microlistics-fe-uat:$IMAGE_VERSION -f Dockerfile.uat .
       - name: Push docker image
-        run: docker push rzldevdoc/microlistics-fe-uat:1.0
+        run: docker push rzldevdoc/microlistics-fe-uat:$IMAGE_VERSION
       - name: Build docker image latest
         run: docker build -t rzldevdoc/microlistics-fe-uat:latest -f Dockerfile.uat .
       - name: Push docker image latest
@@ -71,6 +75,8 @@ on:
   pull_request:
     branches:
       - feature/preparing-release-v1
+env:
+  IMAGE_VERSION: 1.0
 jobs:
   push-to-docker:
     name: Push to Docker
@@ -86,9 +92,9 @@ jobs:
       # - name: Test & Lint MFE
       #   run:
       - name: Build docker image
-        run: docker build -t rzldevdoc/microlistics-fe-prod:1.0 -f Dockerfile.prod .
+        run: docker build -t rzldevdoc/microlistics-fe-prod:$IMAGE_VERSION -f Dockerfile.prod .
       - name: Push docker image
-        run: docker push rzldevdoc/microlistics-fe-prod:1.0
+        run: docker push rzldevdoc/microlistics-fe-prod:$IMAGE_VERSION
       - name: Build docker image latest
         run: docker build -t rzldevdoc/microlistics-fe-prod:latest -f Dockerfile.prod .
       - name: Push docker image latest
