@@ -8,7 +8,7 @@ on:
     branches:
       - feature/preparing-release-v1
 env:
-  IMAGE_VERSION: 1.0
+  IMAGE_VERSION: "1.0"
   IMAGE_TAG: rzldevdoc/microlistics-fe:prod-1.0
 jobs:
   push-to-docker:
