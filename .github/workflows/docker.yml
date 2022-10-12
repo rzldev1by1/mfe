@@ -9,7 +9,7 @@ on:
       - refactor-v1.3
 env:
   IMAGE_VERSION: 1.0
-  IMAGE_TAG: rzldevdoc/microlistics-fe-uat:1.0
+  IMAGE_TAG: rzldevdoc/microlistics-fe:uat-1.0
 jobs:
   push-to-docker:
     name: Push to Docker
