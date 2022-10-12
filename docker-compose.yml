@@ -1,0 +1,17 @@
+version: "3.10"
+
+services:
+  microlistics-fe:
+    container_name: microlistics-fe
+    hostname: microlistics-fe
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env
+    volumes:
+      - ./public:/app/public/
+      - ./src:/app/src/
+      - /app/node_modules/
+    ports:
+      - "3000:80"

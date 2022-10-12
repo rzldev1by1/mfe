@@ -1,0 +1,18 @@
+FROM node:14 as BUILDER
+
+WORKDIR /build
+
+COPY ./package.json ./
+RUN npm install --legacy-peer-deps
+
+COPY ./public ./public
+COPY ./src ./src
+
+RUN npm run build
+
+FROM nginx:stable
+
+COPY --from=BUILDER /build/build /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
