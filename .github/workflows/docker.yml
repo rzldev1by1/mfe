@@ -22,9 +22,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build docker image $IMAGE_VERSION & latest
-        run: docker build -t $IMAGE_TAG -t rzldevdoc/microlistics-fe:prod-latest -f Dockerfile.prod .
-      - name: Push docker image $IMAGE_VERSION
-        run: docker push $IMAGE_TAG
+      - name: Build docker image ${{ env.IMAGE_VERSION }} & latest
+        run: docker build -t ${{ env.IMAGE_TAG }} -t rzldevdoc/microlistics-fe:prod-latest -f Dockerfile.prod .
+      - name: Push docker image ${{ env.IMAGE_VERSION }}
+        run: docker push ${{ env.IMAGE_TAG }}
       - name: Push docker image latest
         run: docker push rzldevdoc/microlistics-fe:prod-latest
